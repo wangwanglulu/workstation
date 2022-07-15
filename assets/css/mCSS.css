@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ 
+#tab {
+    overflow: hidden;
+}
+ 
+#tab li {
+    float: left;
+    list-style: none;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+}
+ 
+#tab li:first-child {
+    background: #102b6a;
+}
+ 
+#tab li:first-child + li {
+    background: #005831;
+}
+ 
+#tab li:last-child, #content3 {
+    background: #00ccff;
+}
+ 
+#tab li a {
+    line-height: 40px;
+    color: white;
+    text-decoration: none;
+}
+ 
+#content {
+    position: relative;
+}
+ 
+#content1, #content2, #content3 {
+
+    top: 0;
+    left: 0;
+    display: none;
+}
+ 
+#content1{
+    display: block;
+}
