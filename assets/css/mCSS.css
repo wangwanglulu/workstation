@@ -17,11 +17,11 @@
 }
  
 #tab li:first-child {
-    background: #102b6a;
+    background: #005831;
 }
  
 #tab li:first-child + li {
-    background: #005831;
+    background: #102b6a;
 }
  
 #tab li:last-child, #content3 {
@@ -45,7 +45,7 @@
     display: none;
 }
  
-#content2{
+#content1{
     display: block;
-    border-color: #102b6a;
+    border-color: #005831;
 }
