@@ -1,0 +1,626 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 5</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-video="../bgm.mp4" data-background-video-loop data-background-video-muted style="text-align: left;">
+                <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 5 Strings</h3>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">5.1 Strings</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>A string is a sequence of characters. The elements of a string are characters. Empty string ''.<b>(not' ')</b> You can access the characters one at a time with the bracket operator:</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> fruit = 'banana'
+>>> letter = fruit[1]
+>>> print(letter)
+a
+>>> len(fruit)
+6
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> fruit = 'banana'
+>>> fruit[1:3]
+'an'
+>>> fruit[3:]
+'ana'
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p><b>in</b> operator</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> print('a' in 'banana')
+True
+>>> print('seed' in 'banana')
+False
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>iteration</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+fruit = 'banana'
+for char in fruit:
+    print(char)
+</code></pre>
+                        </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>Strings are immutable</b></p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> greeting = 'Hello, world!'
+>>> greeting[0] = 'J'
+
+TypeError: 'str' object does not 
+support item assignment
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> greeting = 'Hello, world!'
+>>> new_greeting = 'J' + greeting[1:]
+>>> print(new_greeting)
+
+Jello, world!
+</code></pre>
+                        </div>
+                        
+                        <li class="fragment">
+                            <p>Comparison operations are useful for putting words in alphabetical order.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> print('apple'>'banana')
+False
+>>> print('ba' > 'banana')
+False
+>>> a_list = ["orange", "apple", "banana"]
+>>> sorted(a_list)
+['apple', 'banana', 'orange']
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Methods of Strings</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>.title(), .lower(), .upper()</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>String's methods do not change the original variable but return values.</b></p>
+                        </li>
+                        <div class="fragment">
+                            <div>
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> name = "ada lovelace"
+>>> print(name.title())
+Ada Lovelace
+
+>>> print(name)
+ada lovelace
+</code></pre>
+                            </div>
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> name = "Ada Lovelace"
+>>> print(name.upper())
+ADA LOVELACE
+
+>>> print(name.lower())
+ada lovelace
+</code></pre>
+                            </div>
+                    </ul>
+                </section>
+                <section>
+                    <h5>Stripping Whitespace</h5>
+                    <ul>
+                        <li>To programmers 'python' and 'python ' look pretty much the same. But to a program, they are two different strings. To ensure that no whitespace exists at the right end of a string, use the rstrip() method.</li>
+                    </ul>
+                    <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> favorite_language = 'python '
+>>> favorite_language
+'python '
+>>> favorite_language.rstrip()
+'python'
+>>> favorite_language
+'python '
+</code></pre>
+                    </div>
+                    <ul>
+                        <li>However, it is only removed temporarily. To remove the whitespace from the string permanently, you have to store the stripped value back into the variable:</li>
+                    </ul>
+                </section>
+                <section>
+                    <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> favorite_language = 'python '
+>>> favorite_language = favorite_language.rstrip()
+>>> favorite_language
+'python'
+</code></pre>
+                    </div>
+                    <ul>
+                        <li>You can also strip whitespace from the left side of a string using the lstrip() method or strip whitespace from both sides at once using strip():</li>
+                    </ul>
+                    <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> favorite_language = ' python '
+>>> favorite_language.rstrip()
+' python'
+>>> favorite_language.lstrip()
+'python '
+>>> favorite_language.strip()
+'python'
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>Parsing strings</h5>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>.find()</b> searches for the position of a string in another string</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> word = 'banana'
+>>> index = word.find('a')
+>>> print(index)
+1
+>>> word.find('na')
+2
+>>> word.find('na', 3)
+4
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data = 'From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008'
+>>> atpos = data.find('@')
+>>> print(atpos)
+21
+>>> sppos = data.find(' ',atpos)
+>>> print(sppos)
+31
+>>> host = data[atpos+1 : sppos]
+>>> print(host)
+uct.ac.za
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>.startswith()</b> returns the boolean value</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> line = 'Have a nice day'
+>>> line.startswith('h') 
+False
+
+>>> line.lower()
+'have a nice day'
+
+>>> line.lower().startswith('h')
+True
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>.split()</b> break a sentence into words and make a list</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> s = 'pining for the fjords'
+>>> t = s.split()
+>>> print(t)
+['pining', 'for', 'the', 'fjords']
+>>> print(t[2])
+the
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>Format operator</h5>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>.format()</b> allows us to construct strings, replacing parts of the strings with the data stored in variables.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> number = 42
+>>> print('I have spotted {} camels.' .format(number))
+I have spotted 42 camels.
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>What if we do not use format operator?</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> number = 42
+>>> print('I have spotted number camels.') #error.
+>>> print('I have spotted '+str(number)+' camels.') #not simple
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p><b>The number of elements in the tuple must match the number of format sequences in the string. The types of the elements also must match the format sequences.</b></p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> print('In {} years I spotted {} {}.'.format(3, 0.1, 'camels'))
+In 3 years I have spotted 0.1 camels.
+
+>>> print('In {0} years I have spotted {1} {2}.'.format(3, 0.1, 'camels'))
+In 3 years I have spotted 0.1 camels.
+
+>>> print('In {1} years I have spotted {0} {2}.'.format(3, 0.1, 'camels'))
+In 0.1 years I have spotted 3 camels.
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>String: Summary</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>The elements of a string are characters. Empty string '' </p>
+                        </li>
+                        <li class="fragment">
+                            <p>Features: Ordered, Immutable, Repeatable</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Index and slice are the same with that of lists.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>in operator shows the boolean value for whether a string contains a given string. You can compare two strings in Alphabetical order. </p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>.upper(), lower(), .title()</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>rstrip(), .lstrip(), .strip()</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>.find(), .startwith(), .split()</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>.format()</b></p>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">5.2 成语接龙</h2>
+                </section>
+                <!--
+                <section>
+                    <h3>Example 1: Lottery (大乐透, 2020.1-2020.92)</h3>
+                    <ul>
+                        <li class="fragment">1. Pick up the five-number groups from the list.</li>
+                        <li class="fragment">2. Find the frequency of each number in the 5-number groups.</li>
+                        <li class="fragment">3. Sort those numbers by their frequencies</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+[[2020001, "17 25 26 32 34-04 07"], 
+[2020002, "03 07 18 25 30-02 07"], 
+... ,
+[2020092, "08 11 17 31 35-07 11"]]
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import json
+
+filename = 'lottery.json' 
+with open(filename) as f:
+    data = json.load(f)
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 1. Collect the 5 numbers
+five_number=[]
+for x in data:
+    position=x[1].find('-')
+    string_5=x[1][:position]
+    list_5=string_5.split()
+    five_number.append(list_5)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 2. Frequencies
+d={}
+for x in five_number:
+    for y in x:
+        d[y]=d.get(y,0)+1
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 3. Sort and display
+fre=[]
+for x,y in d.items():
+    fre.append([y,x])
+fre.sort()
+for x in fre:
+    print(x)
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">2-number group?</li>
+                    </ul>
+                </section>
+            -->
+                <section>
+                    
+                    <ul>
+                        <li class="fragment">1. 加载成语词典。</li>
+                        <li class="fragment">2. 给定一个成语，找到可以接上的所有成语。</li>
+                        <li class="fragment">3. 从一个给定的成语开始，一直接下去，到不能接下去为止。</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 1. 加载成语词典
+filename = 'idiom_dictionary.txt'
+with open(filename, encoding="utf-8") as file_object:
+    lines = file_object.readlines() #List
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+d_game={}
+for line in lines:
+    if line!="\n":
+        endpoint=line.find("拼音")
+        idiom = line[:endpoint].strip()
+        pinyin_start = line.find("：", endpoint)
+        pinyin_end =line.find("释义")
+        each= line[pinyin_start+1: pinyin_end]
+        pinyin_list = each.split()
+        d_game[idiom] = pinyin_list
+len(d_game)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 2. 给定一个成语，找到可以接上的所有成语
+idiom = input("请输入第一个成语\n")
+char_4th = d_game[idiom][-1]
+for x, y in d_game.items():
+    if char_4th == y[0]:
+        print(x)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 3. 从一个给定的成语开始，一直接下去，到不能接下去为止。
+idiom = input("请输入第一个成语\n")
+enter=""
+while enter!="q":
+    char_4th = d_game[idiom][-1]
+    for x, y in d_game.items():
+        if char_4th == y[0]:
+            idiom = x
+            print(idiom)
+            break
+    enter=input("continue?")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">有可能找不到能够接下去的成语了，但是程序不会结束，怎么解决呢？</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+idiom = input("请输入第一个成语\n")
+char_4th = d_game[idiom][-1]
+enter=""
+exist = True
+while enter!="q" and exist:
+    char_4th = d_game[idiom][-1]
+    for x, y in d_game.items():
+        if char_4th == y[0]:
+            idiom = x
+            print(idiom)
+            exist = True
+            break
+        else:
+            exist = False
+    if exist:
+        enter=input("continue?")
+    else:
+        print("对不起，没有成语了")   
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">可进一步添加如下功能：</li>
+                        <li class="fragment">基本释义，谐音取词，人机对战，随机取词，模糊匹配</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 基本释义功能
+# 修改第一步
+d_ex={}
+for line in lines:
+    if line!="\n":
+        endpoint=line.find("拼音")
+        idiom = line[:endpoint].strip()
+        pinyin_end =line.find("释义")
+        pinyin_start = line.find("：", endpoint)
+        explanation = line[pinyin_end:]
+        d_ex[idiom] = explanation
+words = input("请输入要查询的成语\n")
+print(d_ex[words])
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 谐音取词
+# 修改第一步
+import unicodedata
+d_game={}
+for line in lines:
+    if line!="\n":
+        endpoint=line.find("拼音")
+        idiom = line[:endpoint].strip()
+        pinyin_start = line.find("：", endpoint)
+        pinyin_end =line.find("释义")
+        each= line[pinyin_start+1: pinyin_end]
+        each = unicodedata.normalize('NFKD', each).encode('ascii','ignore').decode()
+        pinyin_list = each.split()
+        d_game[idiom] = pinyin_list
+</code></pre>
+                    </div>
+                    <!--
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 人机对战
+# 修改第三步
+idiom = input("请输入第一个成语\n")
+char_4th = d_game[idiom][-1]
+enter=""
+exist = True
+while enter!="q" and exist:
+    char_4th = d_game[idiom][-1]
+    for x, y in d_game.items():
+        if char_4th == y[0]:
+            idiom = x
+            print(idiom)
+            exist = True
+            break
+        else:
+            exist = False
+    if exist:
+        while True:
+            enter = input("请接上\n")
+            if enter in d_game and d_game[enter][0] == d_game[idiom][-1]:
+                idiom = enter
+                break
+            elif:
+                enter=="q"
+                break
+            else:
+                print("你输的成语不对，请重新输")
+    else:
+        print("厉害，你赢了！") 
+</code></pre>
+                    </div>
+                -->
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Strings</li>
+                        <li>Reading: Python for Everybody</li>
+                        <ul>
+                            <li>Strings Chapter 6</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
