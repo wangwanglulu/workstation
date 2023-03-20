@@ -1,7 +1,7 @@
 <!-- _sidebar.md -->
 
-* 现在还是空空的
-	* [template](/README.md)
+- 现在还是空空的
+	- [template](/README.md)
 <!--
 * Typora+Docsify使用指南
   * [Docsify使用指南](/ProjectDocs/Docsify使用指南.md) 
