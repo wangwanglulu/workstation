@@ -1,0 +1,582 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 8</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-video="../bgm.mp4" data-background-video-loop data-background-video-muted style="text-align: left;">
+                <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 8 Complex Systems</h3>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">8.1 Complex Systems</h2>
+                </section>
+                <section>
+                    <h3>Complex Systems (复杂系统)</h3>
+                    <ul>
+                        <li class="fragment">
+                            A complex system is a system composed of many components which may interact with each other.
+                        </li>
+                        <li class="fragment">
+                            These parts are often quite simple to understand and to model individually.
+                        </li>
+                        <li class="fragment">
+                            <p>When these parts are put together, most complex systems display surprising and unpredictable behavior that can be difficult to explain just by looking at the parts separately.
+                        </li>
+                        <li class="fragment">
+                            <p>Examples of complex systems are Earth's global climate, organisms, the human brain, infrastructure such as power grid, transportation or communication systems, complex software and electronic systems, social and economic organizations (like cities), an ecosystem, a living cell, and ultimately the entire universe.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Example 1: bird flock (Complex Adaptive Systems, 复杂适应系统)</h3>
+                    <ul>
+                        <li class="fragment">
+                            The rules are simple!
+                        </li>
+                        <li class="fragment">
+                            <b>There is no "leader" or "control".</b>
+                        </li>
+                        <li class="fragment">
+                            1. Stay together; 2. Do not crash into each other; 3. Avoid predators and obstacles
+                        </li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture8/birds.jpeg" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <h3>Example 2: butterfly effect (Chaos Theory, 混沌理论)</h3>
+                    <ul>
+                        <li class="fragment">
+                            In chaos theory, the butterfly effect is the sensitive dependence on initial conditions in which a small change in one state of a deterministic nonlinear system can result in large differences in a later state.
+                        </li>
+                        <li class="fragment">
+                            The term is closely associated with the work of mathematician and meteorologist Edward Norton Lorenz. He noted that butterfly effect is derived from the metaphorical example of the details of a tornado being influenced by minor perturbations such as a distant butterfly flapping its wings several weeks earlier.
+                        </li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture8/butterfly.jpeg" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <h3>Example 3: pattern formulation (Fractal Theory, 分形理论)</h3>
+                    <ul>
+                        <li class="fragment">
+                            In mathematics, fractal is a term used to describe geometric shapes containing detailed structure at arbitrarily small scales, usually having a fractal dimension strictly exceeding the topological dimension.
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment"><img data-src="../img/lecture8/f1.jpg" style="height: 250pt"></div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment"><img data-src="../img/lecture8/f2.jpg" style="height: 250pt"></div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Application</h3>
+                    <ul>
+                        <li class="fragment">
+                            Complex theory:
+                        </li>
+                        <ul>
+                            <li class="fragment">
+                                Reduce the problem and understand the rule
+                            </li>
+                            <li class="fragment">
+                                build up the model and simulate the phenomenon
+                            </li>
+                            <li class="fragment">
+                                Predict the future
+                            </li>
+                        </ul>
+                        <li class="fragment">
+                            Disciplines: statistical physics, information theory, nonlinear dynamics, anthropology, computer science, meteorology, sociology, economics, psychology, and biology.
+                        </li>
+                        <li class="fragment">
+                            The 2021 Nobel Prize in Physics was awarded to Syukuro Manabe, Klaus Hasselmann, and Giorgio Parisi for their work to understand complex systems. Their work was used to create more accurate computer models of the effect of global warming on the Earth's climate.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Can complex system be Designed?</h3>
+                    <ul>
+                        <li class="fragment">
+                            <a href="https://web.archive.org/web/20200519072847/https://www.complexity-explorables.org/slides/critically-inflammatory/" target="_blank">Forest Fire</a></li>
+                        <li class="fragment">
+                            <a href="https://web.archive.org/web/20200518005219/https://www.complexity-explorables.org/slides/i-herd-you/" target="_blank">Epidemics and Herd Immunity</a></li>
+                        <li class="fragment">Cellular Automaton (元胞自动机)</li>
+                    </ul>
+                </section>
+                <!--
+                <section>
+                    <h3>Games of Emergence</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>The game in Lecture 2 might be boring. Why?</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Each challenge is a unique puzzle, and each puzzle has a unique action that solves it.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Games of emergence have a high replay value because the challenges and possible actions that occur while playing are different every time.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>It is very hard to predict whether interesting gameplay will emerge from a particular game simply by looking at the rules.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>It should be clear that creating emergence is not simply a matter of having many rules. You cannot create a more interesting game simply by adding more rules. In fact, sometimes it is more effective to reduce the number of rules to create a system that displays truly interesting and emergent gameplay.</p>
+                        </li>
+                        </ul>
+                   
+                </section>
+            -->
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">8.2 Cellular Automaton</h2>
+                </section>
+                <section>
+                    <h3>Cellular Automaton (元胞自动机)</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>At the boundary of mathematics, computer science, and games lies a peculiar field that studies <b>cellular automaton</b>.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Cellular automaton is a simple set of rules governing the appearance of spaces, or cells, in a line or on a grid. </p>
+                        </li>
+                        <li class="fragment">
+                            <p>Each cell may be either black or white. The rules determine what causes a cell to change from black to white (or vice versa) and how the color of a cell influences the cells around it.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Mathematicians think of such a collection of rules as a hypothetical machine that operates by itself without human intervention. This is why they are called automata.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>A cellular automaton starts with its cells in a given configuration (some white, some black) and then applies the rules to each cell to determine whether its color should change.
+                            </p>
+                        </li>
+                        <li class="fragment">
+                            <p>It does not change a cell immediately; it checks every cell in the grid first, marks the ones to be changed, and then changes them all before the next iteration. Then it repeats the process. Each iteration is called a <b>generation</b>.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>British scientist Stephen Wolfram has created a simple cellular automaton that exhibits emergent behavior.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>He was named an inaugural fellow of the American Mathematical Society. he is the founder and CEO of the software company <b>Wolfram </b> Research where he worked as chief designer of Mathematica and the Wolfram Alpha answer engine.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture8/wolfram.jpeg" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <h3>The simple cellular automaton</h3>
+                    <div class="fragment"><img data-src="../img/lecture8/rule.png" style="height: 100pt"></div>
+                    <ul>
+                        <li class="fragment">
+                            <p>It displays one set of possible rules and the resulting, surprisingly complex pattern that is created by printing each new generation of the system under the previous one. It begins with one black cell and all the rest white.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Notice that even though there is nothing random in the rules, this cellular automaton produces a pattern with distinctive and apparently random features.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture8/firstca.png" style="height: 500pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Wolfram described his work in detail in his book A New Kind of Science (2002).</p>
+                            <ul>
+                                <li class="fragment">
+                                    <p>They must consist of simple cells whose rules are defined locally.</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>The system must allow for long-range communication.</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>The level of activity of the cells is a good indicator for the complexity of the behavior of the system.</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>Cellular automata show us that the threshold for complexity is surprisingly low.</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <!--
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+
+width = 100
+height = 1
+screen = []
+</code></pre>
+                    </div>
+                    <p class="fragment">Step 1: Initialization</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def Init():
+    for i in range(height):
+        line = []
+        for j in range(width):
+            line.append(' ')
+        screen.append(line)
+    screen[0][50]='#'
+</code></pre>
+                    </div>
+                    <p class="fragment">Step 2: Show the screen</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def PrintScreen():
+    for i in range(len(screen)):
+        for j in range(width):
+            print(screen[i][j] + ' ', end='')
+        print('|')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Step 3: Add a new generation</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def Update():
+    s = len(screen); line = []
+    for j in range(width):
+        line.append(' ')
+    screen.append(line)
+    for j in range(width-1):
+        if screen[s-1][j-1]=='#' and screen[s-1][j]=='#' and screen[s-1][j+1]=='#':
+            screen[s][j] = ' '
+        elif screen[s-1][j-1]=='#' and screen[s-1][j]=='#' and screen[s-1][j+1]==' ':
+            screen[s][j] = ' '
+        elif screen[s-1][j-1]=='#' and screen[s-1][j]==' ' and screen[s-1][j+1]=='#':
+            screen[s][j] = ' '
+        elif screen[s-1][j-1]=='#' and screen[s-1][j]==' ' and screen[s-1][j+1]==' ':
+            screen[s][j] = '#'
+        elif screen[s-1][j-1]==' ' and screen[s-1][j]=='#' and screen[s-1][j+1]=='#':
+            screen[s][j] = '#'
+        elif screen[s-1][j-1]==' ' and screen[s-1][j]=='#' and screen[s-1][j+1]==' ':
+            screen[s][j] = '#'
+        elif screen[s-1][j-1]==' ' and screen[s-1][j]==' ' and screen[s-1][j+1]=='#':
+            screen[s][j] = '#'
+        elif screen[s-1][j-1]==' ' and screen[s-1][j]==' ' and screen[s-1][j+1]==' ':
+            screen[s][j] = ' '
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Step 4: Console</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def Start():
+    os.system("cls")
+    print('== Game of Life ==')
+    print('Press any key...')
+    input()
+    os.system("cls")
+    Init()
+    PrintScreen()
+    c = input()
+    while c!= 'q':
+        os.system("cls")
+        Update()
+        PrintScreen()   
+        c = input()
+    print('End')
+
+Start()
+</code></pre>
+                    </div>
+                    <p class="fragment">Command line</p>
+                </section>
+            -->
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">8.3 Game of Life</h2>
+                </section>
+                <section>
+                    <h3>Game of Life (生命演化游戏)</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Probably the most famous cellular automaton was invented by John Conway and is called the Game of Life.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Conway was a Professor Emeritus of Mathematics at Princeton University in New Jersey.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture8/conway.jpg" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Conway's automaton consists of cells that are laid out on a two-dimensional grid.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>this grid goes on indefinitely in all directions. Each cell on the grid has eight neighbors: the cells that surround it orthogonally and diagonally. Each cell can be in two different states: It is either dead or alive.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>In most examples, dead cells are rendered white, while live cells are colored black.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Rules</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>A live cell that has fewer than two live neighbors dies from loneliness.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>A live cell that has more than three live neighbors dies from overcrowding.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>A live cell that has two or three live neighbors stays alive.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>A dead cell that has exactly three live neighbors becomes alive.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Example</h3>
+                    <div class="fragment"><img data-src="../img/lecture8/iteration.png" style="height: 100pt"></div>
+                    <ul>
+                        <li class="fragment">
+                            <p>When set into motion, the Game of Life usually has quite chaotic results, with a lot of activity exploding from its original live cells.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Demo: Game of Life (Random)</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Frequently after a number of iterations the Game of Life settles in a more or less stable configuration, sometimes with a few groups of cells that oscillate between two states.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+import random
+
+width = 60
+height = 60
+screen = []
+</code></pre>
+                    </div>
+                    <p class="fragment">Step 1: Initialization</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def Init():
+    for i in range(height):
+        line = []
+        for j in range(width):
+            if random.random() > 0.8:
+                line.append('#')
+            else:
+                line.append(' ')
+        screen.append(line)
+</code></pre>
+                    </div>
+                    <p class="fragment">Step 2: Show the screen</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def PrintScreen():
+    for i in range(height):
+        for j in range(width):
+            print(screen[i][j] + ' ', end='')
+        print()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Step 3: Get cells</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def TryGetCell(i, j):
+    i = i % height
+    j = j % width
+    return screen[i][j]
+</code></pre>
+                    </div>
+                    <p class="fragment">Step 4: Count cells nearby</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def GetNearbyCellsCount(i, j):
+    nearby = []
+    nearby.append(TryGetCell(i - 1, j - 1))
+    nearby.append(TryGetCell(i - 1, j))
+    nearby.append(TryGetCell(i - 1, j + 1))
+    nearby.append(TryGetCell(i, j - 1))
+    nearby.append(TryGetCell(i, j + 1))
+    nearby.append(TryGetCell(i + 1, j - 1))
+    nearby.append(TryGetCell(i + 1, j))
+    nearby.append(TryGetCell(i + 1, j + 1))
+    num = 0
+    for x in nearby:
+        if x == '#':
+            num = num + 1
+    return num
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Step 5: Update</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def Update():
+    global screen
+    newScreen = []
+    for i in range(height):
+        line = []
+        for j in range(width):
+            line.append(' ')
+        newScreen.append(line)
+    for i in range(height):
+        for j in range(width):
+            count = GetNearbyCellsCount(i, j)
+            if count == 3:
+                newScreen[i][j] = '#'
+            elif count < 2 or count > 3:
+                newScreen[i][j] = ' '
+            else:
+                newScreen[i][j] = screen[i][j]    
+    screen = newScreen
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Step 6: Console</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def Start():
+    os.system("cls")
+    print('== Game of Life ==')
+    print('Press any key...')
+    input()
+    os.system("cls")
+    Init()
+    PrintScreen()
+    c = input()
+    while c!= 'q':
+        os.system("cls")
+        Update()
+        PrintScreen()   
+        c = input()
+    print('End')
+
+Start()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>One of the earliest questions that the researchers studying the Game of Life asked themselves was this: "Is there an initial configuration of live cells that expands forever?"</p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>glider</b></p>
+                        </li>
+                        <div class="fragment"><img data-src="../img/lecture8/glider.png" style="height: 100pt"></div>
+                        <li class="fragment">
+                            <p>Demo: glider</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Glider gun</p>
+                        </li>
+                        <div class="fragment"><img data-src="../img/lecture8/glidergun.png" style="height: 150pt"></div>
+                        <div class="fragment"><img data-src="../img/lecture8/glider_gun.gif" style="height: 150pt"></div>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Functions</li>
+                        <ul>
+                            <li>Reading: Python for Everybody, Chapter 4</li>
+                            <li>Reading: Python Crash Course, Chapter 8</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+        controls: [
+      {
+              id: 'toggle-overview',
+              title: 'Toggle overview (O)',
+              icon: '<i class="fa fa-th"></i>',
+              action: 'Reveal.toggleOverview();'
+            },
+            { icon: '<i class="fa fa-pen-square"></i>',
+              title: 'Toggle chalkboard (B)',
+              action: 'RevealChalkboard.toggleChalkboard();'
+            },
+            { icon: '<i class="fa fa-pen"></i>',
+              title: 'Toggle notes canvas (C)',
+              action: 'RevealChalkboard.toggleNotesCanvas();'
+            }
+        ]
+    },
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX,CopyCode],
+        
+        
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
