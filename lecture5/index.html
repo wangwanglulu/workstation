@@ -494,11 +494,11 @@ d_ex={}
 for line in lines:
     if line!="\n":
         endpoint=line.find("拼音")
-        idiom = line[:endpoint].strip()
-        pinyin_end =line.find("释义")
-        pinyin_start = line.find("：", endpoint)
-        explanation = line[pinyin_end:]
-        d_ex[idiom] = explanation
+        idiom=line[:endpoint].strip()
+        pinyin_end=line.find("释义")
+        pinyin_start=line.find("：", endpoint)
+        explanation=line[pinyin_end:]
+        d_ex[idiom]=explanation
 words = input("请输入要查询的成语\n")
 print(d_ex[words])
 </code></pre>
@@ -514,13 +514,13 @@ d_game={}
 for line in lines:
     if line!="\n":
         endpoint=line.find("拼音")
-        idiom = line[:endpoint].strip()
-        pinyin_start = line.find("：", endpoint)
-        pinyin_end =line.find("释义")
-        each= line[pinyin_start+1: pinyin_end]
-        each = unicodedata.normalize('NFKD', each).encode('ascii','ignore').decode()
-        pinyin_list = each.split()
-        d_game[idiom] = pinyin_list
+        idiom=line[:endpoint].strip()
+        pinyin_start=line.find("：", endpoint)
+        pinyin_end=line.find("释义")
+        each=line[pinyin_start+1: pinyin_end]
+        each=unicodedata.normalize('NFKD',each).encode('ascii','ignore').decode()
+        pinyin_list=each.split()
+        d_game[idiom]=pinyin_list
 </code></pre>
                     </div>
                     <!--
@@ -584,6 +584,8 @@ while enter!="q" and exist:
     <script src="../plugin/zoom_old/zoom_old.js"></script>
     <script src="../plugin/chalkboard/plugin.js"></script>
     <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -612,7 +614,7 @@ while enter!="q" and exist:
             ]
         },
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode],
 
 
 
