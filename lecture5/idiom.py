@@ -16,7 +16,7 @@ for line in lines:
         each = unicodedata.normalize('NFKD', each).encode('ascii','ignore').decode()
         pinyin_list = each.split()
         d_game[idiom] = pinyin_list
-len(d_game)
+print(len(d_game))
 
 # 2. 给定一个成语，找到可以接上的所有成语
 idiom = input("请输入第一个成语\n")
@@ -31,7 +31,6 @@ for x, y in d_game.items():
 """
 # 3. 从一个给定的成语开始，一直接下去，到不能接下去为止。
 idiom = input("请输入第一个成语\n")
-char_4th = d_game[idiom][-1]
 enter=""
 exist = True
 while enter!="q" and exist:

@@ -462,7 +462,7 @@ for line in lines:
         each= line[pinyin_start+1: pinyin_end]
         pinyin_list = each.split()
         d_game[idiom] = pinyin_list
-len(d_game)
+print(len(d_game))
 </code></pre>
                     </div>
                 </section>
@@ -500,7 +500,6 @@ while enter!="q":
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 idiom = input("请输入第一个成语\n")
-char_4th = d_game[idiom][-1]
 enter=""
 exist = True
 while enter!="q" and exist:
