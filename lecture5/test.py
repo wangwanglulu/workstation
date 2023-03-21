@@ -1,11 +1,4 @@
-n = 3
-while True: 
-    enter = input('please enter:')
-    if enter == 'q':
-        break
-    if enter == 's':
-      	continue
-    print(n)    
-    n = n - 1
-print('Happy New Year!')
-
+# 1. 加载成语词典
+filename = 'idiom_dictionary.txt'
+with open(filename, encoding="utf-8") as file_object:
+    lines = file_object.readlines() #List
