@@ -3,17 +3,18 @@ import unicodedata
 # 1. 加载成语词典
 filename = 'idiom_dictionary.txt'
 with open(filename, encoding="utf-8") as file_object:
-    lines = file_object.readlines() #List
+    lines = file_object.readlines()  # List
 
-d_game={}
+d_game = {}
 for line in lines:
-    if line!="\n":
-        endpoint=line.find("拼音")
+    if line != "\n":
+        endpoint = line.find("拼音")
         idiom = line[:endpoint].strip()
         pinyin_start = line.find("：", endpoint)
-        pinyin_end =line.find("释义")
-        each= line[pinyin_start+1: pinyin_end]
-        each = unicodedata.normalize('NFKD', each).encode('ascii','ignore').decode()
+        pinyin_end = line.find("释义")
+        each = line[pinyin_start + 1: pinyin_end]
+        each = unicodedata.normalize('NFKD', each).encode(
+            'ascii', 'ignore').decode()
         pinyin_list = each.split()
         d_game[idiom] = pinyin_list
 print(len(d_game))
@@ -24,8 +25,6 @@ char_4th = d_game[idiom][-1]
 for x, y in d_game.items():
     if char_4th == y[0]:
         print(x)
-
-
 
 
 """
@@ -47,8 +46,6 @@ while enter!="q" and exist:
         enter=input("continue?")
     else:
         print("对不起，没有成语了") 
-
-
 
 #基本查释义功能
 d_ex={}
