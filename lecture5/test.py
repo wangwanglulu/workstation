@@ -4,7 +4,7 @@
 filename = 'idiom_dictionary.txt'
 with open(filename, encoding="utf-8") as file_object:
     lines = file_object.readlines()  # List
-
+    
 # 谐音取词
 # 修改第一步
 import unicodedata
@@ -20,11 +20,11 @@ for line in lines:
         pinyin_list=each.split()
         d_game[idiom]=pinyin_list
 
+
 # 2. 给定一个成语，找到可以接上的所有成语
 idiom = input("请输入第一个成语\n")
 char_4th = d_game[idiom][-1]
 for x, y in d_game.items():
     if char_4th == y[0]:
         print(x)
-
 

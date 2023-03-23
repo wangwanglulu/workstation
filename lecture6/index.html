@@ -111,7 +111,7 @@ Eric, the half a bee.
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def describe_pet(type, name):
-    print("My {}'s name is {}.".format(type,name))
+    print(f"My {type}'s name is {name}.")
 
 describe_pet('hamster', 'Harry')
 describe_pet('dog', 'Willie')
@@ -141,7 +141,7 @@ My harry's name is Hamster.
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def describe_pet(type, name):
-    print("My {}'s name is {}.".format(type,name))
+    print(f"My {type}'s name is {name}.")
 
 describe_pet(type='hamster', name='harry')
 describe_pet(name='harry', type='hamster')
@@ -157,7 +157,7 @@ describe_pet(name='harry', type='hamster')
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def describe_pet(name, type='dog'): 
-    print("My {}'s name is {}.".format(type,name))
+    print(f"My {type}'s name is {name}.")
 
 describe_pet(name='willie')
 
@@ -344,8 +344,44 @@ print(musician)
 </code></pre>
                     </div>
                 </section>
+                <section>
+                    <h3>Example: Improve the game in Lecture 2!</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+game_t = [[], ["hello"], ["continue"], ["end"]]
+game_m = [[], [0,2,0], [0,3,0], [0,0,0]]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def game(story, goto):
+    for sentence in story:
+        print(sentence)
+        input()
+    select = int(input("Please select?"))
+    if select == 1:
+        next_stage = goto[0]
+    elif select == 2:
+        next_stage = goto[1]
+    elif select == 3:
+        next_stage = goto[2]
+    return next_stage
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def start(t, m):
+    x = 1
+    while x!= 0:
+        x = game(t[x], m[x])
+    print("Game over")
+
+start(game_t, game_m)
+</code></pre>
+                    </div>
+                </section>
             </section>
-            <section>
+            <!-- <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">6.2 Money Tracker v3.0</h2>
                 </section>
@@ -439,10 +475,10 @@ main()
 </code></pre>
                     </div>
                 </section>
-            </section>
+            </section> -->
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">6.3 Modules</h2>
+                    <h2 style="color: white">6.2 Modules</h2>
                 </section>
                 <section>
                     <ul>
@@ -455,7 +491,7 @@ main()
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_pizza(size):
-    print("Making a {}-inch pizza".format(size))
+    print(f"Making a {size}-inch pizza")
 </code></pre>
                         </div>
                         <li class="fragment">
@@ -473,7 +509,7 @@ pizza.make_pizza(16)
                         </div>
                     </ul>
                 </section>
-                <section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">
                             <p><b>Be Careful!</b></p>
@@ -482,7 +518,7 @@ pizza.make_pizza(16)
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_pizza(size):
-    print("Making a {}-inch pizza".format(size))
+    print(f"Making a {size}-inch pizza")
 
 make_pizza(16)
 
@@ -510,7 +546,7 @@ if __name__ == '__main__':
     make_pizza(16)
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <p class="fragment">Importing Specific Functions</p>
                     <div class="fragment">
@@ -615,29 +651,32 @@ mycompany
                     </ul>
                 </section>
                 <section>
-                    <h3>Third-party modules</h3>
+                    <h3>Third-party packages</h3>
                     <ul>
+                        <li class="fragment">Anaconda has already installed many useful packages. </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
-dir(requests)
+print(dir(requests))
 </code></pre>
                         </div>
                         <li class="fragment">
-                            <p>For Python only, open the <b>cmd</b>.</p>
+                            <p>For win, open the <b>anaconda prompt</b>.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+pip install pillow
+#or conda install pillow
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>For macOS, open the <b>terminal</b>.</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install pillow
-</code></pre>
-                        </div>
-                        <li class="fragment">
-                            <p>For Anaconda only, open the <b>anaconda prompt</b>.</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-conda install pillow
-pip install pillow
+#or conda install pillow
 </code></pre>
                         </div>
                         <!--
@@ -656,7 +695,7 @@ condapip install pillow #anaconda
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip uninstall pillow
-conda uninstall pillow
+#or conda uninstall pillow
 </code></pre>
                         </div>
                         <li class="fragment">
@@ -665,7 +704,7 @@ conda uninstall pillow
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip list
-conda list
+#or conda list
 </code></pre>
                         </div>
                     </ul>
@@ -688,12 +727,13 @@ print(dir(math))
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-line-numbers data-trim contenteditable>
-['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 'acosh', 
-'asin','asinh', 'atan', 'atan2', 'atanh', 'ceil', 'comb', 'copysign', 'cos', 'cosh', 
-'degrees', 'dist', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs', 'factorial', 'floor', 
-'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 'inf', 'isclose', 'isfinite', 'isinf',
- 'isnan', 'isqrt', 'lcm', 'ldexp', 'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 
-'nan', 'nextafter','perm', 'pi', 'pow', 'prod', 'radians', 'remainder', 'sin', 'sinh', 
+['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 
+'acosh', 'asin','asinh', 'atan', 'atan2', 'atanh', 'ceil', 'comb', 'copysign', 
+'cos', 'cosh', 'degrees', 'dist', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs', 
+'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 
+'inf', 'isclose', 'isfinite', 'isinf','isnan', 'isqrt', 'lcm', 'ldexp', 
+'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 'nan', 'nextafter','perm', 
+'pi', 'pow', 'prod', 'radians', 'remainder', 'sin', 'sinh', 
 'sqrt', 'tan', 'tanh', 'tau', 'trunc', 'ulp']
 </code></pre>
                     </div>
@@ -714,7 +754,7 @@ import random
 
 print(random.randint(1,10))        # 产生 1 到 10 的一个整数型随机数  
 print(random.random())             # 产生 0 到 1 之间的随机浮点数
-print(random.uniform(1.1,5.4))     # 产生  1.1 到 5.4 之间的随机浮点数，区间可以不是整数
+print(random.uniform(1.1,5.4))     # 产生  1.1 到 5.4 之间的随机浮点数， s可以不是整数
 print(random.choice('tomorrow'))   # 从序列中随机选取一个元素
 print(random.randrange(1,100,2))   # 生成从1到100的间隔为2的随机整数
 
@@ -730,11 +770,6 @@ random.sample(a, 2)
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install you-get 
 # youtube-dl
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-pip install pyinstaller
 </code></pre>
                     </div>
                     <a class="fragment" href="https://grantjenks.com/docs/freegames/#">Free Python Games</a>
@@ -815,27 +850,28 @@ itchat.logout()
         center: true,
         hash: true,
         customcontrols: {
-        controls: [
-      {
-              id: 'toggle-overview',
-              title: 'Toggle overview (O)',
-              icon: '<i class="fa fa-th"></i>',
-              action: 'Reveal.toggleOverview();'
-            },
-            { icon: '<i class="fa fa-pen-square"></i>',
-              title: 'Toggle chalkboard (B)',
-              action: 'RevealChalkboard.toggleChalkboard();'
-            },
-            { icon: '<i class="fa fa-pen"></i>',
-              title: 'Toggle notes canvas (C)',
-              action: 'RevealChalkboard.toggleNotesCanvas();'
-            }
-        ]
-    },
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [ RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX,CopyCode],
-        
-        
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode],
+
+
 
     });
     Reveal.configure({
