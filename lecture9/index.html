@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
 </head>
 
-
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
@@ -203,10 +202,9 @@ StopIteration
 </code></pre>
                         </div>
                     </div>
-
                 </section>
                 <section>
-                                        <div class="div-c">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def yrange(n):
@@ -262,7 +260,6 @@ StopIteration
 </code></pre>
                         </div>
                     </div>
-
                 </section>
             </section>
             <section>
@@ -291,7 +288,7 @@ print(list(y))
 ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 </code></pre>
                     </div>
-                                        <h3 class="fragment">filter()</h3>
+                    <h3 class="fragment">filter()</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def k(x):
@@ -773,6 +770,7 @@ Do Bill, Linus and Steve like platypus? Indeed!
     <script src="../plugin/customcontrols/plugin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -800,8 +798,10 @@ Do Bill, Linus and Steve like platypus? Indeed!
                 }
             ]
         },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
 
 
 

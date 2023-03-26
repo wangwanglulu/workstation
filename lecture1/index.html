@@ -645,6 +645,7 @@ Happy 23rd Birthday!
     <script src="../plugin/customcontrols/plugin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -672,8 +673,10 @@ Happy 23rd Birthday!
                 }
             ]
         },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
 
 
 

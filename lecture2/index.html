@@ -978,6 +978,7 @@ for +: 'int' and 'str'
     <script src="../plugin/customcontrols/plugin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -987,27 +988,30 @@ for +: 'int' and 'str'
         center: true,
         hash: true,
         customcontrols: {
-		controls: [
-      {
-			  id: 'toggle-overview',
-			  title: 'Toggle overview (O)',
-			  icon: '<i class="fa fa-th"></i>',
-			  action: 'Reveal.toggleOverview();'
-			},
-			{ icon: '<i class="fa fa-pen-square"></i>',
-			  title: 'Toggle chalkboard (B)',
-			  action: 'RevealChalkboard.toggleChalkboard();'
-			},
-			{ icon: '<i class="fa fa-pen"></i>',
-			  title: 'Toggle notes canvas (C)',
-			  action: 'RevealChalkboard.toggleNotesCanvas();'
-			}
-		]
-	},
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [ RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX,CopyCode],
-        
-        
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
 
     });
     Reveal.configure({
