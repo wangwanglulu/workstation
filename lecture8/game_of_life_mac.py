@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 18 14:43:03 2018
-
-@author: LU WANG
-"""
-
 '''
 Game of life
 author: Pleiades
@@ -75,7 +69,7 @@ def Update():
             elif count < 2 or count > 3:
                 newScreen[i][j] = ' '
             else:
-                newScreen[i][j] = screen[i][j]    
+                newScreen[i][j] = screen[i][j]
     screen = newScreen
 
 
@@ -94,5 +88,6 @@ def Start():
         PrintScreen()
         c = input()
     print('End')
+
 
 Start()
