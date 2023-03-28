@@ -35,9 +35,14 @@
     text-transform: uppercase;
     white-space: nowrap;
 }
+
+#tab li:hover {
+            opacity: 0.5;
+        }
  
 #tab li:first-child {
     background: #005831;
+
 }
  
 #tab li:first-child + li {
