@@ -69,8 +69,7 @@
     left: 0;
     display: none;
 }
- 
-#content1{
+/*如果要改变初始显示的标签，只需要把#content1改成#content2，或者反过来*/
+#content2{
     display: block;
-    border-color: #005831;
 }
