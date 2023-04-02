@@ -9,3 +9,4 @@ Created on Wed Mar 29 09:11:32 2023
 def make_pizza(size):
     print(f"Making a {size}-inch pizza")
 x = 1
+y = 2
