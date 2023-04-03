@@ -12,3 +12,4 @@ def make_pizza(size):
 
 
 x = 1000
+y = 5
