@@ -74,20 +74,35 @@ def Update():
 
 
 def Start():
-    os.system("clear")
-    print('== Game of Life ==')
-    print('Press any key...')
-    input()
-    os.system("clear")
-    Init()
-    PrintScreen()
-    c = input()
-    while c != 'q':
-        os.system("clear")
-        Update()
+    if os.name == 'nt':
+        os.system("cls")
+        print('== Game of Life ==')
+        print('Press any key...')
+        input()
+        os.system("cls")
+        Init()
         PrintScreen()
-        c = input()
-    print('End')
-
+        c = ''
+        while c != 'q':
+            os.system("cls")
+            Update()
+            PrintScreen()
+            c = input()
+        print('End')
+    else: 
+        os.system("clear")
+        print('== Game of Life ==')
+        print('Press any key...')
+        input()
+        os.system("clear")
+        Init()
+        PrintScreen()
+        c = ''
+        while c != 'q':
+            os.system("clear")
+            Update()
+            PrintScreen()
+            c = input()
+        print('End')
 
 Start()

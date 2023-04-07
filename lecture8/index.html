@@ -43,7 +43,7 @@
                             <p>When these parts are put together, most complex systems display surprising and unpredictable behavior that can be difficult to explain just by looking at the parts separately.
                         </li>
                         <li class="fragment">
-                            <p>Examples of complex systems are Earth's global climate, organisms, the human brain, infrastructure such as power grid, transportation or communication systems, complex software and electronic systems, social and economic organizations (like cities), an ecosystem, a living cell, and ultimately the entire universe.
+                            <p>Examples of complex systems are earth's global climate, organisms, the human brain, infrastructure such as power grid, transportation or communication systems, complex software and electronic systems, social and economic organizations (like cities), an ecosystem, a living cell, and ultimately the entire universe.
                         </li>
                     </ul>
                 </section>
@@ -60,7 +60,11 @@
                             1. Stay together; 2. Do not crash into each other; 3. Avoid predators and obstacles
                         </li>
                     </ul>
-                    <div class="fragment"><img data-src="../img/lecture8/birds.jpeg" style="height: 250pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture8/birds.jpeg" style="height: 200pt"></div>
+                    <ul>
+                        <li class="fragment"><a href="https://www.bilibili.com/video/BV1pA411F7Bi/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank">Introduction to Complex Adaptive Systems (CAS)</a></li>
+                        
+                    </ul>
                 </section>
                 <section>
                     <h3>Example 2: butterfly effect (Chaos Theory, 混沌理论)</h3>
@@ -89,6 +93,19 @@
                     </div>
                 </section>
                 <section>
+                    <h3>Mandelbrot set (曼德勃罗集--“上帝的指纹”)</h3>
+                    <div class="fragment"><img data-src="../img/lecture8/f3.jpg" style="height: 200pt"></div>
+                    <ul>
+                        <li class="fragment"><a href="https://zh.wikipedia.org/zh-hans/曼德博集合" target="_blank">wiki百科的演示</a></li>
+                        <li class="fragment">$z_{n+1} = z_n^2+c$</li>
+                        
+                    </ul>
+                    <ul>
+                        <li class="fragment">A complex number $c$ is a member of the Mandelbrot set if when starting with $z_0=0$ and applying the iteration repeatedly, the absolute value of $z_n$ remains bounded for all $n>0$.</li></li>
+                    </ul>
+                    
+                </section>
+                <section>
                     <h3>Application</h3>
                     <ul>
                         <li class="fragment">
@@ -111,15 +128,18 @@
                         <li class="fragment">
                             The 2021 Nobel Prize in Physics was awarded to Syukuro Manabe, Klaus Hasselmann, and Giorgio Parisi for their work to understand complex systems. Their work was used to create more accurate computer models of the effect of global warming on the Earth's climate.
                         </li>
+                        <li class="fragment">
+                            <a href="https://www.bilibili.com/video/BV1F5411b7zw/?spm_id_from=333.337.search-card.all.click" target="_blank">对此领域有兴趣可进一步了解：BBC纪录片-神秘的混沌理论（2009）</a>
+                        </li>
                     </ul>
                 </section>
                 <section>
                     <h3>Can complex system be Designed?</h3>
-                    <ul>
+                    <ul><li class="fragment"><a href="https://shilingliang.com/web-simulator-by-GPT4/interactive_vicsek.html" target="_blank">Vicsek鸟群模型（Chatgpt生成）</a></li>
                         <li class="fragment">
-                            <a href="https://web.archive.org/web/20200519072847/https://www.complexity-explorables.org/slides/critically-inflammatory/" target="_blank">Forest Fire</a></li>
+                            <a href="https://web.archive.org/web/20200519072847/https://www.complexity-explorables.org/slides/critically-inflammatory/" target="_blank">Forest Fire模型</a></li>
                         <li class="fragment">
-                            <a href="https://web.archive.org/web/20200518005219/https://www.complexity-explorables.org/slides/i-herd-you/" target="_blank">Epidemics and Herd Immunity</a></li>
+                            <a href="https://web.archive.org/web/20200518005219/https://www.complexity-explorables.org/slides/i-herd-you/" target="_blank">Epidemics and Herd Immunity模型</a></li>
                         <li class="fragment">Cellular Automaton (元胞自动机)</li>
                     </ul>
                 </section>
@@ -470,7 +490,7 @@ def Update():
                     </div>
                 </section>
                 <section>
-                    <p class="fragment">Step 6: Console</p>
+                    <p class="fragment">Step 6: Console (for win). <b>For mac, replace "cls" by "clear".</b></p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def Start():
@@ -492,6 +512,7 @@ def Start():
 Start()
 </code></pre>
                     </div>
+                    <a href="game_of_life.py" target="_blank">win和mac通用版</a>，<a href="game_of_life_tk.py" target="_blank">Tkinter美化版本</a>，<a href="game.html" target="_blank">网页直接运行版</a>
                 </section>
                 <section>
                     <ul>
