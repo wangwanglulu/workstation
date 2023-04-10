@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Lecture 9</title>
+    <title>Lecture 11</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,506 +15,255 @@
     <link rel="stylesheet" href="../plugin/chalkboard/style.css">
     <link rel="stylesheet" href="../plugin/customcontrols/style.css">
     <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../img/tinyfont.css">
 </head>
 
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
-                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                    <h1 style="color: white">Python Programming</h1>
-                    <h3 style="color: white">Lecture 9 Advanced Features, File </h3>
-                </div>
-            </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.1 Map, Filter, Lambda</h2>
+                    <h2 style="color: white">9.1 Iterators and Generators</h2>
                 </section>
                 <section>
-                    <h3>map()</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def f(x):
-    return x * x
-
-y = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])    
-print(list(y))
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-[1, 4, 9, 16, 25, 36, 49, 64, 81]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-['1', '2', '3', '4', '5', '6', '7', '8', '9']
-</code></pre>
-                    </div>
-                    <h3 class="fragment">filter()</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def k(x):
-    return x%2 == 0
-
-y = list(filter(k, [1, 2, 3, 4, 5, 6, 7, 8, 9]))   
-print(y)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-[2, 4, 6, 8]
-</code></pre>
-                    </div>
-                </section>
-                <!--
-                <section>
-                    
-                    <h3>reduce()</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-from functools import reduce 
-
-def g(x, y):
-    return x * y
-
-y = reduce(g, [1, 2, 3, 4, 5, 6, 7, 8, 9])    
-print(y)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> print(reduce(g, map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-131681894400
-</code></pre>
-                    </div>
-                
-
-                </section>
-                -->
-                <section>
-                    <h3>Anonymous function: lambda</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def add( x, y ):
-    return x + y
- 
-lambda x, y: x + y
- 
-lambda x, y = 2: x + y
-lambda *z: z
-</code></pre>
-                    </div>
+                    <h3>Iterator (迭代器)</h3>
+                    <p>Many types of objects in Python that qualify as being iterable (可迭代的), such as list, tuple, dictionary. In Python, the mechanism for iteratioin is based upon the following conventions:</p>
                     <ul>
-                        <li class="fragment">
-                            <p>Sometimes the anonymous function is convenient.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>It has only one expression. (You do not have to use <b>return</b>)</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-</code></pre>
-                    </div>
-                    <!--
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(reduce(lambda x,y: x*y, map(lambda x: x**2, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-
-</code></pre>
-                    </div>
-                -->
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <h3>Comprehension Syntax</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>[ expression <b>for</b> value <b>in</b> iterable <b>if</b> condition ]</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [x * x for x in range(1, 11)]
-[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [x * x for x in range(1, 11) if x % 2 == 0]
-[4, 16, 36, 64, 100]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [m + n for m in 'ABC' for n in 'XYZ']
-['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> d = {'x': 'A', 'y': 'B', 'z': 'C' }
->>> [k + '=' + v for k, v in d.items()]
-['y=B', 'x=A', 'z=C']
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> L = ['Hello', 'World', 'IBM', 'Apple']
->>> [s.lower() for s in L]
-['hello', 'world', 'ibm', 'apple']
-</code></pre>
-                    </div>
-                </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.2 Return a Function</h2>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">Closure Function</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def calc_sum(*args):
-    ax = 0
-    for n in args:
-        ax = ax + n
-    return ax
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def lazy_sum(*args):
-    def sum():
-        ax = 0
-        for n in args:
-            ax = ax + n
-        return ax
-    return sum
-
-f = lazy_sum(1, 3, 5, 7, 9)
-print(f()) # 25
-print(type(f)) # function
-</code></pre>
-                    </div>
-                    <!--
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-f1 = lazy_sum(1, 3, 5, 7, 9)
-f2 = lazy_sum(1, 3, 5, 7, 9)
-print(f1==f2) #False
-</code></pre>
-                    </div>
-                -->
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Defining a closure function</p>
-                        </li>
-                        <li class="fragment">
-                            <p>When do we have a closure?</p>
-                            <ul>
-                                <li class="fragment">
-                                    <p>We must have a nested function (function inside a function).</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>The nested function must refer to a value defined in the enclosing function.</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>The enclosing function must return the nested function.</p>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="fragment">
-                            <p>When to use closures?</p>
-                            <ul>
-                                <li class="fragment">
-                                    <p>Closures can avoid the use of global values and provides some form of data hiding. It can also provide an object oriented solution to the problem.</p>
-                                </li>
-                            </ul>
-                        </li>
+                        <li>An <b>iterator</b> is an object that manages an iteration through a series of values. If variable, i, identifies an iterator object, then each call to the built-in function, next(i), produces a subsequent element from the underlying series, with StopIteration exception raised to indicate that there are no further elements.</li>
+                        <li>Usage:<b> 1. abstract sequence; 2. save memory</b></li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Example</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def print_msg(msg):
-    def printer():
-        print(msg)
-    return printer
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+nums = itertools.count(0,2)
 
-another = print_msg("zen of python")
-print(another())
+print(next(nums))
+print(next(nums))
+print(next(nums))
+
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def make_multiplier_of(n):
-    def multiplier(x):
-        return x * n
-    return multiplier
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+0
+2
+4
 
-times3 = make_multiplier_of(3)
 
-times5 = make_multiplier_of(5)
-
-print(times3(9))
-
-print(times5(3))
-
-print(times5(times3(2)))
 </code></pre>
+                        </div>
                     </div>
-                </section>
-                <section>
-                    <h3>Decorator</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>Decorators are "wrappers", which means that they let you execute code before and after the function they decorate without modifying the function itself.</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-def new_decorator(a_function_to_decorate):
-    def the_wrapper():
-        <mark>print("Before the function runs")</mark> 
-        <mark>a_function_to_decorate()</mark>
-        <mark>print("After the function runs")</mark>
-    return the_wrapper
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
 
-def a_function():
-    print("I am a stand alone function.")
+nums = itertools.count(0,2)
+for i in nums:
+    if i > 6:
+        break
+    print(i)
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-a_function_decorated = new_decorator(a_function)
-a_function_decorated()
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+0
+2
+4
+6
+
+
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Before the function runs
-I am a stand alone function.
-After the function runs
-</code></pre>
+                        </div>
                     </div>
                 </section>
                 <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-@new_decorator
-def another_stand_alone_function():
-    print("Leave me alone")
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
 
-another_stand_alone_function()  
+cycle_strings = itertools.cycle('ABC')
+i = 1
+for string in cycle_strings:
+    if i == 7:
+        break
+    print(string)
+    i = i + 1
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Before the function runs
-Leave me alone
-After the function runs
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def bread(func):
-    def wrapper():
-        print("</''''''\>")
-        func()
-        print("<\______/>")
-    return wrapper
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+A
+B
+C
+A
+B
+C
 
-def ingredients(func):
-    def wrapper():
-        print("#tomatoes#")
-        func()
-        print("~salad~")
-    return wrapper
 
-def sandwich(food="--ham--"):
-    print(food)
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-sandwich()
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+for item in itertools.repeat('hello', 3):
+    print(item)
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+hello world
+hello world
+hello world
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+nums = itertools.repeat('hello', 3)
 
---ham--
+print(next(nums))
+print(next(nums))
+print(next(nums))
+print(next(nums))
 </code></pre>
+                        </div>
                     </div>
-                </section>
-                <section>
-                    <!--                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-sandwich = bread(ingredients(sandwich))
-sandwich()
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+hello
+hello
+hello
+Traceback (most recent call last):
+    print(next(nums))
+StopIteration
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-</''''''\>
- #tomatoes#
- --ham--
- ~salad~
-<\______/>
-</code></pre>
-                    </div> -->
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-@bread
-@ingredients # The order matters here.
-def sandwich(food="--ham--"):
-    print(food)
-
-sandwich()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-</''''''\>
- #tomatoes#
- --ham--
- ~salad~
-<\______/>
-</code></pre>
+                        </div>
                     </div>
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>Taking decorators to the next level</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Passing arguments to the decorated function</p>
+                            <p>The most convenient technique for creating iterators in Python is through the use of <b>Generators</b>.</p> A generator is implemented with a syntax that is very similar to a function, but instead of returning values, a <b>yield</b> statement is executed to indicate each element of the series.
                         </li>
                     </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def passing_arguments(function_to_decorate):
-    def wrapper(arg1, arg2):
-        print(f"I got args! Look: {arg1}, {arg2}")
-        function_to_decorate(arg1, arg2)
-    return wrapper
-
-@passing_arguments
-def print_name(first_name, last_name):
-    print(f"My name is {first_name}, {last_name}")
-
-print_name("Peter", "Venkman")
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def yrange(n):
+    i = 0
+    while i < n:
+        yield i
+        i = i + 1 
+o = yrange(5)
+print(next(o))
+print(next(o))
+print(next(o))
+print(next(o))
+print(next(o))
+print(next(o))
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-I got args! Look: Peter, Venkman
-My name is Peter, Venkman
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+0
+1
+2
+3
+4
+Traceback (most recent call last):
+  File "test.py", line 13, in &lt;module&gt;
+    print(next(o))
+StopIteration
+
+
 </code></pre>
+                        </div>
                     </div>
                 </section>
                 <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>If you're making general-purpose decorator--one you'll apply to any function or method, no matter its arguments--then just use *args, **kwargs:</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def passing_arbitrary_arguments(function_to_decorate):
-    def wrapper(*args, **kwargs):
-        print("Do I have args?:")
-        print(args)
-        print(kwargs)
-        function_to_decorate(*args, **kwargs)
-    return wrapper
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def yrange(n):
+    i = 0
+    while i < n:
+        yield i
+        i = i + 1 
 
-@passing_arbitrary_arguments
-def function_with_no_argument():
-    print("Python is cool, no argument here.")
+for x in yrange(5):
+    print(x)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+0
+1
+2
+3
+4
 
-function_with_no_argument()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Do I have args?:
-()
-{}
-Python is cool, no argument here.
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-@passing_arbitrary_arguments
-def function_with_arguments(a, b, c, d):
-    print(a, b, c, d)
 
-function_with_arguments(1,2,3,4)
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Do I have args?:
-(1, 2, 3, 4)
-{}
-1 2 3 4
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+g = (x * x for x in range(4)) 
+print(next(g))
+print(next(g))
+print(next(g))
+print(next(g))
+print(next(g))
+print(next(g))
 
-function_with_arguments(1,2,3,d = "banana")
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Do I have args?:
-(1, 2, 3)
-{'d': 'banana'}
-1 2 3 banana
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+0
+1
+4
+9
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+StopIteration
+
+
 </code></pre>
+                        </div>
                     </div>
-                    <ul>
-                        <li class="fragment">
-                            <p><a href="https://stackoverflow.com/questions/739654/how-to-make-a-chain-of-function-decorators/1594484#1594484">Decorator Basics</a></p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="../img/lecture9/rf.png" style="height: 500pt"></div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="../img/lecture9/de.png" style="height: 500pt"></div>
                 </section>
             </section>
             <section>
+
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.3 File</h2>
+                    <h2 style="color: white">11.1 File</h2>
                 </section>
                 <section>
                     <h3>Reading from a File</h3>
@@ -642,7 +391,7 @@ with open(filename) as file_object:
 
 pi_string = ''
 for line in lines:
-    pi_string = pi_string + line.rstrip()
+    pi_string += line.rstrip()
 print(pi_string)
 print(len(pi_string))
 </code></pre>
@@ -685,10 +434,7 @@ filename = 'programming.txt'
 with open(filename, 'w') as file_object:
     file_object.write("I love programming.")
     file_object.write("I love creating new games.")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+
 I love programming.I love creating new games.   
 </code></pre>
                     </div>
@@ -699,11 +445,6 @@ with open(filename, 'w') as file_object:
     file_object.write("I love programming.\n")
     file_object.write("I love creating new games.\n")
 
-
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
 I love programming.
 I love creating new games.
 </code></pre>
@@ -722,10 +463,7 @@ message.py
 with open(filename, 'a') as file_object:
     file_object.write("I also love finding meaning in large datasets.\n")
     file_object.write("I love creating apps that can run in a browser.\n")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+
 I love programming.
 I love creating new games.
 I also love finding meaning in large datasets.
@@ -804,11 +542,12 @@ Sorry, the file alice.txt does not exist.
                             <p>ZeroDivisionError</p>
                         </li>
                     </ul>
+                    
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">
-                            try-except-else
+                           try-except-else
                         </li>
                     </ul>
                     <div class="fragment">
@@ -830,7 +569,7 @@ else:
 </code></pre>
                     </div>
                 </section>
-                <!-- <section>
+                <section>
                     <ul>
                         <li class="fragment">
                             <p>Working with Multiple Files</p>
@@ -864,12 +603,12 @@ for filename in filenames:
     count_words(filename)
 </code></pre>
                     </div>
-                </section> -->
-                <!-- </section>
+                </section>
+            </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">11.2 Storing Data</h2>
-                </section> -->
+                </section>
                 <section>
                     <h3>JSON</h3>
                     <ul>
@@ -964,15 +703,355 @@ Welcome back, Eric!
 </code></pre>
                     </div>
                 </section>
+                <section>
+                    <h5>Organizing Files</h5>
+                    <ul>
+                        <li class="fragment">
+                            <p>Backslash on Windows and Forward Slash on OS X and Linux</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> import os
+>>> os.path.join('usr', 'bin', 'spam')
+'usr\\bin\\spam'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+myFiles = ['accounts.txt', 'details.csv', 'invite.docx']
+for filename in myFiles:
+    print(os.path.join('C:\\Users\\asweigart', filename))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+C:\Users\asweigart\accounts.txt
+C:\Users\asweigart\details.csv
+C:\Users\asweigart\invite.docx
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>The Current Working Directory</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> import os
+>>> os.getcwd()
+'C:\\Python34'
+>>> os.chdir('C:\\Windows\\System32')
+>>> os.getcwd()
+'C:\\Windows\\System32'
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Creating New Folders with os.makedirs()</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> import os
+>>> os.makedirs('C:\\delicious\\walnut\\waffles')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> os.listdir('C:\\Windows\\System32')
+['0409', '12520437.cpx', '12520850.cpx', '5U877.ax', 'aaclient.dll',
+--snip--
+'xwtpdui.dll', 'xwtpw32.dll', 'zh-CN', 'zh-HK', 'zh-TW', 'zipfldr.dll']
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">11.3 Test</h2>
+                </section>
+                <section>
+                    <h3>Testing your code</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>name_function.py</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def get_formatted_name(first, last):
+    full_name = first + ' ' + last
+    return full_name.title()
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Unit Tests and Test Cases</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import unittest
+from name_function import get_formatted_name
+
+class NamesTestCase(unittest.TestCase):
+    def test_first_last_name(self): # should start with test_
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+
+unittest.main()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+</code></pre>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def get_formatted_name(first, middle, last):
+    full_name = first + ' ' + middle + ' ' + last
+    return full_name.title()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="error" data-trim contenteditable>
+E
+======================================================================
+ERROR: test_first_last_name (__main__.NamesTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test.py", line 6, in test_first_last_name
+    formatted_name = get_formatted_name('janis', 'joplin')
+TypeError: get_formatted_name() missing 1 required positional argument: 'last'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def get_formatted_name(first, last, middle=''):
+    if middle:
+        full_name = first + ' ' + middle + ' ' + last
+    else:
+        full_name = first + ' ' + last
+    return full_name.title()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import unittest
+from name_function import get_formatted_name
+class NamesTestCase(unittest.TestCase):
+    def test_first_last_name(self):
+        formatted_name = get_formatted_name('janis', 'joplin')
+        self.assertEqual(formatted_name, 'Janis Joplin')
+    def test_first_last_middle_name(self):
+        formatted_name = get_formatted_name('wolfgang', 'mozart', 'amadeus')
+        self.assertEqual(formatted_name, 'Wolfgang Amadeus Mozart')
+
+unittest.main()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>A Variety of Assert Methods</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+assertEqual(a, b) # Verify that a == b
+assertNotEqual(a, b) # Verify that a != b
+assertTrue(x) # Verify that x is True
+assertFalse(x) # Verify that x is False
+assertIn(item, list) # Verify that item is in list
+assertNotIn(item, list) # Verify that item is not in list
+</code></pre>
+                    </div>
+                </section>
+                <section data-background-image="../bg.png">
+                    <h3>Testing a Class</h3>
+                    <div class='div-c'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class AnonymousSurvey():
+
+    def __init__(self, question):
+        self.question = question
+        self.responses = []
+
+    def show_question(self):
+        print(self.question)
+
+    def store_response(self, new_response):
+        self.responses.append(new_response)
+
+    def show_results(self):
+        print("Survey results:")
+        for response in self.responses:
+            print('- ' + response)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from survey import AnonymousSurvey
+
+question = "What language did you learn to speak?"
+my_survey = AnonymousSurvey(question)
+
+my_survey.show_question()
+print("Enter 'q' at any time to quit.\n")
+while True:
+    response = input("Language: ")
+    if response == 'q':
+        break
+    my_survey.store_response(response)
+
+print("\nThank you to everyone who 
+        participated in the survey!")
+my_survey.show_results()
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Testing the AnonymousSurvey Class</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import unittest
+from survey import AnonymousSurvey
+
+class TestAnonmyousSurvey(unittest.TestCase):
+
+    def test_store_single_response(self):
+        question = "What language did you first learn to speak?"
+        my_survey = AnonymousSurvey(question)
+        my_survey.store_response('English')
+        self.assertIn('English', my_survey.responses)
+
+unittest.main()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import unittest
+from survey import AnonymousSurvey
+
+class TestAnonymousSurvey(unittest.TestCase):
+    def test_store_single_response(self):
+--snip--
+
+    def test_store_three_responses(self):
+        question = "What language did you first learn to speak?"
+        my_survey = AnonymousSurvey(question)
+        responses = ['English', 'Spanish', 'Mandarin']
+        for response in responses:
+            my_survey.store_response(response)
+        for response in responses:
+            self.assertIn(response, my_survey.responses)
+
+unittest.main()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>setUp()</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import unittest
+from survey import AnonymousSurvey
+class TestAnonymousSurvey(unittest.TestCase):
+
+    def setUp(self):
+        question = "What language did you first learn to speak?"
+        self.my_survey = AnonymousSurvey(question)
+        self.responses = ['English', 'Spanish', 'Mandarin']
+
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers contenteditable>
+#continue
+    def test_store_single_response(self):
+        self.my_survey.store_response(self.responses[0])
+        self.assertIn(self.responses[0], self.my_survey.responses)
+
+    def test_store_three_responses(self):
+        for response in self.responses:
+            self.my_survey.store_response(response)
+        for response in self.responses:
+            self.assertIn(response, self.my_survey.responses)
+
+unittest.main()
+</code></pre>
+                    </div>
+                </section>
             </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
                     <ul>
-                        <li>Functions</li>
+                        <li>File, Test</li>
                         <ul>
-                            <li>Reading: Python for Everybody, Chapter 4</li>
-                            <li>Reading: Python Crash Course, Chapter 8</li>
+                            <li>Reading: Python Crash Course, Chapter 10, 11</li>
                         </ul>
                     </ul>
                 </section>

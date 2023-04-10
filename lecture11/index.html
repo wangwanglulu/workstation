@@ -25,800 +25,364 @@
             <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                 <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 11 File, Test</h3>
+                <h3 style="color: white">Lecture 11 Data Visualization</h3>
                 </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">11.1 File</h2>
-                </section>
-                <section>
-                    <h3>Reading from a File</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>pi_digits.txt</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-3.1415926535
-8979323846
-2643383279
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-with open('pi_digits.txt') as file_object:
-    contents = file_object.read() # string
-    print(contents.rstrip())
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <h3>File Path</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>relative path</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-with open('text_files/filename.txt') as file_object: # Linux or OSX
-    pass
-with open('text_files\filename.txt') as file_object: # Windows
-    pass
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>absolute path</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# Linux or OSX
-file_path = '/home/ehmatthes/other_files/text_files/filename.txt'
-with open(file_path) as file_object:
-    pass
-
-# Windows
-file_path = r'C:\Users\ehmatthes\other_files\text_files\filename.txt'
-with open(file_path) as file_object:
-    pass
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment"><b>Please add "r" if you use Windows.</b></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Reading Line by Line</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
-with open(filename) as file_object:
-    for line in file_object:
-        print(line)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-3.1415926535
-
-8979323846
-
-2643383279
-
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
-with open(filename) as file_object:
-    for line in file_object:
-        print(line.rstrip())
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-3.1415926535
-8979323846
-2643383279
-</code></pre>
-                    </div>
+                    <h2 style="color: white">11.1 Data Visualization </h2>
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>Making a List of Lines from a File</p>
+                            <p><a href="https://matplotlib.org/">The matplotlib Gallery</a></p>
+                            <p>Plotting a Simple Line Graph</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
+import matplotlib.pyplot as plt
 
-with open(filename) as file_object:
-    lines = file_object.readlines() #List
-
-for line in lines:
-    print(line.rstrip())
+squares = [1, 4, 9, 16, 25]
+plt.plot(squares)
+# plt.show()
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>Working with a File's Contents</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
-
-with open(filename) as file_object:
-    lines = file_object.readlines() # list read() works here
-
-pi_string = ''
-for line in lines:
-    pi_string += line.rstrip()
-print(pi_string)
-print(len(pi_string))
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-3.141592653589793238462643383279 # string
-32
-</code></pre>
-                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt1.jpg" style="height: 300pt"></div>
                 </section>
                 <section>
-                    <h3>Writing to a File</h3>
+                    <p>Changing the Label Type and Graph Thickness</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
+import matplotlib.pyplot as plt
+squares = [1, 4, 9, 16, 25]
+plt.plot(squares, linewidth=5)
 
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.")
+# Set chart title and label axes.
+plt.title("Square Numbers", fontsize=24)
+plt.xlabel("Value", fontsize=14)
+plt.ylabel("Square of Value", fontsize=14)
+
+# Set size of tick labels.
+plt.tick_params(axis='both', labelsize=14)
+plt.show()
 </code></pre>
                     </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>The second argument, 'w', tells Python that we want to open the file in write mode. You can open a file 198 Chapter 10 in read mode ('r'), write mode ('w'), append mode ('a'), or a mode that allows you to read and write to the file ('r+'). If you omit the mode argument, Python opens the file in read-only mode by default.</p>
-                        </li>
-                        <li class="fragment">
-                            <p><b>Python can only write strings to a text file. If you want to store numerical data in a text file, you'll have to convert the data to string format first using the str() function.</b></p>
-                        </li>
-                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture11/plt2.jpg" style="height: 250pt"></div>
                 </section>
                 <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Writing Multiple Lines</p>
-                        </li>
-                    </ul>
+                    <p>Correcting the Plot</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.")
-    file_object.write("I love creating new games.")
-
-I love programming.I love creating new games.   
+import matplotlib.pyplot as plt
+input_values = [1, 2, 3, 4, 5]
+squares = [1, 4, 9, 16, 25]
+plt.plot(input_values, squares, linewidth=5)
+plt.show()
 </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.\n")
-    file_object.write("I love creating new games.\n")
-
-I love programming.
-I love creating new games.
-</code></pre>
-                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt2x.jpg
+                        " style="height: 300pt"></div>
                 </section>
                 <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Appending to a File</p>
-                        </li>
-                    </ul>
+                    <p>Plotting and Styling Individual Points with scatter()</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
-message.py
-with open(filename, 'a') as file_object:
-    file_object.write("I also love finding meaning in large datasets.\n")
-    file_object.write("I love creating apps that can run in a browser.\n")
+import matplotlib.pyplot as plt
 
-I love programming.
-I love creating new games.
-I also love finding meaning in large datasets.
-I love creating apps that can run in a browser.
+plt.scatter(2, 4)
+plt.show()
 </code></pre>
                     </div>
-                </section>
-                <!--
-                <section>
-                    <h3>Exceptions</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print("Give me two numbers, and I'll divide them.")
-print("Enter 'q' to quit.")
-while True:
-    first_number = input("\nFirst number: ")
-    if first_number == 'q':
-        break
-    second_number = input("Second number: ")
-    try:
-        answer = int(first_number) / int(second_number)
-    except ZeroDivisionError:
-        print("You can't divide by 0!")
-    else:
-        print(answer)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Give me two numbers, and I'll divide them.
-Enter 'q' to quit.
+import matplotlib.pyplot as plt
+plt.scatter(2, 4, s=200)
 
-First number: 5
-Second number: 0
-You can't divide by 0!
+# Set chart title and label axes.
+plt.title("Square Numbers", fontsize=24)
+plt.xlabel("Value", fontsize=14)
+plt.ylabel("Square of Value", fontsize=14)
 
-First number: 5
-Second number: 2
-2.5
-First number: q
-</code></pre>
-                    </div>
-                </section>
-            -->
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Handling the FileNotFoundError Exception</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
-with open(filename) as f_obj:
-    contents = f_obj.read() #Error
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
-try:
-    with open(filename) as f_obj:
-        contents = f_obj.read()
-except FileNotFoundError:
-    msg = "Sorry, the file " + filename + " does not exist."
-    print(msg)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Sorry, the file alice.txt does not exist.
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>ZeroDivisionError</p>
-                        </li>
-                    </ul>
-                    
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                           try-except-else
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
-try:
-    with open(filename) as f_obj:
-        contents = f_obj.read()
-except FileNotFoundError:
-    msg = "Sorry, the file " + filename + " does not exist."
-    print(msg)
-
-else:
-# Count the approximate number of words in the file.
-    words = contents.split()
-    num_words = len(words)
-    print("The file " + filename 
-    + " has about " + str(num_words) + " words.")
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Working with Multiple Files</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def count_words(filename):
-    """Count the approximate number of words in a file."""
-    try:
-        with open(filename) as f_obj:
-            contents = f_obj.read()
-    except FileNotFoundError:
-        msg = "Sorry, the file " + filename + " does not exist."
-        print(msg)
-    else:
-    # Count approximate number of words in the file.
-    words = contents.split()
-    num_words = len(words)
-    print("The file " + filename + " has about " 
-        + str(num_words) +" words.")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
-count_words(filename)
-
-filenames = ['alice.txt', 'siddhartha.txt', 'moby_dick.txt', 'little_women.txt']
-for filename in filenames:
-    count_words(filename)
-</code></pre>
-                    </div>
-                </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">11.2 Storing Data</h2>
-                </section>
-                <section>
-                    <h3>JSON</h3>
-                    <ul>
-                        <li class="fragment">JSON (JavaScript Object Notation, pronounced /ˈdʒeɪsən/; also /ˈdʒeɪˌsɒn/) is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays (or other serializable values). It is a common data format with diverse uses in electronic data interchange, including that of web applications with servers.</li>
-                        <li class="fragment">JSON is a <b>language-independent</b> data format. It was derived from JavaScript, but many modern programming languages include code to generate and parse JSON-format data. JSON filenames use the extension .json.</li>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>dump and load</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
-
-numbers = [2, 3, 5, 7, 11, 13]
-filename = 'numbers.json'
-with open(filename, 'w') as f_obj:
-    json.dump(numbers, f_obj)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
-
-filename = 'numbers.json'
-with open(filename) as f_obj:
-    numbers = json.load(f_obj)
-print(numbers)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-[2, 3, 5, 7, 11, 13]
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Saving and Reading User-Generated Data</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
-
-username = input("What is your name? ")
-filename = 'username.json'
-with open(filename, 'w') as f_obj:
-    json.dump(username, f_obj)
-    print("We'll remember you when you come back, " + username + "!")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
-filename = 'username.json'
-with open(filename) as f_obj:
-    username = json.load(f_obj)
-    print("Welcome back, " + username + "!")
+# Set size of tick labels.
+plt.tick_params(axis='both', which='major', labelsize=14)
+plt.show()
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
+import matplotlib.pyplot as plt
 
-filename = 'username.json'
-try:
-    with open(filename) as f_obj:
-        username = json.load(f_obj)
-except FileNotFoundError:
-    username = input("What is your name? ")
-    with open(filename, 'w') as f_obj:
-        json.dump(username, f_obj)
-        print("We'll remember you when you come back, " + username + "!")
-else:
-    print("Welcome back, " + username + "!")
+x_values = [1, 2, 3, 4, 5]
+y_values = [1, 4, 9, 16, 25]
+plt.scatter(x_values, y_values, s=100)
+plt.show()
 </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-What is your name? Eric #First time
-We'll remember you when you come back, Eric!
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-Welcome back, Eric!
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <h5>Organizing Files</h5>
-                    <ul>
-                        <li class="fragment">
-                            <p>Backslash on Windows and Forward Slash on OS X and Linux</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> import os
->>> os.path.join('usr', 'bin', 'spam')
-'usr\\bin\\spam'
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-myFiles = ['accounts.txt', 'details.csv', 'invite.docx']
-for filename in myFiles:
-    print(os.path.join('C:\\Users\\asweigart', filename))
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-C:\Users\asweigart\accounts.txt
-C:\Users\asweigart\details.csv
-C:\Users\asweigart\invite.docx
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>The Current Working Directory</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> import os
->>> os.getcwd()
-'C:\\Python34'
->>> os.chdir('C:\\Windows\\System32')
->>> os.getcwd()
-'C:\\Windows\\System32'
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>Creating New Folders with os.makedirs()</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> import os
->>> os.makedirs('C:\\delicious\\walnut\\waffles')
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> os.listdir('C:\\Windows\\System32')
-['0409', '12520437.cpx', '12520850.cpx', '5U877.ax', 'aaclient.dll',
---snip--
-'xwtpdui.dll', 'xwtpw32.dll', 'zh-CN', 'zh-HK', 'zh-TW', 'zipfldr.dll']
-</code></pre>
-                    </div>
-                </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">11.3 Test</h2>
-                </section>
-                <section>
-                    <h3>Testing your code</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>name_function.py</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def get_formatted_name(first, last):
-    full_name = first + ' ' + last
-    return full_name.title()
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>Unit Tests and Test Cases</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import unittest
-from name_function import get_formatted_name
-
-class NamesTestCase(unittest.TestCase):
-    def test_first_last_name(self): # should start with test_
-        formatted_name = get_formatted_name('janis', 'joplin')
-        self.assertEqual(formatted_name, 'Janis Joplin')
-
-unittest.main()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-.
-----------------------------------------------------------------------
-Ran 1 test in 0.000s
-
-OK
-
-</code></pre>
+                    <div class="fragment"><img data-src="../img/lecture11/plt3.jpg" style="height: 300pt"></div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def get_formatted_name(first, middle, last):
-    full_name = first + ' ' + middle + ' ' + last
-    return full_name.title()
+import matplotlib.pyplot as plt
+
+x_values = list(range(1, 1001))
+y_values = [x**2 for x in x_values]
+plt.scatter(x_values, y_values, s=40)
+
+# Set the range for each axis.
+plt.axis([0, 1100, 0, 1100000])
+plt.show()
 </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="error" data-trim contenteditable>
-E
-======================================================================
-ERROR: test_first_last_name (__main__.NamesTestCase)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "test.py", line 6, in test_first_last_name
-    formatted_name = get_formatted_name('janis', 'joplin')
-TypeError: get_formatted_name() missing 1 required positional argument: 'last'
-
-----------------------------------------------------------------------
-Ran 1 test in 0.000s
-
-FAILED (errors=1)
-</code></pre>
-                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt4.jpg" style="height: 300pt"></div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def get_formatted_name(first, last, middle=''):
-    if middle:
-        full_name = first + ' ' + middle + ' ' + last
-    else:
-        full_name = first + ' ' + last
-    return full_name.title()
+plt.scatter(x_values, y_values, edgecolor='none', s=40)
+plt.scatter(x_values, y_values, color='red', edgecolor='none', s=40)
+plt.scatter(x_values, y_values, color=(0, 0.8, 0), edgecolor='none', s=40) #RGB
 </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-.
-----------------------------------------------------------------------
-Ran 1 test in 0.000s
-
-OK
-</code></pre>
-                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt5.jpg" style="height: 300pt"></div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import unittest
-from name_function import get_formatted_name
-class NamesTestCase(unittest.TestCase):
-    def test_first_last_name(self):
-        formatted_name = get_formatted_name('janis', 'joplin')
-        self.assertEqual(formatted_name, 'Janis Joplin')
-    def test_first_last_middle_name(self):
-        formatted_name = get_formatted_name('wolfgang', 'mozart', 'amadeus')
-        self.assertEqual(formatted_name, 'Wolfgang Amadeus Mozart')
+import matplotlib.pyplot as plt
 
-unittest.main()
+x_values = list(range(1001))
+y_values = [x**2 for x in x_values]
+plt.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues,
+edgecolor='none', s=40)
+
+plt.show()
 </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-..
-----------------------------------------------------------------------
-Ran 2 tests in 0.000s
-
-OK
-</code></pre>
-                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt6.jpg" style="height: 300pt"></div>
                 </section>
                 <section>
-                    <h3>A Variety of Assert Methods</h3>
+                    <p>Random Walks</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-assertEqual(a, b) # Verify that a == b
-assertNotEqual(a, b) # Verify that a != b
-assertTrue(x) # Verify that x is True
-assertFalse(x) # Verify that x is False
-assertIn(item, list) # Verify that item is in list
-assertNotIn(item, list) # Verify that item is not in list
+from random import choice
+class RandomWalk():
+    def __init__(self, num_points=5000):
+        self.num_points = num_points
+        self.x_values = [0]
+        self.y_values = [0]
 </code></pre>
                     </div>
-                </section>
-                <section data-background-image="../bg.png">
-                    <h3>Testing a Class</h3>
-                    <div class='div-c'>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-class AnonymousSurvey():
-
-    def __init__(self, question):
-        self.question = question
-        self.responses = []
-
-    def show_question(self):
-        print(self.question)
-
-    def store_response(self, new_response):
-        self.responses.append(new_response)
-
-    def show_results(self):
-        print("Survey results:")
-        for response in self.responses:
-            print('- ' + response)
-</code></pre>
-                        </div>
-                    </div>
-                    <div class='div-d'>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-from survey import AnonymousSurvey
-
-question = "What language did you learn to speak?"
-my_survey = AnonymousSurvey(question)
-
-my_survey.show_question()
-print("Enter 'q' at any time to quit.\n")
-while True:
-    response = input("Language: ")
-    if response == 'q':
-        break
-    my_survey.store_response(response)
-
-print("\nThank you to everyone who 
-        participated in the survey!")
-my_survey.show_results()
-</code></pre>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <h3>Testing the AnonymousSurvey Class</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import unittest
-from survey import AnonymousSurvey
-
-class TestAnonmyousSurvey(unittest.TestCase):
-
-    def test_store_single_response(self):
-        question = "What language did you first learn to speak?"
-        my_survey = AnonymousSurvey(question)
-        my_survey.store_response('English')
-        self.assertIn('English', my_survey.responses)
-
-unittest.main()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-.
-----------------------------------------------------------------------
-Ran 1 test in 0.001s
-
-OK
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import unittest
-from survey import AnonymousSurvey
-
-class TestAnonymousSurvey(unittest.TestCase):
-    def test_store_single_response(self):
---snip--
-
-    def test_store_three_responses(self):
-        question = "What language did you first learn to speak?"
-        my_survey = AnonymousSurvey(question)
-        responses = ['English', 'Spanish', 'Mandarin']
-        for response in responses:
-            my_survey.store_response(response)
-        for response in responses:
-            self.assertIn(response, my_survey.responses)
-
-unittest.main()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-..
-----------------------------------------------------------------------
-Ran 2 tests in 0.000s
-
-OK
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>setUp()</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import unittest
-from survey import AnonymousSurvey
-class TestAnonymousSurvey(unittest.TestCase):
-
-    def setUp(self):
-        question = "What language did you first learn to speak?"
-        self.my_survey = AnonymousSurvey(question)
-        self.responses = ['English', 'Spanish', 'Mandarin']
-
-</code></pre>
-                    </div>
-                                        <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers contenteditable>
 #continue
-    def test_store_single_response(self):
-        self.my_survey.store_response(self.responses[0])
-        self.assertIn(self.responses[0], self.my_survey.responses)
+    def fill_walk(self):
+        while len(self.x_values) < self.num_points:
+            x_direction = choice([1, -1])
+            x_distance = choice([0, 1, 2, 3, 4])
+            x_step = x_direction * x_distance
+            y_direction = choice([1, -1])
+            y_distance = choice([0, 1, 2, 3, 4])
+            y_step = y_direction * y_distance
 
-    def test_store_three_responses(self):
-        for response in self.responses:
-            self.my_survey.store_response(response)
-        for response in self.responses:
-            self.assertIn(response, self.my_survey.responses)
+            if x_step == 0 and y_step == 0:
+                continue
 
-unittest.main()
+            next_x = self.x_values[-1] + x_step
+            next_y = self.y_values[-1] + y_step
+            self.x_values.append(next_x)
+            self.y_values.append(next_y)
 </code></pre>
                     </div>
                 </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+rw = RandomWalk()
+rw.fill_walk()
+plt.scatter(rw.x_values, rw.y_values, s=1)
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt7.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Generating Multiple Random Walks</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+while True:
+    rw = RandomWalk()
+    rw.fill_walk()
+    fig, ax = plt.subplots()
+    ax.scatter(rw.x_values, rw.y_values, s=15)
+    plt.show()
+
+    keep_running = input("Make another walk? (y/n): ")
+    if keep_running == 'n':
+        break
+</code></pre>
+                    </div>
+                    <p class="fragment">Styling the Walk</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+point_numbers = list(range(rw.num_points))
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
+    edgecolor='none', s=15)
+ax.show()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+    rw = RandomWalk(50000)
+
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt8.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h3>Rolling Dice with Plotly</h3>
+                    <p class="fragment">In Anaconda Prompt</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip install plotly
+</code></pre>
+                    </div>
+                    <p class="fragment">die.py</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from random import randint
+class Die():
+
+    def __init__(self, num_sides=6):
+        self.num_sides = num_sides
+    def roll(self):
+        return randint(1, self.num_sides)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+die = Die()
+results = []
+for roll_num in range(100):
+    result = die.roll()
+    results.append(result)
+print(results)
+
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+[3, 4, 1, 3, 4, 3, 4, 6, 4, 4, 1, 3, 6, 5, 2, 6, 2, 5, 4, 3, 5, 4, 2, 4, 3, 1, 2, 6, 6,
+ 2, 3, 2, 1, 6, 6, 4, 3, 2, 3, 5, 2, 4, 3, 6, 3, 2, 1, 3, 2, 1, 4, 6, 6, 3, 3, 3, 2, 2,
+  6, 3, 1, 6, 3, 4, 2, 6, 4, 6, 6, 3, 5, 5, 5, 5, 5, 3, 3, 1, 3, 2, 4, 2, 3, 1, 1, 4, 4,
+   2, 4, 2, 5, 2, 6, 2, 5, 6, 2, 2, 6, 5]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Analyzing the Results</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for roll_num in range(1000):
+    result = die.roll()
+    results.append(result)
+
+frequencies = []
+for value in range(1, die.num_sides+1):
+    frequency = results.count(value)
+    frequencies.append(frequency)
+print(frequencies)
+#[177, 187, 185, 187, 185, 179]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
+
+# Visualize the results.
+x_values=list(range(1,die.num_sides+1))
+data=[Bar(x=x_values,y=frequencies)]
+
+x_axis_config={'title': 'result'}
+y_axis_config={'title': 'frequencies'}
+my_layout=Layout(title='Rolling one D6 1000 times',
+                xaxis=x_axis_config, yaxis=y_axis_config)
+offline.plot({'data':data,'layout':my_layout},filename='d6.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="d6.html" target="_blank">Rolling one D6 1000 times</a>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
+from die import Die
+# Create two D6 dice.
+die_1 = Die()
+die_2 = Die()
+# Make some rolls, and store results in a list.
+results = []
+for roll_num in range(1000):
+    result = die_1.roll() + die_2.roll()
+    results.append(result)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Analyze the results.
+frequencies = []
+max_result = die_1.num_sides + die_2.num_sides
+
+for value in range(2, max_result+1):
+    frequency = results.count(value)
+    frequencies.append(frequency)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Visualize the results.
+x_values=list(range(2,max_result+1))
+data=[Bar(x=x_values,y=frequencies)]
+
+x_axis_config={'title': 'result', 'dtick':1}
+y_axis_config={'title': 'frequencies'}
+my_layout=Layout(title='Rolling two D6 dice 1000 times',
+                xaxis=x_axis_config, yaxis=y_axis_config)
+offline.plot({'data':data,'layout':my_layout},filename='d6_d6.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="d6_d6.html" target="_blank">Rolling two D6 dice 1000 times</a>
+                </section>
             </section>
+            
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
                     <ul>
-                        <li>File, Test</li>
+                        <li>Data Visualization</li>
                         <ul>
-                            <li>Reading: Python Crash Course, Chapter 10, 11</li>
+                            <li>Reading: Python Crash Course, Chapter 15</li>
                         </ul>
                     </ul>
                 </section>
