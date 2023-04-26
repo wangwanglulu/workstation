@@ -1,7 +1,8 @@
-filename = 'alice.txt'
-try:
-    with open(filename) as f_obj:
-        contents = f_obj.read()
-except FileNotFoundError:
-    msg = f"Sorry, the file {filename} does not exist."
-    print(msg)
+filename = 'programming.txt'
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.\n")
+    file_object.write("I love creating new games.\n")
+
+
+with open(filename, 'a') as file_object:
+    file_object.write("I love")

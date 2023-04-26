@@ -143,12 +143,13 @@ your_dog = Dog('lucy', 3)
                         </div>
                     </div>
                 </section>
-                <section>
+                <section data-background-image="../bg.png">
                     <ul>
                         <li class="fragment">
                             <p>Working with Classes and Instances</p>
                         </li>
                     </ul>
+                    <div class='div-c'>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 class Car():
@@ -159,16 +160,18 @@ class Car():
         self.odometer_reading = 0
 
     def get_descriptive_name(self):
-        long_name="{} {} {}".format(self.year,\
-        self.make,self.model)
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
         return long_name.title()
 
     def read_odometer(self):
-        print("This car has " 
-            + str(self.odometer_reading) 
-            + " miles on it.")
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
 </code></pre>
                     </div>
+                    </div>
+                    <div class='div-d'>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 my_new_car = Car('audi', 'a4', 2016)
@@ -181,7 +184,7 @@ my_new_car.read_odometer()
 2016 Audi A4
 This car has 0 miles on it.
 </code></pre>
-                    </div>
+                    </div></div>
                 </section>
                 <section data-background-image="../bg.png">
                     <div class='div-c'>
@@ -200,9 +203,9 @@ class Car():
         self.odometer_reading = 0
 
     def read_odometer(self):
-        print("This car has " 
-            + str(self.odometer_reading) 
-            + " miles on it.")
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
 </code></pre>
                         </div>
                     </div>
@@ -243,9 +246,9 @@ class Car():
         self.odometer_reading = 0
 
     def read_odometer(self):
-        print("This car has " 
-            + str(self.odometer_reading) 
-            + " miles on it.")
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
 
     def update_odometer(self, mileage):
         self.odometer_reading = mileage
@@ -295,15 +298,16 @@ class Car():
         self.odometer_reading = 0
 
     def read_odometer(self):
-        print("This car has " 
-            + str(self.odometer_reading) 
-            + " miles on it.")
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
 
     def update_odometer(self, mileage):
         self.odometer_reading = mileage
 
     def increment_odometer(self, miles):
-        self.odometer_reading += miles
+        self.odometer_reading \
+        = self.odometer_reading + miles
 </code></pre>
                         </div>
                     </div>
@@ -369,9 +373,10 @@ class Car():
         self.model = model
         self.year = year
         self.odometer_reading = 0
+
     def get_descriptive_name(self):
-        long_name="{} {} {}".format(self.year,\
-        self.make,self.model)
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
         return long_name.title()
 </code></pre>
                         </div>
@@ -413,9 +418,10 @@ class Car():
         self.model = model
         self.year = year
         self.odometer_reading = 0
+
     def get_descriptive_name(self):
-        long_name="{} {} {}".format(self.year,\
-        self.make,self.model)
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
         return long_name.title()
 </code></pre>
                         </div>
@@ -427,9 +433,9 @@ class ElectricCar(Car):
     def __init__(self, make, model, year):
         super().__init__(make, model, year)
         self.battery_size = 70
+
     def describe_battery(self):
-        print(str(self.battery_size)
-        +"-kWh battery.")
+        print(f"{self.battery_size}-kWh battery.")
 </code></pre>
                         </div>
                         <div class="fragment">
@@ -462,9 +468,10 @@ class Car():
         self.model = model
         self.year = year
         self.odometer_reading = 0
+
     def get_descriptive_name(self):
-        long_name="{} {} {}".format(self.year,\
-        self.make,self.model)
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
         return long_name.title()
 </code></pre>
                         </div>
@@ -478,11 +485,10 @@ class ElectricCar(Car):
         self.battery_size = 70
 
     def describe_battery(self):
-        print(str(self.battery_size)
-            +"-kWh battery.")
+        print(f"{self.battery_size}-kWh battery.")
 
     def get_descriptive_name(self):
-        long_name = str(self.year)+' '+self.make
+        long_name=f"{self.year} {self.make}"
         return long_name.title()
 </code></pre>
                         </div>
@@ -709,14 +715,14 @@ print(issubclass(Child,Person))      # True
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-stuff = list()
+stuff = []
 stuff.append('python')
 stuff.append('chuck')
 stuff.sort()
 
-print (stuff[0])
-print (stuff.__getitem__(0))
-print (list.__getitem__(stuff,0))
+print(stuff[0])
+print(stuff.__getitem__(0))
+print(list.__getitem__(stuff,0))
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -743,7 +749,7 @@ class Dog():
         self.name = name
         self.age = age
     def __str__(self):
-        return "Dog's name is {}.".format(self.name)
+        return f"Dog's name is {self.name}."
 
 
 my_dog = Dog('willie', 6)
