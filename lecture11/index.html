@@ -44,7 +44,8 @@
 import matplotlib.pyplot as plt
 
 squares = [1, 4, 9, 16, 25]
-plt.plot(squares)
+fig, ax= plt.subplots()
+ax.plot(squares)
 # plt.show()
 plt.savefig('simple.jpg',dpi=300)
 </code></pre>
@@ -57,16 +58,18 @@ plt.savefig('simple.jpg',dpi=300)
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
 squares = [1, 4, 9, 16, 25]
-plt.plot(squares, linewidth=5)
+
+fig, ax= plt.subplots()
+ax.plot(squares, linewidth=5)
 
 # Set chart title and label axes.
-plt.title("Square Numbers", fontsize=24)
-plt.xlabel("Value", fontsize=14)
-plt.ylabel("Square of Value", fontsize=14)
+ax.set_title("Square Numbers", fontsize=24)
+ax.set_xlabel("Value", fontsize=14)
+ax.set_ylabel("Square of Value", fontsize=14)
 
 # Set size of tick labels.
-plt.tick_params(axis='both', labelsize=14)
-plt.show()
+ax.tick_params(axis='both', labelsize=14)
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt2.jpg" style="height: 250pt"></div>
@@ -78,8 +81,10 @@ plt.show()
 import matplotlib.pyplot as plt
 input_values = [1, 2, 3, 4, 5]
 squares = [1, 4, 9, 16, 25]
-plt.plot(input_values, squares, linewidth=5)
-plt.show()
+fig, ax= plt.subplots()
+
+ax.plot(input_values, squares, linewidth=5)
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt2x.jpg
@@ -91,23 +96,28 @@ plt.show()
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
 
-plt.scatter(2, 4)
-plt.show()
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(2, 4)
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
-plt.scatter(2, 4, s=200)
+
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(2, 4, s=200)
 
 # Set chart title and label axes.
-plt.title("Square Numbers", fontsize=24)
-plt.xlabel("Value", fontsize=14)
-plt.ylabel("Square of Value", fontsize=14)
+ax.set_title("Square Numbers", fontsize=24)
+ax.set_xlabel("Value", fontsize=14)
+ax.set_ylabel("Square of Value", fontsize=14)
 
 # Set size of tick labels.
-plt.tick_params(axis='both', which='major', labelsize=14)
-plt.show()
+ax.tick_params(axis='both', which='major', labelsize=14)
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section>
@@ -118,8 +128,11 @@ import matplotlib.pyplot as plt
 
 x_values = [1, 2, 3, 4, 5]
 y_values = [1, 4, 9, 16, 25]
-plt.scatter(x_values, y_values, s=100)
-plt.show()
+
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(x_values, y_values, s=100)
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt3.jpg" style="height: 300pt"></div>
@@ -131,11 +144,14 @@ import matplotlib.pyplot as plt
 
 x_values = list(range(1, 1001))
 y_values = [x**2 for x in x_values]
-plt.scatter(x_values, y_values, s=40)
+
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(x_values, y_values, s=40)
 
 # Set the range for each axis.
-plt.axis([0, 1100, 0, 1100000])
-plt.show()
+ax.axis([0, 1100, 0, 1100000])
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt4.jpg" style="height: 300pt"></div>
@@ -143,9 +159,8 @@ plt.show()
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-plt.scatter(x_values, y_values, edgecolor='none', s=40)
-plt.scatter(x_values, y_values, color='red', edgecolor='none', s=40)
-plt.scatter(x_values, y_values, color=(0, 0.8, 0), edgecolor='none', s=40) #RGB
+ax.scatter(x_values, y_values, color='red', s=10)
+ax.scatter(x_values, y_values, color=(0, 0.8, 0), s=10) #RGB
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt5.jpg" style="height: 300pt"></div>
@@ -155,12 +170,13 @@ plt.scatter(x_values, y_values, color=(0, 0.8, 0), edgecolor='none', s=40) #RGB
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
 
-x_values = list(range(1001))
+x_values = range(1001)
 y_values = [x**2 for x in x_values]
-plt.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues,
-edgecolor='none', s=40)
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues,s=10)
 
-plt.show()
+plt.savefig('simple.jpg',dpi=300, bbox_inches='tight')
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt6.jpg" style="height: 300pt"></div>
@@ -185,6 +201,7 @@ class RandomWalk():
             x_direction = choice([1, -1])
             x_distance = choice([0, 1, 2, 3, 4])
             x_step = x_direction * x_distance
+
             y_direction = choice([1, -1])
             y_distance = choice([0, 1, 2, 3, 4])
             y_step = y_direction * y_distance
@@ -206,8 +223,13 @@ import matplotlib.pyplot as plt
 
 rw = RandomWalk()
 rw.fill_walk()
-plt.scatter(rw.x_values, rw.y_values, s=1)
-plt.show()
+
+plt.style.use('classic')
+fig, ax= plt.subplots()
+
+
+ax.scatter(rw.x_values, rw.y_values, s=1)
+
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt7.png" style="height: 300pt"></div>
@@ -221,6 +243,8 @@ import matplotlib.pyplot as plt
 while True:
     rw = RandomWalk()
     rw.fill_walk()
+
+    plt.style.use('classic')
     fig, ax = plt.subplots()
     ax.scatter(rw.x_values, rw.y_values, s=15)
     plt.show()
@@ -233,20 +257,20 @@ while True:
                     <p class="fragment">Styling the Walk</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-point_numbers = list(range(rw.num_points))
+point_numbers = range(rw.num_points)
 ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
     edgecolor='none', s=15)
-ax.show()
+plt.show()
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-    rw = RandomWalk(50000)
+rw = RandomWalk(50000)
 
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
+ax.get_xaxis().set_visible(False)
+ax.get_yaxis().set_visible(False)
 
 </code></pre>
                     </div>
@@ -309,7 +333,7 @@ for value in range(1, die.num_sides+1):
     frequency = results.count(value)
     frequencies.append(frequency)
 print(frequencies)
-#[177, 187, 185, 187, 185, 179]
+#[155, 167, 168, 170, 159, 181]
 </code></pre>
                     </div>
                     <div class="fragment">
