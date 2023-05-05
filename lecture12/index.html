@@ -1,0 +1,561 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 12</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <!-- <link rel="stylesheet" href="../img/tinyfont.css"> -->
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+                       <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 12 Downloading Data</h3>
+                </div>
+            </section>
+            
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.1 Downloading Data (1)</h2>
+                </section>
+                <section>
+                    <p><b>.CSV</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import csv
+
+filename = 'sitka_weather_07-2018_simple.csv' 
+with open(filename) as f:
+    reader = csv.reader(f) #iterator
+    header_row = next(reader)
+    print(header_row)
+
+    for index, column_header in enumerate(header_row): #enumerate
+        print(index, column_header)
+        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['STATION', 'NAME', 'DATE', 'PRCP', 'TAVG', 'TMAX', 'TMIN']
+0 STATION
+1 NAME
+2 DATE
+3 PRCP
+4 TAVG
+5 TMAX
+6 TMIN
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Extracting and Reading Data</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import csv
+
+filename = 'sitka_weather_07-2018_simple.csv' 
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    print(header_row)
+
+    for index, column_header in enumerate(header_row):
+        print(index, column_header)
+
+    highs = []
+    for row in reader:
+        high = int(row[5])
+        highs.append(high)
+
+    print(highs)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+[62, 58, 70, 70, 67, 59, 58, 62, 66, 59, 56, 63, 65, 58, 56, 59, 64, 60, 
+60, 61, 65, 65, 63, 59, 64, 65, 68, 66, 64, 67, 65]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+from matplotlib import pyplot as plt
+
+# Plot the high temperatures.
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(highs, c='red')
+
+# Format plot.
+ax.set_title("Daily high temperatures - 2018-7", fontsize=24)
+ax.set_xlabel('', fontsize=16)
+ax.set_ylabel("Temperature (F)", fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+plt.show()
+# fig.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture12/plt11.jpg" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <p>The datetime Module</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+from datetime import datetime
+first_date = datetime.strptime('2018-7-1', '%Y-%m-%d') 
+print(type(first_date))
+print(first_date.strftime('%B %d %Y'))
+print(first_date)
+
+&lt;class 'datetime.datetime'&gt;
+July 01 2018
+2018-07-01 00:00:00
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+%A Weekday name, such as Monday
+%B Month name, such as January
+%m Month, as a number (01 to 12)
+%d Day of the month, as a number (01 to 31) 
+%Y Four-digit year, such as 2015
+%y Two-digit year, such as 15
+%H Hour, in 24-hour format (00 to 23)
+%I Hour, in 12-hour format (01 to 12)
+%p am or pm
+%M Minutes (00 to 59) %S Seconds (00 to 61)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
+
+filename = 'sitka_weather_07-2018_simple.csv'
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader) 
+    dates, highs= [], [] 
+    for row in reader:
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        dates.append(current_date)
+        high = int(row[5])
+        highs.append(high)
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(dates, highs, c='red')
+</code></pre>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# Format plot.
+ax.set_title("Daily high temperatures - 2018-7", fontsize=24)
+ax.set_xlabel('', fontsize=16)
+<mark>fig.autofmt_xdate()</mark>
+ax.set_ylabel("Temperature (F)", fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+plt.show()
+</code></pre>
+                        </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/plt9.jpg
+                        " style="height: 400pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
+
+<mark>filename = 'sitka_weather_2018_simple.csv'</mark>
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    
+    <mark>dates, highs, lows= [], [], []</mark> 
+    for row in reader:
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        dates.append(current_date)
+        high = int(row[5])
+        highs.append(high)
+        <mark>low = int(row[6])</mark>
+        <mark>lows.append(low)</mark>
+        </code></pre>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# Plot data.
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(dates, highs, c='red', alpha=0.5)
+ax.plot(dates, lows, c='blue', alpha=0.5)
+ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+
+# Format plot.
+ax.set_title("Daily high temperatures - 2018", fontsize=24)
+ax.set_xlabel('', fontsize=16)
+fig.autofmt_xdate()
+ax.set_ylabel("Temperature (F)", fontsize=16)
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture12/plt12.jpg" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import csv
+from datetime import datetime
+from matplotlib import pyplot as plt
+
+filename = 'death_valley_2018_simple.csv'
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    dates, highs, lows = [], [], []
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+# continue   
+    for row in reader:
+        try:
+            current_date = datetime.strptime(row[2], "%Y-%m-%d")
+            high = int(row[4])
+            low = int(row[5])
+        except ValueError:
+            print(current_date, 'missing data')
+        else:
+            dates.append(current_date)
+            highs.append(high)
+            lows.append(low)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>  
+# Plot data.
+#--snip--
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/plt10.jpg" style="height: 400pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.2 Downloading Data (2)</h2>
+                </section>
+                <section>
+                    <p><b>.JSON</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import json
+
+filename = 'btc_close_2017.json'
+with open(filename) as f:
+    btc_data = json.load(f)  
+
+for btc_dict in btc_data:
+    date = btc_dict['date']
+    month = int(btc_dict['month'])
+    week = int(btc_dict['week'])
+    weekday = btc_dict['weekday']
+    close = int(float(btc_dict['close']))  
+    print("{} is month {} week {}, {}, the close price is {} RMB".format(
+        date, month, week, weekday, close))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-line-numbers data-trim contenteditable data-noescape>
+2017-01-01 is month 1 week 52, Sunday, the close price is 6928 RMB
+2017-01-02 is month 1 week 1, Monday, the close price is 7070 RMB
+2017-01-03 is month 1 week 1, Tuesday, the close price is 7175 RMB
+2017-01-04 is month 1 week 1, Wednesday, the close price is 7835 RMB
+2017-01-05 is month 1 week 1, Thursday, the close price is 6928 RMB
+...
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import json
+
+filename = 'btc_close_2017.json'
+with open(filename) as f:
+    btc_data = json.load(f)  
+
+date=[]; close=[]; months=[]
+
+for btc_dict in btc_data:
+    date.append(btc_dict['date'])
+    months.append(int(btc_dict['month']))
+    close.append(int(float(btc_dict['close'])))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.sans-serif'] = ['SimHei']
+#plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+plt.style.use('ggplot')
+plt.plot(close, linewidth=0.5)
+plt.scatter(date,close, s=5)
+plt.xticks(date[::20],rotation=45,fontsize=6)
+plt.title('收盘价',fontsize=10)
+plt.tight_layout()
+plt.savefig('收盘价折线图.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/收盘价折线图.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import matplotlib.pyplot as plt
+import math
+
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.style.use('ggplot')
+close_log = [math.log10(xx) for xx in close]
+plt.plot(close_log, linewidth=0.5)
+plt.scatter(date,close_log, s=5)
+plt.xticks(date[::20],rotation=45,fontsize=6)
+plt.title('收盘价',fontsize=10)
+plt.tight_layout()
+plt.savefig('收盘价对数变换折线图.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/收盘价对数变换折线图.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <p class="fragment"><b>groupby()</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+
+for key, value_iter in groupby('aaabbbaaccd'):
+    print(key, ':', list(value_iter))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable data-noescape>
+a : ['a', 'a', 'a']
+b : ['b', 'b', 'b']
+a : ['a', 'a']
+c : ['c', 'c']
+d : ['d']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+
+data = ['a', 'bb', 'ccc', 'dd', 'eee', 'f']
+for key, value_iter in groupby(data, len):  
+    print(key, ':', list(value_iter))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable data-noescape>
+1 : ['a']
+2 : ['bb']
+3 : ['ccc']
+2 : ['dd']
+3 : ['eee']
+1 : ['f']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+data = ['a', 'bb', 'cc', 'ddd', 'eee', 'f']
+for key, value_iter in groupby(data, len):  
+    print(key, ':', list(value_iter))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable data-noescape>
+1 : ['a']
+2 : ['bb', 'cc']
+3 : ['ddd', 'eee']
+1 : ['f']
+</code></pre>
+                    </div>
+                    <p class="fragment"><b>zip()</b></p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+>>> a = [1,2,3]
+>>> b = [4,5,6]
+>>> c = [4,5,6,7,8]
+>>> zipped = zip(a,b)
+>>> zipped
+<zip object at 0x02B01B48> #iterator
+>>> list(zipped)
+[(1, 4), (2, 5), (3, 6)] 
+>>> list(zip(a,c))
+[(1, 4), (2, 5), (3, 6)]</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+>>> a = [1,2,3]
+>>> b = [4,5,6]
+>>> c = [4,5,6,7,8]
+>>> zipped = zip(a,b)
+>>> list(zip(*zipped)) 
+[(1, 2, 3), (4, 5, 6)]
+>>> zipped = zip(a,b)
+>>> x,y = zip(*zipped)
+>>> print(x)
+(1,2,3)
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from itertools import groupby
+import matplotlib.pyplot as plt
+
+def draw_line(x_data, y_data, title):
+    xy_map = []
+    <mark>for x, y in groupby(sorted(zip(x_data, y_data)), lambda w: w[0]):</mark>  
+        y_list = []
+        for first, second in y:
+            y_list.append(second)
+        xy_map.append([x, sum(y_list) / len(y_list)])  
+    x_unique, y_mean = zip(*xy_map) 
+
+    plt.rcParams['font.sans-serif'] = ['SimHei']
+    plt.style.use('ggplot')
+    plt.plot(x_unique, y_mean, linewidth=0.5)
+    plt.scatter(x_unique, y_mean, s=5)
+    plt.title(title,fontsize=10)
+    plt.tight_layout()
+    plt.savefig(title+'.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+idx_month = date.index('2017-12-01') 
+line_chart_month = draw_line(months[:idx_month], close[:idx_month], '收盘价月日均值')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/收盘价月日均值.jpg" style="height: 400pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Downloading Data</li>
+                        <ul>
+                            <li>Reading: Python Crash Course, Chapter 16</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
