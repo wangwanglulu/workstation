@@ -1,0 +1,709 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 14</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="plugin/highlight/github.css">
+    <link rel="stylesheet" href="plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="plugin/menu/font-awesome/css/all.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-video="bgm.mp4" data-background-video-loop data-background-video-muted style="text-align: left;">
+                <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 14 Wordcloud, Web Api</h3>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">14.1 Wordcloud & Encoding</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="wordcloud_ex.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Install WordCloud</h3>
+                    <ul>
+                        <li class="fragment"><a href="https://blog.csdn.net/weixin_42149467/article/details/115909416">Python 3.9安装问题的解决方案</a></li>
+                        <li class="fragment">Win系统安装方式：<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud">WordCloud的安装文件下载地址</a></li>
+                        <ul>
+                            <li class="fragment">
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+pip install (安装文件的绝对路径)
+</code></pre>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="fragment">Mac系统安装方式：先在终端输入如下命令</li>
+                        <ul>
+                            <li class="fragment">
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+xcode-select --install
+</code></pre>
+                                </div>
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+pip install wordcloud
+</code></pre>
+                                </div>
+                            </li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <h3>A long string</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+ 
+string = 'Importance of relative word frequencies for font-size.\
+With relative_scaling=0, only word-ranks are considered. With \
+relative_scaling=1, a word that is twice as frequent will have \
+twice the size. If you want to consider the word frequencies \
+and not only their rank, relative_scaling around .5 often looks good.'
+
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, # Chinese
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(string)
+wc.to_file('s1.png') # save figure
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from matplotlib import pyplot as plt
+plt.imshow(wc)  # show figure by plt
+plt.axis('off') 
+plt.show() 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s1.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Loading text file</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+ 
+filename = 'Harry Potter.txt'
+with open(filename, encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s2.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s2.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Loading Chinese text file</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s3.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s3.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Using jieba</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+s = jieba.lcut(contents) 
+txt = " ".join(s)
+
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s4.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s4.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Stopwords</h3>
+                    <a href="https://github.com/goto456/stopwords">中文常用停用词表</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename, encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+def sw(filename):
+    with open(filename, encoding="utf-8") as f_obj:
+        x = file.readlines()
+    y = [word.strip() for word in x]
+    return y
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+name_list = ['baidu_stopwords.txt', 'cn_stopwords.txt', 
+             'hit_stopwords.txt','scu_stopwords.txt']
+
+stop_word = []
+for x in name_list:
+    stop_word.extend(sw(x))
+stop_word = list(set(stop_word))
+
+s = jieba.lcut(contents) 
+result = [word for word in s if word not in stop_word]
+s = [word for word in result if len(word)>1]
+txt = " ".join(s)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s5.png') 
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="s5.png" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
+                    <div class="fragment"><img data-src="ASCII1.png" style="height: 450pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Two-dimensional code, QR code</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("Hello!")
+img.save("x.png")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("https://wangwanglulu.com/")
+img.save("wl.png")
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="wl.png" style="height: 200pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">14.2 Web Api</h2>
+                </section>
+                <section>
+                    <h6 class="fragment">Web Api</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+
+url = "http://t.weather.itboy.net/api/weather/city/101020100"
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json()  
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+f = response_dict['data']
+ff = f['forecast']
+ff_today = ff[0]
+ff_1 = ff[1]
+ff_2 = ff[2]
+ 
+def show(day):
+    for x in day:
+        print(x+': '+str(day[x]))
+    print()
+show(ff_today)
+show(ff_1)
+show(ff_2)
+</code></pre>
+                    </div>
+                </section>
+                <!--
+                <section>
+                    <p><a href="http://www.tuling123.com/">Turing Robot</a></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests     
+    
+KEY = '' # 这里填拿到的key    
+    
+def get_response(msg):    
+    apiUrl = 'http://www.tuling123.com/openapi/api'    
+    data = {    
+        'key'    : KEY,    
+        'info'   : msg,    
+        'userid' : '路老师',    
+    }    
+    try:    
+        r = requests.post(apiUrl, data=data).json()    
+        return r.get('text')    
+    except:    
+        return None
+print(get_response('你好'))
+</code></pre>
+                    </div>
+                </section>
+            -->
+                <section>
+                    <p>GitHub</p>
+                    <p><a href="https://api.github.com/search/repositories?q=language:python&sort=stars">https://api.github.com/search/repositories?q=language:python&sort=stars</a></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+# Make an API call and store the response.
+r = requests.get(url)
+print("Status code:", r.status_code)
+# Store API response in a variable.
+response_dict = r.json()
+
+print(response_dict.keys())
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Status code: 200
+dict_keys(['total_count', 'incomplete_results', 'items'])
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Working with the Response Dictionary</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
+
+r = requests.get(url)
+print("Status code:", r.status_code)
+response_dict = r.json()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+print("Total repositories:", response_dict['total_count'])
+
+# Explore information about the repositories.
+repo_dicts = response_dict['items']
+print("Repositories returned:", len(repo_dicts))
+
+# Examine the first repository.
+repo_dict = repo_dicts[0]
+print("\nKeys:", len(repo_dict))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Status code: 200
+Total repositories: 8716421
+Repositories returned: 30
+Keys: 78
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+print("\nSelected information about first repository:")
+print('Name:', repo_dict['name'])
+print('Owner:', repo_dict['owner']['login'])
+print('Stars:', repo_dict['stargazers_count'])
+print('Repository:', repo_dict['html_url'])
+print('Created:', repo_dict['created_at'])
+print('Updated:', repo_dict['updated_at'])
+print('Description:', repo_dict['description'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Selected information about first repository:
+Name: public-apis
+Owner: public-apis
+Stars: 194129
+Repository: https://github.com/public-apis/public-apis
+Created: 2016-03-20T23:49:42Z
+Updated: 2022-05-26T14:56:35Z
+Description: A collective list of free APIs
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Visualizing Repositories Using Plotly</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+from plotly.graph_objs import Bar
+from plotly import offline
+
+URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
+r = requests.get(URL)
+print("Status code:", r.status_code)
+response_dict = r.json()
+print("Total repositories:", response_dict['total_count'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+repo_dicts = response_dict['items']
+names, stars = [], []
+for repo_dict in repo_dicts:
+    names.append(repo_dict['name'])
+    stars.append(repo_dict['stargazers_count'])
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Make visualization</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+data = [{
+    'type': 'barh', 'x': names,'y': stars,
+    'marker': {'color': 'rgb(60, 100, 150)',
+               'line': {'width': 1.5, 'color': 'rgb(25, 25, 25)'}
+    },
+    'opacity': 0.6,
+}]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+my_layout = {
+    'title': 'Most-Starred Python Projects on GitHub',
+    'titlefont': {'size': 28},
+    'xaxis': {'title': 'Repository',
+              'titlefont': {'size': 24},
+              'tickfont': {'size': 14},
+    },
+    'yaxis': {'title': 'Stars',
+              'titlefont': {'size': 24},
+              'tickfont': {'size': 14},
+    },
+}
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+fig = {'data': data, 'layout': my_layout}
+offline.plot(fig, filename='python_repos.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="python_repos.html">Most-Starred Python Projects</a>
+                </section>
+                <section>
+                    <h3>Where to find Web Api? <a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a></h3>
+                    <h6 class="fragment">Stock Market (股票市场)</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+url="http://img1.money.126.net/data/hs/kline/day/history/2020/1399001.json"
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">代码为股票代码，上海股票前加0，如600756变成0600756，深圳股票前加1</li>
+                        <li class="fragment">大盘指数数据查询：上证指数000001前加0，沪深300指数000300股票前加0，深证成指399001前加1，中小板指399005前加1，创业板指399006前加1</li>
+                        <li class="fragment">是否复权，不复权为kline，复权为klinederc</li>
+                    </ul>
+                    <p class="fragment">贵州茅台</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+import matplotlib.pyplot as plt
+
+url="http://img1.money.126.net/data/hs/kline/day/history/2020/0600519.json"
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json() 
+# print(response_dict)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+data = response_dict['data']
+
+for x in data[:5]:
+    print("""日期: {}，开盘价：{}，收盘价：{}，最高价：{}
+        最低价：{}，交易量：{}，涨幅跌幅：{}""".format(x[0],\
+        x[1], x[2], x[3], x[4], x[5], x[6]))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+200
+日期: 20200102，开盘价：1128.0，收盘价：1130.0，最高价：1145.06
+        最低价：1116.0，交易量：14809916，涨幅跌幅：-4.48
+日期: 20200103，开盘价：1117.0，收盘价：1078.56，最高价：1117.0
+        最低价：1076.9，交易量：13031878，涨幅跌幅：-4.55
+日期: 20200106，开盘价：1070.86，收盘价：1077.99，最高价：1092.9
+        最低价：1067.3，交易量：6341478，涨幅跌幅：-0.05
+日期: 20200107，开盘价：1077.5，收盘价：1094.53，最高价：1099.0
+        最低价：1076.4，交易量：4785359，涨幅跌幅：1.53
+日期: 20200108，开盘价：1085.05，收盘价：1088.14，最高价：1095.5
+        最低价：1082.58，交易量：2500825，涨幅跌幅：-0.58
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+date=[]; open_p=[]; close_p=[]; high=[]
+low=[]; volume=[]; percent=[]
+for y in data:
+    date.append(y[0]); open_p.append(y[1])
+    close_p.append(y[2]); high.append(y[3])
+    low.append(y[4]); volume.append(y[5])
+    percent.append(y[6])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+plt.rcParams['font.sans-serif'] = ['SimHei'] 
+plt.style.use('ggplot')
+plt.plot(close_p, linewidth=0.5)
+plt.scatter(date,close_p, s=5)
+plt.xticks(date[::20],rotation=45,fontsize=6)
+plt.title('贵州茅台收盘价（2020）',fontsize=10)
+plt.tight_layout()
+plt.savefig('maotai2020.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src='maotai2020.jpg' style="height: 450pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Batch Data Visualization</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+import requests
+import matplotlib.pyplot as plt
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def stock_visual(url):
+
+    r = requests.get(url)
+    print(r.status_code)
+    response_dict = r.json() 
+    data = response_dict['data']
+
+    date=[];close_p=[]
+    for y in data:
+        date.append(y[0])
+        close_p.append(y[2])
+    return date, close_p
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+exist=os.path.exists('figures')  
+if not exist:
+    os.mkdir('figures')
+os.chdir('figures')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+stock_list = ["0600519","0600520","0600521"]
+for x in stock_list:
+    url = "http://img1.money.126.net/data/hs/kline/day/history/2020/{}.json".format(x)
+    x_date, x_close = stock_visual(url)
+    plt.style.use('ggplot')
+    plt.plot(x_close, linewidth=0.5)
+    plt.scatter(x_date,x_close, s=5)
+    plt.xticks(x_date[::20],rotation=45,fontsize=6)
+    plt.title(x+'(2020)',fontsize=10)
+    plt.tight_layout()
+    plt.savefig(x+'.jpg',dpi=300)
+    plt.close()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src='batch.png' style="height: 150pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <p>Python Crash Couse (Chapters we do not cover: Chapter 12 - 14, 18 - 20)</p>
+                            <ul>
+                                <li>
+                                    <p>Chapter 12 -14: Alien Invasion</p>
+                                </li>
+                                <li>
+                                    <p>Chapter 18 - 20: Django</p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>Python for Everybody (Chapters we do not cover: Chapter 11 - 13, 15 - 16)</p>
+                            <ul>
+                                <li>
+                                    <p>Chapter 11: Regualer Expressions</p>
+                                </li>
+                                <li>
+                                    <p>Chapter 12: Networked Programs 12.4 - 12.8 (urlib, BeautifulSoup)</p>
+                                </li>
+                                <li>
+                                    <p>Chapter 13: Using Web Services (XML, JSON, API)</p>
+                                </li>
+                                <li>
+                                    <p>Chapter 15: Databases and SQL</p>
+                                </li>
+                                <li>
+                                    <p>Chapter 16: Visualizing data (Network, Word Cloud)</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                            <section>
+                <div class="r-hstack">
+  <img width="450" height="400" src="a3.jpg">
+  <img width="450" height="400" src="a1.png">
+  <img width="450" height="400" src="a2.jpg">
+</div>
+            </section>
+            </section>
+
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Web Api</li>
+                        <ul>
+                            <li>Reading: Python Crash Course, Chapter 17</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/search/search.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/zoom_old/zoom_old.js"></script>
+    <script src="plugin/chalkboard/plugin.js"></script>
+    <script src="plugin/customcontrols/plugin.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
