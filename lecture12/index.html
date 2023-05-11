@@ -22,13 +22,12 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-                       <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 12 Downloading Data</h3>
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 12 Downloading Data</h3>
                 </div>
             </section>
-            
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">12.1 Downloading Data (1)</h2>
@@ -109,8 +108,8 @@ ax.set_xlabel('', fontsize=16)
 ax.set_ylabel("Temperature (F)", fontsize=16)
 ax.tick_params(axis='both', which='major', labelsize=16)
 
-plt.show()
-# fig.savefig('simple.jpg',dpi=300)
+#plt.show()
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture12/plt11.jpg" style="height: 200pt"></div>
@@ -121,11 +120,15 @@ plt.show()
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 
 from datetime import datetime
+
 first_date = datetime.strptime('2018-7-1', '%Y-%m-%d') 
 print(type(first_date))
 print(first_date.strftime('%B %d %Y'))
 print(first_date)
-
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
 &lt;class 'datetime.datetime'&gt;
 July 01 2018
 2018-07-01 00:00:00
@@ -178,7 +181,7 @@ ax.set_xlabel('', fontsize=16)
 ax.set_ylabel("Temperature (F)", fontsize=16)
 ax.tick_params(axis='both', which='major', labelsize=16)
 
-plt.show()
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                         </div>
                 </section>
@@ -217,7 +220,7 @@ plt.style.use('seaborn')
 fig, ax = plt.subplots()
 ax.plot(dates, highs, c='red', alpha=0.5)
 ax.plot(dates, lows, c='blue', alpha=0.5)
-ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+<mark>ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)</mark>
 
 # Format plot.
 ax.set_title("Daily high temperatures - 2018", fontsize=24)
@@ -278,7 +281,7 @@ with open(filename) as f:
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">12.2 Downloading Data (2)</h2>
                 </section>
-                <section>
+<!--                 <section>
                     <p><b>.JSON</b></p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
@@ -295,8 +298,8 @@ for btc_dict in btc_data:
     week = int(btc_dict['week'])
     weekday = btc_dict['weekday']
     close = int(float(btc_dict['close']))  
-    print("{} is month {} week {}, {}, the close price is {} RMB".format(
-        date, month, week, weekday, close))
+    print(f"{date} is month {month} week {week}, {weekday}, \
+            the close price is {close} RMB")
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -309,8 +312,9 @@ for btc_dict in btc_data:
 ...
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
+                    <p><b>.JSON</b></p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import json
@@ -329,31 +333,35 @@ for btc_dict in btc_data:
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
 import matplotlib.pyplot as plt
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
-#plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-plt.style.use('ggplot')
-plt.plot(close, linewidth=0.5)
-plt.scatter(date,close, s=5)
-plt.xticks(date[::20],rotation=45,fontsize=6)
-plt.title('收盘价',fontsize=10)
-plt.tight_layout()
-plt.savefig('收盘价折线图.jpg',dpi=300)
+fig, ax = plt.subplots()
+plt.style.use('seaborn')
+
+ax.plot(close, linewidth=0.5, c='red')
+ax.scatter(date,close, s=5, c='red')
+ax.set_xticks(date[::20])
+ax.set_xticklabels(date[::20],rotation=45,fontsize=6)
+ax.set_title('Close',fontsize=10)
+
+plt.savefig('close.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../img/lecture12/收盘价折线图.jpg" style="height: 350pt"></div>
                 </section>
+                <!-- 
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import matplotlib.pyplot as plt
 import math
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.style.use('ggplot')
+fig, ax = plt.subplots()
+plt.style.use('seaborn')
+
 close_log = [math.log10(xx) for xx in close]
 plt.plot(close_log, linewidth=0.5)
 plt.scatter(date,close_log, s=5)
@@ -363,9 +371,142 @@ plt.tight_layout()
 plt.savefig('收盘价对数变换折线图.jpg',dpi=300)
 </code></pre>
                     </div>
+                </section> -->
+                <!-- <section>
+                    <div class="fragment"><img data-src="../img/lecture12/收盘价对数变换折线图.jpg" style="height: 350pt"></div>
+                </section> -->
+                <section>
+                    <h3>Iterator (迭代器)</h3>
+                    <p>Many types of objects in Python that qualify as being iterable (可迭代的), such as list, tuple, dictionary. In Python, the mechanism for iteratioin is based upon the following conventions:</p>
+                    <ul>
+                        <li>An <b>iterator</b> is an object that manages an iteration through a series of values. If variable, i, identifies an iterator object, then each call to the built-in function, next(i), produces a subsequent element from the underlying series, with StopIteration exception raised to indicate that there are no further elements.</li>
+                        <li>Usage:<b> 1. abstract sequence; 2. save memory</b></li>
+                    </ul>
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="../img/lecture12/收盘价对数变换折线图.jpg" style="height: 350pt"></div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+nums = itertools.count(0,2)
+
+print(next(nums))
+print(next(nums))
+print(next(nums))
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+0
+2
+4
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+
+nums = itertools.count(0,2)
+for i in nums:
+    if i > 6:
+        break
+    print(i)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+0
+2
+4
+6
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+
+cycle_strings = itertools.cycle('ABC')
+i = 1
+for string in cycle_strings:
+    if i == 7:
+        break
+    print(string)
+    i = i + 1
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+A
+B
+C
+A
+B
+C
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+for item in itertools.repeat('hello', 3):
+    print(item)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+hello world
+hello world
+hello world
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itertools
+nums = itertools.repeat('hello', 3)
+
+print(next(nums))
+print(next(nums))
+print(next(nums))
+print(next(nums))
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+hello
+hello
+hello
+Traceback (most recent call last):
+    print(next(nums))
+StopIteration
+</code></pre>
+                        </div>
+                    </div>
                 </section>
                 <section>
                     <p class="fragment"><b>groupby()</b></p>
@@ -462,28 +603,25 @@ for key, value_iter in groupby(data, len):
 from itertools import groupby
 import matplotlib.pyplot as plt
 
-def draw_line(x_data, y_data, title):
-    xy_map = []
-    <mark>for x, y in groupby(sorted(zip(x_data, y_data)), lambda w: w[0]):</mark>  
-        y_list = []
-        for first, second in y:
-            y_list.append(second)
-        xy_map.append([x, sum(y_list) / len(y_list)])  
+xy_map = []
+<mark>for x, y in groupby(sorted(zip(months, close)), lambda w: w[0]):</mark>  
+    y_list = []
+    for first, second in y:
+        y_list.append(second)
+    xy_map.append([x, sum(y_list) / len(y_list)])  
     x_unique, y_mean = zip(*xy_map) 
-
-    plt.rcParams['font.sans-serif'] = ['SimHei']
-    plt.style.use('ggplot')
-    plt.plot(x_unique, y_mean, linewidth=0.5)
-    plt.scatter(x_unique, y_mean, s=5)
-    plt.title(title,fontsize=10)
-    plt.tight_layout()
-    plt.savefig(title+'.jpg',dpi=300)
-</code></pre>
+    </code></pre>
                     </div>
-                    <div class="fragment">
+                                        <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-idx_month = date.index('2017-12-01') 
-line_chart_month = draw_line(months[:idx_month], close[:idx_month], '收盘价月日均值')
+fig, ax = plt.subplots()
+plt.style.use('seaborn')
+
+ax.plot(x_unique, y_mean, linewidth=1)
+ax.scatter(x_unique, y_mean, s=20)
+ax.set_title('Close',fontsize=10)
+
+plt.savefig('close.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section>

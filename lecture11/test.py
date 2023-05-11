@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
 from random import choice
+import matplotlib.pyplot as plt
 class RandomWalk():
     def __init__(self, num_points=5000):
         self.num_points = num_points
@@ -21,30 +21,13 @@ class RandomWalk():
             self.x_values.append(next_x)
             self.y_values.append(next_y)
 
-while True:
-    rw = RandomWalk(50000)
-    rw.fill_walk()
- 
-    plt.style.use('classic')
-    fig, ax = plt.subplots()
-    point_numbers = range(rw.num_points)
-    ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,edgecolor='none', s=5)
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
-
-
- 
-    keep_running = input("Make another walk? (y/n): ")
-    if keep_running == 'n':
-        break
-
-
-
-
-
-
-
-
-
-
+rw = RandomWalk(50000)
+rw.fill_walk()
+plt.style.use('classic')
+fig, ax= plt.subplots()
+point_numbers = range(rw.num_points)
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
+    edgecolor='none', s=5)
+ax.get_xaxis().set_visible(False)
+ax.get_yaxis().set_visible(False)
 

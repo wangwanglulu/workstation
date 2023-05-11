@@ -1,50 +1,29 @@
+import json
+filename = 'btc_close_2017.json'
+with open(filename) as f:
+    btc_data = json.load(f)  
+date=[]; close=[]; months=[]
+for btc_dict in btc_data:
+    date.append(btc_dict['date'])
+    months.append(int(btc_dict['month']))
+    close.append(int(float(btc_dict['close'])))
+
+from itertools import groupby
 import matplotlib.pyplot as plt
-from random import choice
-class RandomWalk():
-    def __init__(self, num_points=5000):
-        self.num_points = num_points
-        self.x_values = [0]
-        self.y_values = [0]
-#continue
-    def fill_walk(self):
-        while len(self.x_values) < self.num_points:
-            x_direction = choice([1, -1])
-            x_distance = choice([0, 1, 2, 3, 4])
-            x_step = x_direction * x_distance
-            y_direction = choice([1, -1])
-            y_distance = choice([0, 1, 2, 3, 4])
-            y_step = y_direction * y_distance
-            if x_step == 0 and y_step == 0:
-                continue
-            next_x = self.x_values[-1] + x_step
-            next_y = self.y_values[-1] + y_step
-            self.x_values.append(next_x)
-            self.y_values.append(next_y)
-
-while True:
-    rw = RandomWalk(50000)
-    rw.fill_walk()
  
-    plt.style.use('classic')
-    fig, ax = plt.subplots()
-    point_numbers = range(rw.num_points)
-    ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,edgecolor='none', s=5)
-    ax.get_xaxis().set_visible(False)
-    ax.get_yaxis().set_visible(False)
+xy_map = []
+for x, y in groupby(sorted(zip(months, close)), lambda w: w[0]):  
+    y_list = []
+    for first, second in y:
+        y_list.append(second)
+    xy_map.append([x, sum(y_list) / len(y_list)])  
+    x_unique, y_mean = zip(*xy_map) 
 
 
+fig, ax = plt.subplots()
+plt.style.use('seaborn')
+ax.plot(x_unique, y_mean, linewidth=1)
+ax.scatter(x_unique, y_mean, s=20)
+ax.set_title(u'收盘价',fontsize=10)
  
-    keep_running = input("Make another walk? (y/n): ")
-    if keep_running == 'n':
-        break
-
-
-
-
-
-
-
-
-
-
-
+plt.savefig('close.jpg',dpi=300)
