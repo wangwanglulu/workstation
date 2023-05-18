@@ -454,7 +454,7 @@ vote_count: 17922
 
 poster = movies[0]['poster_path']
 img_url = f"https://image.tmdb.org/t/p/w500{poster}"
-r = requests.get(img, headers=headers)
+r = requests.get(img_url, headers=headers)
 if r.status_code == 200:
     with open('The Godfather.jpg', 'wb') as f:
         f.write(r.content)
