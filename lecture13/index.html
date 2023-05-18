@@ -3,224 +3,46 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Lecture 14</title>
+    <title>Lecture 13</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="dist/reset.css">
-    <link rel="stylesheet" href="dist/reveal.css">
-    <link rel="stylesheet" href="dist/theme/white.css" id="theme">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
     <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="plugin/highlight/github.css">
-    <link rel="stylesheet" href="plugin/chalkboard/style.css">
-    <link rel="stylesheet" href="plugin/customcontrols/style.css">
-    <link rel="stylesheet" href="plugin/menu/font-awesome/css/all.css">
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <!-- <link rel="stylesheet" href="../img/tinyfont.css"> -->
 </head>
 
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-video="bgm.mp4" data-background-video-loop data-background-video-muted style="text-align: left;">
-                <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 14 Wordcloud, Web Api</h3>
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 13 Web Api</h3>
+                </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">14.1 Wordcloud & Encoding</h2>
+                    <h2 style="color: white">13.1 Encoding</h2>
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="wordcloud_ex.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <h3>Install WordCloud</h3>
-                    <ul>
-                        <li class="fragment"><a href="https://blog.csdn.net/weixin_42149467/article/details/115909416">Python 3.9安装问题的解决方案</a></li>
-                        <li class="fragment">Win系统安装方式：<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud">WordCloud的安装文件下载地址</a></li>
-                        <ul>
-                            <li class="fragment">
-                                <div>
-                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-pip install (安装文件的绝对路径)
-</code></pre>
-                                </div>
-                            </li>
-                        </ul>
-                        <li class="fragment">Mac系统安装方式：先在终端输入如下命令</li>
-                        <ul>
-                            <li class="fragment">
-                                <div>
-                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-xcode-select --install
-</code></pre>
-                                </div>
-                                <div>
-                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-pip install wordcloud
-</code></pre>
-                                </div>
-                            </li>
-                        </ul>
-                    </ul>
-                </section>
-                <section>
-                    <h3>A long string</h3>
+                    <h3>Encoding</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-from wordcloud import WordCloud
- 
-string = 'Importance of relative word frequencies for font-size.\
-With relative_scaling=0, only word-ranks are considered. With \
-relative_scaling=1, a word that is twice as frequent will have \
-twice the size. If you want to consider the word frequencies \
-and not only their rank, relative_scaling around .5 often looks good.'
-
-font = r'C:\Windows\Fonts\Arial.TTF'
-wc = WordCloud(font_path=font, # Chinese
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(string)
-wc.to_file('s1.png') # save figure
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-from matplotlib import pyplot as plt
-plt.imshow(wc)  # show figure by plt
-plt.axis('off') 
-plt.show() 
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s1.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <h3>Loading text file</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-from wordcloud import WordCloud
- 
 filename = 'Harry Potter.txt'
-with open(filename, encoding="utf-8") as f_obj:
+with open(filename, <mark>encoding="utf-8"</mark>) as f_obj:
     contents = f_obj.read()
-
-font = r'C:\Windows\Fonts\Arial.TTF'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(contents)
-wc.to_file('s2.png') 
-</code></pre>
+</pre></code>
                     </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s2.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <h3>Loading Chinese text file</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-from wordcloud import WordCloud
-
-filename = 'sanguo.txt'
-with open(filename , encoding="utf-8") as f_obj:
-    contents = f_obj.read()
-
-font = r'C:\Windows\Fonts\simkai.ttf'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(contents)
-wc.to_file('s3.png') 
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s3.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <h3>Using jieba</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-from wordcloud import WordCloud
-import jieba
-
-filename = 'sanguo.txt'
-with open(filename , encoding="utf-8") as f_obj:
-    contents = f_obj.read()
-
-s = jieba.lcut(contents) 
-txt = " ".join(s)
-
-font = r'C:\Windows\Fonts\simkai.ttf'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(txt)
-wc.to_file('s4.png') 
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="s4.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <h3>Stopwords</h3>
-                    <a href="https://github.com/goto456/stopwords">中文常用停用词表</a>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-from wordcloud import WordCloud
-import jieba
-
-filename = 'sanguo.txt'
-with open(filename, encoding="utf-8") as f_obj:
-    contents = f_obj.read()
-
-def sw(filename):
-    with open(filename, encoding="utf-8") as f_obj:
-        x = file.readlines()
-    y = [word.strip() for word in x]
-    return y
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-name_list = ['baidu_stopwords.txt', 'cn_stopwords.txt', 
-             'hit_stopwords.txt','scu_stopwords.txt']
-
-stop_word = []
-for x in name_list:
-    stop_word.extend(sw(x))
-stop_word = list(set(stop_word))
-
-s = jieba.lcut(contents) 
-result = [word for word in s if word not in stop_word]
-s = [word for word in result if len(word)>1]
-txt = " ".join(s)
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-font = r'C:\Windows\Fonts\simkai.ttf'
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(txt)
-wc.to_file('s5.png') 
-</code></pre>
-                    </div>
-                    <div class="fragment"><img data-src="s5.png" style="height: 250pt"></div>
-                </section>
-                <section>
                     <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
-                    <div class="fragment"><img data-src="ASCII1.png" style="height: 450pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 300pt"></div>
                 </section>
                 <section>
                     <ul>
@@ -242,15 +64,15 @@ img=qrcode.make("https://wangwanglulu.com/")
 img.save("wl.png")
 </code></pre>
                     </div>
-                    <div class="fragment"><img data-src="wl.png" style="height: 200pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture13/wl.png" style="height: 200pt"></div>
                 </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">14.2 Web Api</h2>
+                    <h2 style="color: white">13.2 Web Api</h2>
                 </section>
                 <section>
-                    <h6 class="fragment">Web Api</h6>
+                    <h3 class="fragment">Web Api</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
@@ -279,32 +101,31 @@ show(ff_2)
 </code></pre>
                     </div>
                 </section>
-                <!--
                 <section>
-                    <p><a href="http://www.tuling123.com/">Turing Robot</a></p>
+                    <h3 class="fragment">ChatGpt</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import requests     
-    
-KEY = '' # 这里填拿到的key    
-    
-def get_response(msg):    
-    apiUrl = 'http://www.tuling123.com/openapi/api'    
-    data = {    
-        'key'    : KEY,    
-        'info'   : msg,    
-        'userid' : '路老师',    
-    }    
-    try:    
-        r = requests.post(apiUrl, data=data).json()    
-        return r.get('text')    
-    except:    
-        return None
-print(get_response('你好'))
+import openai
+
+openai.api_key = <mark>"Your API KEY"</mark>
+
+messages = [ {"role": "system", "content":
+            "You are a intelligent assistant."} ]
+while True:
+    message = input("User : ")
+    if message:
+        messages.append(
+            {"role": "user", "content": message},
+        )
+        chat = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", messages=messages
+        )
+    reply = chat.choices[0].message.content
+    print(f"ChatGPT: {reply}")
+    messages.append({"role": "assistant", "content": reply})
 </code></pre>
                     </div>
                 </section>
-            -->
                 <section>
                     <p>GitHub</p>
                     <p><a href="https://api.github.com/search/repositories?q=language:python&sort=stars">https://api.github.com/search/repositories?q=language:python&sort=stars</a></p>
@@ -323,15 +144,23 @@ print("Status code:", r.status_code)
 # Store API response in a variable.
 response_dict = r.json()
 
-print(response_dict.keys())
+for keys in response_dict.keys():
+    print(keys)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
 Status code: 200
-dict_keys(['total_count', 'incomplete_results', 'items'])
+total_count
+incomplete_results
+items
 </code></pre>
                     </div>
+                </section>
+                <section>
+                    <a href="https://docs.github.com/en/rest/search?apiVersion=2022-11-28#timeouts-and-incomplete-results">About Incomplete Result</a>
+                    <h3>Timeouts and incomplete results</h3>
+                    <p>To keep the REST API fast for everyone, we limit how long any individual query can run. For queries that exceed the time limit, the API returns the matches that were already found prior to the timeout, and the response has the incomplete_results property set to true. Reaching a timeout does not necessarily mean that search results are incomplete. More results might have been found, but also might not.</p>
                 </section>
                 <section>
                     <ul>
@@ -339,17 +168,7 @@ dict_keys(['total_count', 'incomplete_results', 'items'])
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import requests
-
-url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
-
-r = requests.get(url)
-print("Status code:", r.status_code)
-response_dict = r.json()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# continue
 print("Total repositories:", response_dict['total_count'])
 
 # Explore information about the repositories.
@@ -364,9 +183,10 @@ print("\nKeys:", len(repo_dict))
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
 Status code: 200
-Total repositories: 8716421
+Total repositories: 10633864
 Repositories returned: 30
-Keys: 78
+
+Keys: 80
 </code></pre>
                     </div>
                 </section>
@@ -386,13 +206,14 @@ print('Description:', repo_dict['description'])
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
 Selected information about first repository:
-Name: public-apis
-Owner: public-apis
-Stars: 194129
-Repository: https://github.com/public-apis/public-apis
-Created: 2016-03-20T23:49:42Z
-Updated: 2022-05-26T14:56:35Z
-Description: A collective list of free APIs
+Name: youtube-dl
+Owner: ytdl-org
+Stars: 120354
+Repository: https://github.com/ytdl-org/youtube-dl
+Created: 2010-10-31T14:35:07Z
+Updated: 2023-05-17T13:04:03Z
+Description: Command-line program to download videos from YouTube.com 
+and other video sites
 </code></pre>
                     </div>
                 </section>
@@ -411,7 +232,6 @@ URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
 r = requests.get(URL)
 print("Status code:", r.status_code)
 response_dict = r.json()
-print("Total repositories:", response_dict['total_count'])
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -431,11 +251,9 @@ for repo_dict in repo_dicts:
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 data = [{
-    'type': 'barh', 'x': names,'y': stars,
-    'marker': {'color': 'rgb(60, 100, 150)',
-               'line': {'width': 1.5, 'color': 'rgb(25, 25, 25)'}
-    },
-    'opacity': 0.6,
+    'type': 'bar', 
+    'x': names,
+    'y': stars,
 }]
 </code></pre>
                     </div>
@@ -443,15 +261,8 @@ data = [{
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 my_layout = {
     'title': 'Most-Starred Python Projects on GitHub',
-    'titlefont': {'size': 28},
-    'xaxis': {'title': 'Repository',
-              'titlefont': {'size': 24},
-              'tickfont': {'size': 14},
-    },
-    'yaxis': {'title': 'Stars',
-              'titlefont': {'size': 24},
-              'tickfont': {'size': 14},
-    },
+    'xaxis': {'title': 'Repository'},
+    'yaxis': {'title': 'Stars'},
 }
 </code></pre>
                     </div>
@@ -465,10 +276,278 @@ offline.plot(fig, filename='python_repos.html')
                 </section>
                 <section>
                     <h3>Where to find Web Api? <a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a></h3>
-                    <h6 class="fragment">Stock Market (股票市场)</h6>
+                    <a href="https://imdb-api.com/">IMDb-API</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_key = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+url=f"https://imdb-api.com/en/API/Top250Movies/{api_key}"
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json() 
+
+top250 = response_dict["items"]
+print(top250[0])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+{'id': 'tt0111161', 'rank': '1', 'title': 'The Shawshank Redemption', 
+'fullTitle': 'The Shawshank Redemption (1994)', 'year': '1994', 'image': 
+'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZD
+ViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_Ratio0.6716_AL_.jpg', 
+'crew': 'Frank Darabont (dir.), Tim Robbins, Morgan Freeman', 
+'imDbRating': '9.2', 'imDbRatingCount': '2739500'}
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Downloading Images</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-url="http://img1.money.126.net/data/hs/kline/day/history/2020/1399001.json"
+import requests
+
+url="https://m.media-amazon.com/images/\
+M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZ\
+DViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUx\
+ODI@._V1_Ratio0.6716_AL_.jpg"
+r = requests.get(url)
+if r.status_code == 200:
+    with open('The Shawshank Redemption.jpg', 'wb') as f:
+        f.write(r.content)
+else:
+    print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Top10</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_key = '<mark>Your API Key</mark>'
+
+url=f"https://imdb-api.com/en/API/Top250Movies/{api_key}"
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json() 
+
+top250 = response_dict["items"]
+top10 = top250[:10]
+print(top10)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for movie in top10:
+    url = movie['image']
+    title = movie['title']
+
+    r = requests.get(url)
+    if r.status_code == 200:
+        with open(f'{title}.jpg', 'wb') as f:
+            f.write(r.content)
+    else:
+        print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>In Theaters</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_key = '<mark>Your API Key</mark>'
+
+url=f"https://imdb-api.com/en/API/InTheaters/{api_key}"
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json() 
+
+in_theaters = response_dict["items"]
+
+for movie in in_theaters:
+    url = movie['image']
+    title = movie['title']
+    print(title)
+
+    r = requests.get(url)
+    if r.status_code == 200:
+        with open(f'{title}.jpg', 'wb') as f:
+            f.write(r.content)
+    else:
+        print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Where to find Web Api? <a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a></h3>
+                    <a href="https://developer.themoviedb.org/docs/">TMDB-API</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+top_rated?language=en-US&page={page}"
+
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+# print(response_dict)
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+movies=response_dict["results"]
+
+print(movies[0])
+for key, value in movies[0].items():
+    print(f"{key}: {value}")
+</code></pre>
+                    </div>
+                    
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+adult: False
+backdrop_path: /tmU7GeKVybMWFButWEGl2M4GeiP.jpg
+genre_ids: [18, 80]
+id: 238
+original_language: en
+original_title: The Godfather
+overview: Spanning the years 1945 to 1955, a chronicle of the fictional
+ Italian-American Corleone crime family. When organized crime family 
+ patriarch, Vito Corleone barely survives an attempt on his life, his 
+ youngest son, Michael steps in to take care of the would-be killers, 
+ launching a campaign of bloody revenge.
+popularity: 104.261
+poster_path: /3bhkrj58Vtu7enYsRolD1fZdja1.jpg
+release_date: 1972-03-14
+title: The Godfather
+video: False
+vote_average: 8.7
+vote_count: 17922
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Downloading Images</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+poster = movies[0]['poster_path']
+img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+r = requests.get(img, headers=headers)
+if r.status_code == 200:
+    with open('The Godfather.jpg', 'wb') as f:
+        f.write(r.content)
+else:
+    print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Top10</h3>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+top_rated?language=en-US&page={page}"
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+
+movies=response_dict["results"]
+top10 = movies[:10]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for movie in top10:
+    poster = movie['poster_path']
+    title = movie['title']
+    img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+    r = requests.get(img_url, headers=headers)
+    if r.status_code == 200:
+        with open(f'{title}.jpg', 'wb') as f:
+            f.write(r.content)
+    else:
+        print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Now Playing</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+now_playing?language=en-US&page={page}"
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+
+movies=response_dict["results"]
+top10 = movies[:10]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for movie in top10:
+    poster = movie['poster_path']
+    title = movie['title']
+    img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+    r = requests.get(img_url, headers=headers)
+    if r.status_code == 200:
+        with open(f'{title}.jpg', 'wb') as f:
+            f.write(r.content)
+    else:
+        print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="fragment">Stock Market (股票市场)</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+url="http://img1.money.126.net/data/hs/kline/day/history/2022/1399001.json"
 </code></pre>
                     </div>
                     <ul>
@@ -482,15 +561,15 @@ url="http://img1.money.126.net/data/hs/kline/day/history/2020/1399001.json"
 import requests
 import matplotlib.pyplot as plt
 
-url="http://img1.money.126.net/data/hs/kline/day/history/2020/0600519.json"
+url="http://img1.money.126.net/data/hs/kline/day/history/2022/0600519.json"
 r = requests.get(url)
 print(r.status_code)
 response_dict = r.json() 
-# print(response_dict)
+print(response_dict)
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!--                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 data = response_dict['data']
@@ -541,7 +620,7 @@ plt.tight_layout()
 plt.savefig('maotai2020.jpg',dpi=300)
 </code></pre>
                     </div>
-                </section>
+                </section> 
                 <section>
                     <div class="fragment"><img data-src='maotai2020.jpg' style="height: 450pt"></div>
                 </section>
@@ -599,12 +678,21 @@ for x in stock_list:
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src='batch.png' style="height: 150pt"></div>
+                </section> -->
+          
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">13.3 Textbook</h2>
                 </section>
-                <section>
+      <section>
                     <ul>
                         <li>
                             <p>Python Crash Couse (Chapters we do not cover: Chapter 12 - 14, 18 - 20)</p>
                             <ul>
+                                <li>
+                                    <p>Chapter 11: Testing Your Code</p>
+                                </li>
                                 <li>
                                     <p>Chapter 12 -14: Alien Invasion</p>
                                 </li>
@@ -617,7 +705,7 @@ for x in stock_list:
                             <p>Python for Everybody (Chapters we do not cover: Chapter 11 - 13, 15 - 16)</p>
                             <ul>
                                 <li>
-                                    <p>Chapter 11: Regualer Expressions</p>
+                                    <p>Chapter 11: Reguler Expressions</p>
                                 </li>
                                 <li>
                                     <p>Chapter 12: Networked Programs 12.4 - 12.8 (urlib, BeautifulSoup)</p>
@@ -635,15 +723,14 @@ for x in stock_list:
                         </li>
                     </ul>
                 </section>
-                            <section>
-                <div class="r-hstack">
-  <img width="450" height="400" src="a3.jpg">
-  <img width="450" height="400" src="a1.png">
-  <img width="450" height="400" src="a2.jpg">
-</div>
+                <section>
+                    <div class="r-hstack">
+                        <img width="450" height="400" src="../img/lecture13/a3.jpg">
+                        <img width="450" height="400" src="../img/lecture13/a1.png">
+                        <img width="450" height="400" src="../img/lecture13/a2.jpg">
+                    </div>
+                </section>
             </section>
-            </section>
-
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
@@ -657,16 +744,19 @@ for x in stock_list:
             </section>
         </div>
     </div>
-    <script src="dist/reveal.js"></script>
-    <script src="plugin/zoom/zoom.js"></script>
-    <script src="plugin/notes/notes.js"></script>
-    <script src="plugin/search/search.js"></script>
-    <script src="plugin/markdown/markdown.js"></script>
-    <script src="plugin/highlight/highlight.js"></script>
-    <script src="plugin/math/math.js"></script>
-    <script src="plugin/zoom_old/zoom_old.js"></script>
-    <script src="plugin/chalkboard/plugin.js"></script>
-    <script src="plugin/customcontrols/plugin.js"></script>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -694,8 +784,10 @@ for x in stock_list:
                 }
             ]
         },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
 
 
 

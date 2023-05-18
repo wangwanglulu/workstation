@@ -24,6 +24,227 @@
         <div class="slides">
             <section>
                 <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">14.1 Wordcloud & Encoding</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="wordcloud_ex.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Install WordCloud</h3>
+                    <ul>
+                        <li class="fragment"><a href="https://blog.csdn.net/weixin_42149467/article/details/115909416">Python 3.9安装问题的解决方案</a></li>
+                        <li class="fragment">Win系统安装方式：<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#wordcloud">WordCloud的安装文件下载地址</a></li>
+                        <ul>
+                            <li class="fragment">
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+pip install (安装文件的绝对路径)
+</code></pre>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="fragment">Mac系统安装方式：先在终端输入如下命令</li>
+                        <ul>
+                            <li class="fragment">
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+xcode-select --install
+</code></pre>
+                                </div>
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+pip install wordcloud
+</code></pre>
+                                </div>
+                            </li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <h3>A long string</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+ 
+string = 'Importance of relative word frequencies for font-size.\
+With relative_scaling=0, only word-ranks are considered. With \
+relative_scaling=1, a word that is twice as frequent will have \
+twice the size. If you want to consider the word frequencies \
+and not only their rank, relative_scaling around .5 often looks good.'
+
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, # Chinese
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(string)
+wc.to_file('s1.png') # save figure
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from matplotlib import pyplot as plt
+plt.imshow(wc)  # show figure by plt
+plt.axis('off') 
+plt.show() 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s1.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Loading text file</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+ 
+filename = 'Harry Potter.txt'
+with open(filename, encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s2.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s2.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Loading Chinese text file</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s3.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s3.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Using jieba</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+s = jieba.lcut(contents) 
+txt = " ".join(s)
+
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s4.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="s4.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Stopwords</h3>
+                    <a href="https://github.com/goto456/stopwords">中文常用停用词表</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename, encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+def sw(filename):
+    with open(filename, encoding="utf-8") as f_obj:
+        x = file.readlines()
+    y = [word.strip() for word in x]
+    return y
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+name_list = ['baidu_stopwords.txt', 'cn_stopwords.txt', 
+             'hit_stopwords.txt','scu_stopwords.txt']
+
+stop_word = []
+for x in name_list:
+    stop_word.extend(sw(x))
+stop_word = list(set(stop_word))
+
+s = jieba.lcut(contents) 
+result = [word for word in s if word not in stop_word]
+s = [word for word in result if len(word)>1]
+txt = " ".join(s)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s5.png') 
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="s5.png" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
+                    <div class="fragment"><img data-src="ASCII1.png" style="height: 450pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Two-dimensional code, QR code</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("Hello!")
+img.save("x.png")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("https://wangwanglulu.com/")
+img.save("wl.png")
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="wl.png" style="height: 200pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">9.1 Iterators and Generators</h2>
                 </section>
                 <section>
