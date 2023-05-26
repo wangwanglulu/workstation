@@ -1,0 +1,422 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 16</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <!-- <link rel="stylesheet" href="../img/tinyfont.css"> -->
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 16 Examples</h3>
+                </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">16.1 Mozart's Dice</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture16/Mozart.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import wave
+
+from random import randint
+
+def randomAudioFiles():
+    # array of filenames to return
+    infiles = []
+    count = 1
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># creates list of 16 randomly chosen measures for the minuet
+    while count < 17 :
+        file = "waves/M" + str(count)
+        rollOne = randint(1, 6)
+        rollTwo = randint(1, 6)
+        rollTotal = rollOne + rollTwo
+        file += "-" + str(rollTotal) + ".wav"
+        infiles.append(file)
+        count += 1
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># creates list of 16 randomly chosen measures for the trio
+    while count < 33 :
+        file = "waves/T" + str(count)
+        roll = randint(1, 6)
+        file += "-" + str(roll) + ".wav"
+        infiles.append(file)
+        count += 1
+
+    return infiles
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+def audioGenerator():
+    # files to read in and file to output to
+    infiles = randomAudioFiles();
+    outfile = "dice.wav"
+
+    # reads through each .wav file
+    # gets the parameters and frames of each .wav file
+    data = []
+    for infile in infiles:
+        w = wave.open(infile, 'rb')
+        print(w.getparams())
+        data.append([w.getparams(), w.readframes(w.getnframes())])
+        w.close()
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># writes to the outfile 
+    # generates the combined .wav file and returns it
+    output = wave.open(outfile, 'wb')
+    output.setparams(data[0][0])
+    for val in data:
+        output.writeframes(val[1])
+    output.close()
+    #composition = wave.open("dice.wav");
+    return infiles
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">16.2 Wordcloud</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture16/wordcloud_ex.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Install WordCloud</h3>
+                    <ul>
+                        <li class="fragment"><a href="https://blog.csdn.net/weixin_42149467/article/details/115909416">Python 3.9安装问题的解决方案</a></li>
+                        <li class="fragment">Win系统安装方式：<a href="https://pypi.org/project/wordcloud/#files">WordCloud的安装文件下载地址</a></li>
+                        <ul>
+                            <li class="fragment">
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+pip install (安装文件的绝对路径)
+</code></pre>
+                                </div>
+                            </li>
+                        </ul>
+                        <li class="fragment">Mac系统安装方式：先在终端输入如下命令</li>
+                        <ul>
+                            <li class="fragment">
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+xcode-select --install
+</code></pre>
+                                </div>
+                                <div>
+                                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+pip install wordcloud
+</code></pre>
+                                </div>
+                            </li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <h3>A long string</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+ 
+string = 'Importance of relative word frequencies for font-size.\
+With relative_scaling=0, only word-ranks are considered. With \
+relative_scaling=1, a word that is twice as frequent will have \
+twice the size. If you want to consider the word frequencies \
+and not only their rank, relative_scaling around .5 often looks good.'
+
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, # Chinese
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(string)
+wc.to_file('s1.png') # save figure
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from matplotlib import pyplot as plt
+plt.imshow(wc)  # show figure by plt
+plt.axis('off') 
+plt.show() 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture16/s1.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Loading text file</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+ 
+filename = 'Harry Potter.txt'
+with open(filename, encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+    
+#font = r'C:\Windows\Fonts\Arial.TTF'
+font = "/System/Library/Fonts/STHeiti Medium.ttc"
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s2.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture16/s2.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Loading Chinese text file</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+#font = r'C:\Windows\Fonts\Arial.TTF'
+font = "/System/Library/Fonts/STHeiti Medium.ttc"
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s3.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture16/s3.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Using jieba</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+s = jieba.lcut(contents) 
+txt = " ".join(s)
+
+#font = r'C:\Windows\Fonts\Arial.TTF'
+font = "/System/Library/Fonts/STHeiti Medium.ttc"
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s4.png') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture16/s4.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3>Stopwords</h3>
+                    <a href="https://github.com/goto456/stopwords">中文常用停用词表</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename, encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+def sw(filename):
+    with open(filename, encoding="utf-8") as f_obj:
+        x = file.readlines()
+    y = [word.strip() for word in x]
+    return y
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+name_list = ['baidu_stopwords.txt', 'cn_stopwords.txt', 
+             'hit_stopwords.txt','scu_stopwords.txt']
+
+stop_word = []
+for x in name_list:
+    stop_word.extend(sw(x))
+stop_word = list(set(stop_word))
+
+s = jieba.lcut(contents) 
+result = [word for word in s if word not in stop_word]
+s = [word for word in result if len(word)>1]
+txt = " ".join(s)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#font = r'C:\Windows\Fonts\Arial.TTF'
+font = "/System/Library/Fonts/STHeiti Medium.ttc"
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s5.png') 
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture16/s5.png" style="height: 250pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">15.3 Greedy Algorithm</h2>
+                </section>
+                <section>
+                    <h3>Greedy Algorithm</h3>
+                    <ul>
+                        <li>A very simple problem-solving strategy</li>
+                        <li>So-called greedy algorithms are short-sighted, in that they make each choice in isolation, doing what looks good right here, right now. In many ways, eager or impatient might be better names for them.</li>
+                        <li>Example: The classroom scheduling problem</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">Suppose you have a classroom and want to hold as many classes here as possible. You get a list of classes.</li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture15/cs1.png" style="height: 180pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture15/cs2.png" style="height: 180pt"></div>
+                    <ul>
+                        <li class="fragment">You want to hold as many classes as possible in this classroom. How do you pick what set of classes to hold, so that you get the biggest set of classes possible?</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">Here's how the greedy algorithm works</li>
+                        <li class="fragment">Pick the class that ends the soonest. This is the first class you'll hold in this classroom.</li>
+                        <li class="fragment">Now, you have to pick a class that starts after the first class. Again, pick the class that ends the soonest. This is the second class you'll hold.</li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture15/cs3.png" style="height: 180pt"></div>
+                </section>
+                <section>
+                    <h3>Python Solution by Greedy Algorithm</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+start_time = [9,9.5,10,10.5,11]
+end_time = [10,10.5,11,11.5,12]
+selected = []
+earlist_end = 0
+
+for index, end in enumerate(end_time):
+    if start_time[index] >= earlist_end:
+        selected.append(index)
+        earlist_class = index
+        earlist_end = end
+print(selected)
+
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Sorting Algorithms</li>
+                        <li>Greedy Algorithm</li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
