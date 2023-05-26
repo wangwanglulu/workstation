@@ -1,33 +1,78 @@
-from wordcloud import WordCloud
-import jieba
+from moviepy.editor import *
+clip = VideoFileClip("ultraman.flv")
+clip = clip.subclip(0, 8) #剪切前8秒
+clip.write_gif("video.gif") #保存为gif
 
-filename = 'hongloumeng.txt'
-with open(filename, encoding="utf-8") as f_obj:
-    contents = f_obj.read()
+from PIL import Image
+#将gif的每一帧保存为png图片到images文件夹
+def get_imgs():
+    gif = Image.open('video.gif')
+    try:
+        gif.save(f"images/{gif.tell()}.png")
+        while True:
+            gif.seek(gif.tell()+1)
+            gif.save(f"images/{gif.tell()}.png")
+    except Exception as e:
+        print("finished")
+get_imgs()
 
-def sw(filename):
-    with open(filename, encoding="utf-8") as f_obj:
-        x = f_obj.readlines()
-    y = [word.strip() for word in x]
-    return y
-name_list = ['baidu_stopwords.txt', 'cn_stopwords.txt', 
-             'hit_stopwords.txt','scu_stopwords.txt']
+ASCII_CHAR = "$@B%8&WM#*oahkbdpqwmZO0QLaCJUYXzczjhdhsdavunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'."        
+def rgb_to_ascii(r, g, b, alpha=256): 
+    # 通过灰度值的映射
+    # 将没一个rgb值对应成一个ascii符
+    # 也就实现了rgb -> ascii
+    # 当像素透明时，直接返回一个空白字符串
+    if alpha == 0:
+        return ' '
+    length = len(ASCII_CHAR)
+    gray = int(0.299 * r + 0.587 * g + 0.114 * b)
+    # 灰度值和字符串的对应关系
+    # 每个字符串对应灰度值的区间是
+    unit = (256.0 + 1)/length
+    # 找到灰度值所对应字符串的下标
+    index = int(gray/unit)
+    return ASCII_CHAR[index]
 
-stop_word = []
-for x in name_list:
-    stop_word.extend(sw(x))
-stop_word = list(set(stop_word))
 
-s = jieba.lcut(contents) 
-result = [word for word in s if word not in stop_word]
-s = [word for word in result if len(word)>1]
-txt = " ".join(s)
+def image_to_ascii_chart(image):
+    width, height = image.size
+    text = ''
+    for y in range(0,height,10):
+        line = ''
+        for x in range(0,width,5):
+            # 找到对应位置的像素点
+            dot = image.getpixel((x, y))
+            line += rgb_to_ascii(*dot)
+        text += line
+        text += '\n'
+    return text
 
-#font = r'C:\Windows\Fonts\Arial.TTF'
-font = "/System/Library/Fonts/STHeiti Medium.ttc"
-wc = WordCloud(font_path=font, 
-               background_color='white',
-               width=1000,
-               height=800,
-               ).generate(txt)
-wc.to_file('s5.png') 
+# 每个图转化为字符串
+import os
+files = os.listdir('images')
+xxx = []
+for i in range(0,len(files)):
+    pic = Image.open(f'images/{i}.png').convert('RGB')
+    xxx.append(image_to_ascii_chart(pic))
+
+
+def Start():
+    os.system("clear")
+    print('Press any key...')
+    input()
+    os.system("clear")
+    i=0
+    print(xxx[i])
+    c = input()
+    while c != 'q':
+        os.system("clear")
+        print(xxx[i])
+        c = input()
+        i=i+1
+    print('End')
+
+
+
+Start()
+
+
