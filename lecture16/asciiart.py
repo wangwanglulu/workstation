@@ -1,6 +1,6 @@
 from moviepy.editor import *
 clip = VideoFileClip("ultraman.flv")
-clip = clip.subclip(0, 8) #剪切前8秒
+clip = clip.subclip(0, 6) #剪切前8秒
 clip.write_gif("video.gif") #保存为gif
 
 import os
