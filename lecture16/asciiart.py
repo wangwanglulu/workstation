@@ -64,19 +64,34 @@ for i in range(0,len(files)):
 
 
 def Start():
-    os.system("clear")
-    print('Press any key...')
-    input()
-    os.system("clear")
-    i=0
-    print(xxx[i])
-    c = input()
-    while c != 'q':
-        os.system("clear")
+    if os.name == 'nt':
+        os.system("cls")
+        print('Press any key...')
+        input()
+        os.system("cls")
+        i=0
         print(xxx[i])
         c = input()
-        i=i+1
-    print('End')
+        while c != 'q':
+            os.system("cls")
+            print(xxx[i])
+            c = input()
+            i=i+1
+        print('End')
+    else:
+        os.system("clear")
+        print('Press any key...')
+        input()
+        os.system("clear")
+        i=0
+        print(xxx[i])
+        c = input()
+        while c != 'q':
+            os.system("clear")
+            print(xxx[i])
+            c = input()
+            i=i+1
+        print('End')
 
 Start()
 
