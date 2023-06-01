@@ -1,11 +1,16 @@
-start_time = [9,9.5,10,10.5,11]
-end_time = [10,10.5,11,11.5,12]
-selected = []
-earlist_end = 0
+def f(n):
+    x=[1]
+    if n==1:
+        return x
+    elif n==2:
+        return x + x
+    elif n>2:
+        for y in range(0, len(f(n-1))-1):
+            x.append(f(n-1)[y]+f(n-1)[y+1])
+        x.append(1)
+        return x
 
-for index, end in enumerate(end_time):
-    if start_time[index] >= earlist_end:
-        selected.append(index)
-        earlist_class = index
-        earlist_end = end
-print(selected)
+def g(m):
+    for i in range(1,m+1):
+        print(f(i))
+g(6)
