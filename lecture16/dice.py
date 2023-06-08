@@ -30,7 +30,7 @@ def randomAudioFiles():
 def audioGenerator():
 	# files to read in and file to output to
 	infiles = randomAudioFiles();
-	outfile = "dice.wav"
+	outfile = "dice1.wav"
 
 	# reads through each .wav file
 	# gets the parameters and frames of each .wav file

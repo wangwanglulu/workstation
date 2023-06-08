@@ -1,7 +1,14 @@
 from moviepy.editor import *
-clip = VideoFileClip("ultraman.flv")
+clip = VideoFileClip("shaking.flv")
 clip = clip.subclip(0, 8) #剪切前8秒
 clip.write_gif("video.gif") #保存为gif
+
+import os
+exist = os.path.exists('images')  # 判断是否存在文件夹
+if not exist:
+    os.mkdir('images')
+else:
+    pass
 
 from PIL import Image
 #将gif的每一帧保存为png图片到images文件夹
