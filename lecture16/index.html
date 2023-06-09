@@ -266,7 +266,7 @@ with open(filename, encoding="utf-8") as f_obj:
 
 def sw(filename):
     with open(filename, encoding="utf-8") as f_obj:
-        x = file.readlines()
+        x = f_obj.readlines()
     y = [word.strip() for word in x]
     return y
 </code></pre>

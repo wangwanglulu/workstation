@@ -1,6 +1,6 @@
 from wordcloud import WordCloud
 import jieba
-filename = 'hongloumeng.txt'
+filename = 'xiaoaojianghu.txt'
 with open(filename, encoding="utf-8") as f_obj:
     contents = f_obj.read()
 def sw(filename):
