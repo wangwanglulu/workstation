@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 1</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <!-- <link rel="stylesheet" href="../../img/tinyfont.css"> -->
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 1 Introduction</h3>
+                </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">1.1 Course Intro</h2>
+                    <ul>
+                        <li>This is a basic course for Python programming.</li>
+                        <li>“Life is short, you need Python.”
+                            <p>by Bruce Eckel, ANSI C++ Comitee member</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div><img data-src="Python.png" style="height: 500pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">什么是计算机“语言”？</li>
+                        <li class="fragment">什么是编程？为什么要编程？</li>
+                        <li class="fragment">为什么要数据分析？来源，精细化</li>
+                        <li class="fragment">有很多程序设计语言,比如C，Java，Basic等等</li>
+                        <li class="fragment">为什么要学Python？
+                            <ul>
+                                <li class="fragment">原因一：高级 （简单）</li>
+                                <li class="fragment">原因二：普及，社区内容丰富</li>
+                                <li class="fragment">原因三：强大，扩展性强</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    TIOBE编程语言社区发布了2022年2月编程语言排行榜
+                    <div><img data-src="Ranking.png" style="height: 360pt"></div>
+                    
+                </section>
+                <section>
+                    <h3>这门课主要涉及4个板块</h3>
+                    <ul>
+                        <li>基本语法</li>
+                        <li>数据整理</li>
+                        <li>数据可视化</li>
+                        <li>爬虫技术基础</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>课程要求</h3>
+                    <ol>
+                        <li>一共三次作业（6%*3=18%）</li>
+                        <li>案例设计 （12%）</li>
+                        <li>期末考试 （60%）</li>
+                        <li>出勤率 (10%)</li>
+                        <li>答疑方式：by email or appointment</li>
+                        <li>联系方式
+                            <ul>
+                                <li>邮箱： wang.lu@mail.shufe.edu.cn</li>
+                                <li>办公室：武东路校区商学院楼412室</li>
+                            </ul>
+                        </li>
+                        <li>助教联系方式
+                            <ul>
+                                <li>杨兰雅</li>laya.yang@163.sufe.edu.cn</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </section>
+                <section>
+                    <h3>主要教材</h3>
+                    <div class="leftc"><img data-src="textbook3.jpg" style="height: 350pt"></div>
+                    <div class="rightc"><img data-src="textbook4.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <h3>参考教材</h3>
+                    <div class="rightc"><img data-src="textbook2.jpg" style="height: 350pt"></div>
+                    <div class="leftc"><img data-src="textbook1.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <h3>参考教材</h3>
+                    <div class="rightc"><img data-src="textbook5.jpg" style="height: 350pt"></div>
+                    <div class="leftc"><img data-src="textbook6.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li>课件从哪里获取？</li>
+                        <ul class="fragment">
+                            <li>在上财教学网Blackboard系统上下载</li>
+                            <li>或者我的网站：<a href="https://wangwanglulu.com">wangwanglulu.com</a>（如果你需要pdf格式文件，请在网址末尾加上?print-pdf，然后ctrl+p）。</li>
+                        </ul>
+                        <li class="fragment">作业如何提交？</li>
+                        <ul class="fragment">
+                            <li>作业为编程题，以电子版的方式提交</li>
+                            <li>作业的时限为一周</li>
+                            <li>提交到上财教学网Blackboard系统</li>
+                            <li>下次布置作业时会讲解作业的格式</li>
+                        </ul>
+                        <li class="fragment">其他</li>
+                        <ul class="fragment">
+                            <li>除课件外，我的网站上有与每次课相关的资料和课外阅读</li>
+                            <li>主要教材的代码下载与使用</li>
+                            <li>原始课件为reveal.js格式，如何使用?</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">1.2 Python Intro</h2>
+                    <ul>
+                        <li>Python的简史，特色和安装</li>
+                    </ul>
+                </section>
+                <section style="text-align: left">
+                    <h3>Python历史</h3>
+                    <p>Python的创始人为吉多·范罗苏姆（Guido van Rossum）。1989年的圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。之所以选中Python作为程序的名字，是因为他是BBC电视剧——蒙提·派森的飞行马戏团（Monty Python's Flying Circus）的爱好者。</p>
+                    <h3 class="fragment">Python的特色</h3>
+                    <p class="fragment">Python的设计哲学是“优雅”，“明确”，“简单”。Python开发者的哲学是“用一种方法，最好是只有一种方法来做一件事”。</p>
+                    <p class="fragment" style="text-align: right">——出自Wikipedia的<a href="https://zh.wikipedia.org/wiki/Python#.E6.AD.B7.E5.8F.B2">Python</a></p>
+                </section>
+                <section>
+                    <h3>废话不多说，上手试一下 </h3>
+                </section>
+                <section>
+                    <h3>Python的安装</h3>
+                    <ul>
+                        <li>请使用Python 3.x (很多教材是2.x版本)</li>
+                        <li><a href="https://www.anaconda.com/download/">Anaconda</a>，两种模式</li>
+                        <li class="fragment">实际演示：第一个Python程序
+                            <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+print("Hello, world!")
+            </code></pre>
+                        </li>
+                        <li class="fragment">第二个Python程序
+                            <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+import antigravity
+            </code></pre>
+                        </li>
+                        <li class="fragment">第三个Python程序
+                            <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+import this
+            </code></pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>程序设计的一些准则</h2>
+                    <ul>
+                        <li>怎么把Python学好？</li>
+                    
+                    <ol>
+                        <li>初学者要勤写注释（什么是注释？语音输入）</li>
+                        <li>遇到困难，勤查资料寻找办法解决问题（CSDN, stack overflow）</li>
+                        <li>搞清楚需求，解决问题最重要</li>
+                        <li>尽量写容易看明白的代码，尽量写少的代码</li>
+                        <li>不要复制粘贴，一个字一个字的敲</li>
+                        <li>不用太在意速度，不要高估自己写的代码</li>
+                    </ol>
+                    </ul>
+                </section>
+            </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">1.3 Values</h2>
+                </section>
+                <section>
+                    <h3>Three types of values</h3>
+                    <ul>
+                        <li>Integer (整数)</li>
+                        <ul>
+                            <li>e.g., $1,2,15,-10$</li>
+                        </ul>
+                        <li>Float (浮点数)</li>
+                        <ul>
+                            <li>numbers with decimal point, e.g., $1.2, -3.8$.</li>
+                            <li>for large or small numbers, </li>
+                            <li>$5.91\times10^{10}=5.91e10$, $0.00233=2.33e-3$.</li>
+                        </ul>
+                        <li>String (字符串)</li>
+                        <ul>
+                            <li>e.g., 'happy'</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <p>Python can tell you what type a value has.</p>
+                    <p><b>>>></b> means what you input in the IPython console.</p>
+                    <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> type(4)
+int
+
+>>> type('Hello, World!')
+str
+
+>>> type(3.2)
+float
+</code></pre>
+                    <div class="fragment">
+                        <b>Note: If numbers are in quotation marks, they are strings.</b>
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> type('17')
+str
+
+>>> type('3.2')
+str
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Escape string</h3>
+                    <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print('happy')
+happy
+</code></pre>
+                    <div class="fragment">
+                        <p>If we want to print the single quotation marks?</p>
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print("'happy'")
+'happy'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <p>If we want to print the double quotation marks?</p>
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print('\"happy\"')
+"happy"
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <p>If we want to print the slash?</p>
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print('\\happy\\')
+\happy\
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>If we want to print the double slashes?</p>
+                    <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print(r'\\happy\\')
+\\happy\\
+</code></pre>
+                    <div class="fragment">
+                        <p>Line break</p>
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print('I\'m learning\nPython.')
+I'm learning
+Python.
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <p>Tab</p>
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print('I\'m learning\tPython.')
+I'm learning    Python.
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print('\\\n\\')
+>>> print('\\\t\\')
+>>> print(r'\\\t\\')
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">1.4 Variables</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <p>A variable is a name that refers to a value.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>An assignment statement creates new variables and gives them values.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> message = 'something'
+>>> n = 17
+>>> pi = 3.1415926535897931
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>To display the value of a variable, you can use a print statement.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print(n)
+17
+>>> print(pi)
+3.141592653589793
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>The type of a variable is the type of the value it refers to.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> type(message)
+str
+>>> type(n)
+int
+>>> type(pi)
+float
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment" style="color:red">
+                            <p>Note that $=$ means "assignment", not equation.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> x = 15
+x = x + 10
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>Python is a Dynamically Typed Language. What is Dynamically Typed Language?</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> apple = 123 
+# apple is an integer
+>>> print(apple)
+123
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> apple = 'ABC' 
+# Now apple turns to be a string
+>>> print(apple)
+ABC
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>We can assign the value of a variable to another variable.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> a = 'ABC'
+>>> b = a
+>>> print(b)
+ABC
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Variable name</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Variable names can be arbitrarily long. They are case sensitive.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>You <b>cannot</b> start with a number.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>It is common to use underscore character $\_$.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Spaces are not allowed in variable names, but underscores can be used to separate words in variable names.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Illegal name</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> 76trombones = 'big parade'
+SyntaxError: invalid syntax
+
+>>> more@ = 1000000
+SyntaxError: invalid syntax
+
+>>> class = 'Advanced Theory'
+SyntaxError: invalid syntax
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Keywords</h3>
+                    <ul>
+                        <li>You <b>cannot</b> use the following keyword as variable names since they have been reserved by Python to recognize the structure of the program.</li>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+and del from None True
+as elif global nonlocal try
+assert else if not while
+break except import or with
+class False in pass yield
+continue finally is raise
+def for lambda return
+</code></pre>
+                    </div>
+                    </ul>
+                </section>
+                <section>
+                    <p>You would be better to use recognizable names. Check the following names.</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> a = 35.0
+>>> b = 12.50
+>>> c = a * b
+>>> print(c)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> hours = 35.0
+>>> rate = 12.50
+>>> pay = hours * rate
+>>> print(pay)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> x1q3z9ahd = 35.0
+>>> x1q3z9afd = 12.50
+>>> x1q3p9afd = x1q3z9ahd * x1q3z9afd
+>>> print(x1q3p9afd)
+</code></pre>
+                    </div>
+                    <p class="fragment">Which ones are better?</p>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">1.5 Operators, input and output</h2>
+                </section>
+                <section>
+                    <h3>Operators</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>$+,-,*,/,**$(exponentiation), %, //</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Order of operations</p>
+                        </li>
+                                            <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> minute=50
+>>> minute/20
+2.5 #float
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> minute=50
+>>> minute//20 
+2 #floored integer
+</code></pre>
+                    </div>
+                    
+
+
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> minute=50
+>>> minute%20 
+10 #remainder. useful!
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> student_number=2017003425
+>>> student_number//1000000
+2017 
+>>> student_number%10000
+3425
+</code></pre>
+                    </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>String operations</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> first=10
+>>> second=15
+>>> print(first+second)
+25
+
+>>> first='100'
+>>> second='150'
+>>> print(first + second)
+100150
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Input and Output</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>input() and print()</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> x = input()
+Some silly stuff
+
+>>> print(x)
+Some silly stuff
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>You can pass a string to input to be displayed to the user before pausing for input</p>
+                        </li>
+                        <li class="fragment"><b>Note: By using input(), the type of what the user inputs is always string!</b></li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> name = input('What is your name?\n')
+What is your name?
+Chuck #This is what you input
+
+>>> print(name)
+Chuck #The type is string.
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>If you expect the user to type an integer, you can try to convert the return value to integer using the int() function</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> prompt = 'What is the speed?\n'
+>>> speed = input(prompt)
+What is the speed?
+17
+
+>>> int(speed)
+17
+
+>>> int(speed) + 5
+22
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>It may cause error, if the value cannot be converted.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> speed = input(prompt)
+What is the speed?
+I do not know. #This is what you input.
+
+>>> int(speed)
+ValueError: invalid literal for int() with base 10:
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <p>To write or display long program, Editor will be used. Grey box shows the output of a sequence of code. Red box shows the error message. Basically, the Editor is the same with IPython console.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+age = 23
+message = "Happy " + age + "rd Birthday!"
+print(message)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="error" data-trim contenteditable >
+Traceback (most recent call last):
+File "birthday.py", line 2, in &lt;module&gt;
+message = "Happy " + age + "rd Birthday!"
+TypeError: Can't convert 'int' object to str implicitly
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+age = 23
+message = "Happy " + str(age) + "rd Birthday!"
+print(message)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable >
+Happy 23rd Birthday!
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Course intro</li>
+                        <li>Python intro</li>
+                        <li>Tips for programming</li>
+                        <li>Values, variables, operators, input and output</li>
+                        <li>Reading: Python for everybody Chapter 2</li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
