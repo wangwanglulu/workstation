@@ -1,0 +1,981 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 4</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 4 Dictionaries, Tuples</h3>
+                </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">4.1 Dictionaries</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <p>A dictionary is like a list, but more general. In a list, the index positions have to be integers; in a dictionary, the indices can be (almost) any type.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = {} #This is False
+>>> print(x)
+{}
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>You can think of a dictionary as a mapping between a set of indices (which are called keys) and a set of values.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x['one'] = 'apple'
+>>> print(x)
+{'one': 'apple'}
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>In general, the order of items in a dictionary is unpredictable. (the order you add items)</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = {'one':'apple','two':'banana','three':'orange'}
+>>> print(x)
+{'one':'apple','three':'orange','two':'banana'}
+
+>>> print(x['two'])
+'banana'
+
+>>> len(x)
+3
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Adding New Key-Value Pairs</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> alien = {}
+>>> alien['color'] = 'green'
+>>> alien['point'] = 5
+>>> print(alien)
+{'color': 'green', 'points': 5}
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>To create a dictionary, start with an empty one, and add the key-value pairs. The keys should be immutable and there is no repeated key. <b>Lists cannot be keys in the dictionary.</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p>Modifying Values in a Dictionary</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> alien['color'] = 'yellow'
+>>> print(alien)
+{'color': 'yellow', 'points': 5}
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>Removing Key-Value Pairs</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> del alien['points']
+>>> print(alien)
+{'color': 'yellow'}
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Merge two dictionaries</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> dict1 = { "name":"owen", "age": 18 }
+>>> dict2 = { "birthday": "1999-11-22"}
+>>> x = dict( dict1, **dict2 )
+>>> print(x)
+{'name': 'owen', 'age': 18, 'birthday': '1999-11-22'}
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> a = { 'x' : 1 , 'y' : 2 }
+>>> b = { 'y' : 3 , 'z' : 4 }
+>>> c = dict(a,**b)
+>>> print(c)
+{'x': 1, 'y': 3, 'z': 4}
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>The <b>in</b> operator works on dictionaries. (<b>keys</b>) To see whether something appears as a value in a dictionary, you can use the method <b>.values()</b>.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = {'one': 'apple', 'two': 'banana', 'three': 'orange'}
+>>> 'one' in x
+True
+>>> 'uno' in x
+False
+>>>'orange' in x.values()
+True
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Methods of Dictionary</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> stuff = {}
+>>> dir(stuff)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+['__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__',
+ '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__',
+ '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__ior__',
+ '__iter__', '__le__', '__len__', '__lt__', '__ne__', '__new__', '__or__',
+ '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__ror__', '__setattr__',
+ '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'clear', 'copy', 
+ 'fromkeys', 'get', 'items', 'keys', 'pop', 'popitem', 'setdefault', 'update','values']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> help(dict.get)
+Help on method_descriptor:
+
+get(self, key, default=None, /)
+    Return the value for key if key is in the dictionary, else default.
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <!--                         <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+word = 'banana'
+d = {}
+word_list = list('banana')
+for c in word_list:
+    if c not in d:
+        d[c] = 1
+    else:
+        d[c] = d[c] + 1
+print(d)
+</code></pre>
+                        </div> -->
+                        <li class="fragment">Dictionaries have a method called <b>.get()</b> that takes a key and a default value.</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> counts = { 'chuck' : 1 , 'annie' : 42, 'jan': 100}
+>>> print(counts.get('jan', 0)) #0 is the default value
+100
+>>> print(counts.get('anni', 1550))
+1550
+</code></pre>
+                        </div>
+                        <li class="fragment">Suppose you are given a string and you want to count how many times each letter appears.</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+word = 'banana'
+d = {}
+word_list = list('banana')
+for c in word_list:
+    d[c] = d.get(c,0) + 1
+print(d)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+{'b': 1, 'a': 3, 'n': 2}
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Looping Through Dictionary</h3>
+                    <h4><b>.items(), .keys(), .values()</b></h4>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Looping Through All Key-Value Pairs
+favorite = {
+    'jen': 'python',
+    'sarah': 'c',
+    'edward': 'ruby',
+    }
+for x, y in favorite.items():
+    print(x, y)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+jen python
+sarah c
+edward ruby
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Looping Through All Values
+
+for y in favorite.values():
+    print(y)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+python
+c
+ruby
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Looping Through All the Keys in a Dictionary
+
+for x in favorite.keys():
+    print(x)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+jen
+sarah
+edward
+</code></pre>
+                        </div>
+                    </div>
+                    <!--                     <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+friends = ['sarah', 'jen']
+for x in favorite.keys():
+    if x in friends:
+        print(x+" "+favorite[x])
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+Jen python
+Sarah c
+</code></pre>
+                        </div>
+                    </div>
+ -->
+                </section>
+                <section>
+                    <h3>Nesting</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>You can nest a set of dictionaries inside a list, a list of items inside a dictionary, or even a dictionary inside another dictionary. <b>A list or a dictionary cannot be the key (The key should be immutable).</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p> Dictionaries in a list</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+alien_0 = {'color': 'green', 'points': 5}
+alien_1 = {'color': 'yellow', 'points': 10}
+alien_2 = {'color': 'red', 'points': 15}
+
+aliens = [alien_0, alien_1, alien_2]
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>A List in a Dictionary</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pizza = {
+    'crust': 'thick',
+    'toppings': ['mushrooms', 'extra cheese'],
+    }
+print(pizza['crust'], pizza['toppings'][1])
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+thick extra cheese
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>A Dictionary in a Dictionary</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+users = {
+    'aeinstein': {
+        'first': 'albert',
+        'last': 'einstein',
+        'location': 'princeton',
+        },
+
+    'mcurie': {
+        'first': 'marie',
+        'last': 'curie',
+        'location': 'paris',
+        },
+    }
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+full_name = users['aeinstein']['first']+" "+users['aeinstein']['last']
+location = users['aeinstein']['location']
+
+print("Full name: " + full_name)
+print("Location: " + location)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable>
+
+Full name: Albert Einstein
+Location: Princeton
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Dictionaries: Summary</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Elements are key-value pairs. Empty dictionary {}</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Features：unpredictable order, key-value pairs are mutable (keys are immutable, but you can modify values). Do not make repeated keys.</p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>.get()</b> (value or default value)</p>
+                            <p>Looping: <b>.items(), .keys(), .values()</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p>in operator works on keys (but you can use .values()) </p>
+                        </li>
+                        <li class="fragment">
+                            <p>Nesting: A list of dictionaries, a list in a dictionary, a dictionary in a dictionary</p>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">4.2 Money Tracker v1.0</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">1. Require users to enter expenses one by one</li>
+                        <li class="fragment">2. Report the total expenses</li>
+                    </ul>
+                    <!-- <ul>
+                        <li><b>New Feature!</b> Add the classification of each expense</li>
+                    </ul> -->
+                    <h4></h4>
+                    <h4 class="fragment">Step 1: Create a list containing dictionaries</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print("简易记账本（三月）")
+Month = []
+for date in range(31):
+    Month.append({}) 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h4>Step 2: Require Users to enter the date</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+day = int(input("请问输入几号的开销？\n"))
+</code></pre>
+                    </div>
+                    <h4 class="fragment">Step 3: Enter the expenses one by one</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+print("请输入每一笔开销，结束请输入0:\n") 
+while True:
+    each = float(input("请输入金额:\n"))
+    if each == 0:
+        break
+    else: 
+        type = input("请选择类型: a.衣 b.食 c.住 d.行 e.其他\n")
+        Month[day-1][type] = Month[day-1].get(type,0) + each
+        print("记录成功\n")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Multiple days: replace the code in Step 2 (Nested loops)</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+while True:
+    day = int(input("请问输入几号的开销？结束请输入0:\n"))
+    if day == 0:
+        break
+    else:
+        # all the programs in Step 3
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment"><b>indentation: select programs, tab (or space)</b></li>
+                        <li class="fragment"><b>cancel indentation: select programs, shift + tab</b></li>
+                    </ul>
+                </section>
+                <section>
+                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+total=0
+for each_day in Month:
+    if each_day:
+        total = total + sum(each_day.values())
+
+print("总支出：", total)
+</code></pre>
+                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+sub = {}
+category = ['a', 'b', 'c', 'd', 'e']
+for z in category:
+    for each_day in Month:
+        sub[z] = each_day.get(z,0)+sub.get(z,0)
+
+print("衣：", sub['a']) 
+print("食：", sub['b']) 
+print("住：", sub['c']) 
+print("行：", sub['d']) 
+print("其他：", sub['e'])   
+</code></pre>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">4.3 Tuples</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>A tuple is a sequence of values much like a list. The important difference is that tuples are <b>immutable</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p>The empty tuple can be written as tuple().</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = () #Empty is False
+>>> print(t)
+() 
+
+>>> t = ('a', 'b', 'c', 'd', 'e')
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>To create a tuple with a single element, you have to include the final comma:</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t1 = ('a',)
+>>> type(t1)
+tuple
+
+>>> t2 = ('a')
+>>> type(t2)
+str
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Most list operators also work on tuples. </p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = ('a', 'b', 'c', 'd', 'e')
+>>> print(t[0])
+'a'
+
+>>> print(t[1:3])
+('b', 'c')
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>Tuple is immutable. You <b>can't modify</b> the elements of a tuple, but you can replace one tuple with another:
+                            </p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t[0] = 'A'
+TypeError: object doesn't support item assignment
+
+>>> t = ('A',) + t[1:]
+>>> print(t)
+('A', 'b', 'c', 'd', 'e')
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>If you want to modify a tuple, you can convert it to a list, and then convert it back.
+                            </p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = ('a', 'b', 'c', 'd', 'e')
+>>> s = list(t) 
+>>> s[0] = 'A'
+>>> t = tuple(s) 
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Lists and Tuples</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Comparing and sorting Tuples (the same for lists in list)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> (0, 1, 2) < (0, 3, 4)
+True
+>>> (0, 1, 2000000) < (0, 3, 4)
+True
+
+>>> t = [(2, 4), (0, 1, 2), (0, 3, 4)]
+>>> t.sort()
+>>> print(t)
+[(0, 1, 2), (0, 3, 4), (2, 4)]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = [('c', 3), ('a', 2), ('b', 1)]
+>>> t.sort()
+>>> print(t)
+[('a', 2), ('b', 1), ('c', 3)]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Multiple Assignment (the same for lists)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> m = ('have', 'fun')  
+>>> x, y = m  #(x, y) = m
+>>> x
+'have'
+>>> y
+'fun'
+>>> x, y = y, x #swap
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>in operator (the same for lists)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = ('a', 'b', 'c', 'd', 'e')
+>>> print('a' in t) 
+True
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Iteration with multiple values (the same for list of lists, tuple of lists)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+t = [('a',1), ('b',2), ('c',3)]
+for x, y in t:
+    print(x)
+    print(y)
+# for x in t?
+</code></pre>
+                    </div>
+                </section>
+                <!--
+                <section>
+                    
+                    <ul>
+                        <li>
+                            <p>Lists can be in a tuple.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = ('a', 'b', ['A', 'B'])
+>>> t[2][0] = 'X'
+>>> t[2][1] = 'Y'
+>>> t
+('a', 'b', ['X', 'Y'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = ('a', 'b', ['A', 'B'])
+>>> t[2] = ['X', 'Y']
+
+TypeError: 'tuple' object does not support item assignment
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> t = ('a', 'b', ('A', 'B'))
+>>> t[2][0] = 'X'
+
+TypeError: 'tuple' object does not support item assignment
+</code></pre>
+                    </div>
+                </section>
+                -->
+                <section>
+                    <h3>Dictionaries and tuples</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> d = {'a':10, 'b':1, 'c':22}
+>>> t = list(d.items())
+>>> t
+[('b', 1), ('a', 10), ('c', 22)]
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Using tuples as keys in dictionaries</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> directory = dict()
+>>> directory[('Taylor', 'Swift')] = 100
+>>> print(directory)
+
+{('Taylor', 'Swift'): 100}
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Tuples: Summary</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>The element can be any type. The empty is (). </p>
+                        </li>
+                        <li class="fragment">
+                            <p>Features: Ordered, Immutable, Repeatable </p>
+                        </li>
+                        <li class="fragment">
+                            <p>Index and slice are the same with that of lists. </p>
+                        </li>
+                        <li class="fragment">
+                            <p>You cannot modify the elements of a tuple, but you can replace one tuple with another.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Comparing, multiple assignment, in operator</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Tuples can be keys of a dictionary.</p>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">4.4 List, dictionary, tuple</h2>
+                </section>
+                <section>
+                    <h3>Comparison</h3>
+                    <table style="font-size: 16pt">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>container</th>
+                                <th>Feature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>List</td>
+                                <td>[]</td>
+                                <td>ordered; mutable; repeatable</td>
+                            </tr>
+                            <tr>
+                                <td>Tuple</td>
+                                <td>()</td>
+                                <td>ordered; immutable; repeatable</td>
+                            </tr>
+                            <tr>
+                                <td>Dictionary</td>
+                                <td>{}</td>
+                                <td>not ordered; key-value pairs and values are mutable, keys are not; values are repeatable, keys are not</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h3>Mutable and Immutable (可变和不可变)</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Values are immutable. Thus, numbers, strings, tuples are immutable. Lists, dictionaries are mutable.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>What does it mean for immutable or mutable? Assignment, Modification, Reference </p>
+                        </li>
+                        <li class="fragment">
+                            <p>1. what is assignment? variable $\rightarrow$ computer memory $\rightarrow$ object</p>
+                        </li>
+                        <div class="fragment" , style="text-align: center"><img data-src="../img/lecture4/memory.png" style="height: 200pt"></div>
+                    </ul>
+                </section>
+                <section>
+                    <p>2. Modification</p>
+                    <ul>
+                        <li class="fragement">When you want to modify the immutable object, you can only assign a new object. It changes the address in the memory.</li>
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = "abc"
+>>> x = "def"
+</code></pre>
+                            </div>
+                        </div>
+                        <div class="div-d">
+                            <div class="fragment"><img data-src="../img/lecture4/immutable.png" style=" height: 70pt"></div>
+                        </div>
+                    </ul>
+                    <ul>
+                        <li class="fragment">There are two ways for you to modify the mutable object. a. make a new assignment; b. make a modification by methods for lists or some ways for dictionaries.</li>
+                        <p class="fragment"><b>a. make a new assignment</b></p>
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = [1,2,3]
+>>> x = [4,5,6]
+</code></pre>
+                            </div>
+                        </div>
+                        <div class="div-d">
+                            <div class="fragment"><img data-src="../img/lecture4/mutable.png" style=" height: 100pt"></div>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <p><b>b. make a modification by methods for lists. You do not change the address.</b></p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = [1,2,3]
+>>> del x[2]
+>>> del x[1]
+>>> del x[0]
+>>> x.append(4)
+>>> x.append(5)
+>>> x.append(6)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment"><img data-src="../img/lecture4/modification.png" style=" height: 120pt"></div>
+                    </div>
+                    <p class="fragment">3. Reference</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = "abc"
+>>> y = x
+>>> x = "def"
+>>> print(y)
+"abc"
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment"><img data-src="../img/lecture4/reference_1.png" style=" height: 140pt"></div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = [1,2,3]
+>>> y = x
+>>> del x[2]
+>>> x.append(4)
+>>> print(y)
+[1,2,4]
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment"><img data-src="../img/lecture4/reference_2.png" style=" height: 120pt"></div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = [1,2,3]
+>>> y = x[:] 
+>>> del x[2]
+>>> x.append(4)
+>>> print(y)
+[1,2,3]
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment"><img data-src="../img/lecture4/reference_3.png" style=" height: 200pt"></div>
+                    </div>
+                </section>
+                <!--
+                <section>
+                    <p class="fragment">a=a+b and a+=b</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = 1
+>>> y = x
+>>> x = x + 1
+>>> print(x,y)
+2 1
+>>> x+=1
+>>> print(x,y)
+3 1
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x = [1,2,3]
+>>> y = x
+>>> x += [4,5]
+>>> print(x,y)
+[1, 2, 3, 4, 5] [1, 2, 3, 4, 5]
+>>> x = x + [6,7]
+>>> print(x,y)
+[1, 2, 3, 4, 5, 6, 7] [1, 2, 3, 4, 5]
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+            -->
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Dictionaries, Tuples</li>
+                        <li>Reading: Python for Everybody</li>
+                        <ul>
+                            <li> Chapter 9, 10.1-10.5, 10.7-10.8</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                }
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
