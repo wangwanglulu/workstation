@@ -181,8 +181,7 @@ get(self, key, default=None, /)
                 </section>
                 <section>
                     <ul>
-                        <li class="fragment">Suppose you are given a string and you want to count how many times each letter appears.</li>
-                        <div class="fragment">
+                        <!--                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 word = 'banana'
 d = {}
@@ -194,12 +193,7 @@ for c in word_list:
         d[c] = d[c] + 1
 print(d)
 </code></pre>
-                        </div>
-                        <div class="fragment">
-                            <pre><code class="output language-Python" data-trim contenteditable>
-{'b': 1, 'a': 3, 'n': 2}
-</code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">Dictionaries have a method called <b>.get()</b> that takes a key and a default value.</li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -210,6 +204,7 @@ print(d)
 1550
 </code></pre>
                         </div>
+                        <li class="fragment">Suppose you are given a string and you want to count how many times each letter appears.</li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 word = 'banana'
@@ -220,10 +215,16 @@ for c in word_list:
 print(d)
 </code></pre>
                         </div>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+{'b': 1, 'a': 3, 'n': 2}
+</code></pre>
+                        </div>
                     </ul>
                 </section>
                 <section>
-                    <h3><b>.items(), .keys(), .values()</b></h3>
+                    <h3>Looping Through Dictionary</h3>
+                    <h4><b>.items(), .keys(), .values()</b></h4>
                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -251,11 +252,7 @@ edward ruby
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # Looping Through All Values
-favorite = {
-    'jen': 'python',
-    'sarah': 'c',
-    'edward': 'ruby',
-    }
+
 for y in favorite.values():
     print(y)
 </code></pre>
@@ -270,17 +267,11 @@ ruby
 </code></pre>
                         </div>
                     </div>
-                </section>
-                <section>
                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # Looping Through All the Keys in a Dictionary
-favorite = {
-    'jen': 'python',
-    'sarah': 'c',
-    'edward': 'ruby',
-    }
+
 for x in favorite.keys():
     print(x)
 </code></pre>
@@ -295,7 +286,7 @@ edward
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-a">
+                    <!--                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 friends = ['sarah', 'jen']
@@ -314,6 +305,7 @@ Sarah c
 </code></pre>
                         </div>
                     </div>
+ -->
                 </section>
                 <section>
                     <h3>Nesting</h3>
@@ -424,10 +416,10 @@ Location: Princeton
                     </ul>
                     <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 print("简易记账本（九月）")
-March=[]
-for date in range(30):
-    # March.append([])
-    March.append({}) 
+Sept=[]
+for date in range(31):
+    # Sept.append([])
+    Sept.append({}) 
 </code></pre>
                     <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 while True:
@@ -442,9 +434,9 @@ while True:
             if each == 0:
                 break
             else: 
-                # March[day-1].append(each)
+                # Sept[day-1].append(each)
                 y = input("请选择: a.衣 b.食 c.住 d.行 e.其他")
-                March[day-1][y]=March[day-1].get(y,0)+each
+                Sept[day-1][y]=Sept[day-1].get(y,0)+each
                 n = n + 1
             print("记录成功")
 </code></pre>
@@ -452,7 +444,7 @@ while True:
                 <section>
                     <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 total=0
-for each_day in March:
+for each_day in Sept:
     if each_day:
         # total = total + sum(each_day)
         total = total + sum(each_day.values())
@@ -463,7 +455,7 @@ print("总支出：" + str(total))
                     <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 sub = {}
 items = ['a', 'b', 'c', 'd', 'e']
-for each_day in March:
+for each_day in Sept:
     for z in items:
         sub[z] = each_day.get(z,0)+sub.get(z,0)
 print("衣：", sub['a']) 
@@ -711,7 +703,7 @@ TypeError: 'tuple' object does not support item assignment
                     </ul>
                 </section>
             </section>
-            <!--
+            
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">4.4 List, dictionary, tuple</h2>
@@ -858,7 +850,7 @@ TypeError: 'tuple' object does not support item assignment
                         <div class="fragment"><img data-src="../img/lecture4/reference_3.png" style=" height: 200pt"></div>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <p class="fragment">a=a+b and a+=b</p>
                     <div class="div-c">
                         <div class="fragment">
@@ -888,8 +880,8 @@ TypeError: 'tuple' object does not support item assignment
 </code></pre>
                         </div>
                     </div>
-                </section>
-            -->
+                </section> -->
+            
             </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">

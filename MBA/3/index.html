@@ -549,9 +549,9 @@ for i in range(1,4):
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # Step 1: Create a list containing dates
 print("简易记账本（九月）")
-March=[]
-for date in range(30):
-    March.append([])
+Sept=[]
+for date in range(31):
+    Sept.append([])
 
 # Step 2: Require Users to enter the date
 day=int(input("请问输入几号的开销?"))
@@ -567,7 +567,7 @@ while True:
     if each == 0:
         break
     else: 
-        March[day-1].append(each)
+        Sept[day-1].append(each)
         n = n + 1
     print("记录成功")
 </code></pre>
@@ -595,7 +595,7 @@ while True:
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # Step 4: Calculate the total
 total=0
-for each_day in March:
+for each_day in Sept:
     if each_day:
         total = total + sum(each_day)
 
