@@ -120,7 +120,7 @@
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> dict1 = { "name":"owen", "age": 18 }
 >>> dict2 = { "birthday": "1999-11-22"}
->>> x = dict( dict1, **dict2 )
+>>> x = dict1|dict2
 >>> print(x)
 {'name': 'owen', 'age': 18, 'birthday': '1999-11-22'}
 </code></pre>
@@ -129,7 +129,7 @@
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> a = { 'x' : 1 , 'y' : 2 }
 >>> b = { 'y' : 3 , 'z' : 4 }
->>> c = dict(a,**b)
+>>> c = a|b
 >>> print(c)
 {'x': 1, 'y': 3, 'z': 4}
 </code></pre>
