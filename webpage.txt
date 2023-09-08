@@ -4,3 +4,6 @@ images
 reading
 index.html
 MBA
+MBAimg
+PHD
+PHDimg
