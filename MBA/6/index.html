@@ -1,0 +1,897 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 6</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <!-- <link rel="stylesheet" href="../../img/tinyfont.css"> -->
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                         <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 6 Functions, Modules</h3>
+                    </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">6.1 Functions Basics</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>A function is a named sequence of statements that performs a computation.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Build-in Functions</p>
+                            <p>int(), float(), str(), type() and etc.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>To make your own functions, <b>two steps: 1. define a function 2. call a function</b></p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def lyrics():
+    print("I'm okay.")
+
+lyrics()
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>The first line of the function is called the header. The rest is called the body. You can use it inside another function</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def repeat_lyrics():
+    lyrics()
+    lyrics()
+
+repeat_lyrics()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+I'm okay.
+I'm okay.
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Parameters and arguments (形参和实参)</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def print_twice(bruce): 
+    print(bruce)
+    print(bruce)
+
+print_twice('Spam')
+print_twice(17)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+Spam
+Spam
+17
+17
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+michael = 'Eric, the half a bee.'
+print_twice(michael)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+Eric, the half a bee.
+Eric, the half a bee.
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Multiple parameters</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Positional Arguments</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def describe_pet(type, name):
+    print(f"My {type}'s name is {name}.")
+
+describe_pet('hamster', 'Harry')
+describe_pet('dog', 'Willie')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+My hamster's name is Harry.
+My dog's name is Willie.
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+describe_pet('harry', 'Hamster') #Order Matters
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+My harry's name is Hamster.
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Keyword Arguments</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def describe_pet(type, name):
+    print(f"My {type}'s name is {name}.")
+
+describe_pet(type='hamster', name='harry')
+describe_pet(name='harry', type='hamster')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Default Values</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def describe_pet(name, type='dog'): 
+    print(f"My {type}'s name is {name}.")
+
+describe_pet(name='willie')
+
+
+
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+My dog's name is Willie.
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+describe_pet(name='harry', type='hamster') 
+#The default value has been ignored.
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>The following function calls have the same output.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# A dog named Willie.
+describe_pet('willie')
+describe_pet(name='willie')
+
+# A hamster named Harry.
+describe_pet('harry', 'hamster')
+describe_pet(name='harry', type='hamster')
+describe_pet(type='hamster', name='harry')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Example: Making an Argument Optional</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def show_name(first, middle, last):
+    full_name=first+' '+middle+' '+last
+    print(full_name.title())
+
+show_name('john','lee','hooker')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def show_name(first, last, middle=''):
+    if middle:
+        full_name=first+' '+middle+' '+last
+    else:
+        full_name=first+' '+last
+    print(full_name.title())
+
+show_name('jimi', 'hendrix')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Fruitful functions and void functions</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Some of the functions yield results, fruitful fucntions</p>
+                            <p>Some of the functions do not return a value, void fucntions</p>
+                        </li>
+                        <li class="fragment">
+                            <p>To return a result from a function, we use the return statement in our function.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def addtwo(a, b):
+    added = a + b
+    return added 
+# if only return, then it will return None.
+
+x = addtwo(3, 5)
+print(x)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def addtwo(a, b):
+    added = a + b 
+
+x = addtwo(3, 5)
+print(x)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+None
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p><b>Return means the termination of a function. If you have two returns, only the first one will take effect.</b></p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li>
+                            <p>Return and Print</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def addtwo(a, b):
+    added = a + b 
+    print(added)
+
+x = addtwo(3, 5)
+print(x)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+8
+None
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def addtwo(a, b):
+    added = a + b 
+    print(added)
+    return added
+
+x = addtwo(3, 5)
+print(x)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+8
+8
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>If we want to return multiple values, the function returns a tuple.</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def addtwo(a, b):
+    added = a + b
+    return a, b, added
+
+x = addtwo(3, 5)
+print(x)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+(3, 5, 8)
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>A function can return any kind of value you need it to, including more complicated data structures like lists and dictionaries.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def build_person(first, last):
+    person = {1: first, 2: last}
+    return person
+
+musician = build_person('jimi', 'hendrix')
+print(musician)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+{1: 'jimi', 2: 'hendrix'}
+</code></pre>
+                    </div>
+                </section>
+                <!-- <section>
+                    <h3>Example: Improve the game in Lecture 2!</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+game_t = [[], ['a','b','c'], ['d','e'], ['x','y','z']]
+game_m = [[], [0,2,0], [0,3,0], [0,0,0]]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def game(story, goto):
+    for sentence in story:
+        print(sentence)
+        input()
+    select = int(input("Please select? "))
+    if select == 1:
+        next_stage = goto[0]
+    elif select == 2:
+        next_stage = goto[1]
+    elif select == 3:
+        next_stage = goto[2]
+    return next_stage
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def start(t, m):
+    x = 1
+    while x!= 0:
+        x = game(t[x], m[x])
+    print("Game over")
+
+start(game_t, game_m)
+</code></pre>
+                    </div>
+                </section> -->
+            </section>
+            <!-- <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">6.2 Money Tracker v3.0</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>New Feature! Create a structure with a menu</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def main():
+    control = True
+    while control:
+        menu()
+        option = int(input("请选择？"))
+        if option == 0:
+            control =False
+        elif option == 1:
+            insert()
+        elif option == 2:
+            report()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def menu():
+    print(""" 
+        ——————————————————简易记账本——————————————————
+        =====================菜单====================
+        1 录入新的支出信息
+        2 汇总报告
+        0 退出
+        _____________________________________________
+        """
+       )
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def insert():  
+    while True:
+        day=int(input("请问输入几号的开销？结束请输入0:"))
+        if day==0:
+            break
+        else:
+            print("请输入每一笔开销，结束请输入0:")
+            n=1
+            while True:
+                each = float(input("第"+str(n)+"笔:"))
+                if each == 0:
+                    break
+                else: 
+                    y = input("请选择: a.衣 b.食 c.住 d.行 e.其他")
+                    March[day-1][y]=March[day-1].get(y,0)+each
+                    n = n + 1
+                print("记录成功")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def report():
+    total=0
+    for each_day in March:
+        if each_day:
+            total = total + sum(each_day.values())
+    print("本月支出汇总报告")
+    print("总支出：" + str(total))
+    sub = {}
+    items = ['a', 'b', 'c', 'd', 'e']
+    for each_day in March:
+        for z in items:
+            sub[z] = each_day.get(z,0)+sub.get(z,0)
+    print("衣：", sub['a']) 
+    print("食：", sub['b']) 
+    print("住：", sub['c']) 
+    print("行：", sub['d']) 
+    print("其他：", sub['e'])   
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+March = [] 
+for date in range(31):
+    March.append({})
+main()
+</code></pre>
+                    </div>
+                </section>
+            </section> -->
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">6.2 Modules</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Module is a Python file, followed with .py</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Storing Your Functions in Modules</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(size):
+    print(f"Making a {size}-inch pizza")
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>It is saved as "pizza.py" file.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>We make a separate file called making_pizzas.py in the same directory as pizza.py.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pizza
+
+pizza.make_pizza(16)
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <!-- <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>Be Careful!</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(size):
+    print(f"Making a {size}-inch pizza")
+
+make_pizza(16)
+
+#saved as pizza.py
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pizza
+
+#in another python file
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+Making a 16-inch pizza
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(size):
+    print("Making a {}-inch pizza".format(size))
+
+if __name__ == '__main__': 
+    make_pizza(16)
+</code></pre>
+                    </div>
+                </section> -->
+                <section>
+                    <p class="fragment">Importing Specific Functions</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#from module_name import function_name
+#from module_name import function_0, function_1, function_2
+
+from pizza import make_pizza
+
+make_pizza(16)
+</code></pre>
+                    </div>
+                    <p class="fragment">Using as to Give a Function an Alias</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pizza import make_pizza as mp
+
+mp(16)
+</code></pre>
+                    </div>
+                    <p class="fragment">Using as to Give a Module an Alias</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pizza as p
+
+p.make_pizza(16)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Importing All Functions in a Module</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pizza import *
+
+make_pizza(16)
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>The asterisk in the import statement tells Python to copy every function from the module pizza into this program file. Because every function is imported, you can call each function by name without using the dot notation.
+                            </p>
+                        </li>
+                        <li class="fragment">
+                            <p>However, it's best not to use this approach when you're working with larger modules that you didn't write: if the module has a function name that matches an existing name in your project, you can get some unexpected results.
+                            </p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Search for Modules</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>When a module named is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named xxx.py in a list of directories given by the variable sys.path. sys.path is initialized from these locations:</p>
+                        </li>
+                        <li class="fragment">
+                            <p>The directory containing the input script (or the current directory when no file is specified).</p>
+                        </li>
+                        <li class="fragment">
+                            <p>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</p>
+                        </li>
+                        <li class="fragment">
+                            <p>The installation-dependent default.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import sys
+print(sys.path)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Packages</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Packages are namespaces which contain multiple packages and modules themselves. They are simply directories, but with a twist.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Each package in Python is a directory which <b>MUST</b> contain a special file called <b>__init__.py</b>. This file can be empty, and it indicates that the directory it contains is a Python package, so it can be imported the same way a module can be imported.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+mycompany
+├─ __init__.py
+├─ abc.py
+└─ xyz.py
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>The name of modules are mycompany.abc and mycompany.xyz</p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>Be careful! The name of modules you created should not be in conflict with the name of any system module, or any build-in function.</b></p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Third-party packages</h3>
+                    <ul>
+                        <li class="fragment">Anaconda has already installed many useful packages. </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+print(dir(requests))
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>For win, open the <b>anaconda prompt</b>.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+pip install pillow
+#conda install pillow
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>For macOS, open the <b>terminal</b>.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip install pillow
+#conda install pillow
+</code></pre>
+                        </div>
+                        <!--
+                        <li class="fragment">
+                            <p>If you want to use both the Python and Anaconda, there might be some conflicts. Thus, please change file name in the Anaconda. D:\Anaconda\Scripts, pip.exe and pip-script.exe to <b>condapip.exe</b> and <b>condapip-script.exe</b></p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+condapip install pillow #anaconda
+</code></pre>
+                        </div>
+                    -->
+                        <li class="fragment">
+                            <p>Uninstall the package</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip uninstall pillow
+#conda uninstall pillow
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>List all the packages</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip list
+#conda list
+</code></pre>
+                        </div>
+                    </ul>
+                    <!--
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pyperclip
+pyperclip.copy("abc")
+</code></pre>
+                    </div>
+                    -->
+                </section>
+                <section>
+                    <h3>Example 1: math and random package </h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import math
+print(dir(math))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-line-numbers data-trim contenteditable>
+['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 
+'acosh', 'asin','asinh', 'atan', 'atan2', 'atanh', 'ceil', 'comb', 'copysign', 
+'cos', 'cosh', 'degrees', 'dist', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs', 
+'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'gamma', 'gcd', 'hypot', 
+'inf', 'isclose', 'isfinite', 'isinf','isnan', 'isqrt', 'lcm', 'ldexp', 
+'lgamma', 'log', 'log10', 'log1p', 'log2', 'modf', 'nan', 'nextafter','perm', 
+'pi', 'pow', 'prod', 'radians', 'remainder', 'sin', 'sinh', 
+'sqrt', 'tan', 'tanh', 'tau', 'trunc', 'ulp']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import math
+
+print(math.pi)
+print(math.exp(50))
+print(math.sin(math.pi/2))
+print(math.acos(0.5))
+print(math.log(5, 20))
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import random
+
+print(random.randint(1, 10))         # 产生 1 到 10 的一个整数型随机数
+print(random.random())               # 产生 0 到 1 之间的随机浮点数
+print(random.uniform(1.1, 5.4))      # 产生  1.1 到 5.4 之间的随机浮点数
+print(random.choice('tomorrow'))     # 从序列中随机选取一个元素
+print(random.randrange(1, 100, 2))   # 生成从1到100的间隔为2的随机整数
+a = [1, 3, 5, 6, 7]                
+random.shuffle(a)                    # 将序列a中的元素顺序打乱
+print(a)
+print(random.sample(a, 2))
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Example 2: Third-party package </h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip install you-get 
+# youtube-dl
+</code></pre>
+                    </div>
+                    <a class="fragment" href="https://grantjenks.com/docs/freegames/#" target="_blank">Free Python Games</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip install freegames
+</code></pre>
+                    </div>
+                </section>
+                <!--
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import itchat
+itchat.auto_login()
+
+friends = itchat.get_friends(update=True)[0:]
+
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+male = 0
+female = 0
+other = 0
+for i in friends[1:]:
+    sex = i['Sex']
+    if sex == 1:
+        male = male + 1
+    elif sex ==2:
+        female = female + 1
+    else:
+        other = other + 1
+total = len(friends[1:])
+
+print('男性好友： {}%'.format(male/total*100))
+print('女性好友： {}%'.format(female/total*100)) 
+print('其他： {}%' .format(other/total*100))
+
+itchat.logout() 
+</code></pre>
+                    </div>
+                </section>
+                -->
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Functions</li>
+                        <ul>
+                            <li>Reading: Python for Everybody, Chapter 4</li>
+                            <li>Reading: Python Crash Course, Chapter 8</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
