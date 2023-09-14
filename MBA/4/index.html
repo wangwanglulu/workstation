@@ -547,10 +547,10 @@ TypeError: object doesn't support item assignment
                     </ul>
                 </section>
                 <section>
-                    <h3>Lists and Tuples</h3>
+                    <h3>Lists and Tuples: Common Features</h3>
                     <ul>
                         <li class="fragment">
-                            <p>Comparing and sorting Tuples (the same for lists in list)</p>
+                            <p>Comparing and sorting (the same for lists)</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -559,39 +559,24 @@ TypeError: object doesn't support item assignment
 True
 >>> (0, 1, 2000000) < (0, 3, 4)
 True
-
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> t = [(2, 4), (0, 1, 2), (0, 3, 4)]
 >>> t.sort()
 >>> print(t)
 [(0, 1, 2), (0, 3, 4), (2, 4)]
 </code></pre>
                     </div>
-                    <div class="fragment">
+                    <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> t = [('c', 3), ('a', 2), ('b', 1)]
 >>> t.sort()
 >>> print(t)
 [('a', 2), ('b', 1), ('c', 3)]
 </code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Multiple Assignment (the same for lists)</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> m = ('have', 'fun')  
->>> x, y = m  #(x, y) = m
->>> x
-'have'
->>> y
-'fun'
->>> x, y = y, x #swap
-</code></pre>
-                    </div>
+                    </div> -->
                     <ul>
                         <li class="fragment">
                             <p>in operator (the same for lists)</p>
@@ -604,18 +589,41 @@ True
 True
 </code></pre>
                     </div>
+                    
+                </section>
+                <section>
                     <ul>
                         <li class="fragment">
-                            <p>Iteration with multiple values (the same for list of lists, tuple of lists)</p>
+                            <p>Multiple Assignment (the same for lists)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> m = ('have', 'fun')  
+>>> x, y = m 
+>>> x
+'have'
+>>> y
+'fun'
+>>> x, y = y, x #swap
+</code></pre>
+                    </div>
+                    
+                    <ul>
+                        <li class="fragment">
+                            <p>Iteration with multiple values (the same for lists in lists, tuples in lists, lists in tuples)</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 t = [('a',1), ('b',2), ('c',3)]
+
+# t = (('a',1), ('b',2), ('c',3))
+# t = [['a',1], ['b',2], ['c',3]]
+
 for x, y in t:
     print(x)
     print(y)
-# for x in t?
 </code></pre>
                     </div>
                 </section>
