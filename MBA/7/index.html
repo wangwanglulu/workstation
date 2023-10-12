@@ -1,0 +1,1190 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 7</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <!-- <link rel="stylesheet" href="../../img/tinyfont.css"> -->
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 7 Variable Scope, Arbitrary Arguments </h3>
+                </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">7.1 Variable Scope</h2>
+                </section>
+                <section>
+                    <h3>Variable Scope (变量的作用域)</h3>
+                    <p>In Python, module, class, def, lambda can introduce new variable scope, if/elif/else/, try/except, for/while will not introduce new variable scope.</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+if True:
+    msg = 'I am from Shanghai'
+print(msg) # We can use msg.
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def test():
+    msg = 'I am from Shanghai'
+print(msg) # error
+</code></pre>
+                    </div>
+                    <p class="fragment">Global and Local</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+msg_loc = "Shanghai" # Global
+def test():
+    msg = 'I am from Shanghai' # Local
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">New Assignment</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+msg = 'I am from Shanghai'
+def test():
+    msg = 'I am from Beijing'
+    print(msg) 
+test()
+print(msg)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+I am from Beijing
+I am from Shanghai
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment"><b>Reference</b></p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+msg = 'I am from Shanghai'
+def test():
+    print(msg) 
+test()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+I am from Shanghai
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">Modification</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+msg = 'I am from Shanghai'
+def test():
+    print(msg) 
+    msg = 'I am from Beijing' 
+test() 
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="error" contenteditable>
+UnboundLocalError: local variable 'msg' 
+referenced before assignment
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>How to modify the variable outside? The <b>global</b> keyword</p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 1
+def fun():
+    global num
+    num = 123
+    print(num)
+fun()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+123
+123
+
+
+ 
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 1
+def fun():
+    print(num)
+    global num  
+    num = 123
+    print(num)
+fun()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="error" contenteditable>
+SyntaxError: name 'num' is used 
+prior to global declaration
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a = 10
+def test():
+    a = a + 1
+    print(a)
+test()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="error" contenteditable>
+UnboundLocalError: local variable 'a' 
+referenced before assignment
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a = 10
+def test():
+    global a 
+    a = a + 1
+    print(a)
+test()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+11
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a = 10
+def test():
+    a = 10
+    a = a + 1
+    print(a)
+test() 
+print(a) 
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+11
+10
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>mutable vs. immutable</h3>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a = [1,2,3]
+def test():
+    print(a)
+    a = [1,2,3,4]
+test() 
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="error" contenteditable>
+UnboundLocalError: local variable 'a' 
+referenced before assignment
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a = [1,2,3]
+def test():
+    print(a)
+    a.append(4)
+test() 
+print(a)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+[1, 2, 3]
+[1, 2, 3, 4]
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a = {"color": "green"}
+def test():
+    print(a)
+    a["color"] = "red"
+    a["position"] = "left"
+test() 
+print(a)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+{'color': 'green'}
+{'color': 'red', 'position': 'left'}
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Parameter and Argument</h3>
+                    <ul>
+                        <li>
+                            <p>For immutable objects (number, string, tuple), the assignment inside a function cannot change the value of the variable outside the function even if the variable name inside is the same with the variable name outside.</p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def ChangeInt(a):
+    a = 10
+    return a
+
+b = 2
+print(ChangeInt(b))
+print(b) 
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+10
+2
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    </section>
+                    <section>
+                    <ul>
+                        <li>
+                            <p>For mutable objects (list, dictionary), the <b>assignment</b> inside a function cannot change the value of the variable outside the function.<b> (the same with immutable objects!)</b></p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def changeme(mylist):
+   mylist = [1,2]
+   print("inside: ", mylist)
+ 
+x = [10,20]
+changeme(x)
+print("outside: ", x)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+inside:  [1, 2]
+outside:  [10, 20]
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>However, the modification <b>can</b> change the value of the variable outside.</p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def changeme(mylist):
+   mylist.extend([1,2])
+   print ("inside: ", mylist)
+ 
+x = [10,20]
+changeme(x)
+print ("outside: ", x)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+inside:  [10, 20, 1, 2]
+outside:  [10, 20, 1, 2]
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <!-- <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">7.2 Nested Functions</h2>
+                </section>
+                <section>
+                    <h3>Nested Functions</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    def inner():
+        print(100)
+    inner()
+outer()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    def inner():
+        num = 100
+        print(num)
+    inner()
+outer()
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3           # Global
+def outer():
+    num = 10      # Enclosing
+    def inner():
+        num = 100 # Local
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>The nonlocal keyword</h6>
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    num = 10
+    def inner():
+        nonlocal num   
+        # nonlocal keyword
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                            </div>
+                        </div>
+                        <div class="div-d">
+                            <div class="fragment">
+                                <pre><code class="output"  contenteditable>
+100
+100
+
+
+
+
+
+
+
+</code></pre>
+                            </div>
+                        </div>
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    num = 10
+    def inner():
+        global num  
+        # global does not work
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                            </div>
+                        </div>
+                        <div class="div-d">
+                            <div class="fragment">
+                                <pre><code class="output"  contenteditable>
+100 
+10
+
+
+
+
+
+
+
+</code></pre>
+                            </div>
+                        </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    global num
+    num = 10
+    def inner():
+        global num   
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    global num
+    num = 10
+    def inner():  
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100 
+10
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    global num
+    num = 10
+    def inner():  
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+10
+10
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    num = 10
+    def inner(): 
+        global num 
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+10
+100
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    num = 10
+    def inner(): 
+        nonlocal num 
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+3
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    global num
+    num = 10
+    def inner(): 
+        global num 
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+100
+
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </section> -->
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">7.2 Arbitrary Arguments</h2>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(toppings):
+    print(toppings)
+
+make_pizza('pepperoni')
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>If we want to pass multiple arguments, we may create a list at first.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+x=['mushrooms', 'green peppers', 'extra cheese']
+def make_pizza(toppings):
+    for y in toppings:
+        print(y, end=', ')
+
+make_pizza(x)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(topping_1, topping_2, topping_3):
+    print(topping_1, topping_2, topping_3)
+
+make_pizza('mushrooms', 'green peppers', 'extra cheese')
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>However, sometimes we are not sure about the exact number of the arguments.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>We can pass multiple arguments at once in the following way.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(*toppings):
+    print(toppings)
+
+make_pizza('pepperoni')
+make_pizza('mushrooms', 'green peppers', 'extra cheese')
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Note that Python packs the arguments into a tuple, even if the function receives only one value.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(*toppings):
+    for topping in toppings:
+        print("- " + topping)
+
+make_pizza('pepperoni')
+make_pizza('mushrooms', 'green peppers', 'extra cheese')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+- pepperoni
+- mushrooms
+- green peppers
+- extra cheese
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Mixing Positional and Arbitrary Arguments</p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>If you want a function to accept several different kinds of arguments, the parameter that accepts an arbitrary number of arguments must be placed last in the function definition.</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def make_pizza(size, *toppings):
+    print(str(size) + "-inch pizza:")
+    for topping in toppings:
+        print("- " + topping)
+
+make_pizza(16, 'pepperoni')
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+16-inch pizza:
+- pepperoni
+12-inch pizza:
+- mushrooms
+- green peppers
+- extra cheese
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Using Arbitrary Keyword Arguments</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def build_profile(**user_info):
+    print(user_info)
+
+build_profile(location='Shanghai',field='Management')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+{'location': 'Shanghai', 'field': 'Management'}
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Using Arbitrary Keyword Arguments</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def build_profile(first, last, **user_info):
+    profile = {}
+    for key, value in user_info.items():
+        profile[key] = value
+    return first, last, profile
+
+user_profile = build_profile('albert', 'einstein',
+                            location='princeton',
+                            field='physics')
+print(user_profile)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+('albert', 'einstein', 
+{'location': 'princeton', 'field': 'physics'})
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def build_profile(*name, **user_info):
+    print(name)
+    print(user_info)
+
+build_profile('albert', 'einstein',
+               location='princeton',
+               field='physics')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+('albert', 'einstein')
+{'location': 'princeton', 'field': 'physics'}
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>As a tradition, we often use *args and **kw</p>
+                        </li>
+                    </ul>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <ul>
+                            <li class="fragment">
+                                <p>Example</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def test(x,y=1,*a,**b):
+    print(x,y,a,b)
+
+test(1)
+test(1,2)
+test(1,2,3)
+test(1,2,3,4)
+test(x=1,y=2)
+test(1,a=2)
+test(1,2,3,a=4)
+test(1,2,3,y=4)
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <ul>
+                            <li class="fragment">
+                                <p>Result</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+
+
+1 1 () {}
+1 2 () {}
+1 2 (3,) {}
+1 2 (3, 4) {}
+1 2 () {}
+1 1 () {'a': 2}
+1 2 (3,) {'a': 4}
+TypeError: test() got multiple values
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">7.3 Map, Filter, Lambda</h2>
+                </section>
+                <section>
+                    <h3>map()</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def f(x):
+    return x * x
+
+y = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])    
+print(list(y))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+</code></pre>
+                    </div>
+                    <h3 class="fragment">filter()</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def k(x):
+    return x%2 == 0
+
+y = list(filter(k, [1, 2, 3, 4, 5, 6, 7, 8, 9]))   
+print(y)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+[2, 4, 6, 8]
+</code></pre>
+                    </div>
+                </section>
+                <!--
+                <section>
+                    
+                    <h3>reduce()</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from functools import reduce 
+
+def g(x, y):
+    return x * y
+
+y = reduce(g, [1, 2, 3, 4, 5, 6, 7, 8, 9])    
+print(y)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> print(reduce(g, map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+131681894400
+</code></pre>
+                    </div>
+                
+
+                </section>
+                -->
+                <section>
+                    <h3>Anonymous function: lambda</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def add( x, y ):
+    return x + y
+ 
+lambda x, y: x + y
+ 
+lambda x, y = 2: x + y
+lambda *z: z
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Sometimes the anonymous function is convenient.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>It has only one expression. (You do not have to use <b>return</b>)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+</code></pre>
+                    </div>
+                    <!--
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(reduce(lambda x,y: x*y, map(lambda x: x**2, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+
+</code></pre>
+                    </div>
+                -->
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Comprehension Syntax</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>[ expression <b>for</b> value <b>in</b> iterable <b>if</b> condition ]</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> [x * x for x in range(1, 11)]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> [x * x for x in range(1, 11) if x % 2 == 0]
+[4, 16, 36, 64, 100]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> [m + n for m in 'ABC' for n in 'XYZ']
+['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> d = {'x': 'A', 'y': 'B', 'z': 'C' }
+>>> [k + '=' + v for k, v in d.items()]
+['y=B', 'x=A', 'z=C']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> L = ['Hello', 'World', 'IBM', 'Apple']
+>>> [s.lower() for s in L]
+['hello', 'world', 'ibm', 'apple']
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Functions</li>
+                        <ul>
+                            <li>Reading: Python for Everybody, Chapter 4</li>
+                            <li>Reading: Python Crash Course, Chapter 8</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>

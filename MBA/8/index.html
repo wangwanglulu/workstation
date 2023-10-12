@@ -1,0 +1,1106 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 8</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                       <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 8 Object-Oriented Programming</h3>
+
+                    </div>
+            </section>
+
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">8.1 OOP Basics</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Object-oriented programming (面向对象编程) is one of the most effective approaches to writing software.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Python has been an object-oriented language since it existed. Because of this, creating and using classes and objects are downright easy.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Understanding object-oriented programming will help you see the world as a programmer does. <b>It'll help you really know your code, not just what's happening line by line, but also the bigger concepts behind it.</b></p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Creating and Using a Class (类)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def sit(self):
+        print(f"{self.name.title()} is now sitting.")
+
+    def roll_over(self):
+        print(f" {self.name.title()} rolled over!")
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>By convention, capitalized names refer to classes in Python.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>A function that's part of a class is a method (方法).</p>
+                        </li>
+                        <li class="fragment">
+                            <p>The __init__() method is a special method Python runs automatically whenever we create a new instance (实例) based on the Dog class.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Variables that are accessible through instances like this are called <b>attributes</b> (属性).</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture8/dog.png" style="height: 500pt"></div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class='div-c'>
+                        <ul>
+                            <li class="fragment">
+                                <p>Making an Instance from a Class</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def sit(self):
+        print(f"{self.name.title()} \
+            is now sitting.")
+
+    def roll_over(self):
+        print(f"{self.name.title()} \
+            rolled over!")
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_dog = Dog('willie', 6)
+
+print(my_dog.name.title())
+print(str(my_dog.age)+" years old")
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+Willie
+6 years old
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_dog.sit()
+my_dog.roll_over()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+Willie is now sitting.
+Willie rolled over!
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+your_dog = Dog('lucy', 3)
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <ul>
+                        <li class="fragment">
+                            <p>Working with Classes and Instances</p>
+                        </li>
+                    </ul>
+                    <div class='div-c'>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
+        return long_name.title()
+
+    def read_odometer(self):
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
+</code></pre>
+                    </div>
+                    </div>
+                    <div class='div-d'>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_new_car = Car('audi', 'a4', 2016)
+print(my_new_car.get_descriptive_name())
+my_new_car.read_odometer()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+2016 Audi A4
+This car has 0 miles on it.
+</code></pre>
+                    </div></div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class='div-c'>
+                        <ul>
+                            <li class="fragment">
+                                <p>Modifying Attribute Values</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def read_odometer(self):
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <ul>
+                            <li class="fragment">
+                                <p>Modifying an Attribute's Value Directly</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_new_car.odometer_reading = 23
+my_new_car.read_odometer()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+2016 Audi A4
+This car has 23 miles on it.
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class='div-c'>
+                        <ul>
+                            <li class="fragment">
+                                <p>Modifying Attribute Values</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def read_odometer(self):
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
+
+    def update_odometer(self, mileage):
+        self.odometer_reading = mileage
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <ul>
+                            <li class="fragment">
+                                <p>Modifying an Attribute's Value Through a Method</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_new_car = Car('audi', 'a4', 2016)
+my_new_car.update_odometer(23)
+my_new_car.read_odometer()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+This car has 23 miles on it.
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_new_car.update_odometer(30)
+my_new_car.read_odometer()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+This car has 30 miles on it.
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class='div-c'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def read_odometer(self):
+        print(f"This car has\
+            {self.odometer_reading}\
+             miles on it.")
+
+    def update_odometer(self, mileage):
+        self.odometer_reading = mileage
+
+    def increment_odometer(self, miles):
+        self.odometer_reading \
+        = self.odometer_reading + miles
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <ul>
+                            <li class="fragment">
+                                <p>Modifying an Attribute's Value Through a Method</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_new_car = Car('audi', 'a4', 2016)
+my_new_car.update_odometer(23)
+my_new_car.read_odometer()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+This car has 23 miles on it.
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_used_car.increment_odometer(100)
+my_used_car.read_odometer()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+This car has 123 miles on it.
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">8.2 Inheritance, Polymorphism</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>You don't always have to start from scratch when writing a class. If the class you're writing is a specialized version of another class you wrote, you can use <b>inheritance</b>.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>When one class inherits from another, it automatically takes on all the attributes and methods of the first class.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>The original class is called the parent class, and the new class is the child class. The child class inherits every attribute and method from its parent class but is also free to define new attributes and methods of its own.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture8/car.png" style="height: 400pt"></div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
+        return long_name.title()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class ElectricCar(Car):
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_tesla = ElectricCar('tesla', 'model s', 2016)
+print(my_tesla.get_descriptive_name())
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+2016 Tesla Model S
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <h5>Polymorphism</h5>
+                        <ul>
+                            <li class="fragment">
+                                <p>Defining attributes and methods for the child class</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
+        return long_name.title()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class ElectricCar(Car):
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery_size = 70
+
+    def describe_battery(self):
+        print(f"{self.battery_size}-kWh battery.")
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+my_tesla = ElectricCar('tesla', 'model s', 2016)
+print(my_tesla.get_descriptive_name())
+my_tesla.describe_battery()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+2016 Tesla Model S
+70-kWh battery.
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <ul>
+                            <li class="fragment">
+                                <p>Overriding methods from the parent class</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+    def get_descriptive_name(self):
+        long_name=f"{self.year} {self.make}\
+                 {self.model}"
+        return long_name.title()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class ElectricCar(Car):
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery_size = 70
+
+    def describe_battery(self):
+        print(f"{self.battery_size}-kWh battery.")
+
+    def get_descriptive_name(self):
+        long_name=f"{self.year} {self.make}"
+        return long_name.title()
+</code></pre>
+                        </div>
+                        <ul>
+                            <li class="fragment">
+                                <p><b>Open/closed principle</b></p>
+                            </li>
+                            <li class="fragment">
+                                <p>Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <!-- <section data-background-image="../../bg.png">
+                    <ul>
+                        <li>We have learned a way to inherit, i.e., super(). There are two other ways.</li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Person:
+    def __init__(self,name,sex):
+        self.name = name
+        self.sex = sex
+        
+    def print_title(self):
+        if self.sex == "male":
+            print("man")
+        elif self.sex == "female":
+            print("woman")
+
+class Child(Person):                            
+    pass 
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>         
+May = Child("May","female")
+Peter = Person("Peter","male")
+
+print(May.name,May.sex,Peter.name,Peter.sex)    
+May.print_title()
+Peter.print_title()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+May female Peter male
+woman
+man
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Person:
+    def __init__(self,name,sex):
+        self.name = name
+        self.sex = sex
+        
+    def print_title(self):
+        if self.sex == "male":
+            print("man")
+        elif self.sex == "female":
+            print("woman")
+
+class Child(Person):                            
+    def __init__(self,name,sex):
+        Person.__init__(self,name,sex)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>         
+May = Child("May","female")
+Peter = Person("Peter","male")
+
+print(May.name,May.sex,Peter.name,Peter.sex)    
+May.print_title()
+Peter.print_title()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+May female Peter male
+woman
+man
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <ul>
+                            <li class="fragment">
+                                <p>Overwrite completely</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Person:
+    def __init__(self,name,sex):
+        self.name = name
+        self.sex = sex
+
+class Child(Person):                
+    def __init__(self,name,sex,mother):
+        self.name = name
+        self.sex = sex
+        self.mother = mother
+
+May = Child("May","female","April")
+print(May.name,May.sex,May.mother)    
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+May female April  
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <ul>
+                            <li class="fragment">
+                                <p>Overwrite partially</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Person:
+    def __init__(self,name,sex):
+        self.name = name
+        self.sex = sex
+
+class Child(Person):                          
+    def __init__(self,name,sex,mother):
+        Person.__init__(self,name,sex) 
+        #super().__init__(name,sex)  
+        self.mother = mother
+
+May = Child("May","female","April")
+print(May.name,May.sex,May.mother)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+May female April
+</code></pre>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>If you just need complete inheritance of attributes, then all three ways are equivalent.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>There is no, "new-style-and-classic-classes" (新式类，经典类) in Python 3.x.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section data-background-image="../../bg.png">
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Person:
+    pass
+class Child(Person):                 
+    pass
+May = Child()
+Peter = Person()    
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(isinstance(May,Child))         # True
+print(isinstance(May,Person))        # True
+print(isinstance(Peter,Child))       # False
+print(isinstance(Peter,Person))      # True
+print(issubclass(Child,Person))      # True
+</code></pre>
+                        </div>
+                    </div>
+                </section> -->
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">8.3 Special Methods, Import Class</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>The precise definition of dir() is that it lists the methods and attributes of a Python object.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> stuff = list()
+>>> dir(stuff)
+['__add__', '__class__', '__contains__', '__delattr__',
+'__delitem__', '__dir__', '__doc__', '__eq__',
+'__format__', '__ge__', '__getattribute__', '__getitem__',
+'__gt__', '__hash__', '__iadd__', '__imul__', '__init__',
+'__iter__', '__le__', '__len__', '__lt__', '__mul__',
+'__ne__', '__new__', '__reduce__', '__reduce_ex__',
+'__repr__', '__reversed__', '__rmul__', '__setattr__',
+'__setitem__', '__sizeof__', '__str__', '__subclasshook__',
+'append', 'clear', 'copy', 'count', 'extend', 'index',
+'insert', 'pop', 'remove', 'reverse', 'sort']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>Everything in Python is an object.</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+stuff = []
+stuff.append('python')
+stuff.append('chuck')
+stuff.sort()
+
+print(stuff[0])
+print(stuff.__getitem__(0))
+print(list.__getitem__(stuff,0))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+chuck
+chuck
+chuck
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>Actually, the class you create inherits the "object" class.</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p>Classes can intercept Python Operators</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def __str__(self):
+        return f"Dog's name is {self.name}."
+
+
+my_dog = Dog('willie', 6)
+print(dir(my_dog))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__',
+ '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', 
+ '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__',
+ '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 
+'age', 'name']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>__str__</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+my_dog = Dog('willie', 6)
+print(my_dog)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+<__main__.Dog object at 0x053A3750>
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def __str__(self):
+        return self.name  
+
+my_dog = Dog('willie', 6)
+print(my_dog)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+willie
+</code></pre>
+                    </div>
+                </section>
+                <!--
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>__add__</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+my_dog = Dog('willie', 6)
+print(my_dog.name +' your_dog')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+willie your_dog
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __add__(self, other):
+        return self.name + other
+
+my_dog = Dog('willie', 6)
+x = my_dog +' your_dog' 
+print(x)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+willie your_dog
+</code></pre>
+                    </div>
+                </section>
+            -->
+                <section data-background-image="../../bg.png">
+                    <ul>
+                        <li class="fragment">
+                            <p><b>__doc__, __name__, __module__, __bases__</b></p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    "This is about dog class."
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+print(Dog.__doc__)
+print(Dog.__name__)
+print(Dog.__module__)
+print(Dog.__bases__)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+This is about dog class.
+Dog
+__main__
+(&lt;class 'object'&gt;,)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Dog():
+    "This is about dog class."
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+class Husky(Dog):
+    pass
+
+print(Husky.__bases__)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+(&lt;class '__main__.Dog'&gt;,)
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Importing a Single Class</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Save your Car class in a python file: car.py</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from car import Car
+
+my_new_car = Car('audi', 'a4', 2016)
+print(my_new_car.get_descriptive_name())
+
+my_new_car.odometer_reading = 23
+my_new_car.read_odometer()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+2016 Audi A4
+This car has 23 miles on it.
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Storing Multiple Classes in a Module</p>
+                        </li>
+                        <li class="fragment">
+                            <p>You can store as many classes as you need in a single module, although each class in a module should be related somehow. </p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from car import ElectricCar
+
+my_tesla = ElectricCar('tesla', 'model s', 2016)
+
+print(my_tesla.get_descriptive_name())
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+2016 Tesla Model S
+
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>Importing Multiple Classes from a Module</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from car import Car, ElectricCar
+
+my_beetle = Car('volkswagen', 'beetle', 2016)
+print(my_beetle.get_descriptive_name())
+
+my_tesla = ElectricCar('tesla', 'roadster', 2016)
+print(my_tesla.get_descriptive_name())
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+2016 Volkswagen Beetle
+2016 Tesla Roadster
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Importing a Module into a Module</p>
+                        </li>
+                        <li class="fragment">
+                            <p>car.py</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+...
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>electric_car.py</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from car import Car
+
+class Battery():
+...
+
+class ElectricCar(Car):
+...
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>my_cars.py</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from car import Car
+from electric_car import ElectricCar
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Summary of OOP</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>Three Features of OOP</p>
+                            <p>Encapsulation, inheritance, polymorphism</p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>Everything in Python is object.</b></p>
+                        </li>
+                        <li class="fragment">
+                            <p>Process-oriented programming (POP)</p>
+                            <p>Object-oriented Programming (OOP)</p>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>OOP</li>
+                        <ul>
+                            <li>Reading: Python Crash Course, Chapter 9</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
