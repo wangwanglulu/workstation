@@ -1,0 +1,1005 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 9</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                       <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 9 Pandas Basics</h3>
+
+                    </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">9.1 Pandas (1)</h2>
+                    <h5>Series and Dataframe</h5>
+                </section>
+                <section>
+                    <div class="rightc"><img data-src="../../MBAimg/lecture9/textbook2.png" style="height: 350pt"></div>
+                    <div class="leftc"><img data-src="../../MBAimg/lecture9/textbook1.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Pandas is designed for working with tabular or heterogeneous data. It contains data structures and data manipulation tools designed to make data cleaning and analysis fast and easy in Python.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pandas as pd
+</code></pre>
+                    </div>
+                    <p class="fragment">create, check (select), modify, add, delete (创建，查看，修改，添加，删除)</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj = pd.Series([4, 7, -5, 3]) 
+>>> obj
+0    4
+1    7
+2   -5
+3    3
+dtype: int64
+# like dictionary
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj.values
+array([ 4,  7, -5,  3], dtype=int64)
+# numpy, like a list
+
+>>> obj.index # like range(4)
+RangeIndex(start=0, stop=4, step=1)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Often it will be desirable to create a Series with an index identifying each data point with a label.</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 以列表创建时，index长度必须匹配
+>>> obj2 = pd.Series([4, 7, -5, 3], 
+...: index=['d', 'b', 'a', 'c'])
+>>> obj2
+d    4
+b    7
+a   -5
+c    3
+dtype: int64
+
+>>> obj2.index
+>>> Index(['d', 'b', 'a', 'c'], dtype='object')
+</code></pre>
+                    </div>
+                    <div class='div-c'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看单个数据
+>>> obj2['a']
+-5
+#查看连续数据
+>>> obj2['b':'c']
+
+#选择几行查看
+>>> obj2[['c', 'a', 'd']]
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#修改单个数据
+>>> obj2['a'] = 6
+
+#修改连续数据
+>>> obj2['b':'c'] = -5
+
+#选择几行修改
+>>> obj2[['c', 'a', 'd']] = 2
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p>Filtering with boolean array</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#根据条件筛选查看
+>>> obj2[obj2 > 0]
+d    2
+a    2
+c    2
+dtype: int64
+</code></pre>
+                    </div>
+                    <p class="fragment">Another way to think about a Series is as a fixed-length, <b>ordered</b> dict, as it is a mapping of index values to data values.</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#暴力修改自身index，长度必须匹配
+>>> obj2.index = ['Bob', 'Steve', 'Jeff', 'Ryan']
+>>> obj2
+Bob      2
+Steve   -5
+Jeff     2
+Ryan     2
+dtype: int64
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Should you have data contained in a Python dict, you can create a Series from it by passing the dict:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> sdata = {'Ohio': 35000, 'Texas': 71000, 
+...:        'Oregon': 16000, 'Utah': 5000}
+>>> obj3 = pd.Series(sdata)
+>>> obj3
+Ohio      35000
+Texas     71000
+Oregon    16000
+Utah       5000
+dtype: int64
+</code></pre>
+                    </div>
+                    <p class="fragment">When you are only passing a dict, the index in the resulting Series will have the dict's keys in sorted order. You can override this by passing the dict keys in the order you want them to appear in the resulting Series:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#以字典创建时，可以指定index，多出来的以NaN填充（conform）
+>>> states = ['California', 'Ohio', 'Oregon', 'Texas']
+>>> obj4 = pd.Series(sdata, index=states)
+>>> obj4
+California        NaN
+Ohio          35000.0
+Oregon        16000.0
+Texas         71000.0
+dtype: float64
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 添加，改变自身
+>>> obj4['NY'] = 4000
+>>> obj4
+California        NaN
+Ohio          35000.0
+Oregon        16000.0
+Texas         71000.0
+NY             4000.0
+dtype: float64
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 删除，不改变自身
+>>> obj4.drop('NY')
+California        NaN
+Ohio          35000.0
+Oregon        16000.0
+Texas         71000.0
+dtype: float64
+ 
+# del obj4['NY'] 改变自身
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h6>DataFrame</h6>
+                    <p class="fragment">A DataFrame represents a rectangular table of data and contains an ordered collection of columns, each of which can be a different value type (numeric, string, boolean, etc.).</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+data = {'state': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada'],
+'year': [2000, 2001, 2002, 2001, 2002, 2003],
+'pop': [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]}
+frame = pd.DataFrame(data)
+</code></pre>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+2    Ohio  2002  3.6
+3  Nevada  2001  2.4
+4  Nevada  2002  2.9
+5  Nevada  2003  3.2
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.values
+array([['Ohio', 2000, 1.5],
+       ['Ohio', 2001, 1.7],
+       ['Ohio', 2002, 3.6],
+       ['Nevada', 2001, 2.4],
+       ['Nevada', 2002, 2.9],
+       ['Nevada', 2003, 3.2]], 
+       dtype=object)
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.columns
+Index(['state', 'year', 'pop'], dtype='object')
+
+>>> frame.index
+RangeIndex(start=0, stop=6, step=1)
+</code></pre>
+                    </div>
+                    <p class="fragment">For large DataFrames, the head method selects only the first five rows:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.head() #.head(100)
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+2    Ohio  2002  3.6
+3  Nevada  2001  2.4
+4  Nevada  2002  2.9
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.DataFrame(data, columns=['year', 'state', 'pop'])
+   year   state  pop
+0  2000    Ohio  1.5
+1  2001    Ohio  1.7
+2  2002    Ohio  3.6
+3  2001  Nevada  2.4
+4  2002  Nevada  2.9
+5  2003  Nevada  3.2
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">If you pass a column (<b>not index, index must match!</b>) that isn't contained in the dict, it will appear with missing values in the result:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 以字典+列表创建时，可以指定columns，多出来的以NaN填充（conform）
+# 以字典+列表创建时，index必须匹配
+>>> frame2 = pd.DataFrame(data, columns=['year','state','pop','debt'],
+....: index=['one','two','three','four','five','six'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame2
+       year   state  pop debt
+one    2000    Ohio  1.5  NaN
+two    2001    Ohio  1.7  NaN
+three  2002    Ohio  3.6  NaN
+four   2001  Nevada  2.4  NaN
+five   2002  Nevada  2.9  NaN
+six    2003  Nevada  3.2  NaN
+
+>>> frame2.columns
+Index(['year', 'state', 'pop', 'debt'], dtype='object')
+
+>>> frame2.index
+Index(['one', 'two', 'three', 'four', 'five', 'six'], dtype='object')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 暴力修改自身columns和index，长度必须匹配
+# frame2.columns = [...]
+# frame2.index = [...]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">
+                        A column in a DataFrame can be retrieved as a <b>Series</b> either by dict-like notation:
+                    </p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看单列
+>>> frame2['state']
+one        Ohio
+two        Ohio
+three      Ohio
+four     Nevada
+five     Nevada
+six      Nevada
+Name: state, dtype: object
+</code></pre>
+                    </div>
+                    <p class="fragment">Rows can also be retrieved by position or name with the special loc attribute:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看单行
+>>> frame2.loc['three']
+year     2002
+state    Ohio
+pop       3.6
+debt      NaN
+Name: three, dtype: object
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看连续多列
+>>> frame2.loc[:,'state':'debt']
+        state  pop debt
+one      Ohio  1.5  NaN
+two      Ohio  1.7  NaN
+three    Ohio  3.6  NaN
+four   Nevada  2.4  NaN
+five   Nevada  2.9  NaN
+six    Nevada  3.2  NaN
+
+#查看特定几列
+>>> frame2.loc[:,['state','pop']]
+        state  pop
+one      Ohio  1.5
+two      Ohio  1.7
+three    Ohio  3.6
+four   Nevada  2.4
+five   Nevada  2.9
+six    Nevada  3.2
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看连续多行
+>>> frame2.loc['two':'four',:]
+       year   state  pop debt
+two    2001    Ohio  1.7  NaN
+three  2002    Ohio  3.6  NaN
+four   2001  Nevada  2.4  NaN
+
+#查看特定几行
+>>> frame2.loc[['two','four'],:]
+      year   state  pop debt
+two   2001    Ohio  1.7  NaN
+four  2001  Nevada  2.4  NaN
+
+#查看行列
+>>> frame2.loc[['two','four'],'state']
+
+two       Ohio
+four    Nevada
+Name: state, dtype: object
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看连续多列
+>>> frame2.iloc[:,1:3]
+        state  pop
+one      Ohio  1.5
+two      Ohio  1.7
+three    Ohio  3.6
+four   Nevada  2.4
+five   Nevada  2.9
+six    Nevada  3.2
+
+#查看特定几列
+>>> frame2.iloc[:,[1,2]]
+        state  pop
+one      Ohio  1.5
+two      Ohio  1.7
+three    Ohio  3.6
+four   Nevada  2.4
+five   Nevada  2.9
+six    Nevada  3.2
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#查看连续多行
+>>> frame2.iloc[1:4,:]
+       year   state  pop debt
+two    2001    Ohio  1.7  NaN
+three  2002    Ohio  3.6  NaN
+four   2001  Nevada  2.4  NaN
+
+#查看特定几行
+>>> frame2.iloc[[1,3],:]
+      year   state  pop debt
+two   2001    Ohio  1.7  NaN
+four  2001  Nevada  2.4  NaN
+
+#查看行列
+>>> frame2.iloc[[1,3],1:3]
+
+       state  pop
+two     Ohio  1.7
+four  Nevada  2.4
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Modify by assignment.</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame2['debt'] = 16.5
+>>> frame2
+       year   state  pop  debt
+one    2000    Ohio  1.5  16.5
+two    2001    Ohio  1.7  16.5
+three  2002    Ohio  3.6  16.5
+four   2001  Nevada  2.4  16.5
+five   2002  Nevada  2.9  16.5
+six    2003  Nevada  3.2  16.5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame2['debt'] = range(6)
+>>> frame2
+       year   state  pop  debt
+one    2000    Ohio  1.5     0
+two    2001    Ohio  1.7     1
+three  2002    Ohio  3.6     2
+four   2001  Nevada  2.4     3
+five   2002  Nevada  2.9     4
+six    2003  Nevada  3.2     5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> f = frame2.copy()
+>>> f.loc['one']=6
+>>> f
+       year   state  pop  debt
+one       6       6  6.0     6
+two    2001    Ohio  1.7     1
+three  2002    Ohio  3.6     2
+four   2001  Nevada  2.4     3
+five   2002  Nevada  2.9     4
+six    2003  Nevada  3.2     5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> f.loc['one']=range(4)
+>>> f
+
+       year   state  pop  debt
+one       0       1  2.0     3
+two    2001    Ohio  1.7     1
+three  2002    Ohio  3.6     2
+four   2001  Nevada  2.4     3
+five   2002  Nevada  2.9     4
+six    2003  Nevada  3.2     5
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">When you are assigning lists or arrays to a column, the value's length must match the length of the DataFrame. If you assign a Series, its labels will be realigned exactly to the DataFrame's index, inserting missing values in any holes:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> val = pd.Series([-1.2, -1.5, -1.7], index=['two', 'four', 'five'])
+>>> frame2['debt'] = val
+>>> frame2
+       year   state  pop  debt
+one    2000    Ohio  1.5   NaN
+two    2001    Ohio  1.7  -1.2
+three  2002    Ohio  3.6   NaN
+four   2001  Nevada  2.4  -1.5
+five   2002  Nevada  2.9  -1.7
+six    2003  Nevada  3.2   NaN
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#添加列
+>>> frame2['eastern'] = (frame2.state == 'Ohio')
+>>> frame2
+       year   state  pop  debt  eastern
+one    2000    Ohio  1.5   NaN     True
+two    2001    Ohio  1.7  -1.2     True
+three  2002    Ohio  3.6   NaN     True
+four   2001  Nevada  2.4  -1.5    False
+five   2002  Nevada  2.9  -1.7    False
+six    2003  Nevada  3.2   NaN    False
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#添加行，must match, otherwise error!
+>>> frame2.loc['seven']=[2004, 'Nevada', 3.7, -2,False]
+>>> frame2
+       year   state  pop  debt  eastern
+one    2000    Ohio  1.5   NaN     True
+two    2001    Ohio  1.7  -1.2     True
+three  2002    Ohio  3.6   NaN     True
+four   2001  Nevada  2.4  -1.5    False
+five   2002  Nevada  2.9  -1.7    False
+six    2003  Nevada  3.2   NaN    False
+seven  2004  Nevada  3.7  -2.0    False
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame2.append({'year':2004,'state':'Nevada','pop':
+...: 3.7,'debt':-3,'eastern':False},ignore_index=True)
+>>> frame2
+   year   state  pop  debt  eastern
+0  2000    Ohio  1.5   NaN     True
+1  2001    Ohio  1.7  -1.2     True
+2  2002    Ohio  3.6   NaN     True
+3  2001  Nevada  2.4  -1.5    False
+4  2002  Nevada  2.9  -1.7    False
+5  2003  Nevada  3.2   NaN    False
+6  2004  Nevada  3.7  -2.0    False
+7  2004  Nevada  3.7  -3.0    False
+# ignore_index: no duplicate index when appending several times
+# or concat()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#删除单列 (不会改变原来的表格)
+>>> frame2.drop('eastern',axis=1)
+
+#删除多列
+>>> frame2.drop(['year','state'], axis=1)
+>>> frame2.drop(frame2.columns[[0,3]], axis=1)
+
+#删除连续列
+>>> frame2.drop(frame2.columns[list(range(2))],axis=1)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#删除单行
+>>> frame2.drop('one',axis=0)
+
+#删除多行
+>>> frame2.drop(['one','two'], axis=0)
+>>> frame2.drop(frame2.index[[0,3]], axis=0)
+
+#删除连续行
+>>> frame2.drop(frame2.index[list(range(2))],axis=0)
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">9.2 Pandas (2)</h2>
+                    <h5>Reindex, Arithmetics, Function</h5>
+                </section>
+                <section>
+                    <h4>Other ways of forming a dataframe</h4>
+                    <p>1. By dictionaries nested in a dictionary</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pop = {'Nevada': {2001: 2.4, 2002: 2.9},
+....: 'Ohio': {2000: 1.5, 2001: 1.7, 2002: 3.6}}
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame3 = pd.DataFrame(pop)
+>>> frame3
+      Nevada  Ohio
+2001     2.4   1.7
+2002     2.9   3.6
+2000     NaN   1.5
+</code></pre>
+                    </div>
+                    <p class="fragment">The keys in the inner dicts are combined and sorted to form the index in the result. This isn't true if an explicit index is specified:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#以字典+字典创建时，可以指定index，多出来的以NaN填充（conform）
+#以字典+字典创建时，可以指定columns，多出来的以NaN填充（conform）
+>>> pd.DataFrame(pop, index=[2001, 2002, 2003])
+      Nevada  Ohio
+2001     2.4   1.7
+2002     2.9   3.6
+2003     NaN   NaN
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>2. By lists nested in a list</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#以列表+列表创建时，index和columns都必须长度匹配
+>>> frame3 = pd.DataFrame([[2.4,1.7],[2.9,3.6],[]],
+...: columns = ['Nevada', 'Ohio'], index = [2001,2002,2003])
+>>> frame3 
+      Nevada  Ohio
+2001     2.4   1.7
+2002     2.9   3.6
+2003     NaN   NaN
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame3.index.name = 'year' 
+>>> frame3.columns.name = 'state'
+>>> frame3
+state  Nevada  Ohio
+year               
+2001      2.4   1.7
+2002      2.9   3.6
+2003      NaN   NaN
+
+# 转置transpose
+>>> frame3.T
+year    2001  2002  2003
+state                   
+Nevada   2.4   2.9   NaN
+Ohio     1.7   3.6   NaN
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>Reindexing (conform)</h5>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame4 = frame3.reindex([2001,2003,2005],fill_value=0)
+>>> frame4
+state  Nevada  Ohio
+year               
+2001      2.4   1.7
+2003      NaN   NaN
+2005      0.0   0.0
+
+>>> frame4.reindex(range(2000,2005), method="ffill")
+state  Nevada  Ohio
+year               
+2000      NaN   NaN
+2001      2.4   1.7
+2002      2.4   1.7
+2003      NaN   NaN
+2004      NaN   NaN
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame5 = frame4.reindex(columns=['Nevada', 'Washington'])  
+>>> frame5
+state  Nevada  Washington
+year                     
+2001      2.4         NaN
+2003      NaN         NaN
+2005      0.0         NaN                        
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>Operations between Series</h5>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj3
+Ohio      35000
+Texas     71000
+Oregon    16000
+Utah       5000
+dtype: int64
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj4
+California        NaN
+Ohio          35000.0
+Oregon        16000.0
+Texas         71000.0
+dtype: float64
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">It automatically aligns by index label in arithmetic operations:</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj3 + obj4
+California         NaN
+Ohio           70000.0
+Oregon         32000.0
+Texas         142000.0
+Utah               NaN
+dtype: float64
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Arithmetic Methods</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj3.add(obj4)
+California         NaN
+Ohio           70000.0
+Oregon         32000.0
+Texas         142000.0
+Utah               NaN
+dtype: float64
+
+# add, radd (+), sub, rsub (-)
+# div, rdiv (/), floordiv, rfloordiv (//)
+# mul, rmul (*), pow, rpow (**)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> obj3.add(obj4,fill_value=0)
+California         NaN
+Ohio           70000.0
+Oregon         32000.0
+Texas         142000.0
+Utah            5000.0
+dtype: float64
+
+
+# fill_value is for missing items
+# not for missing data!
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Operations between DataFrames</h5>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame3
+      Nevada  Ohio
+2001     2.4   1.7
+2002     2.9   3.6
+2000     NaN   1.5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame4
+      Nevada  Ohio
+2001     2.4   1.7
+2003     0.0   0.0
+2005     0.0   0.0
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame3 + frame4
+      Nevada  Ohio
+2000     NaN   NaN
+2001     4.8   3.4
+2002     NaN   NaN
+2003     NaN   NaN
+2005     NaN   NaN
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame3.add(frame4,fill_value=0)
+      Nevada  Ohio
+2000     NaN   1.5
+2001     4.8   3.4
+2002     2.9   3.6
+2003     0.0   0.0
+2005     0.0   0.0
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h5>Operations between DataFrame and Series</h5>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame6 = pd.DataFrame([[2.4,1.7],[2.9,3.6],[2.1,2.5]],
+...: columns = ['Nevada', 'Ohio'], index = [2001,2002,2003])
+>>> frame6 
+      Nevada  Ohio
+2001     2.4   1.7
+2002     2.9   3.6
+2003     2.1   2.5
+</code></pre>
+                    </div>
+                    <div class='div-c'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> series_row = frame6.iloc[0]
+>>> series_row
+Nevada    2.4
+Ohio      1.7
+Name: 2001, dtype: float64
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame6 - series_row
+      Nevada  Ohio
+2001     0.0   0.0
+2002     0.5   1.9
+2003    -0.3   0.8
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-c'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> series_col = frame6['Ohio']
+>>> series_col
+2001    1.7
+2002    3.6
+2003    2.5
+Name: Ohio, dtype: float64
+</code></pre>
+                        </div>
+                    </div>
+                    <div class='div-d'>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame6.sub(series_col, axis=0)
+# arithmetic methods, axis=0 match index
+      Nevada  Ohio
+2001     0.7   0.0
+2002    -0.7   0.0
+2003    -0.4   0.0
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3>Create</h3>
+                    <ul>
+                        <li>Series</li>
+                        <ul>
+                            <li>以列表创建，index (match)</li>
+                            <li>以字典创建，index (conform)</li>
+                        </ul>
+                        <li>DataFrame</li>
+                        <ul>
+                            <li>以字典+列表创建，columns (conform), index (match)</li>
+                            <li>以字典+字典创建，columns, index (conform)</li>
+                            <li>以列表+列表创建，columns, index (match)</li>
+                        </ul>
+                    </ul>
+                    <h3>Modify</h3>
+                    <ul>
+                        <li>df.index = [...] 暴力修改 (match)</li>
+                        <li>df.columns = [...] 暴力修改 (match)</li>
+                        <li>.reindex([...]) 指定index (conform)</li>
+                        <li>.reindex(columns=[...]) 指定columns (conform)</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Pandas</li>
+                        <ul>
+                            <li>Reading: Python for Data Analysis, Chapter 5
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
