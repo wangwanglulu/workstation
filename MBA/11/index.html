@@ -682,11 +682,8 @@ array(['Western Europe', 'North America', 'Australia and New Zealand',
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> grouped = rank_all['Happiness Rank'].groupby(rank_all['Country'])
+>>> grouped = rank_all.groupby('Country')['Happiness Rank'].mean()
 >>> grouped
-pandas.core.groupby.generic.SeriesGroupBy object at 0x000002007FEDDD08
-
->>> grouped.mean()
 Country
 Afghanistan    150.000000
 Albania        106.166667
@@ -706,8 +703,7 @@ Name: Happiness Rank, Length: 138, dtype: float64
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> g_1 = rank_all['Happiness Rank'].groupby([rank_all['Year'],
-...:                                rank_all['Region']]).count()
+>>> g_1 = rank_all.groupby(['Year','Region'])['Happiness Rank'].count()
 >>> g_1[2015]
 Region
 Australia and New Zealand           2
@@ -740,8 +736,7 @@ Year                               ...
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> g_2 = rank_all.groupby([rank_all['Year'],
-...:                        rank_all['Region']]).mean()
+>>> g_2 = rank_all.groupby(['Year','Region']).mean()
 >>> g_3 = g_2.unstack()
 >>> g_3
                   Happiness Rank  ...     Generosity
@@ -759,7 +754,6 @@ Year                              ...
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> rank_all.groupby('Region')['Freedom'].mean()
-# rank_all['Freedom'].groupby(rank_all['Region']).mean()
 
 >>> rank_all.groupby(['Year','Region'])[['Freedom','Economy']].mean()
 </code></pre>
@@ -825,7 +819,7 @@ Western Europe                      6     5     4     2     3     1
                     <p class="fragment">Data Aggregation</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> rank_all.groupby('Region')['Freedom'].aggregate(['count','mean'])
+>>> rank_all.groupby('Region')['Freedom'].agg(['count','mean'])
                                  count      mean
 Region                                          
 Australia and New Zealand           12  0.663815
