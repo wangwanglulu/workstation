@@ -1,0 +1,945 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 12</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                       <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 12 Data Cleaning, Language and Text</h3>
+                    </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.1 Handling Missing Data</h2>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>During the course of doing data analysis and modeling, a significant amount of time is spent on data preparation: loading, cleaning, transforming, and rearranging. Such tasks are often reported to take up 80% or more of an analyst's time.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>In pandas, we've adopted a convention used in the R programming language by referring to missing data as NA, which stands for not available. In statistics applications, NA data may either be data that does not exist or that exists but was not observed.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>When cleaning up data for analysis, it is often important to do analysis on the missing data itself to identify data collection problems or potential biases in the data caused by missing data.</p>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h6>Filtering Out Missing Data</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pandas as pd
+from numpy import nan as NA
+
+data = {'state': ['Ohio', 'Ohio', NA, 'Nevada', 'Nevada', 'Nevada'],
+'year': [2000, 2001, 2001, 2002, 2002, 2003],
+'pop': [1.5, 1.7, 3.6, 2.4, 2.9, NA]}
+frame = pd.DataFrame(data)
+</code></pre>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+2     NaN  2001  3.6
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9
+5  Nevada  2003  NaN
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.info()
+RangeIndex: 6 entries, 0 to 5
+Data columns (total 3 columns):
+state    5 non-null object
+year     6 non-null int64
+pop      5 non-null float64
+dtypes: float64(1), int64(1), object(1)
+memory usage: 272.0+ bytes
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.isnull()
+   state   year    pop
+0  False  False  False
+1  False  False  False
+2   True  False  False
+3  False  False  False
+4  False  False  False
+5  False  False   True      
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.dropna()
+
+
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame['debt']=NA
+>>> frame
+    state  year  pop  debt
+0    Ohio  2000  1.5   NaN
+1    Ohio  2001  1.7   NaN
+2     NaN  2001  3.6   NaN
+3  Nevada  2002  2.4   NaN
+4  Nevada  2002  2.9   NaN
+5  Nevada  2003  NaN   NaN   
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame=frame.dropna(axis=1,how="all")
+
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+2     NaN  2001  3.6
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9
+5  Nevada  2003  NaN
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# only keep rows with at least 3 non-NaN values
+>>> frame.dropna(thresh=3)
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9  
+</code></pre>
+                    </div>
+                    <p class="fragment">Filling in missing data</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.fillna(0)
+
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+2       0  2001  3.6
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9
+5  Nevada  2003  0.0    
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> frame.fillna({'state':'Ohio',
+...:               'pop': 2})
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+2    Ohio  2001  3.6
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9
+5  Nevada  2003  2.0
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h6>Removing Duplicates</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data = pd.DataFrame({'k1': ['one', 'two'] * 3 + ['two'],
+....:   'k2': [1,3,2,3,3,4,4], 'v1':[0,1,2,3,4,5,5]})
+
+</code></pre>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data
+    k1  k2  v1
+0  one   1   0
+1  two   3   1
+2  one   2   2
+3  two   3   3
+4  one   3   4
+5  two   4   5
+6  two   4   5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data.duplicated()
+0    False
+1    False
+2    False
+3    False
+4    False
+5    False
+6     True
+dtype: bool
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data.drop_duplicates()
+    k1  k2  v1
+0  one   1   0
+1  two   3   1
+2  one   2   2
+3  two   3   3
+4  one   3   4
+5  two   4   5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data.drop_duplicates(['k1','k2'])
+    k1  k2  v1
+0  one   1   0
+1  two   3   1
+2  one   2   2
+4  one   3   4
+5  two   4   5
+# keep="last", False
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h6>Transforming Data</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data = pd.DataFrame({'food': ['bacon', 'pulled pork', 'bacon',
+....:                         'Pastrami', 'corned beef', 'Bacon',
+....:                         'pastrami', 'honey ham', 'nova lox'],
+....:                         'ounces': [4, 3, 12, 6, 7.5, 8, 3, 5, 6]})
+</code></pre>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data
+
+          food  ounces
+0        bacon     4.0
+1  pulled pork     3.0
+2        bacon    12.0
+3     Pastrami     6.0
+4  corned beef     7.5
+5        Bacon     8.0
+6     pastrami     3.0
+7    honey ham     5.0
+8     nova lox     6.0
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> lowercased = data['food'].apply(
+...:            lambda x: x.lower())
+>>> lowercased
+0          bacon
+1    pulled pork
+2          bacon
+3       pastrami
+4    corned beef
+5          bacon
+6       pastrami
+7      honey ham
+8       nova lox
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
+                'pastrami': 'cow','corned beef': 'cow',
+                'honey ham': 'pig','nova lox': 'salmon'}
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data['animal'] = lowercased.map(meat_to_animal)
+>>> data
+          food  ounces  animal
+0        bacon     4.0     pig
+1  pulled pork     3.0     pig
+2        bacon    12.0     pig
+3     Pastrami     6.0     cow
+4  corned beef     7.5     cow
+5        Bacon     8.0     pig
+6     pastrami     3.0     cow
+7    honey ham     5.0     pig
+8     nova lox     6.0  salmon
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Replacing Values</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data.replace("pig","pig-1")
+          food  ounces  animal
+0        bacon     4.0   pig-1
+1  pulled pork     3.0   pig-1
+2        bacon    12.0   pig-1
+3     Pastrami     6.0     cow
+4  corned beef     7.5     cow
+5        Bacon     8.0   pig-1
+6     pastrami     3.0     cow
+7    honey ham     5.0   pig-1
+8     nova lox     6.0  salmon
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data.replace(["pig","cow"],"pig-2")
+          food  ounces  animal
+0        bacon     4.0   pig-2
+1  pulled pork     3.0   pig-2
+2        bacon    12.0   pig-2
+3     Pastrami     6.0   pig-2
+4  corned beef     7.5   pig-2
+5        Bacon     8.0   pig-2
+6     pastrami     3.0   pig-2
+7    honey ham     5.0   pig-2
+8     nova lox     6.0  salmon
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">many to many, by dict</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data.replace({"pig":"pig-1","cow":"cow-1"})
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Detecting and Filtering Outliers</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> data[data['ounces']>=8]=NA
+>>> data
+          food  ounces  animal
+0        bacon     4.0     pig
+1  pulled pork     3.0     pig
+2          NaN     NaN     NaN
+3     Pastrami     6.0     cow
+4  corned beef     7.5     cow
+5          NaN     NaN     NaN
+...
+>>> data = data.dropna()
+</code></pre>
+                    </div>
+                    <p class="fragment">Computing Dummy Variables</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> dummies = pd.get_dummies(data['animal'])
+>>> data.join(dummies)
+          food  ounces  animal  cow  pig  salmon
+0        bacon     4.0     pig    0    1       0
+1  pulled pork     3.0     pig    0    1       0
+3     Pastrami     6.0     cow    1    0       0
+4  corned beef     7.5     cow    1    0       0
+6     pastrami     3.0     cow    1    0       0
+7    honey ham     5.0     pig    0    1       0
+8     nova lox     6.0  salmon    0    0       1
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.2 Handling Chinese Language</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture12/db.jpg" style="height: 450pt"></div>
+                </section>
+                <section>
+                    <h6>Loading .xlsx file</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pandas as pd
+db =pd.read_excel('db_top.xlsx')
+
+# pd.read_csv('...csv',encoding='utf-8')
+# pd.read_excel('db_top.xlsx', sheet_name="Sheet1")
+# pd.read_excel('db_top.xlsx', sheet_name=0, index_col=0\
+                header=1, usecols=[0,2])
+
+# 载入excel文件，sheet=0为第一个sheet，index_col指定某一列为index
+# header=1指定某一行为header，uscecols提取哪几列
+</code></pre>
+                    </div>
+                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, , GBK</p>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture12/ASCII1.png" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> db.columns
+Index(['id', '全名', '导演', '类型', '摘要', '评分', '时长', '时间', 
+       '年份', '演员', '投票数','发行信息', '中文名', '外文名'],dtype='object')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> genre = db[['中文名', '类型']].copy()
+>>> genre
+           中文名              类型
+0         星际穿越  剧情,科幻,悬疑,家庭,冒险
+1       辛德勒的名单        剧情,历史,战争
+2       唐伯虎点秋香        喜剧,爱情,古装
+3         致命ID        剧情,悬疑,惊悚
+4    指环王3：王者无敌     剧情,动作,奇幻,冒险
+..         ...             ...
+245     地球上的星星        剧情,家庭,儿童
+246       记忆碎片     剧情,悬疑,惊悚,犯罪
+247       蝴蝶效应     剧情,科幻,悬疑,惊悚
+248      海上钢琴师           剧情,音乐
+249    三傻大闹宝莱坞     剧情,喜剧,爱情,歌舞
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+all_g_list = []
+for x in genre['类型']:
+    all_g_list.append(x.split(','))
+genre["类型"]=all_g_list
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 单个电影
+x = pd.DataFrame()
+x['类型'] = genre.iloc[0]['类型']
+x["中文名"] = genre.iloc[0]['中文名']
+x['d']=1
+x= pd.pivot_table(x,index='中文名', columns='类型',values='d')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> x
+类型    冒险  剧情  家庭  悬疑  科幻
+中文名                     
+星际穿越   1    1    1     1     1
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 所有电影
+genre_list = pd.DataFrame()
+for i in range(len(genre)):
+    x = pd.DataFrame()
+    x['类型'] = genre.iloc[i]['类型']
+    x["中文名"] = genre.iloc[i]['中文名']
+    x['d']=1
+    x = pd.pivot_table(x,index='中文名', columns='类型',values='d')
+    genre_list=pd.concat([genre_list,x])
+genre_list.fillna(0)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# genre_list.to_csv('g.csv',encoding='utf-8-sig')
+</code></pre>
+                    </div>
+                    <p class="fragment">We can run regression with those dummy variables and scores of movies.</p>
+                </section>
+
+                <section>
+                    <a href="https://seaborn.pydata.org/index.html">seaborn: statistical data visualization</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                            pip install seaborn
+                    </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+director = db['导演'].value_counts()
+d = director.head(10)
+sns.barplot(y=(d.index), x=(d.values), palette="RdBu_r")
+plt.savefig('director.pdf',dpi=300, bbox='tight')
+                    </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture12/director.jpg" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <h6>Saving to .xlsx</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+director.to_excel(excel_writer='director.xlsx', sheet_name="rank",\
+                    encoding='utf-8')
+
+# director.to_excel(excel_writer='director.xlsx', index=False,\
+                    columns=[...], na_rep=0, inf_rep=0)
+
+
+                    </code></pre>
+                    </div>
+                    <p class="fragment">Multiple Sheets</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+excelpath = '...'
+writer = pd.ExcelWriter(excelpath, engine="xlsxwriter")
+df1.to_excel(writer, sheet_name="first")
+df2.to_excel(writer, sheet_name="second")
+df3.to_excel(writer, sheet_name="third")
+
+writer.save()
+                    </code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.3 Text Editing</h2>
+                </section>
+                <section>
+                    <h6>Reading from a text File</h6>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# string
+with open('pi_digits.txt') as file_object:
+    contents = file_object.read() 
+    print(contents.rstrip())
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# pi_digits.txt
+3.1415926535
+  8979323846
+  2643383279
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Reading Line by Line
+filename = 'pi_digits.txt'
+with open(filename) as file_object:
+    for line in file_object:
+        print(line)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+3.1415926535
+
+  8979323846
+
+  2643383279
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+with open(filename) as file_object:
+    for line in file_object:
+        print(line.rstrip())
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+3.1415926535
+  8979323846
+  2643383279
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p>Making a List of Lines from a File</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'pi_digits.txt'
+
+with open(filename) as file_object:
+    lines = file_object.readlines() 
+</code></pre>
+                    </div>
+<!--                     <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pi_string = ''
+for line in lines:
+    pi_string += line.strip()
+print(pi_string)
+print(len(pi_string))
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+3.141592653589793238462643383279 
+32
+
+
+</code></pre>
+                        </div>
+                    </div> -->
+                    <h6 class="fragment">Writing to a File</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'programming.txt'
+
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Writing to a File</h6>
+                    <ul>
+                        <li class="fragment">
+                            <p>The second argument, 'w', tells Python that we want to open the file in write mode. You can open a file 198 Chapter 10 in read mode ('r'), write mode ('w'), append mode ('a'), or a mode that allows you to read and write to the file ('r+'). If you omit the mode argument, Python opens the file in read-only mode by default.</p>
+                        </li>
+                        <li class="fragment">
+                            <p><b>Python can only write strings to a text file. If you want to store numerical data in a text file, you'll have to convert the data to string format first using the str() function.</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'programming.txt'
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.")
+    file_object.write("I love creating new games.")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+I love programming.I love creating new games.   
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'programming.txt'
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.\n")
+    file_object.write("I love creating new games.\n")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+I love programming.
+I love creating new games.
+</code></pre>
+                    </div>
+                    <h6 class="fragment">Appending to a File</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'programming.txt'
+message.py
+with open(filename, 'a') as file_object:
+    file_object.write("I also love finding meaning in large datasets.\n")
+    file_object.write("I love creating apps that can run in a browser.\n")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+I love programming.
+I love creating new games.
+I also love finding meaning in large datasets.
+I love creating apps that can run in a browser.
+</code></pre>
+                    </div>
+                </section>
+                <!-- <section>
+                    <p class="fragment">Working with Multiple Files</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def count_words(filename):
+    try:
+        with open(filename) as f_obj:
+            contents = f_obj.read()
+    except FileNotFoundError:
+        msg = "The file "+filename+" does not exist."
+        print(msg)
+    else:
+        words = contents.split()
+        num_words = len(words)
+        print(filename + ": " + str(num_words))
+                    </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filenames = ['alice.txt', 'siddhartha.txt', \
+            'moby_dick.txt', 'little_women.txt']
+for filename in filenames:
+    count_words(filename)
+                    </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>Wordcloud</h5>
+                    <div class="fragment"><img data-src="wordcloud_ex.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p class="fragment">A long string</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from matplotlib import pyplot as plt
+from wordcloud import WordCloud
+                    </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+string = 'Importance of relative word frequencies for font-size. 
+With relative_scaling=0, only word-ranks are considered. With 
+relative_scaling=1, a word that is twice as frequent will have 
+twice the size. If you want to consider the word frequencies 
+and not only their rank, relative_scaling around .5 often looks good.'
+                    </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, #如果是中文必须要添加这个，否则会显示成框框
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(string)
+wc.to_file('s1.png') #保存图片
+plt.imshow(wc)  #用plt显示图片
+plt.axis('off') #不显示坐标轴
+plt.show() #显示图片
+                    </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Loading text file</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from matplotlib import pyplot as plt
+from wordcloud import WordCloud
+ 
+filename = 'Harry Potter.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+font = r'C:\Windows\Fonts\Arial.TTF'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s2.png') 
+plt.imshow(wc)  
+plt.axis('off') 
+plt.show() 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Loading Chinese text file</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from matplotlib import pyplot as plt
+from wordcloud import WordCloud
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(contents)
+wc.to_file('s3.png') 
+plt.imshow(wc)  
+plt.axis('off') 
+plt.show() 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Using jieba</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from matplotlib import pyplot as plt
+from wordcloud import WordCloud
+import jieba
+
+filename = 'sanguo.txt'
+with open(filename , encoding="utf-8") as f_obj:
+    contents = f_obj.read()
+
+s = jieba.lcut(contents) 
+txt = " ".join(s)
+print(txt)
+
+font = r'C:\Windows\Fonts\simkai.ttf'
+wc = WordCloud(font_path=font, 
+               background_color='white',
+               width=1000,
+               height=800,
+               ).generate(txt)
+wc.to_file('s4.png') 
+plt.imshow(wc)  
+plt.axis('off') 
+plt.show() 
+</code></pre>
+                    </div>
+                </section> -->
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Pandas</li>
+                        <ul>
+                            <li>Reading: Python for Data Analysis, Chapter 7</li>
+                            <li>Reading: Python Crash Course, Chapter 10.1</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
