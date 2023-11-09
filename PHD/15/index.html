@@ -1,0 +1,1805 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 15</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                       <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 15 Data Organization and Wrangling</h3>
+                    </div>
+            </section>
+            
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">15.1 Pandas (3)</h2>
+                    <h5>Data Organization</h5>
+                </section>
+                <section>
+                    <h3>Data of Crowdfunding Projects</h3>
+                    <a href="https://www.kaggle.com/kemical/kickstarter-projects">Kickstarter Projects</a> from Kaggle.com
+                    <div><img data-src="../../PHDimg/lecture15/ks.jpg" style="height: 200pt"></div>
+                    More than 300,000 kickstarter projects.
+                </section>
+                <section>
+                    <h5>Loading .csv file</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+df = pd.read_csv("ks-projects-201801.csv")
+</code></pre>
+                    </div>
+                    <p class="fragment">relative path</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+df = pd.read_csv("data/ks-projects-201801.csv") # Linux or OSX
+df = pd.read_csv("data\ks-projects-201801.csv") # Windows
+</code></pre>
+                    </div>
+                    <p class="fragment">absolute path</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+file_path = '/home/ehmatthes/data/ks-projects-201801.csv'
+df = pd.read_csv(file_path) # Linux or OSX
+
+file_path = r'C:\Users\ehmatthes\data\ks-projects-201801.csv'
+df = pd.read_csv(file_path) # Windows
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df.shape
+(378661, 15)
+
+>>> df.info()
+RangeIndex: 378661 entries, 0 to 378660
+Data columns (total 15 columns):
+ID                  378661 non-null int64
+name                378657 non-null object
+category            378661 non-null object
+main_category       378661 non-null object
+currency            378661 non-null object
+deadline            378661 non-null object
+goal                378661 non-null float64
+launched            378661 non-null object
+pledged             378661 non-null float64
+state               378661 non-null object
+backers             378661 non-null int64
+country             378661 non-null object
+usd pledged         374864 non-null float64
+usd_pledged_real    378661 non-null float64
+usd_goal_real       378661 non-null float64
+dtypes: float64(5), int64(2), object(8)
+memory usage: 43.3+ MB
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Filtering with boolean array</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+#查看第一行
+>>> df.iloc[1,:]
+ID                                                     1000003930
+name                Greeting From Earth: ZGAC Arts Capsule For ET
+category                                           Narrative Film
+main_category                                        Film & Video
+currency                                                      USD
+deadline                                               2017-11-01
+goal                                                        30000
+launched                                      2017-09-02 04:43:57
+pledged                                                      2421
+state                                                      failed
+backers                                                        15
+country                                                        US
+usd pledged                                                   100
+usd_pledged_real                                             2421
+usd_goal_real                                               30000
+Name: 1, dtype: object
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+#根据条件筛选特定行:美国本土项目，筹资金额大于等于30000美刀
+>>> df_us = df[df['country']=='US']
+>>> df_us30000 = df_us[df_us['goal']>=30000]
+
+#[43312 rows x 15 columns]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Basic Data Description</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us[['backers','goal','pledged']].describe()
+             backers          goal       pledged
+count  292627.000000  2.926270e+05  2.926270e+05
+mean      113.078615  4.403497e+04  9.670193e+03
+std       985.723400  1.108372e+06  9.932942e+04
+min         0.000000  1.000000e-02  0.000000e+00
+25%         2.000000  2.000000e+03  4.100000e+01
+50%        14.000000  5.250000e+03  7.250000e+02
+75%        60.000000  1.500000e+04  4.370000e+03
+max    219382.000000  1.000000e+08  2.033899e+07
+</code></pre>
+                    </div>
+                    <p class="fragment">Arithmetics (+,-,/,//,*,**)</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us['percentage'] = df_us['pledged']/df_us['goal']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Sorting and Ranking</h6>
+                    <p class="fragment">When sorting a DataFrame, you can use the data in one or more columns as the sort keys. To do so, pass one or more column names to the <b>by</b> option of sort_values.</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us.sort_values(by='goal', ascending=False)
+
+>>> df_us.head().sort_values(by=['main_category','goal'], 
+...: ascending=[True,False])
+             ID  ... percentage
+2  1.000004e+09  ...   0.004889
+1  1.000004e+09  ...   0.080700
+4  1.000011e+09  ...   0.065795
+5  1.000014e+09  ...   1.047500
+3  1.000008e+09  ...   0.000200
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us.head().rank()
+    ID  name  category  ...  usd_pledged_real  usd_goal_real  percentage
+1  1.0   2.0       3.5  ...               4.0            3.0         4.0
+2  2.0   5.0       3.5  ...               2.0            4.0         2.0
+3  3.0   4.0       2.0  ...               1.0            1.0         1.0
+4  4.0   1.0       1.0  ...               3.0            2.0         3.0
+5  5.0   3.0       5.0  ...               5.0            5.0         5.0
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_s=pd.DataFrame({'sales':[100,200,300,200]})
+   sales
+0    100
+1    200
+2    300
+3    200
+</code></pre>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_s.rank()
+   sales
+0    1.0
+1    2.5
+2    4.0
+3    2.5
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_s.rank(method='first') #数值
+   sales
+0    1.0
+1    2.0
+2    4.0
+3    3.0
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">min and max</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_s.rank(method='min')
+   sales
+0    1.0
+1    2.0
+2    4.0
+3    2.0
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_s.rank(method='max')
+   sales
+0    1.0
+1    3.0
+2    4.0
+3    3.0
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h6>Counting</h6>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us['main_category'].value_counts()
+
+Film & Video    51922
+Music           43238
+Publishing      31726
+Games           24636
+Art             22311
+Design          21690
+Technology      21556
+Food            19941
+Fashion         16584
+Comics           8910
+Theater          8709
+Photography      7988
+Crafts           6648
+Journalism       3540
+Dance            3228
+Name: main_category, dtype: int64
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us['main_category'].value_counts(
+...: normalize = True)
+Film & Video    0.177434
+Music           0.147758
+Publishing      0.108418
+Games           0.084189
+Art             0.076244
+Design          0.074122
+Technology      0.073664
+Food            0.068145
+Fashion         0.056673
+Comics          0.030448
+Theater         0.029761
+Photography     0.027298
+Crafts          0.022718
+Journalism      0.012097
+Dance           0.011031
+Name: main_category, dtype: float64
+</code></pre>
+                        </div>
+                    </div>
+                    <h6 class="fragment">Searching</h6>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us['main_category'].isin(['Music','Games'])
+>>> df_us[df_us['main_category'].isin(['Music','Games'])==True]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Time</h6>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+from datetime import datetime
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> now = datetime.now()
+>>> now
+datetime.datetime(2020, 10, 29, 11, 50, 46, 908483)
+
+>>> now.year, now.month, now.day
+(2020, 10, 29)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> delta = datetime(2011,1,7) - datetime(2008, 6, 24)
+>>> delta.days
+926
+
+>>> from datetime import timedelta #only for day, hour, second
+>>> datetime(2011,1,7) + timedelta(12)
+datetime.datetime(2011, 1, 19, 0, 0)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">
+                        Converting between String and Datetime
+                    </p>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> date_1 = df_us.loc[1,'launched']
+>>> date_1
+'2017-09-02 04:43:57'
+
+>>> stamp=datetime.strptime(date_1,'%Y-%m-%d %H:%M:%S')
+datetime.datetime(2017, 9, 2, 4, 43, 57)
+>>> type(stamp)
+datetime.datetime
+
+>>> stamp.strftime('%d-%m-%Y') 
+'02-09-2017'
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+%Y Four-digit year
+%y two-digit year
+%m two-digit month
+%B Month name
+%d two-digit day
+%W week number
+%H Hour in 24-h
+%I Hour in 12-h
+%S Second
+%F shortcut Y-M-D
+%D shortcut m/d/y
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">Parse</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> from dateutil.parser import parse
+>>> parse('2017-09-02 04:43:57')
+datetime.datetime(2017, 9, 2, 4, 43, 57)
+
+>>> stamp_0 =pd.to_datetime('2017-09-02 04:43:57')
+>>> stamp_0
+Timestamp('2017-09-02 04:43:57')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Calculating the time period</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us['launched_time'] = pd.to_datetime(df_us['launched'])
+>>> df_us['deadline_time'] = pd.to_datetime(df_us['deadline'])
+>>> df_us['period'] = df_us['deadline_time']-df_us['launched_time'] 
+>>> df_us['period']
+1        59 days 19:16:03
+2        44 days 23:39:10
+3        29 days 20:35:49
+4        55 days 15:24:57
+5        34 days 10:21:33
+      
+378656   29 days 21:24:30
+378657   26 days 20:24:46
+378658   45 days 04:19:30
+378659   30 days 05:46:07
+378660   27 days 14:52:13
+Name: period, Length: 292627, dtype: timedelta64[ns]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Converting the time to numbers</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us['period_num'] = df_us['period']/timedelta(1)
+>>> df_us['period_num']
+1         59.802813
+2         44.985532
+3         29.858206
+4         55.642326
+5         34.431632
+   
+378656    29.892014
+378657    26.850532
+378658    45.180208
+378659    30.240359
+378660    27.619595
+Name: period_num, Length: 292627, dtype: float64
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Filtering by date</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us[(df_us['launched_time']>='20150101')]
+>>> df_us[(df_us['launched_time']>='20150101')& (df_us['launched_time']<='20151231')]
+                ID  ... period_num
+4       1000011046  ...  55.642326
+15      1000064368  ...  29.909109
+17      1000068480  ...  29.110486
+38      1000134913  ...  34.092025
+49      1000197321  ...  40.050185
+           ...  ...        ...
+378600   999687927  ...  59.057986
+378616    99977040  ...  29.821157
+378635    99987261  ...  29.057477
+378639   999884445  ...  29.455394
+378644   999934908  ...  21.685255
+[53467 rows x 19 columns]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Index by Timestamps</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_ustime = df_us.set_index(['launched_time'])
+>>> df_ustime
+                             ID  ... period_num
+launched_time                    ...           
+2017-09-02 04:43:57  1000003930  ...  59.802813
+2013-01-12 00:20:50  1000004038  ...  44.985532
+2012-03-17 03:24:11  1000007540  ...  29.858206
+2015-07-04 08:35:03  1000011046  ...  55.642326
+2016-02-26 13:38:27  1000014025  ...  34.431632
+                        ...  ...        ...
+2014-09-17 02:35:30   999976400  ...  29.892014
+2011-06-22 03:35:14   999977640  ...  26.850532
+2010-07-01 19:40:30   999986353  ...  45.180208
+2016-01-13 18:13:53   999987933  ...  30.240359
+2011-07-19 09:07:47   999988282  ...  27.619595
+[292627 rows x 19 columns]
+
+# 对比暴力修改
+# df_us.rename(columns={'原始名'：'新名'}, index={'原始名'：'新名'})
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_ustime.loc['20170902'] # index重复
+>>> df_ustime.loc['20170902':'20170930']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Summarizing and Computing</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us.count(axis=1) #每行非空个数
+>>> df_us.count(axis=0) #每列非空个数
+>>> df_us['usd_pledged_real'].sum()
+>>> df_us['usd_pledged_real'].mean()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+.max()     .min()
+.median()  .mode()
+.var()     .std()
+.quantile() #0-1
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">Correlation and Covariance</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> data = pd.DataFrame({'Q1':[1,3,4,3,4],
+...:                     'Q2':[2,3,1,2,3],
+...:                     'Q3':[1,5,2,4,4]})
+>>> data['Q1'].corr(data['Q3'])
+0.4969039949999533
+
+>>> data['Q1'].cov(data['Q3'])
+1
+
+>>> data.cov()
+>>> data.corr()
+</code></pre>
+                    </div>
+                    <p class="fragment">Export .csv file</p>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> out_col = ['deadline_time','period_num','launched_time']
+>>> df_us.to_csv('out.csv',index=False,columns=out_col)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div><img data-src="../../PHDimg/lecture15/3.png" style="height: 500pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">15.2 Pandas (4)</h2>
+                    <h5>Data Wrangling: Join, Combine and Reshape</h5>
+                </section>
+                <section>
+                    <h5>World Happiness Report (2015-2020)</h5>
+                    <div><img data-src="../../PHDimg/lecture15/whr.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h6>Batch Loading .csv files</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+import pandas as pd
+
+os.chdir('happiness') # 进入子文件夹
+current_path = os.getcwd() # 获取当前文件夹路径
+files=os.listdir() # 列出当前文件夹所有文件名
+df=[]
+for filename in files:
+    dot_position = filename.find('.')
+    file_key = filename[:dot_position] #文件名 - 年份
+    file_path = os.path.join(current_path,filename) #组合绝对路径
+    t = (pd.read_csv(file_path), int(file_key)) 
+    df.append(t)
+os.chdir('..') # 跳出当前文件夹
+
+# [(..., 2015), (..., 2016), (..., 2017),..., (..., 2020)]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df[0][0].shape
+(138, 10)
+
+>>> df[0][0].columns
+Index(['Happiness Rank', 'Country', 'Region', 'Happiness Score', 'Economy',
+       'Family', 'Health', 'Freedom', 'Trust', 'Generosity'],dtype='object')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Hierarchical Indexing</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 做一个WHR 2015的副本
+>>> df15 = df[0][0].copy()
+>>> df15_h = df15.set_index(["Region","Country"])
+>>> df15_h.head()
+                            Happiness Rank  ...  Generosity
+Region         Country                      ...            
+Western Europe Switzerland               1  ...     0.29678
+               Iceland                   2  ...     0.43630
+               Denmark                   3  ...     0.34139
+               Norway                    4  ...     0.34699
+North America  Canada                    5  ...     0.45811
+</code></pre>
+                    </div>
+                    <p class="fragment">Select Concisely</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df15_h.loc["North America"]
+               Happiness Rank  Happiness Score  ...    Trust  Generosity
+Country                                         ...                     
+Canada                      5            7.427  ...  0.32957     0.45811
+United States              15            7.119  ...  0.15890     0.40105
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df15_h.loc["North America"].loc["Canada"]
+Happiness Rank     5.00000
+Happiness Score    7.42700
+Economy            1.32629
+Family             1.32261
+Health             0.90563
+Freedom            0.63297
+Trust              0.32957
+Generosity         0.45811
+Name: Canada, dtype: float64
+</code></pre>
+                    </div>
+                    <p class="fragment">Rearrange</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 重置index
+>>> df15_h.reset_index(0)
+                     Region  Happiness Rank  ...    Trust  Generosity
+Country                                      ...                     
+Switzerland  Western Europe               1  ...  0.41978     0.29678
+Iceland      Western Europe               2  ...  0.14145     0.43630
+Denmark      Western Europe               3  ...  0.48357     0.34139
+...
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df15_h.reset_index(1)
+                    Country  Happiness Rank  ...    Trust  Generosity
+Region                                       ...                     
+Western Europe  Switzerland               1  ...  0.41978     0.29678
+Western Europe      Iceland               2  ...  0.14145     0.43630
+Western Europe      Denmark               3  ...  0.48357     0.34139
+...
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df15_h.reset_index()
+                 Region      Country  ...    Trust  Generosity
+0        Western Europe  Switzerland  ...  0.41978     0.29678
+1        Western Europe      Iceland  ...  0.14145     0.43630
+2        Western Europe      Denmark  ...  0.48357     0.34139
+...
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df15_h.reset_index().reset_index()
+     index              Region      Country  ...     Trust  Generosity
+0        0      Western Europe  Switzerland  ...   0.41978     0.29678
+1        1      Western Europe      Iceland  ...   0.14145     0.43630
+2        2      Western Europe      Denmark  ...   0.48357     0.34139
+...
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df15.stack()
+0    Happiness Rank                  1
+     Country               Switzerland
+     Region             Western Europe
+     Happiness Score             7.587
+     Economy                   1.39651
+     ...                       ...
+137  Family                    0.13995
+     Health                    0.28443
+     Freedom                   0.36453
+     Trust                     0.10731
+     Generosity                0.16681
+Length: 1380, dtype: object
+
+# 反向还原
+>>> df15.stack().unstack()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Combining and Merging</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 提取每一年的排名
+rank_list=[]
+for i in range(len(df)):
+    rank_list.append(df[i][0][['Country','Happiness Rank']].copy())
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> wide=pd.merge(rank_list[0],rank_list[1],
+...: on="Country", suffixes=[" 15"," 16"])
+>>> wide=wide.rename(columns={"Happiness Rank 15":15, 
+...:                          "Happiness Rank 16":16})
+>>> wide
+
+         Country   15   16
+0    Switzerland    1    2
+1        Iceland    2    3
+2        Denmark    3    1
+..           ...  ...  ...
+135        Benin  155  153
+136      Burundi  157  157
+137         Togo  158  155
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df1
+  name  number  score
+0  Tom     101     77
+1  Bob     102     85
+2  Amy     103     64
+3  Lee     104     92
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df2
+   number  class
+0     101    one
+1     102    one
+2     103    two
+3     104  three
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df1,df2)
+  name  number  score  class
+0  Tom     101     77    one
+1  Bob     102     85    one
+2  Amy     103     64    two
+3  Lee     104     92  three
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df3
+     n  class
+0  101    one
+1  102    one
+2  103    two
+3  104  three
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">column names are different</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df1,df3,left_on='number',right_on='n')
+  name  number  score    n  class
+0  Tom     101     77  101    one
+1  Bob     102     85  102    one
+2  Amy     103     64  103    two
+3  Lee     104     92  104  three
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df1
+
+  name  number  score
+0  Tom     101     77
+1  Bob     102     85
+2  Amy     103     64
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df4
+   number  f_score
+0     101       77
+1     101       55
+2     102       60
+3     103       99
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df1,df4)
+  name  number  score  f_score
+0  Tom     101     77       77
+1  Tom     101     77       55
+2  Bob     102     85       60
+3  Amy     103     64       99
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df5
+  name  number  score
+0  Tom     101     77
+1  Tom     101     86
+2  Bob     102     85
+3  Amy     103     64
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">Many to Many</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df5,df4)
+  name  number  score  f_score
+0  Tom     101     77       77
+1  Tom     101     77       55
+2  Tom     101     86       77
+3  Tom     101     86       55
+4  Bob     102     85       60
+5  Amy     103     64       99
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df6
+  name  number  score
+0  Tom     101     77
+1  Bob     102     85
+2  Amy     103     64
+3  Ivy     105     82
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df7
+   number  f_score
+0     101       77
+1     102       55
+2     103       60
+3     104       99
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df6,df7)
+
+  name  number  score  f_score
+0  Tom     101     77       77
+1  Bob     102     85       55
+2  Amy     103     64       60
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df6,df7,how='left')
+  name  number  score  f_score
+0  Tom     101     77     77.0
+1  Bob     102     85     55.0
+2  Amy     103     64     60.0
+3  Ivy     105     82      NaN
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df6,df7,how="right")
+
+  name  number  score  f_score
+0  Tom     101   77.0       77
+1  Bob     102   85.0       55
+2  Amy     103   64.0       60
+3  NaN     104    NaN       99
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df6,df7,how="outer")
+  name  number  score  f_score
+0  Tom     101   77.0     77.0
+1  Bob     102   85.0     55.0
+2  Amy     103   64.0     60.0
+3  Ivy     105   82.0      NaN
+4  NaN     104    NaN     99.0
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Merging on Index</p>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df1
+       name  score
+number            
+101     Tom     77
+102     Bob     85
+103     Amy     64
+104     Lee     92
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df2
+
+   number  class
+0     101    one
+1     102    one
+2     103    two
+3     104  three
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> pd.merge(df1,df2,left_index=True, 
+...:        right_on="number")
+  name  score  number  class
+0  Tom     77     101    one
+1  Bob     85     102    one
+2  Amy     64     103    two
+3  Lee     92     104  three
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df3
+        class
+number       
+101       one
+102       one
+103       two
+104     three
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">A simple way</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> df1.join(df3)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Concatenating</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> long = pd.concat([rank_list[0],rank_list[1]])
+>>> long
+         Country  Happiness Rank
+0    Switzerland               1
+1        Iceland               2
+2        Denmark               3
+..           ...             ...
+135       Rwanda             152
+136     Zimbabwe             131
+137  Afghanistan             154
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> long = pd.concat([rank_list[0],rank_list[1]],
+...:                ignore_index=True)
+>>> long
+         Country  Happiness Rank
+0    Switzerland               1
+1        Iceland               2
+2        Denmark               3
+..           ...             ...
+273       Rwanda             152
+274     Zimbabwe             131
+275  Afghanistan             154
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> long = pd.concat([rank_list[0],rank_list[1]],
+...:                  keys=[15,16])
+>>> long
+            Country  Happiness Rank
+15 0    Switzerland               1
+   1        Iceland               2
+   2        Denmark               3
+                ...             ...
+16 135       Rwanda             152
+   136     Zimbabwe             131
+   137  Afghanistan             154
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> long = long.reset_index(0)
+>>> long = long.rename(columns={"level_0": "Year"})
+>>> long
+     Year      Country  Happiness Rank
+0      15  Switzerland               1
+1      15      Iceland               2
+2      15      Denmark               3
+..    ...          ...             ...
+135    16       Rwanda             152
+136    16     Zimbabwe             131
+137    16  Afghanistan             154
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Reshaping and Pivoting</h6>
+                    <p class="fragment">The wide format (用merge得到的数据，country不重，多列年份)</p>
+                    <p class="fragment">The long format (用concat得到的数据，country重复，单列年份)</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> wide
+         Country   15   16
+0    Switzerland    1    2
+1        Iceland    2    3
+2        Denmark    3    1
+..           ...  ...  ...
+135        Benin  155  153
+136      Burundi  157  157
+137         Togo  158  155
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> long
+     Year      Country  Happiness Rank
+0      15  Switzerland               1
+1      15      Iceland               2
+2      15      Denmark               3
+..    ...          ...             ...
+135    16  Afghanistan             154
+136    16         Togo             155
+137    16      Burundi             157
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">The wide format (用merge得到的数据，country不重，多列年份)</p>
+                    <p class="fragment">From wide to long</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> m  = pd.melt(wide, id_vars=['Country'],  
+...:     var_name="Year",value_name="rank")
+>>> m
+         Country Year  rank
+0    Switzerland   15     1
+1        Iceland   15     2
+2        Denmark   15     3
+..           ...  ...   ...
+273        Benin   16   153
+274      Burundi   16   157
+275         Togo   16   155
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> m.set_index(['Year', m.index])
+              Country  rank
+Year                       
+15   0    Switzerland     1
+     1        Iceland     2
+     2        Denmark     3
+                  ...   ...
+16   273        Benin   153
+     274      Burundi   157
+     275         Togo   155
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">The long format (用concat得到的数据，country重复，单列年份)</p>
+                    <p class="fragment">From long to wide </p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> l = pd.pivot_table(long, index=["Country"], 
+...:    columns="Year", values="Happiness Rank")
+Year          15   16
+Country              
+Afghanistan  153  154
+Albania       95  109
+Algeria       68   38
+             ...  ...
+Yemen        136  147
+Zambia        85  106
+Zimbabwe     115  131
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> l.reset_index()
+Year      Country   15   16
+0     Afghanistan  153  154
+1         Albania   95  109
+2         Algeria   68   38
+..            ...  ...  ...
+135         Yemen  136  147
+136        Zambia   85  106
+137      Zimbabwe  115  131
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">15.3 Pandas (5)</h2>
+                    <h5>Data Aggregation and Group Operations</h5>
+                </section>
+                <section>
+                    <h6>GroupBy Mechanics</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+table_all =[]
+year_all=[]
+for table, year in df:
+    table_all.append(table)
+    year_all.append(year)
+rank_all = pd.concat(table_all, keys=year_all,join='inner')
+rank_all = rank_all.reset_index(0)
+rank_all = rank_all.rename(columns={'level_0':'Year'})
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+     year  Happiness Rank      Country  ...   Freedom     Trust  Generosity
+0    2015               1  Switzerland  ...  0.665570  0.419780    0.296780
+1    2015               2      Iceland  ...  0.628770  0.141450    0.436300
+2    2015               3      Denmark  ...  0.649380  0.483570    0.341390
+3    2015               4       Norway  ...  0.669730  0.365030    0.346990
+4    2015               5       Canada  ...  0.632970  0.329570    0.458110
+..    ...             ...          ...  ...       ...       ...         ...
+133  2020             147     Botswana  ...  0.821328  0.777931   -0.250394
+134  2020             148     Tanzania  ...  0.821540  0.619799    0.109669
+135  2020             150       Rwanda  ...  0.900589  0.183541    0.055484
+136  2020             151     Zimbabwe  ...  0.711458  0.810237   -0.072064
+137  2020             153  Afghanistan  ...  0.396573  0.933687   -0.096429
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Groupby Mechanics</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all['Region'].unique()
+array(['Western Europe', 'North America', 'Australia and New Zealand',
+       'Middle East and Northern Africa', 'Latin America and Caribbean',
+       'Southeastern Asia', 'Central and Eastern Europe', 'Eastern Asia',
+       'Sub-Saharan Africa', 'Southern Asia'], dtype=object)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> grouped = rank_all.groupby('Country')['Happiness Rank'].mean()
+>>> grouped
+Country
+Afghanistan    150.000000
+Albania        106.166667
+Algeria         71.833333
+Argentina       35.166667
+Armenia        121.666667
+                   ...
+Venezuela       76.333333
+Vietnam         89.500000
+Yemen          146.333333
+Zambia         118.500000
+Zimbabwe       137.500000
+Name: Happiness Rank, Length: 138, dtype: float64
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> g_1 = rank_all.groupby(['Year','Region'])['Happiness Rank'].count()
+>>> g_1[2015]
+Region
+Australia and New Zealand           2
+Central and Eastern Europe         28
+Eastern Asia                        4
+Latin America and Caribbean        20
+Middle East and Northern Africa    17
+North America                       2
+Southeastern Asia                   8
+Southern Asia                       6
+Sub-Saharan Africa                 31
+Western Europe                     20
+Name: Happiness Rank, dtype: int64
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> g_1.unstack()
+Region  Australia and New Zealand  ...  Western Europe
+Year                               ...                
+2015                            2  ...              20
+2016                            2  ...              20
+2017                            2  ...              20
+2018                            2  ...              20
+2019                            2  ...              20
+2020                            2  ...              20
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> g_2 = rank_all.groupby(['Year','Region']).mean()
+>>> g_3 = g_2.unstack()
+>>> g_3
+                  Happiness Rank  ...     Generosity
+Region Australia and New Zealand  ... Western Europe
+Year                              ...               
+2015                         9.5  ...       0.304130
+2016                         8.5  ...       0.306789
+2017                         9.0  ...       0.305329
+2018                         9.0  ...       0.223850
+2019                         9.5  ...       0.221050
+2020                        10.0  ...       0.040858
+</code></pre>
+                    </div>
+                    <p class="fragment">Selecting Columns</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.groupby('Region')['Freedom'].mean()
+
+>>> rank_all.groupby(['Year','Region'])[['Freedom','Economy']].mean()
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Function Application and Mapping</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def f(arr):
+    return arr.max()-arr.min() 
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> g_4 = rank_all.groupby(['Year','Region'])['Happiness Rank'].apply(f)
+Year  Region                         
+2015  Australia and New Zealand            1
+      Central and Eastern Europe         103
+      Eastern Asia                        54
+      Latin America and Caribbean        107
+...   ...                                ...
+2016  Australia and New Zealand            1
+...   ...                                ...
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> g_5 = g_4.unstack(0)
+Year                             2015  2016  2017  2018  2019  2020
+Region                                                             
+Australia and New Zealand           1     1     2     2     3     4
+Central and Eastern Europe        103   102   109   117   113   104
+Eastern Asia                       54    48    49    40    39    33
+Latin America and Caribbean       107   122   133   135   135   127
+Middle East and Northern Africa   125   136   135   133   138   132
+...
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> r = lambda x: x.rank(method='min')
+>>> g_6 = g_5.apply(r,axis='columns')
+>>> g_6.applymap(int)
+Year                             2015  2016  2017  2018  2019  2020
+Region                                                             
+Australia and New Zealand           1     1     3     3     5     6
+Central and Eastern Europe          2     1     4     6     5     3
+Eastern Asia                        6     4     5     3     2     1
+Latin America and Caribbean         1     2     4     5     5     3
+Middle East and Northern Africa     1     5     4     3     6     2
+North America                       4     1     1     6     4     1
+Southeastern Asia                   6     5     4     1     2     3
+Southern Asia                       4     2     1     3     5     5
+Sub-Saharan Africa                  1     3     2     5     4     6
+Western Europe                      6     5     4     2     3     1
+                    </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Data Aggregation</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.groupby('Region')['Freedom'].agg(['count','mean'])
+                                 count      mean
+Region                                          
+Australia and New Zealand           12  0.663815
+Central and Eastern Europe         168  0.423580
+Eastern Asia                        24  0.465703
+Latin America and Caribbean        120  0.518843
+Middle East and Northern Africa    102  0.406711
+North America                       12  0.613810
+Southeastern Asia                   48  0.602917
+Southern Asia                       36  0.439074
+Sub-Saharan Africa                 186  0.427333
+Western Europe                     120  0.574996
+
+# rank_all.groupby('Region').agg(['count','mean'])
+# count, sum, mean, median, std, var 
+# min, max, prod, first, last
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.groupby('Region').agg({'Year':'count', 'Freedom': "mean"})
+                                 Year   Freedom
+Region                                         
+Australia and New Zealand          12  0.663815
+Central and Eastern Europe        168  0.423580
+Eastern Asia                       24  0.465703
+Latin America and Caribbean       120  0.518843
+Middle East and Northern Africa   102  0.406711
+North America                      12  0.613810
+Southeastern Asia                  48  0.602917
+Southern Asia                      36  0.439074
+Sub-Saharan Africa                186  0.427333
+Western Europe                    120  0.574996
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def f(arr):
+    return arr.max()-arr.min()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.groupby(['Year','Region'])['Happiness Rank'].agg(f)
+Region
+Australia and New Zealand            4
+Central and Eastern Europe         119
+Eastern Asia                        55
+Latin America and Caribbean        136
+Middle East and Northern Africa    141
+North America                       14
+Southeastern Asia                  123
+Southern Asia                       88
+Sub-Saharan Africa                 109
+Western Europe                     101
+Name: Happiness Rank, dtype: int64
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Quantile and Bucket Analysis</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> g_7 = rank_all.groupby(['Year','Country'])['Happiness Rank'].mean()
+>>> g_7
+Year  Country    
+2015  Afghanistan    153
+      Albania         95
+      Algeria         68
+...      ...         ...
+2020  Yemen          146
+      Zambia         141
+      Zimbabwe       151
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> interval_50 = pd.cut(g_7.loc[2015].values, bins = [0,50,100,150,200])
+>>> interval_50
+[(150, 200], (50, 100], (50, 100], ..., (50, 100], (100, 150]]
+Length: 138
+Categories (4, interval[int64]): 
+[(0, 50] < (50, 100] < (100, 150] < (150, 200]]
+
+>>> g_7.loc[2015].groupby(interval_50).count()
+(0, 50]       45
+(50, 100]     42
+(100, 150]    44
+(150, 200]     7
+</code></pre>
+                    </div>
+                </section>
+                <!-- 
+                <section>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> interval_50 = pd.cut(g_7.loc[2015].values, bins = [0,50,100,150,200],
+...: labels=['1-50','51-100','101-150','151-200'])
+
+>>> g_7.loc[2015].groupby(interval_50).count()
+1-50       45
+51-100     42
+101-150    44
+151-200     7
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> quantile = pd.qcut(g_7.loc[2015].values, 3)
+>>> quantile
+[(106.333, 158.0], (51.667, 106.333], ..., (51.667, 106.333], (106.333, 158.0]]
+Length: 138
+Categories (3, interval[float64]): [(0.999, 51.667] < 
+                (51.667, 106.333] < (106.333, 158.0]]
+
+>>> g_7.loc[2015].groupby(quantile).count()
+(0.999, 51.667]      46
+(51.667, 106.333]    46
+(106.333, 158.0]     46
+</code></pre>
+                    </div>
+                </section> -->
+                <section>
+                    <p>Pivot Tables and Cross-Tabulation (数据透视表)</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.pivot_table(values="Economy", columns="Year", index="Country")
+Year            2015     2016      2017   2018   2019      2020
+Country                                                        
+Afghanistan  0.31982  0.38227  0.401477  0.332  0.350  7.462861
+Albania      0.87867  0.95530  0.996193  0.916  0.947  9.417931
+Algeria      0.93929  1.05266  1.091864  0.979  1.002  9.537965
+                ...      ...       ...    ...    ...       ...
+Yemen        0.54649  0.57939  0.591683  0.442  0.287  7.759683
+Zambia       0.47038  0.61202  0.636407  0.562  0.578  8.224720
+Zimbabwe     0.27100  0.35041  0.375847  0.357  0.366  7.865712
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.pivot_table(values="Economy", columns="Year",
+...:                      index="Region", aggfunc="mean")
+Year                                 2015      2016  ...      2019       2020
+Region                                               ...                     
+Australia and New Zealand        1.291880  1.402545  ...  1.337500  10.610770
+Central and Eastern Europe       0.943293  1.048545  ...  1.022429   9.662970
+Eastern Asia                     1.058415  1.188970  ...  1.151250  10.047753
+Latin America and Caribbean      0.854139  0.959183  ...  0.908950   9.255175
+...
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> rank_all.pivot_table(values="Economy", columns="Year",
+...:    index="Country", aggfunc="sum", margins= True, margins_name="sum")
+Year             2015      2016      2017  ...      2019      2020       sum
+Country                                    ...                              
+Afghanistan  0.319820  0.382270  0.401477  ...  0.350000  7.462861  9.248428
+Albania      0.878670  0.955300  0.996193  ...  0.947000  9.417931  14.111093
+              ...       ...       ...  ...       ...       ...       ...
+Zambia       0.470380  0.612020  0.636407  ...  0.578000  8.224720  11.083527
+Zimbabwe     0.271000  0.350410  0.375847  ...  0.366000  7.865712  9.585968
+sum          118.20839 132.42220 137.774266  ... 127.743  1289.437513  1930.569370
+                        </code></pre>
+                    </div>
+                </section>
+                </section>
+            <!-- <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">10.2 Pandas (4)</h2>
+                    <h5>Data Visualization</h5>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p><a href="https://matplotlib.org/">The matplotlib Gallery</a></p>
+                        </li>
+                    </ul>
+                    <h5 class="fragment">Successful and Failed</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("ks-projects-201801.csv")
+df_state = df['state'].value_counts()
+print(df_state)
+df_state_r=df_state['failed':'canceled']
+df_state_r['others']=df_state['undefined':].sum()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+explode=[0.05,0,0,0]
+plt.pie(df_state_r.values, labels=df_state_r.index,\
+explode=explode, autopct='%.0f%%',shadow=True)
+plt.title("State", loc='center')
+plt.savefig('state.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/state.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h5>Category</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("ks-projects-201801.csv")
+df_category = df['main_category'].value_counts()
+df_category_r=df_category['Film & Video':'Fashion']
+df_category_r['others']=df_category['Theater':'Dance'].sum()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+plt.pie(df_category_r.values, labels=df_category_r.index,\
+ autopct='%.0f%%',shadow=True)
+plt.title("Category", loc='center')
+plt.savefig('category.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/category.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h5>Pledged</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("ks-projects-201801.csv")
+df_pledged = df.sort_values(by='pledged',ascending=False).head(100)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+plt.style.use('ggplot')
+plt.plot(df_pledged['pledged'].values)
+plt.title("Pledged", loc='center')
+plt.xlabel("Top 100 projects", fontsize=10)
+plt.ylabel("Amount", fontsize=10)
+plt.savefig('pledged.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/pledged.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h5>Failed Projects</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("ks-projects-201801.csv")
+df_failed = df[df['state']=='failed']
+df_failed['percent'] = df_failed['pledged']/df_failed['goal']
+df_failed_r=df_failed[df_failed['percent']<1]
+df_f = df_failed_r.sort_values(by='percent',ascending=False)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+plt.style.use('ggplot')
+plt.plot(df_f['percent'].values)
+plt.title("Failed", loc='center')
+plt.xlabel("Projects", fontsize=10)
+plt.ylabel("Percentage", fontsize=10)
+plt.savefig('failed.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/failed.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h5>Time</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("ks-projects-201801.csv")
+df['launched_time'] = pd.to_datetime(df['launched'])
+df['deadline_time'] = pd.to_datetime(df['deadline'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+def year_data(y):
+    return df[(df['launched_time']>=str(y)) & (df['launched_time']< str(y+1))]
+ 
+df_year_count=[]
+df_year=list(range(2010,2018))
+for y in range(2010,2018):
+    df_year_count.append(year_data(y)['ID'].count())
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+plt.bar(df_year,df_year_count)
+plt.title("2010-2017 Projects", loc='center')
+plt.xlabel("Year", fontsize=10)
+plt.ylabel("Amount", fontsize=10)
+plt.savefig('year.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/year.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h5>Time: Percentage</h5>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+def year_data(y):
+    return df[(df['launched_time']>=str(y)) & (df['launched_time']< str(y+1))]
+ 
+df_year_count=[]
+df_year=list(range(2010,2018))
+for y in range(2010,2018):
+    df_year_count.append(year_data(y)['ID'].count())
+df_year_s=[]  
+for y in range(2010,2018):
+    df_year_s.append(year_data(y)[year_data(y)['state']=='successful']['ID'].count())
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+plt.bar(df_year,df_year_count, label='total')
+plt.bar(df_year,df_year_s,label='successful')
+plt.title("2010-2017 Projects", loc='center')
+plt.xlabel("Year", fontsize=10)
+plt.ylabel("Amount", fontsize=10)
+plt.legend(loc="upper left")
+plt.savefig('year_percentage.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/year_percentage.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h6>Time length and Category</h6>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import matplotlib.pyplot as plt
+from datetime import timedelta
+
+df = pd.read_csv("ks-projects-201801.csv")
+df['launched_time'] = pd.to_datetime(df['launched'])
+df['deadline_time'] = pd.to_datetime(df['deadline'])
+df['period'] = df['deadline_time']-df['launched_time'] 
+df['period_num'] = df['period']/timedelta(1)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+df_category=df['main_category'].value_counts()
+cp=[]
+for c in df_category.index:
+    cp.append((df[df['main_category']==c]['period_num'].std(),c))
+cp.sort()
+cp_index=[]
+cp_value=[]
+for x, y in cp:
+    cp_value.append(x)
+    cp_index.append(y)    
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+plt.barh(cp_index,cp_value)
+plt.title("Std of the time length", loc='center')
+plt.savefig('cp.jpg',dpi=300, bbox_inches='tight')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/cp.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h5>Descriptive Analysis (unofficial)</h5>
+                    <ul>
+                        <li>For each column,</li>
+                        <ul>
+                            <li>Strings: classification, percentage</li>
+                            <li>Numbers: trend, zone</li>
+                        </ul>
+                        <li>Two columns, control one and check the other</li>
+                        <li>time, location, subject (people, country, firms, etc.)</li>
+                        <li>Calculation: mean, variance, max, min, range, etc.</li>
+                        <li>Calculation: multiple columns</li>
+                    </ul>
+                </section>
+            </section> -->
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Pandas</li>
+                        <ul>
+                            <li>Reading: Python for Data Analysis, Chapter 5, 9, 11.1, 11.2</li>
+                            <li>Reading: Python for Everybody, Chapter 15.1, 15.2, 16.1</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
