@@ -59,12 +59,13 @@ data= x['data']
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 title=[]; price=[]; date=[]; category=[]; atype=[]; mall=[]
 for i in range(len(data)):
-    atype.append(data[i]['article_type'])   
-    title.append(data[i]['article_title'])
-    price.append(data[i]['article_price'])
-    date.append(data[i]['article_date'])
-    category.append(data[i]['top_category'])
-    mall.append(data[i]['article_mall'])
+    if 'article_price' in data[i]:
+        atype.append(data[i]['article_type'])   
+        title.append(data[i]['article_title'])
+        price.append(data[i]['article_price'])
+        date.append(data[i]['article_date'])
+        category.append(data[i]['top_category'])
+        mall.append(data[i]['article_mall'])
 </code></pre>
                     </div>
                 </section>
@@ -121,19 +122,17 @@ headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
         AppleWebKit/537.36 (KHTML, like Gecko) \
         Chrome/70.0.3538.25 \
         Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
-params ={"query":"腿"}
-r=requests.get("https://dxy.com/search/result", \
-                 params=params,headers=headers)
+search ="腿"
+r=requests.get(f"https://dxy.com/search/articles/{search}", \
+                 headers=headers)
 print(r.status_code)
-print(r.headers)
-print(r.cookies)
 print(r.url)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 soup=BeautifulSoup(r.content, 'lxml')
-print(soup.prettify())
+#print(soup.prettify())
 print(soup.title.string)
 print(soup.title)
 print(soup.head)
@@ -151,7 +150,7 @@ print(soup.h2) # h2是标题标签节点 h1, h2,...
 print(soup.h2.string) # h2是标题标签包裹的文本
 </code></pre>
                     </div>
-                    <p class="fragment">子节点和父节点 </p>
+                    <!--                     <p class="fragment">子节点和父节点 </p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 print(soup.a.contents) # list为所有的子节点
@@ -160,8 +159,8 @@ print(soup.a.parent)   # 所有的父节点
 print(soup.h2.next_sibling) # 同级的下一个兄弟节点
 print(soup.h2.previous_sibling) # 同级的上一个兄弟节点
 </code></pre>
-                    </div>
-                    <div class="fragment">
+                    </div> -->
+                    <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 list_a = soup.find_all(attrs={"class":"content-title-more common-text-link"})
 print(list_a)
@@ -170,8 +169,8 @@ all_url = list_a[0]["href"]
 </code></pre>
                     </div>
                 </section>
-                <section>
-                    <div class="fragment">
+                <section> -->
+<!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 r_all = requests.get(all_url)
 soup_all = BeautifulSoup(r_all.content, 'lxml')
@@ -183,6 +182,33 @@ article_title = []
 for i in range(len(content_list)):
     article_url.append(content_list[i]["href"])
     article_title.append(content_list[i].contents[0].string)
+</code></pre>
+                    </div> -->
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+content_list = soup.find_all(attrs={"class":"article-title"})
+# print(content_list)
+
+article_url = []
+article_title = []
+for i in range(len(content_list)):
+    article_url.append(content_list[i]["href"])
+    article_title.append(content_list[i].contents[0].string)
+print(article_url)
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['https://dxy.com/article/9776',
+ 'https://dxy.com/article/22988',
+ 'https://dxy.com/article/41103',
+ 'https://dxy.com/article/39274',
+ 'https://dxy.com/article/29950',
+ 'https://dxy.com/article/41101',
+ 'https://dxy.com/article/26647',
+ 'https://dxy.com/article/40272',
+ 'https://dxy.com/article/43280',
+ 'https://dxy.com/article/35889']
 </code></pre>
                     </div>
                 </section>
@@ -220,20 +246,17 @@ for j in range(len(article_url)):
                     <h6>Multiple Pages</h6>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-num = 1
-pag=1
+num_page = 1
 article_url = []
 article_title = []
-while pag:
-    params_page={"page_index":str(num)}
-    r_all = requests.get(all_url,params=params_page,headers=headers)
+for page in range(num_page):
+    params_page={"page_index": str(page)}
+    r_all = requests.get(url, params=params_page, headers=headers)
     soup_all = BeautifulSoup(r_all.content, 'lxml')
-    pag = soup_all.find_all(attrs={"class":"pagination"})
     content_list = soup_all.find_all(attrs={"class":"article-title"})
     for i in range(len(content_list)):
         article_url.append(content_list[i]["href"])
         article_title.append(content_list[i].contents[0].string)
-    num = num+1
 </code></pre>
                     </div>
                 </section>
