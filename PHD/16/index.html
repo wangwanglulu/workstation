@@ -431,7 +431,7 @@ db =pd.read_excel('db_top.xlsx')
                     <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, , GBK</p>
                     <div class="fragment"><img data-src="../../PHDimg/lecture16/ASCII1.png" style="height: 250pt"></div>
                 </section>
-                <section>
+                <!-- <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> db.columns
@@ -458,7 +458,7 @@ Index(['id', '全名', '导演', '类型', '摘要', '评分', '时长', '时间
 </code></pre>
                     </div>
                 </section>
-                <!-- <section>
+                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 all_g_list = []
@@ -585,7 +585,25 @@ with open('pi_digits.txt') as file_object:
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-a">
+                    <p class="fragment">Making a List of Lines from a File</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'pi_digits.txt'
+
+with open(filename) as file_object:
+    lines = file_object.readlines() 
+</code></pre>
+                    </div>
+                    <p class="fragment">Writing to a File</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'programming.txt'
+
+with open(filename, 'w') as file_object:
+    file_object.write("I love programming.")
+</code></pre>
+                    </div>
+<!--                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # Reading Line by Line
@@ -606,7 +624,7 @@ with open(filename) as file_object:
   2643383279
 </code></pre>
                         </div>
-                    </div>
+                    </div> 
                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -625,18 +643,7 @@ with open(filename) as file_object:
 </code></pre>
                         </div>
                     </div>
-                </section>
-                <section>
-                    <p>Making a List of Lines from a File</p>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
-
-with open(filename) as file_object:
-    lines = file_object.readlines() 
-</code></pre>
-                    </div>
-<!--                     <div class="div-c">
+                                       <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pi_string = ''
@@ -657,15 +664,6 @@ print(len(pi_string))
 </code></pre>
                         </div>
                     </div> -->
-                    <h6 class="fragment">Writing to a File</h6>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
-
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.")
-</code></pre>
-                    </div>
                 </section>
                 <section>
                     <h6>Writing to a File</h6>

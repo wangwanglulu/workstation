@@ -1,0 +1,574 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 17</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                       <h1 style="color: white">Python Programming</h1>
+                <h3 style="color: white">Lecture 17 Json, API and HTML Basics</h3>
+                    </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">17.1 Json and API</h2>
+                </section>
+                <section>
+                    <h6>Write and Load</h6>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import json
+
+numbers = [2, 3, 5, 7, 11, 13]
+filename = 'numbers.json'
+with open(filename, 'w') as f_obj:
+    json.dump(numbers, f_obj)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import json
+
+filename = 'numbers.json'
+with open(filename) as f_obj:
+    numbers = json.load(f_obj)
+print(numbers)
+</code></pre>
+                        </div>
+                    </div>
+                    <p class="fragment">JSON can't store every kind of Python value. It can contain values of only the following data types: strings, integers, floats, Booleans, lists, dictionaries, and NoneType. JSON cannot represent Python-specific objects, such as File objects, CSV Reader or Writer objects.</p>
+                </section>
+                <section>
+                    <h6 class="fragment">Web API</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+
+url = "http://t.weather.itboy.net/api/weather/city/101020100"
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json()  
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+f = response_dict['data']
+ff = f['forecast']
+ff_today = ff[0]
+ff_1 = ff[1]
+ff_2 = ff[2]
+
+def show(day):
+    for x in day:
+        print(x+': '+str(day[x]))
+    print('\n')
+show(ff_today)
+show(ff_1)
+show(ff_2)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Where to find Web API?</h6>
+                    <h5 class="fragment"><a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, <a href="https://www.joinquant.com/">量化投研</a>
+                    <h6 class="fragment">Stock Market (股票市场)</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+url="http://img1.money.126.net/data/hs/kline/day/history/2020/1399001.json"
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">代码为股票代码，上海股票前加0，如600756变成0600756，深圳股票前加1</li>
+                        <li class="fragment">大盘指数数据查询：上证指数000001前加0，沪深300指数000300股票前加0，深证成指399001前加1，中小板指399005前加1，创业板指399006前加1</li>
+                        <li class="fragment">是否复权，不复权为kline，复权为klinederc</li>
+                    </ul>
+                    <p class="fragment">贵州茅台</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+url="http://img1.money.126.net/data/hs/kline/day/history/2020/0600519.json"
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+import matplotlib.pyplot as plt
+import pandas as pd
+
+r = requests.get(url)
+print(r.status_code)
+response_dict = r.json() 
+# print(response_dict)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+data = response_dict['data']
+
+for x in data[:5]:
+    print("""日期: {}，开盘价：{}，收盘价：{}，最高价：{}
+        最低价：{}，交易量：{}，涨幅跌幅：{}""".format(x[0],\
+        x[1], x[2], x[3], x[4], x[5], x[6]))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+200
+日期: 20200102，开盘价：1128.0，收盘价：1130.0，最高价：1145.06
+        最低价：1116.0，交易量：14809916，涨幅跌幅：-4.48
+日期: 20200103，开盘价：1117.0，收盘价：1078.56，最高价：1117.0
+        最低价：1076.9，交易量：13031878，涨幅跌幅：-4.55
+日期: 20200106，开盘价：1070.86，收盘价：1077.99，最高价：1092.9
+        最低价：1067.3，交易量：6341478，涨幅跌幅：-0.05
+日期: 20200107，开盘价：1077.5，收盘价：1094.53，最高价：1099.0
+        最低价：1076.4，交易量：4785359，涨幅跌幅：1.53
+日期: 20200108，开盘价：1085.05，收盘价：1088.14，最高价：1095.5
+        最低价：1082.58，交易量：2500825，涨幅跌幅：-0.58
+</code></pre>
+                    </div>
+                </section>
+                <!-- <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+date=[]; open_p=[]; close_p=[]; high=[]
+low=[]; volume=[]; percent=[]
+for y in data:
+    date.append(y[0]); open_p.append(y[1])
+    close_p.append(y[2]); high.append(y[3])
+    low.append(y[4]); volume.append(y[5])
+    percent.append(y[6])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+plt.rcParams['font.sans-serif'] = ['SimHei'] 
+plt.style.use('ggplot')
+plt.plot(close_p, linewidth=0.5)
+plt.scatter(date,close_p, s=5)
+plt.xticks(date[::20],rotation=45,fontsize=6)
+plt.title('贵州茅台收盘价（2020）',fontsize=10)
+plt.tight_layout()
+plt.savefig('maotai2020.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+data = {'日期':date, '开盘价': open_p, '收盘价':close_p, \
+        '最高':high, '最低':low,'交易量':volume,'涨幅跌幅':percent}
+df=pd.DataFrame(data)
+df.to_excel(excel_writer='茅台2020.xlsx',encoding='utf-8')
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src='../../MBAimg/lecture13/maotai2020.jpg' style="height: 450pt"></div>
+                </section> 
+                <section>
+                    <p class="fragment">GitHub</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+
+URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
+r = requests.get(URL)
+print("Status code:", r.status_code)
+response_dict = r.json()
+print("Total repositories:", response_dict['total_count'])
+repo_dicts = response_dict['items']
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+names, stars = [], []
+for repo_dict in repo_dicts:
+    names.append(repo_dict['name'])
+    stars.append(repo_dict['stargazers_count'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+plt.style.use('ggplot') 
+plt.barh(names, stars, color='green')
+plt.yticks(fontsize=7)
+plt.title('Github Repositories',fontsize=10)
+plt.tight_layout()
+plt.savefig('GR.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src='../../MBAimg/lecture13/GR.jpg' style="height: 500pt"></div>
+                </section>-->
+                               <section>
+                    <a href="https://developer.themoviedb.org/docs/">TMDB-API (刮削器 )</a>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+top_rated?language=en-US&page={page}"
+
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+# print(response_dict)
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+movies=response_dict["results"]
+
+print(movies[0])
+for key, value in movies[0].items():
+    print(f"{key}: {value}")
+</code></pre>
+                    </div>
+                    
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+adult: False
+backdrop_path: /tmU7GeKVybMWFButWEGl2M4GeiP.jpg
+genre_ids: [18, 80]
+id: 238
+original_language: en
+original_title: The Godfather
+overview: Spanning the years 1945 to 1955, a chronicle of the fictional
+ Italian-American Corleone crime family. When organized crime family 
+ patriarch, Vito Corleone barely survives an attempt on his life, his 
+ youngest son, Michael steps in to take care of the would-be killers, 
+ launching a campaign of bloody revenge.
+popularity: 104.261
+poster_path: /3bhkrj58Vtu7enYsRolD1fZdja1.jpg
+release_date: 1972-03-14
+title: The Godfather
+video: False
+vote_average: 8.7
+vote_count: 17922
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Downloading Images</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+poster = movies[0]['poster_path']
+img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+r = requests.get(img_url, headers=headers)
+if r.status_code == 200:
+    with open('The Godfather.jpg', 'wb') as f:
+        f.write(r.content)
+else:
+    print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Top10</h3>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+top_rated?language=en-US&page={page}"
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+
+movies=response_dict["results"]
+top10 = movies[:10]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for movie in top10:
+    poster = movie['poster_path']
+    title = movie['title']
+    img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+    r = requests.get(img_url, headers=headers)
+    if r.status_code == 200:
+        with open(f'{title}.jpg', 'wb') as f:
+            f.write(r.content)
+    else:
+        print("download failed")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Now Playing</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+now_playing?language=en-US&page={page}"
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+
+movies=response_dict["results"]
+top10 = movies[:10]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for movie in top10:
+    poster = movie['poster_path']
+    title = movie['title']
+    img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+    r = requests.get(img_url, headers=headers)
+    if r.status_code == 200:
+        with open(f'{title}.jpg', 'wb') as f:
+            f.write(r.content)
+    else:
+        print("download failed")
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">17.2 HTML Basics</h2>
+                </section>
+                <section>
+                    <h5>IP, DNS, URL, Hypertext (F12)</h5>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/http.jpg" style="height: 200pt"></div>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/http0.png" style="height: 200pt"></div>
+                </section>
+                <section>
+                    <h5>Requests: GET, POST</h5>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/http1.png" style="height: 450pt"></div>
+                </section>
+                <section>
+                    <h5>Response</h5>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/http2.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h5>HTML, CSS, JavaScript</h5>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+<script>
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 13</title>
+</head>
+<body>
+    <div id="container">
+        <div class="wrapper">
+            <h2 class="title">Hello World</h2>
+            <p class="text">Hello, this is a paragraph</p>
+            <a href="http://www.baidu.com">Baidu</a>
+        </div>
+    </div>
+</body>
+</html>
+    
+</script>
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h5>HTML DOM</h5>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/htmltree.gif" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h5>CSS Selector</h5>
+                    <h5 class="fragment">id, class, tagname <a class="fragment" href="https://www.w3school.com.cn/cssref/css_selectors.asp">CSS Selector Reference</a></h5>
+                    <div class="div-a">
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+<script>
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="example.css">
+    <title>Lecture 13</title>
+</head>
+<body>
+    <div id="container">
+        <div class="wrapper">
+            <h2 class="title">Hello World</h2>
+            <p class="text">Hello, this is a paragraph</p>
+            <a href="http://www.baidu.com">Baidu</a>
+        </div>
+    </div>
+</body>
+</html>
+    
+</script>     
+                    </code></pre>
+                    </div>
+                    </div>
+                                        <div class="div-b">
+                    <div class="fragment">
+                        <pre><code  data-trim contenteditable>
+#container{
+    font-size: 50pt
+}
+.wrapper{
+    color: #a51f1f
+}
+div > p{
+    font-size: 20pt
+}   
+                    </code></pre>
+                    </div>
+                    </div>
+                </section>
+                <section data-background-image="bg.png">
+                    <div class="div-c">
+                    <h5>爬虫</h5>
+                    <ul>
+                        <li>获取网页 (requests)</li>
+                        <li>提取信息 (BeautifulSoup, Pyquery)</li>
+                        <li>保存数据 (csv, xlsx, MySQL, MongoDB)</li>
+                        <li>JavaScript 渲染页面 (Selenium)</li>
+                        <li>八爪鱼，火车头</li>
+                        
+                    </ul>
+                    </div>
+                    <div class="div-d">
+                    <h5>其他相关概念</h5>
+                    <ul>
+                        <li>静态网页和动态网页</li>
+                        <li>Ajax渲染</li>
+                        <li>Cookies, Session</li>
+                        <li>Proxy server</li>
+                        <li>分布式爬虫 (Scrapy)</li>
+                    </ul>
+                    </div>
+                </section>
+            </section>
+            
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Reading: Python Crash Course, Chapter 16.2, 17</li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
