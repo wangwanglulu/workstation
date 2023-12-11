@@ -1,0 +1,516 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 18</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../dist/reset.css">
+    <link rel="stylesheet" href="../../dist/reveal.css">
+    <link rel="stylesheet" href="../../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 18 Web Scraping with Python</h3>
+                </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">18.1 Scraping Examples</h2>
+                </section>
+                <section>
+                    <a href="https://www.smzdm.com/">什么值得买 (smzdm)</a>
+                    <div class="fragment"><img data-src='../../MBAimg/lecture14/smzdm.png' style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h6 class="fragment">Requests: Single Page</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+import pandas as pd
+
+headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
+        AppleWebKit/537.36 (KHTML, like Gecko) \
+        Chrome/70.0.3538.25 \
+        Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
+params ={"p":1,
+       "past_num":20}
+r=requests.get("https://www.smzdm.com/homepage/json_more", \
+                params=params, headers=headers)
+x=r.json()
+data= x['data'] 
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+title=[]; price=[]; date=[]; category=[]; atype=[]; mall=[]
+for i in range(len(data)):
+    if 'article_price' in data[i]:
+        atype.append(data[i]['article_type'])   
+        title.append(data[i]['article_title'])
+        price.append(data[i]['article_price'])
+        date.append(data[i]['article_date'])
+        category.append(data[i]['top_category'])
+        mall.append(data[i]['article_mall'])
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+ex_data=pd.DataFrame()
+ex_data['article_title']=title
+ex_data['article_price']=price
+ex_data['article_date']=date
+ex_data['top_category']=category
+ex_data['article_mall']=mall
+print(atype)
+print(title)
+ex_data.to_excel(excel_writer='smzdm.xlsx', encoding='utf-8')
+</code></pre>
+                    </div>
+                    <h6 class="fragment">Requests: Multiple Pages</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+import pandas as pd
+
+headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
+        AppleWebKit/537.36 (KHTML, like Gecko) \
+        Chrome/70.0.3538.25 \
+        Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
+data=[]
+for page in range(1,6):
+    params ={"p":page, "past_num":page*20}
+    r=requests.get("https://www.smzdm.com/homepage/json_more", \
+                    params=params, headers=headers)
+    x = r.json()
+    data = data + x['data']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <a href="https://dxy.com/">丁香医生</a>
+                    <div class="fragment"><img data-src='../../MBAimg/lecture14/dxys.jpg' style="height: 300pt"></div>
+                </section>
+                <section>
+                    <h6>Requests + BeautifulSoup</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+from bs4 import BeautifulSoup
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
+        AppleWebKit/537.36 (KHTML, like Gecko) \
+        Chrome/70.0.3538.25 \
+        Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
+search ="腿"
+r=requests.get(f"https://dxy.com/search/articles/{search}", \
+                 headers=headers)
+print(r.status_code)
+print(r.url)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+soup=BeautifulSoup(r.content, 'lxml')
+#print(soup.prettify())
+print(soup.title.string)
+print(soup.title)
+print(soup.head)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Tag (标签)，Attribute (属性)， 节点</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(soup.div) # div标签节点
+print(soup.div.attrs) # div标签节点所有属性
+print(soup.div['id']) # id属性
+print(soup.h2) # h2是标题标签节点 h1, h2,...
+print(soup.h2.string) # h2是标题标签包裹的文本
+</code></pre>
+                    </div>
+                    <!--                     <p class="fragment">子节点和父节点 </p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print(soup.a.contents) # list为所有的子节点
+print(soup.a.children) # iterator，用list()读出
+print(soup.a.parent)   # 所有的父节点
+print(soup.h2.next_sibling) # 同级的下一个兄弟节点
+print(soup.h2.previous_sibling) # 同级的上一个兄弟节点
+</code></pre>
+                    </div> -->
+                    <!--                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+list_a = soup.find_all(attrs={"class":"content-title-more common-text-link"})
+print(list_a)
+print(list_a[0]["href"])
+all_url = list_a[0]["href"]
+</code></pre>
+                    </div>
+                </section>
+                <section> -->
+<!--                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+r_all = requests.get(all_url)
+soup_all = BeautifulSoup(r_all.content, 'lxml')
+content_list = soup_all.find_all(attrs={"class":"article-title"})
+print(content_list)
+
+article_url = []
+article_title = []
+for i in range(len(content_list)):
+    article_url.append(content_list[i]["href"])
+    article_title.append(content_list[i].contents[0].string)
+</code></pre>
+                    </div> -->
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+content_list = soup.find_all(attrs={"class":"article-title"})
+# print(content_list)
+
+article_url = []
+article_title = []
+for i in range(len(content_list)):
+
+    article_url.append(content_list[i]["href"])
+    article_title.append(content_list[i].contents[0].string)
+print(article_url)
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['https://dxy.com/article/9776',
+ 'https://dxy.com/article/22988',
+ 'https://dxy.com/article/41103',
+ 'https://dxy.com/article/39274',
+ 'https://dxy.com/article/29950',
+ 'https://dxy.com/article/41101',
+ 'https://dxy.com/article/26647',
+ 'https://dxy.com/article/40272',
+ 'https://dxy.com/article/43280',
+ 'https://dxy.com/article/35889']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">Save to .docx files</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+import re
+import pypandoc
+exist=os.path.exists('dingxiang_search_leg') 
+if not exist:
+    os.mkdir('dingxiang_search_leg')
+os.chdir('dingxiang_search_leg')
+
+for j in range(len(article_url)):
+    url = article_url[j]
+    title = re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])",
+                   "",article_title[j])+'.docx'
+    output = pypandoc.convert_file(url,'docx','html',outputfile=title) 
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# \u4e00-\u9fa5   汉字的unicode范围
+# \u0030-\u0039   数字的unicode范围
+# \u0041-\u005a   大写字母unicode范围
+# \u0061-\u007a   小写字母unicode范围
+# \uAC00-\uD7AF   韩文的unicode范围
+# \u3040-\u31FF   日文的unicode范围
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h6>Multiple Pages</h6>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num_page = 1
+article_url = []
+article_title = []
+for page in range(num_page):
+    params_page={"page_index": str(page)}
+    r_all = requests.get(url, params=params_page, headers=headers)
+    soup_all = BeautifulSoup(r_all.content, 'lxml')
+    content_list = soup_all.find_all(attrs={"class":"article-title"})
+    for i in range(len(content_list)):
+        article_url.append(content_list[i]["href"])
+        article_title.append(content_list[i].contents[0].string)
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">18.2 Scraping with Selenium</h2>
+                </section>
+                <section>
+                    <a href="https://book.douban.com/">豆瓣读书</a>
+                    <div class="fragment"><img data-src='../../MBAimg/lecture14/dbds.jpg' style="height: 250pt"></div>
+                </section>
+                <section>
+                    <h5>Selenium</h5>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import re
+import os
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 模拟浏览器搜索，获得html文件（更简单的方法）
+browser = webdriver.Chrome()
+browser.get("https://book.douban.com/")
+input=browser.find_element_by_id("inp-query")
+input.send_keys("Python")
+button=browser.find_element_by_class_name("inp-btn")
+button.click()
+page = browser.page_source
+browser.close()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 解析html文件，获得书籍链接和名称
+soup=BeautifulSoup(page, 'lxml')
+list = soup.find_all(attrs={"class":"title-text"})
+url_list=[]
+title_list=[]
+for i in list:
+    url_list.append(i["href"])
+    title_list.append(i.string)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 创建文件夹
+headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
+        AppleWebKit/537.36 (KHTML, like Gecko) \
+        Chrome/70.0.3538.25 \
+        Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
+exist=os.path.exists('douban_search') 
+if not exist:
+    os.mkdir('douban_search')
+os.chdir('douban_search')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 保存书籍封面
+i=-1; fig=0
+while not fig:
+    i=i+1
+    r=requests.get(url_list[i], headers=headers)
+    book=BeautifulSoup(r.content, 'lxml')
+    fig=book.find_all(attrs={"title":"点击看大图"})
+
+position_1=fig[0]['src'].find("s/")
+position_2=fig[0]['src'].find("/public")
+src = fig[0]['src'][:position_1]+"l"+fig[0]['src'][position_2:]
+fig_r=requests.get(src, headers=headers)
+fig_title = re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])",
+                        "",title_list[i])+".jpg"
+with open(fig_title, "wb") as f:
+    f.write(fig_r.content)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 保存书籍简介
+intro = book.find_all(attrs={"class":"intro"})
+filename = re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])",
+                    "",title_list[i])+".txt"
+for j in intro:
+    with open(filename, 'a',encoding="utf-8") as file_object:
+        file_object.write(j.get_text())         
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>       
+# 保存书籍目录
+position_3=url_list[i].find("subject/")
+position_4=url_list[i].find("/",position_3+1)
+position_5=url_list[i].find("/",position_4+1)
+bookid="dir_"+url_list[i][position_4+1:position_5]+"_full"
+dir=book.find_all(attrs={"id":bookid})
+if dir:
+    with open(filename, 'a',encoding="utf-8") as file_object:
+        file_object.write(dir[0].get_text())
+os.chdir('..') 
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>       
+import time
+import random
+
+for i in range(len(url_list)):
+    r=requests.get(url_list[i], headers=headers)
+    <mark>time.sleep(random.random()*3)</mark>  
+    book=BeautifulSoup(r.content, 'lxml')
+    fig=book.find_all(attrs={"title":"点击看大图"})
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 这段从属于上面的For循环，需要整体缩进一次       
+if fig:
+    position_1=fig[0]['src'].find("s/")
+    position_2=fig[0]['src'].find("/public")
+    src = fig[0]['src'][:position_1]+"l"+fig[0]['src'][position_2:]
+    fig_r=requests.get(src, headers=headers)
+    #time.sleep(random.random()*3)
+    fig_title = re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])",
+                       "",title_list[i])+".jpg"
+    with open(fig_title, "wb") as f:
+        f.write(fig_r.content)
+    intro = book.find_all(attrs={"class":"intro"})
+    filename = re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])",
+                           "",title_list[i])+".txt"
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 这段从属于上面的if条件判断，需要整体缩进两次       
+for j in intro:
+    with open(filename, 'a',encoding="utf-8") as file_object:
+        file_object.write(j.get_text())        
+position_3=url_list[i].find("subject/")
+position_4=url_list[i].find("/",position_3+1)
+position_5=url_list[i].find("/",position_4+1)
+bookid="dir_"+url_list[i][position_4+1:position_5]+"_full"
+dir=book.find_all(attrs={"id":bookid})
+if dir:
+    with open(filename, 'a',encoding="utf-8") as file_object:
+        file_object.write(dir[0].get_text())
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+os.chdir('..')
+</code></pre>
+                    </div>
+                </section>
+                <section data-background-image="bg.png">
+                    <div class="div-c">
+                        <h5>一些反爬策略</h5>
+                        <ul>
+                            <li>通过User-Agent来控制访问</li>
+                            <li>IP限制 (IP池，延时模拟人工)</li>
+                            <li>SESSION访问限制</li>
+                            <li>蜘蛛陷阱</li>
+                        </ul>
+                    </div>
+                    <div class="div-d">
+                        <ul>
+                            <li>验证码验证</li>
+                            <li>通过robots.txt来限制爬虫</li>
+                            <li>数据动态加载</li>
+                            <li>数据加密-使用加密算法</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Python 3 网络爬虫开发实战</li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../../dist/reveal.js"></script>
+    <script src="../../plugin/zoom/zoom.js"></script>
+    <script src="../../plugin/notes/notes.js"></script>
+    <script src="../../plugin/search/search.js"></script>
+    <script src="../../plugin/markdown/markdown.js"></script>
+    <script src="../../plugin/highlight/highlight.js"></script>
+    <script src="../../plugin/math/math.js"></script>
+    <script src="../../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../../plugin/chalkboard/plugin.js"></script>
+    <script src="../../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../../plugin/copycode/copycode.js"></script>
+    <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
