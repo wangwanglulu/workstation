@@ -70,6 +70,6 @@
     display: none;
 }
 /*如果要改变初始显示的标签，只需要把#content1改成#content2，或者反过来*/
-#content2{
+#content1{
     display: block;
 }
