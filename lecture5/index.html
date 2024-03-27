@@ -151,32 +151,6 @@ ada lovelace
                     <h5>Stripping Whitespace</h5>
                     <ul>
                         <li>To programmers 'python' and 'python ' look pretty much the same. But to a program, they are two different strings. To ensure that no whitespace exists at the right end of a string, use the rstrip() method.</li>
-                    </ul>
-                    <div>
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> favorite_language = 'python '
->>> favorite_language
-'python '
->>> favorite_language.rstrip()
-'python'
->>> favorite_language
-'python '
-</code></pre>
-                    </div>
-                    <ul>
-                        <li>However, it is only removed temporarily. To remove the whitespace from the string permanently, you have to store the stripped value back into the variable:</li>
-                    </ul>
-                </section>
-                <section>
-                    <div>
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> favorite_language = 'python '
->>> favorite_language = favorite_language.rstrip()
->>> favorite_language
-'python'
-</code></pre>
-                    </div>
-                    <ul>
                         <li>You can also strip whitespace from the left side of a string using the lstrip() method or strip whitespace from both sides at once using strip():</li>
                     </ul>
                     <div>
@@ -187,6 +161,17 @@ ada lovelace
 >>> favorite_language.lstrip()
 'python '
 >>> favorite_language.strip()
+'python'
+</code></pre>
+                    </div>
+                    <ul>
+                        <li>However, it is only removed temporarily. To remove the whitespace from the string permanently, you have to store the stripped value back into the variable:</li>
+                    </ul>
+                    <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> favorite_language = 'python '
+>>> favorite_language = favorite_language.rstrip()
+>>> favorite_language
 'python'
 </code></pre>
                     </div>
@@ -280,7 +265,7 @@ I have spotted 42 camels.
                         <li class="fragment">
                             <p><b>The number of elements in the tuple must match the number of format sequences in the string. The types of the elements also must match the format sequences.</b></p>
                         </li>
-                        <div class="fragment">
+                        <!-- <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> print(f'I spotted {42} camels.')
 
@@ -309,7 +294,7 @@ I spotted {42} 'camels'.
 I spotted {42} 
  'camels'.
 </code></pre>
-                        </div>
+                        </div> 
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> animal = 'camels'
@@ -318,20 +303,18 @@ I spotted {42}
 I spotted 42 'camels'.
 
 </code></pre>
-                        </div>
+                        </div>-->
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> animal = 'camels'
 >>> number = 42.12345678
 >>> print(f'''I spotted {number:.2f} {animal}.''') 
 I spotted 42.12 camels.
-
 >>> print(f'''I spotted {number:.0f} {animal}.''') 
 I spotted 42 camels.
 
 >>> print(f'''I spotted {number:.2} {animal}.''') 
 I spotted 4.2e+01 camels.
-
 >>> print(f'''I spotted {number:.5} {animal}.''') 
 I spotted 42.123 camels.
 
@@ -524,7 +507,7 @@ while enter!="q" and exist:
                 <section>
                     <ul>
                         <li class="fragment">可进一步添加如下功能：</li>
-                        <li class="fragment">基本释义，谐音取词，人机对战，随机取词，模糊匹配</li>
+                        <li class="fragment">基本释义，谐音取词，人机对战，随机取词</li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
