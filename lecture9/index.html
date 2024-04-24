@@ -518,9 +518,12 @@ Do I have args?:
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-with open('pi_digits.txt') as file_object:
-    contents = file_object.read() # string
-    print(contents.rstrip())
+from pathlib import Path
+
+path = Path('pi_digits.txt')
+contents = path.read_text()
+contents = contents.rstrip()
+print(contents)
 </code></pre>
                     </div>
                                         <div class="fragment">
@@ -540,10 +543,7 @@ with open('pi_digits.txt') as file_object:
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-with open('text_files/filename.txt') as file_object: # Linux or OSX
-    pass
-with open('text_files\filename.txt') as file_object: # Windows
-    pass
+path = Path('text_files/filename.txt') 
 </code></pre>
                     </div>
                     <ul>
@@ -553,56 +553,18 @@ with open('text_files\filename.txt') as file_object: # Windows
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# Linux or OSX
-file_path = '/home/ehmatthes/other_files/text_files/filename.txt'
-with open(file_path) as file_object:
-    pass
+path = Path('/home/eric/data_files/text_files/filename.txt') 
 
-# Windows
-file_path = r'C:\Users\ehmatthes\other_files\text_files\filename.txt'
-with open(file_path) as file_object:
-    pass
+path = Path('c:/text_files/filename.txt') 
+path = Path(r'c:\text_files\filename.txt')
+path = Path('c:\\text_files\\filename.txt') 
+
+path = Path('c:\text_files\filename.txt')  #error
 </code></pre>
                     </div>
-                    <ul>
+<!--                     <ul>
                         <li class="fragment"><b>Please add "r" if you use Windows.</b></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Reading Line by Line</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
-with open(filename) as file_object:
-    for line in file_object:
-        print(line)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-3.1415926535
-
-8979323846
-
-2643383279
-
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
-with open(filename) as file_object:
-    for line in file_object:
-        print(line.rstrip())
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-3.1415926535
-8979323846
-2643383279
-</code></pre>
-                    </div>
+                    </ul> -->
                 </section>
                 <section>
                     <ul>
@@ -612,10 +574,13 @@ with open(filename) as file_object:
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'pi_digits.txt'
+from pathlib import Path
 
-with open(filename) as file_object:
-    lines = file_object.readlines() #List
+path = Path('pi_digits.txt')
+contents = path.read_text()
+
+lines = contents.splitlines()
+print(lines)
 </code></pre>
                     </div>
                     <ul>
@@ -627,13 +592,14 @@ with open(filename) as file_object:
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pi_string = ''
 for line in lines:
-    pi_string = pi_string + line.rstrip()
+    pi_string = pi_string + line
 print(pi_string)
 print(len(pi_string))
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
+['3.1415926535', '8979323846', '2643383279']
 3.141592653589793238462643383279 # string
 32
 </code></pre>
@@ -643,58 +609,41 @@ print(len(pi_string))
                     <h3>Writing to a File</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
+from pathlib import Path
 
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.")
+path = Path('programming.txt')
+
+path.write_text("I love programming.")
 </code></pre>
                     </div>
                     <ul>
-                        <li class="fragment">
-                            <p>The second argument, 'w', tells Python that we want to open the file in write mode. You can open a file 198 Chapter 10 in read mode ('r'), write mode ('w'), append mode ('a'), or a mode that allows you to read and write to the file ('r+'). If you omit the mode argument, Python opens the file in read-only mode by default.</p>
-                        </li>
                         <li class="fragment">
                             <p><b>Python can only write strings to a text file. If you want to store numerical data in a text file, you'll have to convert the data to string format first using the str() function.</b></p>
                         </li>
                     </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Writing Multiple Lines</p>
-                        </li>
-                    </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.")
-    file_object.write("I love creating new games.")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-I love programming.I love creating new games.   
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'programming.txt'
-with open(filename, 'w') as file_object:
-    file_object.write("I love programming.\n")
-    file_object.write("I love creating new games.\n")
+from pathlib import Path
 
 
+contents = "I love programming.\n"
+contents += "I love creating new games.\n"
+contents += "I also love working with data.\n"
+
+path = Path('programming.txt')
+path.write_text(contents)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
 I love programming.
 I love creating new games.
+I also love working with data. 
 </code></pre>
                     </div>
+                    
                 </section>
-                <section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">
                             <p>Appending to a File</p>
@@ -717,7 +666,7 @@ I also love finding meaning in large datasets.
 I love creating apps that can run in a browser.
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <!--
                 <section>
                     <h3>Exceptions</h3>
@@ -763,20 +712,21 @@ First number: q
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
-with open(filename) as f_obj:
-    contents = f_obj.read() #Error
+from pathlib import Path
+
+path = Path('alice.txt')
+contents = path.read_text(encoding='utf-8') #Error
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
+from pathlib import Path
+
+path = Path('alice.txt')
 try:
-    with open(filename) as f_obj:
-        contents = f_obj.read()
+    contents = path.read_text(encoding='utf-8')
 except FileNotFoundError:
-    msg = f"Sorry, the file {filename} does not exist."
-    print(msg)
+    print(f"Sorry, the file {path} does not exist.")
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -798,18 +748,18 @@ Sorry, the file alice.txt does not exist.
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-filename = 'alice.txt'
+from pathlib import Path
+
+path = Path('alice.txt')
 try:
-    with open(filename) as f_obj:
-        contents = f_obj.read()
+    contents = path.read_text(encoding='utf-8')
 except FileNotFoundError:
-    msg = f"Sorry, the file {filename} does not exist."
-    print(msg)
+    print(f"Sorry, the file {path} does not exist.")
 else:
-# Count the approximate number of words in the file.
+    # Count the approximate number of words in the file:
     words = contents.split()
     num_words = len(words)
-    print(f"The file {filename} has about {num_words} words.")
+    print(f"The file {path} has about {num_words} words.")
 </code></pre>
                     </div>
                 </section>
@@ -862,25 +812,30 @@ for filename in filenames:
                 </section>
                 <section>
                     <ul>
-                        <li>dump and load</li>
+                        <li>json.dumps() and json.loads()</li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 import json
 
+
 numbers = [2, 3, 5, 7, 11, 13]
-filename = 'numbers.json'
-with open(filename, 'w') as f_obj:
-    json.dump(numbers, f_obj)
+
+path = Path('numbers.json')
+contents = json.dumps(numbers)
+path.write_text(contents)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 import json
 
-filename = 'numbers.json'
-with open(filename) as f_obj:
-    numbers = json.load(f_obj)
+path = Path('numbers.json')
+contents = path.read_text()
+numbers = json.loads(contents)
+
 print(numbers)
 </code></pre>
                     </div>
@@ -898,43 +853,73 @@ print(numbers)
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 import json
 
-filename = 'username.json'
-
 username = input("What is your name? ")
-with open(filename, 'w') as f_obj:
-    json.dump(username, f_obj)
-    print(f"We'll remember you when you come back, {username}!")
+
+path = Path('username.json')
+contents = json.dumps(username)
+path.write_text(contents)
+
+print(f"We'll remember you when you come back, {username}!")
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 import json
-filename = 'username.json'
 
-with open(filename) as f_obj:
-    username = json.load(f_obj)
-    print(f"Welcome back, {username}!")
+path = Path('username.json')
+contents = path.read_text()
+username = json.loads(contents)
+
+print(f"Welcome back, {username}!")
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 import json
 
-filename = 'username.json'
-try:
-    with open(filename) as f_obj:
-        username = json.load(f_obj)
-except FileNotFoundError:
+
+def get_stored_username(path):
+    """Get stored username if available."""
+    if path.exists():
+        contents = path.read_text()
+        username = json.loads(contents)
+        return username
+    else:
+        return None
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def get_new_username(path):
+    """Prompt for a new username."""
     username = input("What is your name? ")
-    with open(filename, 'w') as f_obj:
-        json.dump(username, f_obj)
+    contents = json.dumps(username)
+    path.write_text(contents)
+    return username
+</code></pre>
+                    </div>
+                    </section>
+            <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def greet_user():
+    """Greet the user by name."""
+    path = Path('username.json')
+    username = get_stored_username(path)
+    if username:
+        print(f"Welcome back, {username}!")
+    else:
+        username = get_new_username(path)
         print(f"We'll remember you when you come back, {username}!")
-else:
-    print(f"Welcome back, {username}!")
+
+greet_user()
 </code></pre>
                     </div>
                     <div class="fragment">
