@@ -64,7 +64,7 @@ class Dog():
         print(f"{self.name.title()} is now sitting.")
 
     def roll_over(self):
-        print(f" {self.name.title()} rolled over!")
+        print(f"{self.name.title()} rolled over!")
 </code></pre>
                     </div>
                     <ul>
@@ -649,9 +649,6 @@ May female April
                         <li class="fragment">
                             <p>If you just need complete inheritance of attributes, then all three ways are equivalent.</p>
                         </li>
-                        <li class="fragment">
-                            <p>There is no, "new-style-and-classic-classes" (新式类，经典类) in Python 3.x.</p>
-                        </li>
                     </ul>
                 </section>
                 <section data-background-image="../bg.png">
@@ -748,8 +745,6 @@ class Dog():
     def __init__(self, name, age):
         self.name = name
         self.age = age
-    def __str__(self):
-        return f"Dog's name is {self.name}."
 
 
 my_dog = Dog('willie', 6)
