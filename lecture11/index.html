@@ -24,13 +24,13 @@
         <div class="slides">
             <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 11 Data Visualization</h3>
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 11 Data Visualization</h3>
                 </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">11.1 Data Visualization </h2>
+                    <h2 style="color: white">11.1 Matplotlib Basics </h2>
                 </section>
                 <section>
                     <ul>
@@ -46,8 +46,10 @@ import matplotlib.pyplot as plt
 squares = [1, 4, 9, 16, 25]
 fig, ax= plt.subplots()
 ax.plot(squares)
-# plt.show()
+# plt.show() 
 plt.savefig('simple.jpg',dpi=300)
+
+# 不要在plt.savefig()之前使用plt.show()，否则会保存失败
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt1.jpg" style="height: 300pt"></div>
@@ -68,7 +70,7 @@ ax.set_xlabel("Value", fontsize=14)
 ax.set_ylabel("Square of Value", fontsize=14)
 
 # Set size of tick labels.
-ax.tick_params(axis='both', labelsize=14)
+ax.tick_params(labelsize=14)
 plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
@@ -116,7 +118,7 @@ ax.set_xlabel("Value", fontsize=14)
 ax.set_ylabel("Square of Value", fontsize=14)
 
 # Set size of tick labels.
-ax.tick_params(axis='both', which='major', labelsize=14)
+ax.tick_params(labelsize=14)
 plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
@@ -186,7 +188,8 @@ plt.savefig('simple.jpg',dpi=300, bbox_inches='tight')
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from random import choice
-class RandomWalk():
+
+class RandomWalk:
     def __init__(self, num_points=5000):
         self.num_points = num_points
         self.x_values = [0]
@@ -229,7 +232,7 @@ fig, ax= plt.subplots()
 
 
 ax.scatter(rw.x_values, rw.y_values, s=1)
-
+ax.set_aspect('equal')
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt7.png" style="height: 300pt"></div>
@@ -237,7 +240,7 @@ ax.scatter(rw.x_values, rw.y_values, s=1)
                 <section>
                     <p>Generating Multiple Random Walks</p>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import matplotlib.pyplot as plt
 
 while True:
@@ -254,37 +257,93 @@ while True:
         break
 </code></pre>
                     </div>
-                    <p class="fragment">Styling the Walk</p>
+                    <div class="fragment"><img data-src="../img/lecture11/plt77.png" style="height: 200pt"></div>
+                    <!--                     <p class="fragment">Styling the Walk</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 point_numbers = range(rw.num_points)
 ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
-    edgecolor='none', s=15)
-plt.show()
+           edgecolor='none', s=1)
+</code></pre>
+                    </div> -->
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import matplotlib.pyplot as plt
+plt.style.use('classic')
+
+fig, ax = plt.subplots(2,2)
+rw1 = RandomWalk()
+rw2 = RandomWalk()
+rw3 = RandomWalk()
+rw4 = RandomWalk()
+
+rw1.fill_walk()
+rw2.fill_walk()
+rw3.fill_walk()
+rw4.fill_walk()
+
+ax[0,0].scatter(rw1.x_values, rw1.y_values, s=1)
+ax[0,1].scatter(rw2.x_values, rw2.y_values, s=1)
+ax[1,0].scatter(rw3.x_values, rw3.y_values, s=1)
+ax[1,1].scatter(rw4.x_values, rw4.y_values, s=1)
+
+plt.savefig('simple.jpg',dpi=300, bbox_inches='tight')
 </code></pre>
                     </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt777.jpg" style="height: 200pt"></div>
+                    <!--                     <p class="fragment">Styling the Walk</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+point_numbers = range(rw.num_points)
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
+           edgecolor='none', s=1)
+</code></pre>
+                    </div> -->
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-rw = RandomWalk(50000)
+import matplotlib.pyplot as plt
 
+rw = RandomWalk(50000)
+rw.fill_walk()
+
+plt.style.use('classic')
+fig, ax = plt.subplots(figsize = (16,9), dpi=128)
+
+point_numbers = range(rw.num_points)
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers,
+           cmap=plt.cm.Blues, edgecolor='none', s=8)
 ax.get_xaxis().set_visible(False)
 ax.get_yaxis().set_visible(False)
 
+plt.show()
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture11/plt8.png" style="height: 300pt"></div>
                 </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">11.2 Plotly </h2>
+                </section>
                 <section>
-                    <h3>Rolling Dice with Plotly</h3>
+                    <ul>
+                        <li>
+                            <p><a href="https://plotly.com/">Plotly</a> and <a href="https://d3js.org/">D3</a> </p>
+                        </li>
+                    </ul>
                     <p class="fragment">In Anaconda Prompt</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install plotly
 </code></pre>
                     </div>
-                    <p class="fragment">die.py</p>
+                    <ul>
+                        <li class="fragment">Rolling Dice with Plotly</li>
+                    </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from random import randint
@@ -324,32 +383,38 @@ print(results)
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+die = Die()
+results = []
 for roll_num in range(1000):
     result = die.roll()
     results.append(result)
 
 frequencies = []
-for value in range(1, die.num_sides+1):
+poss_results = range(1, die.num_sides+1)
+for value in poss_results:
     frequency = results.count(value)
     frequencies.append(frequency)
+
 print(frequencies)
 #[155, 167, 168, 170, 159, 181]
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-from plotly.graph_objs import Bar, Layout
-from plotly import offline
+import plotly.express as px
 
-# Visualize the results.
-x_values=list(range(1,die.num_sides+1))
-data=[Bar(x=x_values,y=frequencies)]
+fig = px.bar(x = poss_results, y=frequencies)
+fig.write_html('dice_visual.html')
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import plotly.express as px
 
-x_axis_config={'title': 'result'}
-y_axis_config={'title': 'frequencies'}
-my_layout=Layout(title='Rolling one D6 1000 times',
-                xaxis=x_axis_config, yaxis=y_axis_config)
-offline.plot({'data':data,'layout':my_layout},filename='d6.html')
+title = "Results of Rolling One D6 1000 Times"
+labels = {'x': 'Results', 'y': 'Frequency of Result'}
+fig = px.bar(x = poss_results, y=frequencies, title = title, labels=labels)
+fig.write_html('dice_visual.html')
 </code></pre>
                     </div>
                     <a class="fragment" href="d6.html" target="_blank">Rolling one D6 1000 times</a>
@@ -357,13 +422,12 @@ offline.plot({'data':data,'layout':my_layout},filename='d6.html')
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-from plotly.graph_objs import Bar, Layout
-from plotly import offline
-from die import Die
+import plotly.express as px
+
 # Create two D6 dice.
 die_1 = Die()
 die_2 = Die()
-# Make some rolls, and store results in a list.
+
 results = []
 for roll_num in range(1000):
     result = die_1.roll() + die_2.roll()
@@ -375,31 +439,25 @@ for roll_num in range(1000):
 # Analyze the results.
 frequencies = []
 max_result = die_1.num_sides + die_2.num_sides
+poss_results = range(2, max_result+1)
 
-for value in range(2, max_result+1):
+for value in poss_results:
     frequency = results.count(value)
     frequencies.append(frequency)
 </code></pre>
                     </div>
-                </section>
-                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# Visualize the results.
-x_values=list(range(2,max_result+1))
-data=[Bar(x=x_values,y=frequencies)]
-
-x_axis_config={'title': 'result', 'dtick':1}
-y_axis_config={'title': 'frequencies'}
-my_layout=Layout(title='Rolling two D6 dice 1000 times',
-                xaxis=x_axis_config, yaxis=y_axis_config)
-offline.plot({'data':data,'layout':my_layout},filename='d6_d6.html')
+title = "Results of Rolling Two D6 1000 Times"
+labels = {'x': 'Results', 'y': 'Frequency of Result'}
+fig = px.bar(x = poss_results, y=frequencies, title = title, labels=labels)
+# fig.update_layout(xaxis_dtick = 1)
+fig.write_html('d6_d6.html')
 </code></pre>
                     </div>
                     <a class="fragment" href="d6_d6.html" target="_blank">Rolling two D6 dice 1000 times</a>
                 </section>
             </section>
-            
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
