@@ -36,58 +36,57 @@
                     <p><b>.CSV</b></p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 import csv
 
-filename = 'sitka_weather_07-2018_simple.csv' 
-with open(filename) as f:
-    reader = csv.reader(f) #iterator
-    header_row = next(reader)
-    print(header_row)
+path = Path('sitka_weather_07-2021_simple.csv')
+lines = path.read_text().splitlines()
 
-    for index, column_header in enumerate(header_row): #enumerate
-        print(index, column_header)
+reader = csv.reader(lines)
+header_row = next(reader)
+print(header_row)
+
+for index, column_header in enumerate(header_row):
+    print(index,column_header)
         </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-['STATION', 'NAME', 'DATE', 'PRCP', 'TAVG', 'TMAX', 'TMIN']
+['STATION', 'NAME', 'DATE', 'TAVG', 'TMAX', 'TMIN']
 0 STATION
 1 NAME
 2 DATE
-3 PRCP
-4 TAVG
-5 TMAX
-6 TMIN
+3 TAVG
+4 TMAX
+5 TMIN
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <p>Extracting and Reading Data</p>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <pre><code class="language-Python" data-line-numbers="10-15" data-trim contenteditable>
+from pathlib import Path
 import csv
 
-filename = 'sitka_weather_07-2018_simple.csv' 
-with open(filename) as f:
-    reader = csv.reader(f)
-    header_row = next(reader)
-    print(header_row)
+path = Path('sitka_weather_07-2021_simple.csv')
+lines = path.read_text().splitlines()
 
-    for index, column_header in enumerate(header_row):
-        print(index, column_header)
+reader = csv.reader(lines)
+header_row = next(reader)
 
-    highs = []
-    for row in reader:
-        high = int(row[5])
-        highs.append(high)
+highs = []
+for row in reader:
+    high = int(row[4])
+    highs.append(high)
 
-    print(highs)
+print(highs)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-[62, 58, 70, 70, 67, 59, 58, 62, 66, 59, 56, 63, 65, 58, 56, 59, 64, 60, 
-60, 61, 65, 65, 63, 59, 64, 65, 68, 66, 64, 67, 65]
+[61, 60, 66, 60, 65, 59, 58, 58, 57, 60, 60, 60, 57, 58, 60, 61, 63, 63, 
+70, 64, 59, 63, 61, 58, 59, 64, 62, 70, 70, 73, 66]
 </code></pre>
                     </div>
                 </section>
@@ -103,10 +102,10 @@ fig, ax = plt.subplots()
 ax.plot(highs, c='red')
 
 # Format plot.
-ax.set_title("Daily high temperatures - 2018-7", fontsize=24)
+ax.set_title("Daily high temperatures, July 2021", fontsize=24)
 ax.set_xlabel('', fontsize=16)
 ax.set_ylabel("Temperature (F)", fontsize=16)
-ax.tick_params(axis='both', which='major', labelsize=16)
+ax.tick_params(labelsize=16)
 
 #plt.show()
 plt.savefig('simple.jpg',dpi=300)
@@ -121,7 +120,7 @@ plt.savefig('simple.jpg',dpi=300)
 
 from datetime import datetime
 
-first_date = datetime.strptime('2018-7-1', '%Y-%m-%d') 
+first_date = datetime.strptime('2021-7-1', '%Y-%m-%d') 
 print(type(first_date))
 print(first_date.strftime('%B %d %Y'))
 print(first_date)
@@ -152,34 +151,36 @@ July 01 2018
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-
+                        <pre><code class="language-Python" data-line-numbers="3, 11-21" data-trim contenteditable>
+from pathlib import Path
 import csv
 from datetime import datetime
 from matplotlib import pyplot as plt
 
-filename = 'sitka_weather_07-2018_simple.csv'
-with open(filename) as f:
-    reader = csv.reader(f)
-    header_row = next(reader) 
-    dates, highs= [], [] 
-    for row in reader:
-        current_date = datetime.strptime(row[2], "%Y-%m-%d")
-        dates.append(current_date)
-        high = int(row[5])
-        highs.append(high)
+path = Path('sitka_weather_07-2021_simple.csv')
+lines = path.read_text().splitlines()
+reader = csv.reader(lines)
+header_row = next(reader)
+
+dates, highs = [],[]
+for row in reader:
+    current_date = datetime.strptime(row[2], "%Y-%m-%d")
+    dates.append(current_date)
+    high = int(row[4])
+    highs.append(high)
+
 plt.style.use('seaborn')
 fig, ax = plt.subplots()
 ax.plot(dates, highs, c='red')
 </code></pre>
                         <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+                            <pre><code class="language-Python" data-line-numbers="4" data-trim contenteditable data-noescape>
 # Format plot.
-ax.set_title("Daily high temperatures - 2018-7", fontsize=24)
+ax.set_title("Daily high temperatures, July 2021", fontsize=24)
 ax.set_xlabel('', fontsize=16)
-<mark>fig.autofmt_xdate()</mark>
+fig.autofmt_xdate()
 ax.set_ylabel("Temperature (F)", fontsize=16)
-ax.tick_params(axis='both', which='major', labelsize=16)
+ax.tick_params(labelsize=16)
 
 plt.savefig('simple.jpg',dpi=300)
 </code></pre>
@@ -191,85 +192,88 @@ plt.savefig('simple.jpg',dpi=300)
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+                        <pre><code class="language-Python" data-line-numbers="6,11-18" data-trim contenteditable data-noescape>
 
+from pathlib import Path
 import csv
 from datetime import datetime
 from matplotlib import pyplot as plt
 
-<mark>filename = 'sitka_weather_2018_simple.csv'</mark>
-with open(filename) as f:
-    reader = csv.reader(f)
-    header_row = next(reader)
+path = Path('sitka_weather_2021_simple.csv')
+lines = path.read_text().splitlines()
+reader = csv.reader(lines)
+header_row = next(reader)
     
-    <mark>dates, highs, lows= [], [], []</mark> 
-    for row in reader:
-        current_date = datetime.strptime(row[2], "%Y-%m-%d")
-        dates.append(current_date)
-        high = int(row[5])
-        highs.append(high)
-        <mark>low = int(row[6])</mark>
-        <mark>lows.append(low)</mark>
+dates, highs, lows= [], [], []
+for row in reader:
+    current_date = datetime.strptime(row[2], "%Y-%m-%d")
+    dates.append(current_date)
+    high = int(row[4])
+    highs.append(high)
+    low = int(row[5])
+    lows.append(low)
         </code></pre>
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+                        <pre><code class="language-Python" data-line-numbers="4-6," data-trim contenteditable data-noescape>
 # Plot data.
 plt.style.use('seaborn')
 fig, ax = plt.subplots()
 ax.plot(dates, highs, c='red', alpha=0.5)
 ax.plot(dates, lows, c='blue', alpha=0.5)
-<mark>ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)</mark>
+ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
 # Format plot.
-ax.set_title("Daily high temperatures - 2018", fontsize=24)
+ax.set_title("Daily high and low temperatures - 2021", fontsize=24)
 ax.set_xlabel('', fontsize=16)
 fig.autofmt_xdate()
 ax.set_ylabel("Temperature (F)", fontsize=16)
-ax.tick_params(axis='both', which='major', labelsize=16)
+ax.tick_params(labelsize=16)
 
-plt.show()
+plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
-                    <div class="fragment"><img data-src="../img/lecture12/plt12.jpg" style="height: 200pt"></div>
+                    </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/plt12.jpg" style="height: 400pt"></div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 
+from pathlib import Path
 import csv
 from datetime import datetime
 from matplotlib import pyplot as plt
 
-filename = 'death_valley_2018_simple.csv'
-with open(filename) as f:
-    reader = csv.reader(f)
-    header_row = next(reader)
-    dates, highs, lows = [], [], []
+path = Path('death_valley_2021_simple.csv')
+lines = path.read_text().splitlines()
+reader = csv.reader(lines)
+header_row = next(reader)
+dates, highs, lows= [], [], []
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 
 # continue   
-    for row in reader:
-        try:
-            current_date = datetime.strptime(row[2], "%Y-%m-%d")
-            high = int(row[4])
-            low = int(row[5])
-        except ValueError:
-            print(current_date, 'missing data')
-        else:
-            dates.append(current_date)
-            highs.append(high)
-            lows.append(low)
+for row in reader:
+    try:
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        high = int(row[3])
+        low = int(row[4])
+    except ValueError:
+        print(current_date, 'missing data')
+    else:
+        dates.append(current_date)
+        highs.append(high)
+        lows.append(low)
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>  
-# Plot data.
-#--snip--
+                        <pre><code class="output" data-line-numbers data-trim contenteditable data-noescape>  
+2021-05-04 00:00:00 missing data
 </code></pre>
                     </div>
                 </section>
@@ -317,16 +321,18 @@ for btc_dict in btc_data:
                     <p><b>.JSON</b></p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from pathlib import Path
+from datetime import datetime
 import json
 
-filename = 'btc_close_2017.json'
-with open(filename) as f:
-    btc_data = json.load(f)  
+path = Path('btc_close_2017.json')
+contents = path.read_text()
+btc_data = json.loads(contents)
 
 date=[]; close=[]; months=[]
 
 for btc_dict in btc_data:
-    date.append(btc_dict['date'])
+    date.append(datetime.strptime(btc_dict['date'], "%Y-%m-%d"))
     months.append(int(btc_dict['month']))
     close.append(int(float(btc_dict['close'])))
 </code></pre>
@@ -336,14 +342,13 @@ for btc_dict in btc_data:
 
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots()
 plt.style.use('seaborn')
+fig, ax = plt.subplots()
 
-ax.plot(close, linewidth=0.5, c='red')
+ax.plot(date,close, linewidth=0.5, c='red')
 ax.scatter(date,close, s=5, c='red')
-ax.set_xticks(date[::20])
-ax.set_xticklabels(date[::20],rotation=45,fontsize=6)
 ax.set_title('Close',fontsize=10)
+fig.autofmt_xdate()
 
 plt.savefig('close.jpg',dpi=300)
 </code></pre>
@@ -601,10 +606,9 @@ for key, value_iter in groupby(data, len):
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 from itertools import groupby
-import matplotlib.pyplot as plt
 
 xy_map = []
-<mark>for x, y in groupby(sorted(zip(months, close)), lambda w: w[0]):</mark>  
+for x, y in groupby(zip(months, close), lambda w: w[0]):  
     y_list = []
     for first, second in y:
         y_list.append(second)
@@ -614,8 +618,10 @@ xy_map = []
                     </div>
                                         <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-fig, ax = plt.subplots()
+import matplotlib.pyplot as plt
+
 plt.style.use('seaborn')
+fig, ax = plt.subplots()
 
 ax.plot(x_unique, y_mean, linewidth=1)
 ax.scatter(x_unique, y_mean, s=20)
