@@ -25,51 +25,12 @@
             <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
-                    <h3 style="color: white">Lecture 13 Web Api</h3>
+                    <h3 style="color: white">Lecture 13 Web API</h3>
                 </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">13.1 Encoding</h2>
-                </section>
-                <section>
-                    <h3>Encoding</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-filename = 'Harry Potter.txt'
-with open(filename, <mark>encoding="utf-8"</mark>) as f_obj:
-    contents = f_obj.read()
-</pre></code>
-                    </div>
-                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
-                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 300pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Two-dimensional code, QR code</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import qrcode
-
-img=qrcode.make("Hello!")
-img.save("x.png")
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import qrcode
-
-img=qrcode.make("https://wangwanglulu.com/")
-img.save("wl.png")
-</code></pre>
-                    </div>
-                    <div class="fragment"><img data-src="../img/lecture13/wl.png" style="height: 200pt"></div>
-                </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">13.2 Web Api</h2>
+                    <h2 style="color: white">13.1 Web Api</h2>
                 </section>
                 <section>
                     <h3 class="fragment">Web Api</h3>
@@ -105,24 +66,22 @@ show(ff_2)
                     <h3 class="fragment">ChatGpt</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import openai
+from openai import OpenAI
 
-openai.api_key = <mark>"Your API KEY"</mark>
+client = OpenAI(api_key="<mark>Your api key</mark>")
 
-messages = [ {"role": "system", "content":
-            "You are a intelligent assistant."} ]
-while True:
-    message = input("User : ")
-    if message:
-        messages.append(
-            {"role": "user", "content": message},
-        )
-        chat = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", messages=messages
-        )
-    reply = chat.choices[0].message.content
-    print(f"ChatGPT: {reply}")
-    messages.append({"role": "assistant", "content": reply})
+completion = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "system", "content": "You are a poetic assistant, \
+    skilled in explaining complex programming concepts with \
+    creative flair."},
+    {"role": "user", "content": "Compose a poem that explains \
+    the concept of recursion in programming."}
+  ]
+)
+
+print(completion.choices[0].message)
 </code></pre>
                     </div>
                 </section>
@@ -682,6 +641,44 @@ for x in stock_list:
           
             </section>
             <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">13.2 Encoding</h2>
+                </section>
+                <section>
+                    <h3>Encoding</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from pathlib import Path
+
+path = Path('alice.txt')
+contents = path.read_text(<mark>encoding='utf-8'</mark>) 
+</pre></code>
+                    </div>
+                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
+                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Two-dimensional code, QR code</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("Hello!")
+img.save("x.png")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("https://wangwanglulu.com/")
+img.save("wl.png")
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture13/wl.png" style="height: 200pt"></div>
+                </section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">13.3 Textbook</h2>
                 </section>

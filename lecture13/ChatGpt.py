@@ -7,21 +7,16 @@ Created on Wed May 17 12:58:16 2023
 """
 
 
-import openai
+from openai import OpenAI
+client = OpenAI(api_key="Your api key")
 
-openai.api_key = "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"
 
-messages = [ {"role": "system", "content":
-			"You are a intelligent assistant."} ]
-while True:
-	message = input("User : ")
-	if message:
-		messages.append(
-			{"role": "user", "content": message},
-		)
-		chat = openai.ChatCompletion.create(
-			model="gpt-3.5-turbo", messages=messages
-		)
-	reply = chat.choices[0].message.content
-	print(f"ChatGPT: {reply}")
-	messages.append({"role": "assistant", "content": reply})
+completion = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
+    {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+  ]
+)
+
+print(completion.choices[0].message)
