@@ -97,10 +97,8 @@ url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
 
-# Make an API call and store the response.
 r = requests.get(url)
 print("Status code:", r.status_code)
-# Store API response in a variable.
 response_dict = r.json()
 
 for keys in response_dict.keys():
@@ -127,22 +125,18 @@ items
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-# continue
 print("Total repositories:", response_dict['total_count'])
 
-# Explore information about the repositories.
 repo_dicts = response_dict['items']
 print("Repositories returned:", len(repo_dicts))
 
-# Examine the first repository.
 repo_dict = repo_dicts[0]
 print("\nKeys:", len(repo_dict))
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
-Status code: 200
-Total repositories: 10633864
+Total repositories: 13150294
 Repositories returned: 30
 
 Keys: 80
@@ -165,14 +159,13 @@ print('Description:', repo_dict['description'])
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
 Selected information about first repository:
-Name: youtube-dl
-Owner: ytdl-org
-Stars: 120354
-Repository: https://github.com/ytdl-org/youtube-dl
-Created: 2010-10-31T14:35:07Z
-Updated: 2023-05-17T13:04:03Z
-Description: Command-line program to download videos from YouTube.com 
-and other video sites
+Name: public-apis
+Owner: public-apis
+Stars: 294708
+Repository: https://github.com/public-apis/public-apis
+Created: 2016-03-20T23:49:42Z
+Updated: 2024-05-27T08:51:28Z
+Description: A collective list of free APIs
 </code></pre>
                     </div>
                 </section>
@@ -183,10 +176,8 @@ and other video sites
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
-
-from plotly.graph_objs import Bar
-from plotly import offline
-
+import plotly.express as px
+ 
 URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
 r = requests.get(URL)
 print("Status code:", r.status_code)
@@ -202,33 +193,12 @@ for repo_dict in repo_dicts:
     stars.append(repo_dict['stargazers_count'])
 </code></pre>
                     </div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Make visualization</li>
-                    </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-data = [{
-    'type': 'bar', 
-    'x': names,
-    'y': stars,
-}]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-my_layout = {
-    'title': 'Most-Starred Python Projects on GitHub',
-    'xaxis': {'title': 'Repository'},
-    'yaxis': {'title': 'Stars'},
-}
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-fig = {'data': data, 'layout': my_layout}
-offline.plot(fig, filename='python_repos.html')
+title = "Most-Starred Python Projects on GitHub"
+labels = {'x': 'Repository', 'y': 'Stars'}
+fig = px.bar(x = names, y=stars, title = title, labels=labels)
+fig.write_html('python_repos.html')
 </code></pre>
                     </div>
                     <a class="fragment" href="python_repos.html">Most-Starred Python Projects</a>
@@ -374,8 +344,8 @@ response_dict = response.json()
                                         <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 movies=response_dict["results"]
+#print(movies[0])
 
-print(movies[0])
 for key, value in movies[0].items():
     print(f"{key}: {value}")
 </code></pre>
@@ -386,23 +356,24 @@ for key, value in movies[0].items():
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
 adult: False
-backdrop_path: /tmU7GeKVybMWFButWEGl2M4GeiP.jpg
+backdrop_path: /zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg
 genre_ids: [18, 80]
-id: 238
+id: 278
 original_language: en
-original_title: The Godfather
-overview: Spanning the years 1945 to 1955, a chronicle of the fictional
- Italian-American Corleone crime family. When organized crime family 
- patriarch, Vito Corleone barely survives an attempt on his life, his 
- youngest son, Michael steps in to take care of the would-be killers, 
- launching a campaign of bloody revenge.
-popularity: 104.261
-poster_path: /3bhkrj58Vtu7enYsRolD1fZdja1.jpg
-release_date: 1972-03-14
-title: The Godfather
+original_title: The Shawshank Redemption
+overview: Imprisoned in the 1940s for the double murder of his wife and her lover, 
+upstanding banker Andy Dufresne begins a new life at the Shawshank prison, 
+where he puts his accounting skills to work for an amoral warden. 
+During his long stretch in prison, Dufresne comes to be admired by the other 
+inmates -- including an older prisoner named Red -- 
+for his integrity and unquenchable sense of hope.
+popularity: 115.576
+poster_path: /9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg
+release_date: 1994-09-23
+title: The Shawshank Redemption
 video: False
-vote_average: 8.7
-vote_count: 17922
+vote_average: 8.705
+vote_count: 26204
 </code></pre>
                     </div>
                 </section>
@@ -410,13 +381,16 @@ vote_count: 17922
                     <h3>Downloading Images</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
 
 poster = movies[0]['poster_path']
+title = movies[0]['title']
 img_url = f"https://image.tmdb.org/t/p/w500{poster}"
 r = requests.get(img_url, headers=headers)
+
 if r.status_code == 200:
-    with open('The Godfather.jpg', 'wb') as f:
-        f.write(r.content)
+    save_path = Path(f"{title}.jpg")
+    save_path.write_bytes.write(r.content)
 else:
     print("download failed")
 </code></pre>
@@ -427,7 +401,7 @@ else:
                                         <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
-
+from pathlib import Path
 api_access = '<mark>Your API Key</mark>'
 </code></pre>
                     </div>
@@ -454,9 +428,10 @@ for movie in top10:
     title = movie['title']
     img_url = f"https://image.tmdb.org/t/p/w500{poster}"
     r = requests.get(img_url, headers=headers)
+
     if r.status_code == 200:
-        with open(f'{title}.jpg', 'wb') as f:
-            f.write(r.content)
+        save_path = Path(f"{title}.jpg")
+        save_path.write_bytes.write(r.content)
     else:
         print("download failed")
 </code></pre>
@@ -467,7 +442,7 @@ for movie in top10:
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
-
+from pathlib import Path
 api_access = '<mark>Your API Key</mark>'
 </code></pre>
                     </div>
@@ -494,9 +469,10 @@ for movie in top10:
     title = movie['title']
     img_url = f"https://image.tmdb.org/t/p/w500{poster}"
     r = requests.get(img_url, headers=headers)
+
     if r.status_code == 200:
-        with open(f'{title}.jpg', 'wb') as f:
-            f.write(r.content)
+        save_path = Path(f"{title}.jpg")
+        save_path.write_bytes.write(r.content)
     else:
         print("download failed")
 </code></pre>
@@ -528,7 +504,7 @@ print(response_dict)
 </code></pre>
                     </div>
                 </section>
-                <!--                 <section>
+      <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 data = response_dict['data']
@@ -558,32 +534,25 @@ for x in data[:5]:
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-date=[]; open_p=[]; close_p=[]; high=[]
-low=[]; volume=[]; percent=[]
+from datetime import datetime
+
+date, close_p = [], []
 for y in data:
-    date.append(y[0]); open_p.append(y[1])
-    close_p.append(y[2]); high.append(y[3])
-    low.append(y[4]); volume.append(y[5])
-    percent.append(y[6])
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-plt.rcParams['font.sans-serif'] = ['SimHei'] 
-plt.style.use('ggplot')
-plt.plot(close_p, linewidth=0.5)
-plt.scatter(date,close_p, s=5)
-plt.xticks(date[::20],rotation=45,fontsize=6)
-plt.title('贵州茅台收盘价（2020）',fontsize=10)
-plt.tight_layout()
-plt.savefig('maotai2020.jpg',dpi=300)
+    date.append(datetime.strptime(y[0],"%Y%m%d"))
+    close_p.append(y[2])
+
+fig, ax = plt.subplots()
+ax.plot(date,close_p, linewidth=0.5)
+ax.scatter(date,close_p, s=5)
+fig.autofmt_xdate()
+plt.savefig('maotai.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section> 
                 <section>
-                    <div class="fragment"><img data-src='maotai2020.jpg' style="height: 450pt"></div>
+                    <div class="fragment"><img data-src='maotai.jpg' style="height: 450pt"></div>
                 </section>
-                <section>
+<!--                 <section>
                     <ul>
                         <li>Batch Data Visualization</li>
                     </ul>
@@ -637,7 +606,7 @@ for x in stock_list:
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src='batch.png' style="height: 150pt"></div>
-                </section> -->
+                </section>  -->
           
             </section>
             <section>
