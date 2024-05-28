@@ -5,7 +5,7 @@ api_access = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2JmNTExZGFmM2ZjMDY4NGEzNTQxNWJjM
 
 page = 1
 url = f"https://api.themoviedb.org/3/movie/\
-top_rated?language=en-US&page={page}"
+top_rated?page={page}"
 headers = {
     "accept": "application/json",
     "Authorization": f"Bearer {api_access}"
@@ -15,7 +15,7 @@ response_dict = response.json()
 # print(response_dict)
 
 movies=response_dict["results"]
-#print(movies[0])
+print(len(movies))
 for key, value in movies[0].items():
     print(f"{key}: {value}")
 
