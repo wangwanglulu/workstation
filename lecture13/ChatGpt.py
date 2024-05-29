@@ -8,8 +8,13 @@ Created on Wed May 17 12:58:16 2023
 
 
 from openai import OpenAI
-client = OpenAI(api_key="Your api key")
 
+client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    api_key="sk-YZFYlSZtjmx7n02gGGDwI0z2GPQPWbgBoDL06nB8Nbin6xQB",
+    base_url="https://api.chatanywhere.tech/v1"
+    # base_url="https://api.chatanywhere.cn/v1"
+)
 
 completion = client.chat.completions.create(
   model="gpt-3.5-turbo",
