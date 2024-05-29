@@ -19,8 +19,7 @@ client = OpenAI(
 completion = client.chat.completions.create(
   model="gpt-3.5-turbo",
   messages=[
-    {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-    {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+    {"role": "user", "content": '鲁迅为什么暴打周树人'}
   ]
 )
 
