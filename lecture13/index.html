@@ -385,7 +385,7 @@ r = requests.get(img_url, headers=headers)
 
 if r.status_code == 200:
     save_path = Path(f"{title}.jpg")
-    save_path.write_bytes.write(r.content)
+    save_path.write_bytes(r.content)
 else:
     print("download failed")
 </code></pre>
@@ -426,7 +426,7 @@ for movie in top10:
 
     if r.status_code == 200:
         save_path = Path(f"{title}.jpg")
-        save_path.write_bytes.write(r.content)
+        save_path.write_bytes(r.content)
     else:
         print("download failed")
 </code></pre>
@@ -467,7 +467,7 @@ for movie in top10:
 
     if r.status_code == 200:
         save_path = Path(f"{title}.jpg")
-        save_path.write_bytes.write(r.content)
+        save_path.write_bytes(r.content)
     else:
         print("download failed")
 </code></pre>
