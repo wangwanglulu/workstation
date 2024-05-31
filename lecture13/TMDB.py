@@ -24,10 +24,3 @@ for movie in top10:
         save_path.write_bytes(r.content)
     else:
         print("download failed")
-
-
-
-
-
-
-
