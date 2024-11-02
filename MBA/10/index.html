@@ -150,6 +150,12 @@ max    219382.000000  1.000000e+08  2.033899e+07
 >>> df_us['percentage'] = df_us['pledged']/df_us['goal']
 </code></pre>
                     </div>
+                                        <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+#去掉warning
+df_us.copy().loc[:,'percentage'] = df_us['pledged']/df_us['goal']
+</code></pre>
+                    </div>
                 </section>
                 <section>
                     <h6>Sorting and Ranking</h6>
@@ -465,11 +471,14 @@ launched_time                    ...
 2016-01-13 18:13:53   999987933  ...  30.240359
 2011-07-19 09:07:47   999988282  ...  27.619595
 [292627 rows x 19 columns]
-
+</code></pre>
+                    </div>
+<!--  <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 # 对比暴力修改
 # df_us.rename(columns={'原始名'：'新名'}, index={'原始名'：'新名'})
 </code></pre>
-                    </div>
+</div> -->
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df_ustime.loc['20170902'] # index重复
@@ -614,7 +623,7 @@ plt.savefig('pledged.jpg',dpi=300)
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/pledged.jpg" style="height: 400pt"></div>
                 </section>
-                <section>
+                <!-- <section>
                     <h5>Failed Projects</h5>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -641,7 +650,7 @@ plt.savefig('failed.jpg',dpi=300)
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/failed.jpg" style="height: 400pt"></div>
-                </section>
+                </section> -->
                 <section>
                     <h5>Time</h5>
                     <div class="fragment">
@@ -709,7 +718,7 @@ plt.savefig('year_percentage.jpg',dpi=300)
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/year_percentage.jpg" style="height: 400pt"></div>
                 </section>
-                <section>
+                <!-- <section>
                     <h6>Time length and Category</h6>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -748,7 +757,7 @@ plt.savefig('cp.jpg',dpi=300, bbox_inches='tight')
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/cp.jpg" style="height: 400pt"></div>
-                </section>
+                </section> -->
                 <section>
                     <h5>Descriptive Analysis (unofficial)</h5>
                     <ul>
