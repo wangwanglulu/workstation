@@ -20,7 +20,7 @@ while True:
             print("记录成功")
 
 
-total = 0
+total = 0 
 for each_day in March:
     if each_day:
         total = total + sum(each_day)
