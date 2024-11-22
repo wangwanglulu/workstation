@@ -264,15 +264,16 @@ dtype: bool
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data = pd.DataFrame({'food': ['bacon', 'pulled pork', 'bacon',
-....:                         'Pastrami', 'corned beef', 'Bacon',
-....:                         'pastrami', 'honey ham', 'nova lox'],
-....:                         'ounces': [4, 3, 12, 6, 7.5, 8, 3, 5, 6]})
+                        'Pastrami', 'corned beef', 'Bacon',
+                        'pastrami', 'honey ham', 'nova lox'],
+                        'ounces': [4, 3, 12, 6, 7.5, 8, 3, 5, 6]})
 </code></pre>
                     </div>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data
+
 
           food  ounces
 0        bacon     4.0
@@ -290,9 +291,10 @@ dtype: bool
                     <div class="div-d">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> lowercased = data['food'].apply(
-...:            lambda x: x.lower())
->>> lowercased
+>>> def f(x):
+        return x.lower()
+>>> lowercased = data['food'].apply(f)
+
 0          bacon
 1    pulled pork
 2          bacon
@@ -309,15 +311,15 @@ dtype: bool
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
-                'pastrami': 'cow','corned beef': 'cow',
-                'honey ham': 'pig','nova lox': 'salmon'}
+>>> meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
+                    'pastrami': 'cow','corned beef': 'cow',
+                    'honey ham': 'pig','nova lox': 'salmon'}
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data['animal'] = lowercased.map(meat_to_animal)
->>> data
+
           food  ounces  animal
 0        bacon     4.0     pig
 1  pulled pork     3.0     pig
@@ -337,6 +339,7 @@ meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data.replace("pig","pig-1")
+
           food  ounces  animal
 0        bacon     4.0   pig-1
 1  pulled pork     3.0   pig-1
@@ -354,6 +357,7 @@ meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data.replace(["pig","cow"],"pig-2")
+
           food  ounces  animal
 0        bacon     4.0   pig-2
 1  pulled pork     3.0   pig-2
@@ -379,7 +383,7 @@ meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data[data['ounces']>=8]=NA
->>> data
+
           food  ounces  animal
 0        bacon     4.0     pig
 1  pulled pork     3.0     pig
@@ -387,7 +391,10 @@ meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
 3     Pastrami     6.0     cow
 4  corned beef     7.5     cow
 5          NaN     NaN     NaN
-...
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data = data.dropna()
 </code></pre>
                     </div>
@@ -396,6 +403,7 @@ meat_to_animal = {'bacon': 'pig','pulled pork': 'pig',
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> dummies = pd.get_dummies(data['animal'])
 >>> data.join(dummies)
+
           food  ounces  animal  cow  pig  salmon
 0        bacon     4.0     pig    0    1       0
 1  pulled pork     3.0     pig    0    1       0
