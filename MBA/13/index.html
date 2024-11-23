@@ -90,7 +90,7 @@ show(ff_2)
 </code></pre>
                     </div>
                 </section>
-                <section>
+<!--                 <section>
                     <h6>Where to find Web API?</h6>
                     <h5 class="fragment"><a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, 量化投资平台
                     <h6 class="fragment">Stock Market (股票市场)</h6>
@@ -149,7 +149,7 @@ for x in data[:5]:
         最低价：1082.58，交易量：2500825，涨幅跌幅：-0.58
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <!-- <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -227,34 +227,66 @@ plt.savefig('GR.jpg',dpi=300)
                 <section>
                     <div class="fragment"><img data-src='../../MBAimg/lecture13/GR.jpg' style="height: 500pt"></div>
                 </section>-->
-                                <section>
-                    <a href="https://imdb-api.com/">IMDb-API (刮削器)</a>
+                               <section>
+                                <h6>Where to find Web API?</h6>
+                    <h5 class="fragment"><a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, 量化投资平台</h5>
+
+                    <a href="https://developer.themoviedb.org/docs/">TMDB-API</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
 
-api_key = '<mark>Your API Key</mark>'
+api_access = '<mark>Your API Key</mark>'
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-url=f"https://imdb-api.com/en/API/Top250Movies/{api_key}"
-r = requests.get(url)
-print(r.status_code)
-response_dict = r.json() 
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+top_rated?language=en-US&page={page}"
 
-top250 = response_dict["items"]
-print(top250[0])
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
+# print(response_dict)
 </code></pre>
                     </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+movies=response_dict["results"]
+print(len(movies))
+
+for key, value in movies[0].items():
+    print(f"{key}: {value}")
+</code></pre>
+                    </div>
+                    
+                </section>
+                <section>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable data-noescape>
-{'id': 'tt0111161', 'rank': '1', 'title': 'The Shawshank Redemption', 
-'fullTitle': 'The Shawshank Redemption (1994)', 'year': '1994', 'image': 
-'https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZD
-ViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_Ratio0.6716_AL_.jpg', 
-'crew': 'Frank Darabont (dir.), Tim Robbins, Morgan Freeman', 
-'imDbRating': '9.2', 'imDbRatingCount': '2739500'}
+adult: False
+backdrop_path: /zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg
+genre_ids: [18, 80]
+id: 278
+original_language: en
+original_title: The Shawshank Redemption
+overview: Imprisoned in the 1940s for the double murder of his wife and her lover, 
+upstanding banker Andy Dufresne begins a new life at the Shawshank prison, 
+where he puts his accounting skills to work for an amoral warden. 
+During his long stretch in prison, Dufresne comes to be admired by the other 
+inmates -- including an older prisoner named Red -- 
+for his integrity and unquenchable sense of hope.
+popularity: 115.576
+poster_path: /9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg
+release_date: 1994-09-23
+title: The Shawshank Redemption
+video: False
+vote_average: 8.705
+vote_count: 26204
 </code></pre>
                     </div>
                 </section>
@@ -262,15 +294,13 @@ ViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_Ratio0.6716_AL_.jpg',
                     <h3>Downloading Images</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import requests
+poster = movies[0]['poster_path']
+title = movies[0]['title']
+img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+r = requests.get(img_url, headers=headers)
 
-url="https://m.media-amazon.com/images/\
-M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZ\
-DViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUx\
-ODI@._V1_Ratio0.6716_AL_.jpg"
-r = requests.get(url)
 if r.status_code == 200:
-    with open('The Shawshank Redemption.jpg', 'wb') as f:
+    with open(f'{title}.jpg', 'wb') as f:
         f.write(r.content)
 else:
     print("download failed")
@@ -279,29 +309,36 @@ else:
                 </section>
                 <section>
                     <h3>Top10</h3>
-                    <div class="fragment">
+                                        <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+top_rated?language=en-US&page={page}"
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
 
-api_key = '<mark>Your API Key</mark>'
-
-url=f"https://imdb-api.com/en/API/Top250Movies/{api_key}"
-r = requests.get(url)
-print(r.status_code)
-response_dict = r.json() 
-
-top250 = response_dict["items"]
-top10 = top250[:10]
-print(top10)
+movies=response_dict["results"]
+top10 = movies[:10]
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 for movie in top10:
-    url = movie['image']
+    poster = movie['poster_path']
     title = movie['title']
+    img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+    r = requests.get(img_url, headers=headers)
 
-    r = requests.get(url)
     if r.status_code == 200:
         with open(f'{title}.jpg', 'wb') as f:
             f.write(r.content)
@@ -311,26 +348,37 @@ for movie in top10:
                     </div>
                 </section>
                 <section>
-                    <h3>In Theaters</h3>
+                    <h3>Now Playing</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
+api_access = '<mark>Your API Key</mark>'
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+page = 1
+url = f"https://api.themoviedb.org/3/movie/\
+now_playing?language=en-US&page={page}"
+headers = {
+    "accept": "application/json",
+    "Authorization": f"Bearer {api_access}"
+}
+response = requests.get(url, headers=headers)
+response_dict = response.json()
 
-api_key = '<mark>Your API Key</mark>'
-
-url=f"https://imdb-api.com/en/API/InTheaters/{api_key}"
-r = requests.get(url)
-print(r.status_code)
-response_dict = r.json() 
-
-in_theaters = response_dict["items"]
-
-for movie in in_theaters:
-    url = movie['image']
+movies=response_dict["results"]
+top10 = movies[:10]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for movie in top10:
+    poster = movie['poster_path']
     title = movie['title']
-    print(title)
+    img_url = f"https://image.tmdb.org/t/p/w500{poster}"
+    r = requests.get(img_url, headers=headers)
 
-    r = requests.get(url)
     if r.status_code == 200:
         with open(f'{title}.jpg', 'wb') as f:
             f.write(r.content)
