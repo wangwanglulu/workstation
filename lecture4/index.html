@@ -38,8 +38,6 @@
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> x = {'one':'apple','two':'banana','three':'orange'}
->>> print(x)
-{'one':'apple','two':'banana','three':'orange'}
 
 >>> print(x['two'])
 'banana'
@@ -68,7 +66,7 @@ True
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>To create a dictionary, start with an empty one, and add the key-value pairs. The keys should be immutable and there is no repeated key. <b>Lists or dictionaries cannot be keys in the dictionary.</b></p>
+                            <p>To create a dictionary, start with an empty one, and add the key-value pairs. The keys should be immutable and there is no repeated key. <b>Lists or dictionaries cannot be keys.</b></p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -555,10 +553,10 @@ TypeError: object doesn't support item assignment
                     </ul>
                 </section>
                 <section>
-                    <h3>Other common characteristics of lists and tuples</h3>
+                    <h4>Other common characteristics of lists and tuples</h4>
                     <ul>
                         <li class="fragment">
-                            <p>Tuples and strings are compared and sorted lexicographically, element by element, with shorter ones coming first if all compared elements are equal. Similarly, strings are sorted based on the alphabetical order of their characters (the same for lists)</p>
+                            <p>Tuples and strings are compared and sorted lexicographically, element by element (the same for lists).</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -586,10 +584,9 @@ True
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> m = ('have', 'fun')  
 >>> x, y = m  #(x, y) = m
->>> x
-'have'
->>> y
-'fun'
+>>> print(x, y)
+have fun
+
 >>> x, y = y, x #swap
 </code></pre>
                         </div>
@@ -611,9 +608,8 @@ True
                         <li class="fragment">
                             <p>Iteration with multiple values (the same for list of lists, tuple of lists)</p>
                         </li>
-          
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 t = [('a',1), ('b',2), ('c',3)]
 # t = [['a',1], ['b',2], ['c',3]]
 # t = (('a',1), ('b',2), ('c',3))
@@ -623,30 +619,28 @@ for x, y in t:
     print(y)
 # for x in t?
 </code></pre>
-                    </div>
-
+                        </div>
                         <li class="fragment">
                             <p>If you want to modify a list inside a tuple, you can directly assign a new value to an individual element of the list. However, you cannot directly assign a new list to replace the existing one in the tuple.</p>
                         </li>
-                    
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> t = ('a', 'b', ['A', 'B'])
 >>> t[2][0] = 'X'
 >>> t[2][1] = 'Y'
 >>> t
 ('a', 'b', ['X', 'Y'])
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> t = ('a', 'b', ['A', 'B'])
 >>> t[2] = ['X', 'Y']
 
 TypeError: 'tuple' object does not support item assignment
 </code></pre>
-                    </div>
-<!--                     <div class="fragment">
+                        </div>
+                        <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> t = ('a', 'b', ('A', 'B'))
 >>> t[2][0] = 'X'
@@ -677,7 +671,7 @@ TypeError: 'tuple' object does not support item assignment
                             <p>Features: Ordered, Repeatable, <b>Immutable</b> </p>
                         </li>
                         <li class="fragment">
-                            <p>The indices start at 0. Index -1 means the last item.  (编号：从零开始）</p>
+                            <p>The indices start at 0. Index -1 means the last item. (编号：从零开始）</p>
                         </li>
                         <li class="fragment">
                             <p>In slicing, the start is inclusive, and the end is exclusive. (切片：左闭右开)</p>
@@ -696,28 +690,24 @@ TypeError: 'tuple' object does not support item assignment
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">4.4 List, dictionary, tuple</h2>
+                    <h2 style="color: white">4.4 Mutable and Immutable (可变和不可变)</h2>
                 </section>
                 <section>
-                    <h3>Mutable and Immutable (可变和不可变)</h3>
                     <ul>
                         <li>List: [], ordered, repeatable, mutable (可变的)</li>
                         <li>Tuple: (), ordered, repeatable, immutable (不可变的)</li>
-                        <li>Dictionary: {}, not ordered. 
+                        <li>Dictionary: {}, not ordered.
                             <ul>
                                 <li>Values are repeatable, but keys are not repeatable.</li>
                                 <li>Dictionary is mutable (key-value pairs are mutable).</li>
                                 <li>Values are mutable, but keys must be immutable.</li>
-                            </ul></li>
-
-                        <li class="fragment">
-                            <p>Values are immutable. Thus, numbers, strings, tuples are immutable. Lists, dictionaries are mutable.</p>
+                            </ul>
                         </li>
                         <li class="fragment">
-                            <p>What does it mean for immutable or mutable? Assignment, Modification, Reference </p>
+                            <p>Numbers, strings, tuples are immutable. Lists, dictionaries are mutable. What does it mean for immutable or mutable?</p>
                         </li>
                         <li class="fragment">
-                            <p>1. what is assignment? variable $\rightarrow$ computer memory $\rightarrow$ object</p>
+                            <p>1. Assignment: variable $\rightarrow$ computer memory $\rightarrow$ object</p>
                         </li>
                         <div class="fragment" , style="text-align: center"><img data-src="../img/lecture4/memory.png" style="height: 200pt"></div>
                     </ul>
@@ -739,7 +729,7 @@ TypeError: 'tuple' object does not support item assignment
                         </div>
                     </ul>
                     <ul>
-                        <li class="fragment">There are two ways for you to modify the mutable object. a. make a new assignment; b. make a modification by methods for lists or some ways for dictionaries.</li>
+                        <li class="fragment">There are two ways for you to modify the mutable object. (a) make a new assignment; (b) make a modification by methods for lists or some ways for dictionaries.</li>
                         <p class="fragment"><b>a. make a new assignment</b></p>
                         <div class="div-c">
                             <div class="fragment">
@@ -760,9 +750,9 @@ TypeError: 'tuple' object does not support item assignment
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> x = [1,2,3]
->>> del x[2]
->>> del x[1]
->>> del x[0]
+>>> x.pop()
+>>> x.pop()
+>>> x.pop()
 >>> x.append(4)
 >>> x.append(5)
 >>> x.append(6)
@@ -772,7 +762,7 @@ TypeError: 'tuple' object does not support item assignment
                     <div class="div-d">
                         <div class="fragment"><img data-src="../img/lecture4/modification.png" style=" height: 120pt"></div>
                     </div>
-                    <p class="fragment">3. Reference</p>
+                    <p class="fragment">3. Pass by Value</p>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -794,7 +784,7 @@ TypeError: 'tuple' object does not support item assignment
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> x = [1,2,3]
 >>> y = x
->>> del x[2]
+>>> x.pop(2)
 >>> x.append(4)
 >>> print(y)
 [1,2,4]
@@ -802,14 +792,14 @@ TypeError: 'tuple' object does not support item assignment
                         </div>
                     </div>
                     <div class="div-d">
-                        <div class="fragment"><img data-src="../img/lecture4/reference_2.png" style=" height: 120pt"></div>
+                        <div class="fragment"><img data-src="../img/lecture4/reference_2.png" style=" height: 100pt"></div>
                     </div>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> x = [1,2,3]
 >>> y = x[:] 
->>> del x[2]
+>>> x.pop(2)
 >>> x.append(4)
 >>> print(y)
 [1,2,3]
