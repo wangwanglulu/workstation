@@ -15,6 +15,76 @@
     <link rel="stylesheet" href="../plugin/chalkboard/style.css">
     <link rel="stylesheet" href="../plugin/customcontrols/style.css">
     <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <style>
+    .video-box {
+        position: relative;
+        /*        width: 200px;*/
+        height: 220px;
+        background-color: #000;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        margin: 10px 0px;
+    }
+
+    .video-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
+    }
+
+    /* 更高特异性的选择器 */
+    .video-box .thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure image covers the area without distortion */
+        filter: brightness(0.7);
+        transition: filter 0.3s ease;
+        margin: 0px;
+        /* Add margin around the image */
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .video-box:hover .thumbnail {
+        filter: brightness(1);
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* 美化播放三角形 */
+    .play-button::before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 15px solid white;
+        /* 白色三角形 */
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .play-button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    </style>
 </head>
 
 <body>
@@ -178,18 +248,28 @@ print(d)
 </code></pre>
                         </div>
                         <li class="fragment">Suppose you are given a list and you want to count how many times each letter appears.</li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-word_list = ['b', 'a', 'n', 'a', 'n', 'a']
+                        <div class="leftm">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+word_list = ['b','a','n','a','n','a']
 for c in word_list:
     d[c] = d.get(c,0) + 1
 print(d)
 </code></pre>
-                        </div>
-                        <div class="fragment">
-                            <pre><code class="output language-Python" data-trim contenteditable>
+                            </div>
+                            <div class="fragment">
+                                <pre><code class="output language-Python" data-trim contenteditable>
 {'b': 1, 'a': 3, 'n': 2}
 </code></pre>
+                            </div>
+                        </div>
+                        <div class="rightm fragment">
+                            <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../img/lecture4/get.mov">
+                                <div class="video-box">
+                                    <img src="../img/lecture3/example.jpg" alt="Video Thumbnail" class="thumbnail">
+                                    <div class="play-button"></div>
+                                </div>
+                            </a>
                         </div>
                     </ul>
                 </section>
@@ -200,7 +280,7 @@ print(d)
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 
-favorite={'jen':'python','sarah': 'c','edward': 'ruby'}
+favorite={'jen':'python','sarah':'c','edward':'ruby'}
 
 for x, y in favorite.items():
     print(x, y)
@@ -693,8 +773,7 @@ TypeError: 'tuple' object does not support item assignment
                     <h2 style="color: white">4.4 Mutable and Immutable (可变和不可变)</h2>
                 </section>
                 <section>
-                    <ul>
-                        <li>List: [], ordered, repeatable, mutable (可变的)</li>
+                    <ul><li>List: [], ordered, repeatable, mutable (可变的)</li>
                         <li>Tuple: (), ordered, repeatable, immutable (不可变的)</li>
                         <li>Dictionary: {}, not ordered.
                             <ul>
@@ -702,10 +781,13 @@ TypeError: 'tuple' object does not support item assignment
                                 <li>Dictionary is mutable (key-value pairs are mutable).</li>
                                 <li>Values are mutable, but keys must be immutable.</li>
                             </ul>
-                        </li>
+                        </li></ul>
+                    <ul>
+                        
                         <li class="fragment">
-                            <p>Numbers, strings, tuples are immutable. Lists, dictionaries are mutable. What does it mean for immutable or mutable?</p>
+                            Numbers, strings, tuples are immutable. Lists, dictionaries are mutable. 
                         </li>
+                        <li class="fragment">What does it mean for immutable or mutable?</li>
                         <li class="fragment">
                             <p>1. Assignment: variable $\rightarrow$ computer memory $\rightarrow$ object</p>
                         </li>
@@ -871,6 +953,7 @@ TypeError: 'tuple' object does not support item assignment
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="../plugin/copycode/copycode.js"></script>
     <script src="../plugin/pdfexport/pdfexport.js"></script>
+    <script src="../plugin/multimodal/multimodal.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -906,7 +989,7 @@ TypeError: 'tuple' object does not support item assignment
         // Shortcut for toggling between screen and PDF mode
         pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport, Multimodal],
 
 
 
