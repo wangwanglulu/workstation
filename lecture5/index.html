@@ -399,7 +399,7 @@ for char in text:
 words = cleaned_text.split()
 
 # 去除简单的停用词（自己定义）
-stop_words = {"the", "was", "and", "a", "it", "i", "some"}
+stop_words = ["the", "was", "and", "a", "it", "i", "some"]
 filtered_words = []  # 创建一个空列表来存放保留的单词
 for word in words:
     if word not in stop_words:  # 仅当单词不在停用词中时才添加
