@@ -20,7 +20,7 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                          <h1 style="color: white">Python Programming</h1>
                 <h3 style="color: white">Lecture 6 Functions, Modules</h3>
@@ -31,16 +31,16 @@
                     <h2 style="color: white">6.1 Functions Basics</h2>
                 </section>
                 <section>
+                    <h3>Create functions</h3>
                     <ul>
                         <li class="fragment">
                             <p>A function is a named sequence of statements that performs a computation.</p>
                         </li>
                         <li class="fragment">
-                            <p>Build-in Functions</p>
-                            <p>int(), float(), str(), type() and etc.</p>
+                            <p>Build-in Functions: int(), float(), str(), type(), and etc.</p>
                         </li>
                         <li class="fragment">
-                            <p>To make your own functions, <b>two steps: 1. define a function 2. call a function</b></p>
+                            <p>To make your own functions, <b>follow two steps: 1. define a function 2. call a function</b></p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -51,7 +51,7 @@ lyrics()
 </code></pre>
                         </div>
                         <li class="fragment">
-                            <p>The first line of the function is called the header. The rest is called the body. You can use it inside another function</p>
+                            <p>The first line of the function is called the header. The rest is called the body. </p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -226,23 +226,34 @@ show_name('jimi', 'hendrix')
                     <h3>Fruitful functions and void functions</h3>
                     <ul>
                         <li class="fragment">
-                            <p>Some of the functions yield results, fruitful fucntions</p>
-                            <p>Some of the functions do not return a value, void fucntions</p>
+                            <p>A fruitful function returns a value, while a void function performs an action but does not return a value.</p>
                         </li>
                         <li class="fragment">
                             <p>To return a result from a function, we use the return statement in our function.</p>
                         </li>
+                        <li class="fragment">
+                            <p><b>Return means the termination of a function. If you have two returns, only the first one will take effect.</b></p>
+                        </li>
+                         </ul>
+<div class="div-c">
+
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b
     return added 
-# if only return, then it will return None.
-
 x = addtwo(3, 5)
 print(x)
+
 </code></pre>
                         </div>
+                                                <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+8
+</code></pre>
+                        </div>
+                        </div>
+                        <div class="div-d">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
@@ -252,22 +263,17 @@ x = addtwo(3, 5)
 print(x)
 </code></pre>
                         </div>
+                        
                         <div class="fragment">
                             <pre><code class="output" data-trim contenteditable>
 None
 </code></pre>
                         </div>
-                        <li class="fragment">
-                            <p><b>Return means the termination of a function. If you have two returns, only the first one will take effect.</b></p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>
-                            <p>Return and Print</p>
-                        </li>
-                    </ul>
+                        </div>
+                        
+                   
+
+                    <div class="div-c">
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
@@ -278,19 +284,22 @@ x = addtwo(3, 5)
 print(x)
 </code></pre>
                     </div>
+                    
+                    
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
 8
 None
 </code></pre>
                     </div>
+                    </div>
+                    <div class="div-d">
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b 
     print(added)
     return added
-
 x = addtwo(3, 5)
 print(x)
 </code></pre>
@@ -300,6 +309,7 @@ print(x)
 8
 8
 </code></pre>
+                    </div>
                     </div>
                 </section>
                 <section>
