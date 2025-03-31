@@ -20,11 +20,11 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;" data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                         <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 6 Functions, Modules</h3>
-                    </div>
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 6 Functions, Modules</h3>
+                </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
@@ -137,7 +137,7 @@ My harry's name is Hamster.
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>Keyword Arguments</p>
+                            <p>Keyword Arguments (关键字参数)</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -178,7 +178,7 @@ describe_pet(name='harry', type='hamster')
 #The default value has been ignored.
 </code></pre>
                     </div>
-<!--                     <ul>
+                    <!--                     <ul>
                         <li class="fragment">
                             <p>The following function calls have the same output.</p>
                         </li>
@@ -234,9 +234,8 @@ show_name('jimi', 'hendrix')
                         <li class="fragment">
                             <p><b>Return means the termination of a function. If you have two returns, only the first one will take effect.</b></p>
                         </li>
-                         </ul>
-<div class="div-c">
-
+                    </ul>
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
@@ -247,13 +246,13 @@ print(x)
 
 </code></pre>
                         </div>
-                                                <div class="fragment">
+                        <div class="fragment">
                             <pre><code class="output" data-trim contenteditable>
 8
 </code></pre>
                         </div>
-                        </div>
-                        <div class="div-d">
+                    </div>
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
@@ -263,19 +262,15 @@ x = addtwo(3, 5)
 print(x)
 </code></pre>
                         </div>
-                        
                         <div class="fragment">
                             <pre><code class="output" data-trim contenteditable>
 None
 </code></pre>
                         </div>
-                        </div>
-                        
-                   
-
+                    </div>
                     <div class="div-c">
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b 
     print(added)
@@ -283,19 +278,17 @@ def addtwo(a, b):
 x = addtwo(3, 5)
 print(x)
 </code></pre>
-                    </div>
-                    
-                    
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
 8
 None
 </code></pre>
-                    </div>
+                        </div>
                     </div>
                     <div class="div-d">
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b 
     print(added)
@@ -303,13 +296,13 @@ def addtwo(a, b):
 x = addtwo(3, 5)
 print(x)
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
 8
 8
 </code></pre>
-                    </div>
+                        </div>
                     </div>
                 </section>
                 <section>
@@ -354,7 +347,7 @@ print(musician)
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!--                 <section>
                     <h3>Example: Improve the game in Lecture 2!</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -389,7 +382,7 @@ def start(t, m):
 start(game_t, game_m)
 </code></pre>
                     </div>
-                </section>
+                </section> -->
             </section>
             <!-- <section>
                 <section data-background="#2980b9" style="color: white">
@@ -488,7 +481,7 @@ main()
             </section> -->
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">6.2 Modules</h2>
+                    <h2 style="color: white">6.2 Modules（模块）</h2>
                 </section>
                 <section>
                     <ul>
@@ -569,7 +562,7 @@ from pizza import make_pizza
 make_pizza(16)
 </code></pre>
                     </div>
-                    <p class="fragment">Using as to Give a Function an Alias</p>
+                    <p class="fragment">Using as to Give a Function an Alias（别名）</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pizza import make_pizza as mp
@@ -617,13 +610,10 @@ make_pizza(16)
                             <p>When a module named is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named xxx.py in a list of directories given by the variable sys.path. sys.path is initialized from these locations:</p>
                         </li>
                         <li class="fragment">
-                            <p>The directory containing the input script (or the current directory when no file is specified).</p>
+                            <p>The directory containing the input script (当前工作目录).</p>
                         </li>
                         <li class="fragment">
-                            <p>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</p>
-                        </li>
-                        <li class="fragment">
-                            <p>The installation-dependent default.</p>
+                            <p>PYTHONPATH (a list of directory names：标准库路径，第三方库路径)</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -633,7 +623,7 @@ print(sys.path)
 </code></pre>
                     </div>
                 </section>
-<!--                 <section>
+                <!--                 <section>
                     <h3>Packages</h3>
                     <ul>
                         <li class="fragment">
@@ -661,23 +651,22 @@ mycompany
                     </ul>
                 </section> -->
                 <section>
-                    <h3>Third-party packages</h3>
+                    <h3>Install third-party packages</h3>
                     <ul>
-                        <li class="fragment">Anaconda has already installed many useful packages. </li>
-                        <div class="fragment">
+                        <li class="fragment">Anaconda already includes many useful packages, and you can install additional ones as needed.</li>
+                        <!--                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
-print(dir(requests))
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">
-                            <p>For win, open the <b>anaconda prompt</b>.</p>
+                            <p>For Windows, open the <b>anaconda prompt</b> for anaconda, or open the <b>cmd</b> for original Python.</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 
 pip install pillow
-#or conda install pillow
+#conda install pillow
 </code></pre>
                         </div>
                         <li class="fragment">
@@ -686,7 +675,7 @@ pip install pillow
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install pillow
-#or conda install pillow
+#conda install pillow
 </code></pre>
                         </div>
                         <!--
@@ -705,7 +694,7 @@ condapip install pillow #anaconda
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip uninstall pillow
-#or conda uninstall pillow
+#conda uninstall pillow
 </code></pre>
                         </div>
                         <li class="fragment">
@@ -714,7 +703,7 @@ pip uninstall pillow
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip list
-#or conda list
+#conda list
 </code></pre>
                         </div>
                     </ul>
@@ -728,7 +717,7 @@ pyperclip.copy("abc")
                     -->
                 </section>
                 <section>
-                    <h3>Example 1: math and random package </h3>
+                    <h3>Some third-party packages</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import math
@@ -772,19 +761,16 @@ print(random.randrange(1, 100, 2))   # 生成从1到100的间隔为2的随机整
 a = [1, 3, 5, 6, 7]                
 random.shuffle(a)                    # 将序列a中的元素顺序打乱
 print(a)
-print(random.sample(a, 2))
 </code></pre>
                     </div>
-                </section>
-                <section>
-                    <h3>Example 2: Third-party package </h3>
+                    <a class="fragment" href="https://blog.csdn.net/weixin_55159605/article/details/121466053" target="_blank">you-get安装使用说明</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install you-get 
 # youtube-dl
 </code></pre>
                     </div>
-                    <a class="fragment" href="https://grantjenks.com/docs/freegames/#" target="_blank">Free Python Games</a>
+                    <a class="fragment" href="https://grantjenks.com/docs/freegames/#" target="_blank">Free Python Games官网</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install freegames
@@ -826,6 +812,126 @@ itchat.logout()
                     </div>
                 </section>
                 -->
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">6.3 Blackjack (21点游戏)</h2>
+                </section>
+                <section>
+                    <h3>21点游戏规则</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>玩法：玩家与电脑比拼手牌点数，接近 21 且不超越者获胜。</p>
+                        </li>
+                        <li class="fragment">
+                            <p>玩家的目标是让手中的牌点数尽可能接近21点，但不能超过21点，否则称为“爆牌”，立即输掉本局。</p>
+                            <ul>
+                                <li class="fragment">A（Ace，A牌）可以是1点或11点，由玩家决定（如A和6可算作7或17）</li>
+                                <li class="fragment">2-10点按牌面值计算。J（Jack）、Q（Queen）、K（King）均为10点。</li>
+                            </ul>
+                        </li>
+<li class="fragment">游戏流程
+                        <ul>
+                        <li class="fragment">
+                                1.  发牌：玩家和庄家各获得两张牌
+                        </li>
+                        <li class="fragment">
+                            <p> 2.  玩家回合：要牌（再抽一张牌）或者，停牌（不再要牌）。</p>
+                        </li>
+                        <li class="fragment">
+                            <p> 3.  庄家回合：要牌，或者，停牌，庄家的牌点数小于17则必须要牌。</p>
+                        </li>
+                        <li class="fragment">
+                            <p> 4. 胜负判断：</p>
+                            <ul>
+                                <li>玩家点数 > 21：玩家输。</li>
+                                <li>玩家点数 ≤ 21，且比庄家高，或庄家爆牌：玩家赢。</li>
+                                <li>玩家和庄家点数相同：平局。</li>
+                            </ul>
+                        </li>
+                        </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <a class="fragment" href="https://www.bilibili.com/video/BV1ru4m1A7AZ/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank">教学视频: 赌棍 The Gambler (2014)</a>
+
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import random
+
+# 2-10直接用数值表示，JQK作为10，A作为11（可以调整为1）
+def create_deck():
+    values = [2,3,4,5,6,7,8,9,10,10,10,10,11] 
+    deck = values * 4  # 4种花色
+    random.shuffle(deck)
+    return deck
+
+# 计算手牌点数（考虑 A=11 变 A=1 的情况）
+def calculate(cards):
+    total = sum(cards)
+    aces = cards.count(11) # 数A个数
+    while total > 21 and aces > 0:
+        total -= 10  # 将A从11变1
+        aces -= 1
+    return total
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 玩家回合
+def player_turn(player_hand, deck):
+    while True:
+        score = calculate(player_hand)  # 调用计算函数
+        print(f"玩家手牌: {player_hand}，当前点数: {score}")
+        if score >= 21:
+            break
+        move = input("是否要牌？(y/n): ")
+        if move == 'y':
+            player_hand.append(deck.pop())
+        else:
+            break
+    return score, deck  # 直接返回计算出的分数
+
+# 庄家回合（电脑回合），只要小于17就继续要牌
+def dealer_turn(dealer_hand, deck):
+    while calculate(dealer_hand) < 17:  
+        dealer_hand.append(deck.pop())
+    return calculate(dealer_hand), deck  
+</code></pre>
+                    </div>
+                     </section>
+                    <section>
+                        
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def blackjack():
+    deck = create_deck()
+    # 发两张初始手牌
+    player_hand = [deck.pop(), deck.pop()]
+    dealer_hand = [deck.pop(), deck.pop()]
+    # 玩家回合
+    player_score, deck = player_turn(player_hand, deck)
+    if player_score > 21:
+        print("玩家爆牌，庄家获胜！")
+        return
+    # 庄家回合
+    dealer_score, deck = dealer_turn(dealer_hand, deck)
+    print(f"庄家手牌: {dealer_hand}，点数: {dealer_score}")
+    # 判定胜负
+    if dealer_score > 21 or player_score > dealer_score:
+        print("玩家获胜！")
+    elif player_score == dealer_score:
+        print("平局！")
+    else:
+        print("庄家获胜！")
+blackjack()
+</code></pre>
+                    </div>
+
+                </section>
             </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
