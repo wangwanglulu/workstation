@@ -23,166 +23,13 @@
             <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
-                    <h3 style="color: white">Lecture 9 Advanced Features, File </h3>
+                    <h3 style="color: white">Lecture 9 Closures, Decorators, File </h3>
                 </div>
             </section>
+            
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.1 Map, Filter, Lambda</h2>
-                </section>
-                <section>
-                    <h3>map()</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def f(x):
-    return x * x
-
-y = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])    
-print(list(y))
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-[1, 4, 9, 16, 25, 36, 49, 64, 81]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-['1', '2', '3', '4', '5', '6', '7', '8', '9']
-</code></pre>
-                    </div>
-                    <h3 class="fragment">filter()</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def k(x):
-    return x%2 == 0
-
-y = list(filter(k, [1, 2, 3, 4, 5, 6, 7, 8, 9]))   
-print(y)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-[2, 4, 6, 8]
-</code></pre>
-                    </div>
-                </section>
-                <!--
-                <section>
-                    
-                    <h3>reduce()</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-from functools import reduce 
-
-def g(x, y):
-    return x * y
-
-y = reduce(g, [1, 2, 3, 4, 5, 6, 7, 8, 9])    
-print(y)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> print(reduce(g, map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-131681894400
-</code></pre>
-                    </div>
-                
-
-                </section>
-                -->
-                <section>
-                    <h3>Anonymous function: lambda</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def add( x, y ):
-    return x + y
- 
-lambda x, y: x + y
- 
-lambda x, y = 2: x + y
-lambda *z: z
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>Sometimes the anonymous function is convenient.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>It has only one expression. (You do not have to use <b>return</b>)</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-</code></pre>
-                    </div>
-                    <!--
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(reduce(lambda x,y: x*y, map(lambda x: x**2, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-
-</code></pre>
-                    </div>
-                -->
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
-
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <h3>Comprehension Syntax</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>[ expression <b>for</b> value <b>in</b> iterable <b>if</b> condition ]</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [x * x for x in range(1, 11)]
-[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [x * x for x in range(1, 11) if x % 2 == 0]
-[4, 16, 36, 64, 100]
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [m + n for m in 'ABC' for n in 'XYZ']
-['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> d = {'x': 'A', 'y': 'B', 'z': 'C' }
->>> [k + '=' + v for k, v in d.items()]
-['y=B', 'x=A', 'z=C']
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> L = ['Hello', 'World', 'IBM', 'Apple']
->>> [s.lower() for s in L]
-['hello', 'world', 'ibm', 'apple']
-</code></pre>
-                    </div>
-                </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.2 Return a Function</h2>
+                    <h2 style="color: white">9.1 Closures & Decorators</h2>
                 </section>
                 <section>
                     <h3>Closure Function</h3>
@@ -500,7 +347,7 @@ Do I have args?:
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.3 File</h2>
+                    <h2 style="color: white">9.2 File</h2>
                 </section>
                 <section>
                     <h3>Reading from a File</h3>
