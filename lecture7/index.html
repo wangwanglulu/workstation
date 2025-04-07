@@ -510,7 +510,7 @@ outside:  [10, 20, 1, 2]
                 </section>
                 <section>
                     <h3>Nested Functions</h3>
-                    <div class="fragment">
+<!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def outer():
     def inner():
@@ -518,23 +518,23 @@ def outer():
     inner()
 outer()
 </code></pre>
-                    </div>
+                    </div> -->
+                    <div class="div-c">
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <pre><code class="language-Python" data-line-numbers contenteditable>
+
 def outer():
     def inner():
         num = 100
         print(num)
     inner()
 outer()
+
 </code></pre>
                     </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB)</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 num = 3           # Global
 def outer():
@@ -547,6 +547,15 @@ def outer():
 outer()
 </code></pre>
                     </div>
+
+                    </div>
+                    
+                    <ul>
+                        <li class="fragment">
+                            <p>Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB)</p>
+                        </li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture7/scope.png" style="height: 220pt"></div>
                 </section>
                 <section>
                     <h5>The nonlocal keyword</h6>
