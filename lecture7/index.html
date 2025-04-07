@@ -47,7 +47,7 @@ def test():
 print(msg) # error
 </code></pre>
                     </div>
-                    <p class="fragment">Global and Local</p>
+                    <p class="fragment">Global and Local（全局和局部）</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 msg_loc = "Shanghai" # Global
@@ -81,7 +81,7 @@ I am from Shanghai
 </code></pre>
                         </div>
                     </div>
-                    <p class="fragment"><b>Reference</b></p>
+                    <p class="fragment"><b>Reference</b>（引用）</p>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -101,7 +101,7 @@ I am from Shanghai
 </code></pre>
                         </div>
                     </div>
-                    <p class="fragment">Modification</p>
+                    <p class="fragment"><b>Referenced</b> before assignment</p>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -364,16 +364,16 @@ def ChangeInt(b):
     return b
 
 b = 2
-x = ChangeInt(b)
-print(x, b) 
+print(ChangeInt(b))
+print(b)  
 </code></pre>
                         </div>
                     </div>
                     <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output" contenteditable>
-10 2
-
+10 
+2
 
 
 
@@ -383,7 +383,6 @@ print(x, b)
                     </div>
                 </section>
                 <section>
-                    <h3>Examples</h3>
                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -444,7 +443,7 @@ None
                 <section>
                     <ul>
                         <li>
-                            <p>For mutable objects (list, dictionary), the <b>assignment</b> inside a function cannot change the value of the variable outside the function.<b> (the same with immutable objects!)</b></p>
+                            <p>For mutable objects (like lists and dictionaries), <b>assigning </b> a new value to a variable inside a function <b>will not</b> change the original variable outside the function. (the same with immutable objects!)</b></p>
                         </li>
                     </ul>
                     <div class="div-c">
@@ -463,8 +462,8 @@ print("outside: ", x)
                     <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output" contenteditable>
-inside:  [1, 2]
-outside:  [10, 20]
+inside: [1, 2]
+outside: [10, 20]
 
 
 
@@ -474,7 +473,7 @@ outside:  [10, 20]
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>However, the modification <b>can</b> change the value of the variable outside.</p>
+                            <p>However, modifying the contents of the mutable object (e.g., adding elements to a list or updating a dictionary) <b>can</b> change the value of the variable outside the function.</p>
                         </li>
                     </ul>
                     <div class="div-c">
@@ -493,8 +492,8 @@ print ("outside: ", x)
                     <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output" contenteditable>
-inside:  [10, 20, 1, 2]
-outside:  [10, 20, 1, 2]
+inside: [10, 20, 1, 2]
+outside: [10, 20, 1, 2]
 
 
 
@@ -506,10 +505,10 @@ outside:  [10, 20, 1, 2]
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">7.2 Nested Functions</h2>
+                    <h2 style="color: white">7.2 Nested Functions（嵌套函数）</h2>
                 </section>
                 <section>
-                    <h3>Nested Functions</h3>
+                    <h3>Nested Functions </h3>
 <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def outer():
@@ -522,7 +521,6 @@ outer()
                     <div class="div-c">
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers contenteditable>
-
 def outer():
     def inner():
         num = 100
@@ -530,17 +528,18 @@ def outer():
     inner()
 outer()
 
+
 </code></pre>
                     </div>
                     </div>
                     <div class="div-d">
                         <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-num = 3           # Global
+num = 3           # Global（全局）
 def outer():
-    num = 10      # Enclosing
+    num = 10      # Enclosing（外层）
     def inner():
-        num = 100 # Local
+        num = 100 # Local（局部）
         print(num)
     inner()
     print(num)
@@ -552,13 +551,31 @@ outer()
                     
                     <ul>
                         <li class="fragment">
-                            <p>Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB)</p>
+                            <p>（引用顺序）Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB principle)</p>
                         </li>
                     </ul>
-                    <div class="fragment"><img data-src="../img/lecture7/scope.png" style="height: 220pt"></div>
+                                        <div class="div-c">
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3           
+def outer():
+    num = 10     
+    def inner():
+        print(num)
+    inner()
+    print(num)
+outer()
+
+# output？
+</code></pre>
+                    </div>
+                    </div>
+                    <div class="div-d">
+                    <div class="fragment"><img data-src="../img/lecture7/scope.png" style="height: 180pt"></div>
+                    </div>
                 </section>
                 <section>
-                    <h5>The nonlocal keyword</h6>
+                    <h4><b>nonlocal</b> keyword</h4>
                         <div class="div-c">
                             <div class="fragment">
                                 <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -597,7 +614,6 @@ def outer():
     num = 10
     def inner():
         global num  
-        # global does not work
         num = 100
         print(num)
     inner()
@@ -611,7 +627,6 @@ outer()
                                 <pre><code class="output"  contenteditable>
 100 
 10
-
 
 
 
@@ -828,7 +843,7 @@ print(num)
                     <h2 style="color: white">7.3 Advanced Functions</h2>
                 </section>
                 <section>
-                    <h3>Arbitrary Arguments</h3>
+                    <h3>Arbitrary Arguments（任意数量的实参）</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_pizza(toppings):
@@ -1052,7 +1067,7 @@ TypeError: test() got multiple values
                     </div>
                 </section>
                 <section>
-                    <h3>Map</h3>
+                    <h3>Map（映射函数）</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def f(x):
@@ -1078,7 +1093,7 @@ print(list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
 ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 </code></pre>
                     </div>
-                    <h3 class="fragment">filter</h3>
+                    <h3 class="fragment">filter（过滤函数）</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def k(x):
@@ -1120,7 +1135,7 @@ print(y)
                 </section>
                 -->
                 <section>
-                    <h3>Anonymous function: lambda</h3>
+                    <h3>Anonymous function: lambda（匿名函数）</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def add( x, y ):
@@ -1161,27 +1176,34 @@ print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
                     </div>
                 </section>
                 <section>
-                    <h3>Comprehension Syntax</h3>
+                    <h3>List Comprehension（列表生成式）</h3>
                     <ul>
                         <li class="fragment">
-                            <p>[ expression <b>for</b> value <b>in</b> iterable <b>if</b> condition ]</p>
+                            <p>[expression <b>for</b> value <b>in</b> iterable <b>if</b> condition ]</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [x * x for x in range(1, 11)]
+>>> [x*x for x in range(1, 11)]
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [x * x for x in range(1, 11) if x % 2 == 0]
+>>> [x*x for x in range(1, 11) if x%2==0]
 [4, 16, 36, 64, 100]
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> [m + n for m in 'ABC' for n in 'XYZ']
+#if-else和只有if的顺序不同
+>>> [x*x if x%2==0 else x**3 for x in range(1, 11)] 
+[1, 4, 27, 16, 125, 36, 343, 64, 729, 100]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> [m+n for m in 'ABC' for n in 'XYZ']
 ['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
 </code></pre>
                     </div>
