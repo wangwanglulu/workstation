@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1D Cellular Automaton - Rule 30 (Canvas Version)</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    canvas {
+      border: 1px solid #444;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>1D Cellular Automaton - Rule 30</h2>
+  <canvas id="canvas" width="1000" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const cellSize = 5;
+    const cols = canvas.width / cellSize;
+    const rows = canvas.height / cellSize;
+
+    let current = Array(cols).fill(0);
+    current[Math.floor(cols / 2)] = 1; // 中心置1
+    let generation = 0;
+
+    function drawLine(state, row) {
+      for (let i = 0; i < state.length; i++) {
+        ctx.fillStyle = state[i] ? '#00ff00' : '#111';
+        ctx.fillRect(i * cellSize, row * cellSize, cellSize, cellSize);
+      }
+    }
+
+    function getNextLine(state) {
+      const next = [];
+      for (let i = 0; i < state.length; i++) {
+        const left = state[i - 1] || 0;
+        const center = state[i];
+        const right = state[i + 1] || 0;
+        // Rule 30 in bit logic: 00011110 = 30
+        const pattern = (left << 2) | (center << 1) | right;
+        const rule30 = (0b00011110 >> pattern) & 1;
+        next.push(rule30);
+      }
+      return next;
+    }
+
+    function step() {
+      if (generation >= rows) return;
+      drawLine(current, generation);
+      current = getNextLine(current);
+      generation++;
+      requestAnimationFrame(step);
+    }
+
+    step();
+  </script>
+</body>
+</html>

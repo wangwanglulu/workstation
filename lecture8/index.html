@@ -15,6 +15,76 @@
     <link rel="stylesheet" href="../plugin/chalkboard/style.css">
     <link rel="stylesheet" href="../plugin/customcontrols/style.css">
     <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <style>
+    .video-box {
+        position: relative;
+        /*        width: 200px;*/
+        height: 220px;
+        background-color: #000;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        margin: 10px 0px;
+    }
+
+    .video-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
+    }
+
+    /* 更高特异性的选择器 */
+    .video-box .thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure image covers the area without distortion */
+        filter: brightness(0.7);
+        transition: filter 0.3s ease;
+        margin: 0px;
+        /* Add margin around the image */
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .video-box:hover .thumbnail {
+        filter: brightness(1);
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* 美化播放三角形 */
+    .play-button::before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 15px solid white;
+        /* 白色三角形 */
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .play-button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    </style>
 </head>
 
 <body>
@@ -48,7 +118,7 @@
                     </ul>
                 </section>
                 <section>
-                    <h3>Example 1: bird flock (Complex Adaptive Systems, 复杂适应系统)</h3>
+                    <h3>Example 1: bird flock (Complex Adaptive Systems, 复杂自适应系统)</h3>
                     <ul>
                         <li class="fragment">
                             The rules are simple!
@@ -62,8 +132,7 @@
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture8/birds.jpeg" style="height: 200pt"></div>
                     <ul>
-                        <li class="fragment"><a href="https://www.bilibili.com/video/BV1pA411F7Bi/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank">Introduction to Complex Adaptive Systems (CAS)</a></li>
-                        
+                        <li class="fragment"><a href="https://www.bilibili.com/video/BV1pA411F7Bi/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank">Introduction to Complex Adaptive Systems (复杂适应系统)</a></li>
                     </ul>
                 </section>
                 <section>
@@ -73,10 +142,13 @@
                             In chaos theory, the butterfly effect is the sensitive dependence on initial conditions in which a small change in one state of a deterministic nonlinear system can result in large differences in a later state.
                         </li>
                         <li class="fragment">
-                            The term is closely associated with the work of mathematician and meteorologist Edward Norton Lorenz. He noted that butterfly effect is derived from the metaphorical example of the details of a tornado being influenced by minor perturbations such as a distant butterfly flapping its wings several weeks earlier.
+                            The butterfly effect is derived from the metaphorical example of the details of a tornado being influenced by minor perturbations such as a distant butterfly flapping its wings several weeks earlier.
                         </li>
                     </ul>
-                    <div class="fragment"><img data-src="../img/lecture8/butterfly.jpeg" style="height: 250pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture8/butterfly.jpeg" style="height: 200pt"></div>
+                    <ul>
+                        <li class="fragment"><a href="https://www.bilibili.com/video/BV1FL4y1q7HC/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank">Triple pendulum（混沌三摆）</a></li>
+                    </ul>
                 </section>
                 <section>
                     <h3>Example 3: pattern formulation (Fractal Theory, 分形理论)</h3>
@@ -94,39 +166,46 @@
                 </section>
                 <section>
                     <h3>Mandelbrot set (曼德勃罗集--“上帝的指纹”)</h3>
-                    <div class="fragment"><img data-src="../img/lecture8/f3.jpg" style="height: 200pt"></div>
+                    <div class="div-e">
+                        <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../img/lecture8/mandelbrot.mov">
+                            <div class="video-box">
+                                <img src="../img/lecture8/f3.jpg" alt="Video Thumbnail" class="thumbnail">
+                                <div class="play-button"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- <div class="fragment"><img data-src="../img/lecture8/f3.jpg" style="height: 200pt"></div> -->
                     <ul>
-                        <li class="fragment"><a href="https://zh.wikipedia.org/zh-hans/曼德博集合" target="_blank">wiki百科的演示</a></li>
+                        <!-- <li class="fragment"><a href="https://zh.wikipedia.org/zh-hans/曼德博集合" target="_blank">wiki百科的演示</a></li> -->
                         <li class="fragment">$z_{n+1} = z_n^2+c$</li>
-                        
                     </ul>
                     <ul>
-                        <li class="fragment">A complex number $c$ is a member of the Mandelbrot set if when starting with $z_0=0$ and applying the iteration repeatedly, the absolute value of $z_n$ remains bounded for all $n>0$.</li></li>
+                        <li class="fragment">A complex number $c$ is a member of the Mandelbrot set if when starting with $z_0=0$ and applying the iteration repeatedly, the absolute value of $z_n$ remains bounded for all $n>0$.</li>
+                        </li>
                     </ul>
-                    
                 </section>
                 <section>
                     <h3>Application</h3>
                     <ul>
                         <li class="fragment">
-                            Complex theory:
+                            Complex systems theory provides powerful tools to tackle problems involving many interacting components. It typically involves:
                         </li>
                         <ul>
                             <li class="fragment">
-                                Reduce the problem and understand the rule
+                                Reducing problems to their essential rules
                             </li>
                             <li class="fragment">
-                                build up the model and simulate the phenomenon
+                                Building models to simulate emergent phenomena
                             </li>
                             <li class="fragment">
-                                Predict the future
+                                Predicting future behaviors in complex environments
                             </li>
                         </ul>
                         <li class="fragment">
-                            Disciplines: statistical physics, information theory, nonlinear dynamics, anthropology, computer science, meteorology, sociology, economics, psychology, and biology.
+                            This interdisciplinary field draws from a wide range of disciplines, including <b>statistical physics, information theory, nonlinear dynamics, anthropology, computer science, meteorology, sociology, economics, psychology, and biology</b>.
                         </li>
                         <li class="fragment">
-                            The 2021 Nobel Prize in Physics was awarded to Syukuro Manabe, Klaus Hasselmann, and Giorgio Parisi for their work to understand complex systems. Their work was used to create more accurate computer models of the effect of global warming on the Earth's climate.
+                            A landmark recognition of this field came in 2021, when the <b>Nobel Prize in Physics</b> was awarded to Syukuro Manabe, Klaus Hasselmann, and Giorgio Parisi for their groundbreaking contributions to understanding complex systems. Their work laid the foundation for developing more accurate computational models, particularly in predicting the impact of global warming on Earth’s climate.
                         </li>
                         <li class="fragment">
                             <a href="https://www.bilibili.com/video/BV1F5411b7zw/?spm_id_from=333.337.search-card.all.click" target="_blank">对此领域有兴趣可进一步了解：BBC纪录片-神秘的混沌理论（2009）</a>
@@ -135,9 +214,10 @@
                 </section>
                 <section>
                     <h3>Can complex system be Designed?</h3>
-                    <ul><li class="fragment"><a href="https://shilingliang.com/web-simulator-by-GPT4/interactive_vicsek.html" target="_blank">Vicsek鸟群模型（Chatgpt生成）</a></li>
+                    <ul>
+                        <li class="fragment"><a href="https://shilingliang.com/web-simulator-by-GPT4/interactive_vicsek.html" target="_blank">Vicsek鸟群模型（Chatgpt生成）</a></li>
                         <li class="fragment">
-                            <a href="https://web.archive.org/web/20200519072847/https://www.complexity-explorables.org/slides/critically-inflammatory/" target="_blank">Forest Fire模型</a></li>
+                            <a href="https://web.archive.org/web/20200519072847/https://www.complexity-explorables.org/slides/critically-inflammatory/" target="_blank">A Forest Fire Model 森林火灾模型</a></li>
                         <li class="fragment">
                             <a href="https://web.archive.org/web/20200518005219/https://www.complexity-explorables.org/slides/i-herd-you/" target="_blank">Epidemics and Herd Immunity模型</a></li>
                         <li class="fragment">Cellular Automaton (元胞自动机)</li>
@@ -175,32 +255,26 @@
                     <h3>Cellular Automaton (元胞自动机)</h3>
                     <ul>
                         <li class="fragment">
-                            <p>At the boundary of mathematics, computer science, and games lies a peculiar field that studies <b>cellular automaton</b>.</p>
+                            <p><b>Cellular automaton</b> is a simple system made up of cells arranged in a line or grid. Each cell can be in one of a few states, like <b>black or white</b>. The system starts with an initial pattern, then follows a fixed set of rules to decide how the cells change over time.</p>
                         </li>
                         <li class="fragment">
-                            <p>Cellular automaton is a simple set of rules governing the appearance of spaces, or cells, in a line or on a grid. </p>
-                        </li>
-                        <li class="fragment">
-                            <p>Each cell may be either black or white. The rules determine what causes a cell to change from black to white (or vice versa) and how the color of a cell influences the cells around it.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Mathematicians think of such a collection of rules as a hypothetical machine that operates by itself without human intervention. This is why they are called automata.</p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>A cellular automaton starts with its cells in a given configuration (some white, some black) and then applies the rules to each cell to determine whether its color should change.
+                            <p>In each round (called a <b>generation</b>), it looks at all the cells and decides which ones need to change. Once all decisions are made, it updates all the cells at once—then repeats the process.
                             </p>
                         </li>
                         <li class="fragment">
-                            <p>It does not change a cell immediately; it checks every cell in the grid first, marks the ones to be changed, and then changes them all before the next iteration. Then it repeats the process. Each iteration is called a <b>generation</b>.</p>
+                            <p>This idea sits at the crossroads of mathematics, computer science, and even games, and helps us explore how simple rules can create complex patterns.</p>
                         </li>
                     </ul>
+                    <div class="fragment"><img data-src="../img/lecture8/f4.png" style="height: 180pt"></div>
                 </section>
                 <section>
                     <ul>
+                        <!--    <li class="fragment">
+                            <p>Each cell may be either black or white. The rules determine what causes a cell to change from black to white (or vice versa) and how the color of a cell influences the cells around it.</p>
+                        </li> -->
+                        <li class="fragment">
+                            <p>Mathematicians think of such a collection of rules as a hypothetical machine that operates by itself without human intervention. This is why they are called <b>automata</b>.</p>
+                        </li>
                         <li class="fragment">
                             <p>British scientist Stephen Wolfram has created a simple cellular automaton that exhibits emergent behavior.</p>
                         </li>
@@ -211,7 +285,7 @@
                     <div class="fragment"><img data-src="../img/lecture8/wolfram.jpeg" style="height: 200pt"></div>
                 </section>
                 <section>
-                    <h3>The simple cellular automaton</h3>
+                    <h3> simple cellular automaton</h3>
                     <div class="fragment"><img data-src="../img/lecture8/rule.png" style="height: 100pt"></div>
                     <ul>
                         <li class="fragment">
@@ -220,11 +294,13 @@
                         <li class="fragment">
                             <p>Notice that even though there is nothing random in the rules, this cellular automaton produces a pattern with distinctive and apparently random features.</p>
                         </li>
+                        <li class="fragment">
+                            <a href="../img/lecture8/Rule_30.html" target="_blank">动态展示一维元胞自动机</a></li>
                     </ul>
                 </section>
-                <section>
+                <!--                 <section>
                     <div class="fragment"><img data-src="../img/lecture8/firstca.png" style="height: 500pt"></div>
-                </section>
+                </section> -->
                 <section>
                     <ul>
                         <li class="fragment">
@@ -342,60 +418,50 @@ Start()
                 </section>
                 <section>
                     <h3>Game of Life (生命演化游戏)</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>Probably the most famous cellular automaton was invented by John Conway and is called the Game of Life.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Conway was a Professor Emeritus of Mathematics at Princeton University in New Jersey.</p>
-                        </li>
-                    </ul>
-                    <div class="fragment"><img data-src="../img/lecture8/conway.jpg" style="height: 200pt"></div>
+                    <div class="div-a">
+                        <ul>
+                            <li>
+                                <p>Probably the most famous cellular automaton was invented by John Conway and is called the Game of Life.</p>
+                            </li>
+                            <li>
+                                <p>Conway was a Professor Emeritus of Mathematics at Princeton University in New Jersey.</p>
+                            </li>
+                            <li>
+                                <p>Conway's automaton consists of cells that are laid out on a two-dimensional grid.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="div-b">
+                        <div><img data-src="../img/lecture8/conway.jpg" style="height: 150pt"></div>
+                    </div>
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>Conway's automaton consists of cells that are laid out on a two-dimensional grid.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>this grid goes on indefinitely in all directions. Each cell on the grid has eight neighbors: the cells that surround it orthogonally and diagonally. Each cell can be in two different states: It is either dead or alive.</p>
+                            <p>The grid goes on indefinitely in all directions. Each cell on the grid has eight neighbors: the cells that surround it orthogonally and diagonally. Each cell can be in two different states: It is either dead or alive.</p>
                         </li>
                         <li class="fragment">
                             <p>In most examples, dead cells are rendered white, while live cells are colored black.</p>
                         </li>
+                        <li class="fragment">
+                            <p>Rules</p>
+                            <ul>
+                                <li class="fragment">
+                                    <p>A live cell that has fewer than two live neighbors dies from loneliness.</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>A live cell that has more than three live neighbors dies from overcrowding.</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>A live cell that has two or three live neighbors stays alive.</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>A dead cell that has exactly three live neighbors becomes alive.</p>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                </section>
-                <section>
-                    <h3>Rules</h3>
-                    <ul>
-                        <li class="fragment">
-                            <p>A live cell that has fewer than two live neighbors dies from loneliness.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>A live cell that has more than three live neighbors dies from overcrowding.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>A live cell that has two or three live neighbors stays alive.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>A dead cell that has exactly three live neighbors becomes alive.</p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Example</h3>
                     <div class="fragment"><img data-src="../img/lecture8/iteration.png" style="height: 100pt"></div>
-                    <ul>
-                        <li class="fragment">
-                            <p>When set into motion, the Game of Life usually has quite chaotic results, with a lot of activity exploding from its original live cells.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Demo: Game of Life (Random)</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Frequently after a number of iterations the Game of Life settles in a more or less stable configuration, sometimes with a few groups of cells that oscillate between two states.</p>
-                        </li>
-                    </ul>
                 </section>
                 <section>
                     <div class="fragment">
@@ -515,27 +581,29 @@ Start()
                     <ul>
                         <li class="fragment"><a href="game_of_life.py" target="_blank">win和mac通用版</a>，<a href="game_of_life_tk.py" target="_blank">Tkinter美化版本</a>，<a href="game.html" target="_blank">网页直接运行版</a></li>
                     </ul>
-                    
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>One of the earliest questions that the researchers studying the Game of Life asked themselves was this: "Is there an initial configuration of live cells that expands forever?"</p>
+                            <p>When the Game of Life begins, it often looks chaotic, with live cells quickly spreading and changing.
+                            After a while, it usually settles into a stable pattern or forms small groups that flip back and forth.
+                            Early researchers wondered: <b>"Is there a starting pattern that keeps growing forever?"</b></p>
                         </li>
                         <li class="fragment">
                             <p>Glider</p>
                         </li>
-                        <div class="fragment"><img data-src="../img/lecture8/glider.png" style="height: 100pt"></div>
-<!--                         <li class="fragment">
+                        <div class="fragment"><img data-src="../img/lecture8/glider.png" style="height: 80pt"></div>
+                        <!--                         <li class="fragment">
                             <p>Demo: glider</p>
                         </li> -->
                         <li class="fragment">
                             <p>Glider gun</p>
                         </li>
                         <div class="div-c">
-                        <div class="fragment"><img data-src="../img/lecture8/glidergun.png" style="height: 100pt"></div></div>
+                            <div class="fragment"><img data-src="../img/lecture8/glidergun.png" style="height: 80pt"></div>
+                        </div>
                         <div class="div-d">
-                        <img class="fragment" data-src="../img/lecture8/glider_gun.gif" style="height: 150pt"></div>
+                            <img class="fragment" data-src="../img/lecture8/glider_gun.gif" style="height: 150pt"></div>
                         <a class="fragment" href="https://www.bilibili.com/video/BV1jJ411J7PM/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">史诗般的生命游戏</a>
                     </ul>
                 </section>
@@ -567,6 +635,7 @@ Start()
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="../plugin/copycode/copycode.js"></script>
     <script src="../plugin/pdfexport/pdfexport.js"></script>
+    <script src="../plugin/multimodal/multimodal.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -602,7 +671,7 @@ Start()
         // Shortcut for toggling between screen and PDF mode
         pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport, Multimodal],
 
 
 
