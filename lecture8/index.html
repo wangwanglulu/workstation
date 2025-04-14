@@ -501,7 +501,7 @@ def PrintScreen():
                 </section>
                 <section>
                     <p class="fragment">Step 3: Get cells</p>
-                    <div class="fragment">
+                    <div class="fragment div-a">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def TryGetCell(i, j):
     i = i % height
@@ -509,19 +509,27 @@ def TryGetCell(i, j):
     return screen[i][j]
 </code></pre>
                     </div>
+                    <div class="fragment div-b" >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable style="background-color: #ffeaa7">
+print(59 % 60) # 59
+print(60 % 60) # 0 
+print(0 % 60) # 0 
+print(-1 % 60) # 59
+</code></pre>
+                    </div>
                     <p class="fragment">Step 4: Count cells nearby</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def GetNearbyCellsCount(i, j):
     nearby = []
-    nearby.append(TryGetCell(i - 1, j - 1))
-    nearby.append(TryGetCell(i - 1, j))
-    nearby.append(TryGetCell(i - 1, j + 1))
-    nearby.append(TryGetCell(i, j - 1))
-    nearby.append(TryGetCell(i, j + 1))
-    nearby.append(TryGetCell(i + 1, j - 1))
-    nearby.append(TryGetCell(i + 1, j))
-    nearby.append(TryGetCell(i + 1, j + 1))
+    nearby.append(TryGetCell(i-1, j-1))
+    nearby.append(TryGetCell(i-1, j))
+    nearby.append(TryGetCell(i-1, j+1))
+    nearby.append(TryGetCell(i, j-1))
+    nearby.append(TryGetCell(i, j+1))
+    nearby.append(TryGetCell(i+1, j-1))
+    nearby.append(TryGetCell(i+1, j))
+    nearby.append(TryGetCell(i+1, j+1))
     num = 0
     for x in nearby:
         if x == '#':
@@ -604,7 +612,7 @@ Start()
                         </div>
                         <div class="div-d">
                             <img class="fragment" data-src="../img/lecture8/glider_gun.gif" style="height: 150pt"></div>
-                        <a class="fragment" href="https://www.bilibili.com/video/BV1jJ411J7PM/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">史诗般的生命游戏</a>
+                       <li class="fragment" ><a href="https://www.bilibili.com/video/BV1jJ411J7PM/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">史诗般的生命游戏</a></li> 
                     </ul>
                 </section>
             </section>
