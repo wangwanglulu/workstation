@@ -26,14 +26,12 @@
                     <h3 style="color: white">Lecture 9 Closures, Decorators, File </h3>
                 </div>
             </section>
-            
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">9.1 Closures & Decorators</h2>
                 </section>
                 <section>
                     <h3>Closure Function</h3>
-
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def print_msg(msg):
@@ -45,17 +43,17 @@ another = print_msg("zen of python")
 print(another())
 </code></pre>
                     </div>
-<ul>
-                                <li class="fragment">
-                                    <p>We must have a nested function (function inside a function).</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>The nested function must refer to a value defined in the enclosing function.</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>The enclosing function must return the nested function.</p>
-                                </li>
-                            </ul>
+                    <ul>
+                        <li class="fragment">
+                            <p>We must have a nested function (function inside a function).</p>
+                        </li>
+                        <li class="fragment">
+                            <p>The nested function must refer to a value defined in the enclosing function.</p>
+                        </li>
+                        <li class="fragment">
+                            <p>The enclosing function must return the nested function.</p>
+                        </li>
+                    </ul>
                     <!--
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -67,15 +65,13 @@ print(f1==f2) #False
                 -->
                 </section>
                 <section>
-
-                            <p>When to use closures?</p>
-                            <ul>
-                                <li class="fragment">
-                                    <p>Closures can avoid the use of global values and provides some form of data hiding. It can also provide an object oriented solution to the problem.</p>
-                                </li>
-                            </ul>
-<div class="fragment"><img data-src="../img/lecture9/pic.png" style="height: 250pt"></div>
-
+                    <p>When to use closures?</p>
+                    <ul>
+                        <li class="fragment">
+                            <p>Closures can avoid the use of global values and provides some form of data hiding. It can also provide an object oriented solution to the problem.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment"><img data-src="../img/lecture9/pic.png" style="height: 250pt"></div>
                 </section>
                 <section>
                     <h3>Example</h3>
@@ -373,7 +369,7 @@ contents = contents.rstrip()
 print(contents)
 </code></pre>
                     </div>
-                                        <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="output" data-line-numbers data-trim contenteditable>
 3.1415926535
 8979323846
@@ -409,7 +405,7 @@ path = Path('c:\\text_files\\filename.txt')
 path = Path('c:\text_files\filename.txt')  #error
 </code></pre>
                     </div>
-<!--                     <ul>
+                    <!--                     <ul>
                         <li class="fragment"><b>Please add "r" if you use Windows.</b></li>
                     </ul> -->
                 </section>
@@ -488,7 +484,6 @@ I love creating new games.
 I also love working with data. 
 </code></pre>
                     </div>
-                    
                 </section>
                 <!-- <section>
                     <ul>
@@ -752,8 +747,8 @@ def get_new_username(path):
     return username
 </code></pre>
                     </div>
-                    </section>
-            <section>
+                </section>
+                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def greet_user():
@@ -778,6 +773,79 @@ We'll remember you when you come back, Eric!
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
 Welcome back, Eric!
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">9.3 Data Reading Examples</h2>
+                </section>
+                <section>
+                    <h3>Reading Multiple Lines in JSON file</h3>
+                    <ul>
+                        <li><a href="https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset" target="_blank">Yelp: complete Dataset</a></li>
+                        <li><a href="yelp_sample.json" target="_blank">Yelp: sample Dataset</a></li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+path = Path('yelp_sample.json')
+contents = path.read_text()
+lines = contents.splitlines()
+yelp = []
+for line in lines:
+    yelp.append(json.loads(line))
+    
+print(len(yelp))
+print(yelp[100])
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Reading Multiple text file</h3>
+                    <ul>
+                        <li><a href="marvel.zip" target="_blank">Marvel Cinematic Universe Dialogue Dataset</a></li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+from pathlib import Path
+from textblob import TextBlob #pip install
+
+folder_path = "marvel/"
+summary = []
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for filename in os.listdir(folder_path):  #列出所有文件 
+    # 组合绝对路径
+    path = Path(os.path.join(folder_path, filename))
+    contents = path.read_text(errors="ignore")
+    lines = contents.splitlines()
+    scores = []
+
+    for line in lines:
+        line = line.strip()
+        if line:
+            # 看看这一行话的情绪是正面、负面，还是中性（+1到-1）
+            polarity = TextBlob(line).sentiment.polarity
+            scores.append(polarity) 
+    if scores:
+        average = sum(scores) / len(scores)
+        summary.append((average, filename))
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+summary.sort()
+for score, movie in summary:
+    print(movie, score)
 </code></pre>
                     </div>
                 </section>
