@@ -824,7 +824,7 @@ summary = []
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 for filename in os.listdir(folder_path):  #列出所有文件 
-    # 组合绝对路径
+    # 组成相对路径
     path = Path(os.path.join(folder_path, filename))
     contents = path.read_text(errors="ignore")
     lines = contents.splitlines()
