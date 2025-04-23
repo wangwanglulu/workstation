@@ -61,10 +61,10 @@ class Dog():
         self.age = age
 
     def sit(self):
-        print(f"{self.name.title()} is now sitting.")
+        print(f"{self.name} is now sitting.")
 
     def roll_over(self):
-        print(f"{self.name.title()} rolled over!")
+        print(f"{self.name} rolled over!")
 </code></pre>
                     </div>
                     <ul>
@@ -100,28 +100,26 @@ class Dog():
         self.age = age
 
     def sit(self):
-        print(f"{self.name.title()} \
-            is now sitting.")
+        print(f"{self.name} is now sitting.")
 
     def roll_over(self):
-        print(f"{self.name.title()} \
-            rolled over!")
+        print(f"{self.name} rolled over!")
 </code></pre>
                         </div>
                     </div>
                     <div class='div-d'>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-my_dog = Dog('willie', 6)
+my_dog = Dog('Willie', 6)
 
-print(my_dog.name.title())
-print(str(my_dog.age)+" years old")
+print(my_dog.name)
+print(my_dog.age)
 </code></pre>
                         </div>
                         <div class="fragment">
                             <pre><code class="output" data-trim contenteditable>
 Willie
-6 years old
+6
 </code></pre>
                         </div>
                         <div class="fragment">
@@ -138,7 +136,7 @@ Willie rolled over!
                         </div>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-your_dog = Dog('lucy', 3)
+your_dog = Dog('Lucy', 3)
 </code></pre>
                         </div>
                     </div>
@@ -306,8 +304,7 @@ class Car():
         self.odometer_reading = mileage
 
     def increment_odometer(self, miles):
-        self.odometer_reading \
-        = self.odometer_reading + miles
+        self.odometer_reading += miles
 </code></pre>
                         </div>
                     </div>
@@ -502,9 +499,53 @@ class ElectricCar(Car):
                         </ul>
                     </div>
                 </section>
+                 <section data-background-image="../bg.png">
+                    <div class="div-c">
+                        <ul>
+                            <li class="fragment">
+                                <p>Using an instance as an attribute</p>
+                            </li>
+                        </ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class Car():
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+
+class Battery():
+    def __init__(self, battery_size =40):
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        print(f"{self.battery_size}-kWh battery.")
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+class ElectricCar(Car):
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
+my_tesla = ElectricCar('tesla', 'model s', 2016)
+my_tesla.battery.describe_battery()
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+40-kWh battery.
+</code></pre>
+                        </div>
+                    </div>
+                </section>
                 <section data-background-image="../bg.png">
                     <ul>
-                        <li>We have learned a way to inherit, i.e., super(). There are two other ways.</li>
+                        <li>We learned to use super() for inheritance. There are two other ways to do it.</li>
                     </ul>
                     <div class="div-c">
                         <div class="fragment">
