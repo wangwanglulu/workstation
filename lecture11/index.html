@@ -33,17 +33,15 @@
                     <h2 style="color: white">11.1 Matplotlib Basics </h2>
                 </section>
                 <section>
-                    <ul>
-                        <li class="fragment">
-                            <p><a href="https://matplotlib.org/">The matplotlib Gallery</a></p>
-                            <p>Plotting a Simple Line Graph</p>
-                        </li>
-                    </ul>
+                    <h3><a href="https://matplotlib.org/">The matplotlib Gallery</a></h3>
+
+                            <p class="fragment">Plotting a Simple Line Graph</p>
+
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
-
 squares = [1, 4, 9, 16, 25]
+
 fig, ax= plt.subplots()
 ax.plot(squares)
 # plt.show() 
@@ -83,8 +81,8 @@ plt.savefig('simple.jpg',dpi=300)
 import matplotlib.pyplot as plt
 input_values = [1, 2, 3, 4, 5]
 squares = [1, 4, 9, 16, 25]
-fig, ax= plt.subplots()
 
+fig, ax= plt.subplots()
 ax.plot(input_values, squares, linewidth=5)
 plt.savefig('simple.jpg',dpi=300)
 </code></pre>
@@ -94,7 +92,7 @@ plt.savefig('simple.jpg',dpi=300)
                 </section>
                 <section>
                     <p>Plotting and Styling Individual Points with scatter()</p>
-                    <div class="fragment">
+<!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
 
@@ -123,7 +121,7 @@ plt.savefig('simple.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <section> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import matplotlib.pyplot as plt
@@ -131,7 +129,6 @@ import matplotlib.pyplot as plt
 x_values = [1, 2, 3, 4, 5]
 y_values = [1, 4, 9, 16, 25]
 
-plt.style.use('seaborn')
 fig, ax= plt.subplots()
 ax.scatter(x_values, y_values, s=100)
 plt.savefig('simple.jpg',dpi=300)
@@ -147,7 +144,6 @@ import matplotlib.pyplot as plt
 x_values = list(range(1, 1001))
 y_values = [x**2 for x in x_values]
 
-plt.style.use('seaborn')
 fig, ax= plt.subplots()
 ax.scatter(x_values, y_values, s=40)
 
@@ -174,9 +170,9 @@ import matplotlib.pyplot as plt
 
 x_values = range(1001)
 y_values = [x**2 for x in x_values]
-plt.style.use('seaborn')
+
 fig, ax= plt.subplots()
-ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues,s=10)
+ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues, s=10)
 
 plt.savefig('simple.jpg',dpi=300, bbox_inches='tight')
 </code></pre>
@@ -330,11 +326,7 @@ plt.show()
                     <h2 style="color: white">11.2 Plotly </h2>
                 </section>
                 <section>
-                    <ul>
-                        <li>
-                            <p><a href="https://plotly.com/">Plotly</a> and <a href="https://d3js.org/">D3</a> </p>
-                        </li>
-                    </ul>
+                    <h3><a href="https://plotly.com/">Plotly</a> and <a href="https://d3js.org/">D3</a> </h3>
                     <p class="fragment">In Anaconda Prompt</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
