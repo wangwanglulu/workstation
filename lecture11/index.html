@@ -246,7 +246,6 @@ while True:
     plt.style.use('classic')
     fig, ax = plt.subplots()
     ax.scatter(rw.x_values, rw.y_values, s=15)
-    plt.show()
 
     keep_running = input("Make another walk? (y/n): ")
     if keep_running == 'n':
@@ -395,7 +394,7 @@ print(frequencies)
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import plotly.express as px
 
-fig = px.bar(x = poss_results, y=frequencies)
+fig = px.bar(x=poss_results, y=frequencies)
 fig.write_html('dice_visual.html')
 </code></pre>
                     </div>
@@ -405,7 +404,7 @@ import plotly.express as px
 
 title = "Results of Rolling One D6 1000 Times"
 labels = {'x': 'Results', 'y': 'Frequency of Result'}
-fig = px.bar(x = poss_results, y=frequencies, title = title, labels=labels)
+fig = px.bar(x=poss_results, y=frequencies, title=title, labels=labels)
 fig.write_html('dice_visual.html')
 </code></pre>
                     </div>
@@ -442,7 +441,7 @@ for value in poss_results:
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 title = "Results of Rolling Two D6 1000 Times"
 labels = {'x': 'Results', 'y': 'Frequency of Result'}
-fig = px.bar(x = poss_results, y=frequencies, title = title, labels=labels)
+fig = px.bar(x=poss_results, y=frequencies, title=title, labels=labels)
 # fig.update_layout(xaxis_dtick = 1)
 fig.write_html('d6_d6.html')
 </code></pre>
