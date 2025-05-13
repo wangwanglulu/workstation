@@ -407,7 +407,7 @@ file_path = Path("large_file.csv")
 with file_path.open("r", encoding="utf-8") as file:  # 指定编码
     csv_reader = csv.reader(file)
     for row in csv_reader:
-        process(row)  # 逐行处理
+        print(row)  # 逐行处理
 </code></pre>
                         </div>
 <p class="fragment">不推荐方式（高内存）</p>
