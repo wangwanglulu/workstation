@@ -382,12 +382,12 @@ plt.savefig('收盘价对数变换折线图.jpg',dpi=300)
                 </section> -->
                 <section>
                     <h3>Iterator (迭代器)</h3>
-                    <p class = "fragement">在 Python 中，迭代器（Iterator） 是一种用于遍历（或迭代）<b>可迭代对象（Iterable）</b>    的对象。它提供了一种逐个访问元素的方式，而不需要提前加载整个数据结构到内存中。</p>
-                    <p class = "fragement"> 可迭代对象（Iterable）是指实现了 __iter__() 方法的对象，该方法返回一个迭代器。常见的可迭代对象包括： list、tuple、str、range</p>
-                    <ul class = "fragement">
+                    <p class="fragment">在 Python 中，迭代器（Iterator） 是一种用于遍历（或迭代）<b>可迭代对象（Iterable）</b>    的对象。它提供了一种逐个访问元素的方式，而不需要提前加载整个数据结构到内存中。</p>
+                    <p class="fragment"> 可迭代对象（Iterable）是指实现了 __iter__() 方法的对象，该方法返回一个迭代器。常见的可迭代对象包括： list、tuple、str、range</p>
+                    <ul class="fragment">
                         <li>迭代器是实现了 __iter__() 和 __next__() 方法的对象：__iter__()：返回迭代器自身（迭代器也是可迭代的）。__next__()：返回下一个元素，如果没有更多元素则抛出 StopIteration 异常。</li>
                         <li> 迭代器的特点
-                            <ul>
+                            <ul class="fragment">
                                 <li>惰性计算：迭代器按需生成元素，适合处理大数据流（如文件读取）。</li>
                                 <li>一次性使用：迭代器遍历结束后无法再次使用（需重新创建）。</li>
                                 <li>节省内存：不需要一次性加载所有数据（对比列表）</li>
