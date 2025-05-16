@@ -33,7 +33,14 @@
                     <h2 style="color: white">13.1 Web Api</h2>
                 </section>
                 <section>
-                    <h3 class="fragment">Web Api</h3>
+                    <div class="fragment"><img data-src="../img/lecture13/api.png" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h3 class="fragment">Weather Data</h3>
+                    <div class="fragment"><img data-src="../img/lecture13/iphone.png" style="height: 300pt"></div>
+                    <h3 class="fragment"><a href="https://data.cma.cn/">中国气象台大数据接口</a></h3>
+                </section>
+                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
@@ -63,142 +70,29 @@ show(ff_2)
                     </div>
                 </section>
                 <section>
-                    <h3 class="fragment">ChatGpt</h3>
+                    <h3 class="fragment"><a href="https://platform.deepseek.com/">Deepseek API开放平台</a></h3>
+                    <h4 class="fragment"><a href="https://api-docs.deepseek.com/zh-cn/">API说明文档</a></h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# Please install OpenAI SDK first: `pip3 install openai`
 from openai import OpenAI
 
-client = OpenAI(
-    api_key="<mark>Your api key</mark>",
+client = OpenAI(api_key="<mark>your api_key</mark>", base_url="https://api.deepseek.com")
+
+response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant"},
+        {"role": "user", "content": "鲁迅暴打周树人"},
+    ],
+    stream=False
 )
-completion = client.chat.completions.create(
-  model="gpt-3.5-turbo",
-  messages=[
-    {"role": "user", "content": "Explains the concept\ 
-    of recursion in programming."}
-  ]
-)
 
-print(completion.choices[0].message)
+print(response.choices[0].message.content)
 </code></pre>
                     </div>
                 </section>
-                <section>
-                    <p>GitHub</p>
-                    <p><a href="https://api.github.com/search/repositories?q=language:python&sort=stars">https://api.github.com/search/repositories?q=language:python&sort=stars</a></p>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import requests
-
-url = 'https://api.github.com/search/\
-repositories?q=language:python&sort=stars'
-r = requests.get(url)
-print("Status code:", r.status_code)
-response_dict = r.json()
-
-for keys in response_dict.keys():
-    print(keys)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable data-noescape>
-Status code: 200
-total_count
-incomplete_results
-items
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <a href="https://docs.github.com/en/rest/search?apiVersion=2022-11-28#timeouts-and-incomplete-results">About Incomplete Result</a>
-                    <h3>Timeouts and incomplete results</h3>
-                    <p>To keep the REST API fast for everyone, we limit how long any individual query can run. For queries that exceed the time limit, the API returns the matches that were already found prior to the timeout, and the response has the incomplete_results property set to true. Reaching a timeout does not necessarily mean that search results are incomplete. More results might have been found, but also might not.</p>
-                </section>
-                <section>
-                    <ul>
-                        <li>Working with the Response Dictionary</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-print("Total repositories:", response_dict['total_count'])
-
-repo_dicts = response_dict['items']
-print("Repositories returned:", len(repo_dicts))
-
-repo_dict = repo_dicts[0]
-print("\nKeys:", len(repo_dict))
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable data-noescape>
-Total repositories: 13150294
-Repositories returned: 30
-
-Keys: 80
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-print("\nSelected information about first repository:")
-print('Name:', repo_dict['name'])
-print('Owner:', repo_dict['owner']['login'])
-print('Stars:', repo_dict['stargazers_count'])
-print('Repository:', repo_dict['html_url'])
-print('Created:', repo_dict['created_at'])
-print('Updated:', repo_dict['updated_at'])
-print('Description:', repo_dict['description'])
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable data-noescape>
-Selected information about first repository:
-Name: public-apis
-Owner: public-apis
-Stars: 294708
-Repository: https://github.com/public-apis/public-apis
-Created: 2016-03-20T23:49:42Z
-Updated: 2024-05-27T08:51:28Z
-Description: A collective list of free APIs
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li>Visualizing Repositories Using Plotly</li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import requests
-import plotly.express as px
- 
-URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
-r = requests.get(URL)
-print("Status code:", r.status_code)
-response_dict = r.json()
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-repo_dicts = response_dict['items']
-names, stars = [], []
-for repo_dict in repo_dicts:
-    names.append(repo_dict['name'])
-    stars.append(repo_dict['stargazers_count'])
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-title = "Most-Starred Python Projects on GitHub"
-labels = {'x': 'Repository', 'y': 'Stars'}
-fig = px.bar(x = names, y=stars, title = title, labels=labels)
-fig.write_html('python_repos.html')
-</code></pre>
-                    </div>
-                    <a class="fragment" href="python_repos.html">Most-Starred Python Projects</a>
-                </section>
-<!--                 <section>
+                <!--                 <section>
                     <h3>Where to find Web Api? <a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a></h3>
                     <a href="https://imdb-api.com/">IMDb-API</a>
                     <div class="fragment">
@@ -313,7 +207,7 @@ for movie in in_theaters:
                 </section> -->
                 <section>
                     <h3>Where to find Web Api? <a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, <a href="https://developer.imdb.com/documentation/api-documentation/getting-access/?ref_=side_nav">IMDB-API</a></h3>
-                    <a href="https://developer.themoviedb.org/docs/">TMDB-API</a>
+                    <h3><a href="https://developer.themoviedb.org/docs/">TMDB-API</a>, <a href="https://www.omdbapi.com/">OMDB-API</a></h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
@@ -336,7 +230,7 @@ response_dict = response.json()
 # print(response_dict)
 </code></pre>
                     </div>
-                                        <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 movies=response_dict["results"]
 print(len(movies))
@@ -345,7 +239,6 @@ for key, value in movies[0].items():
     print(f"{key}: {value}")
 </code></pre>
                     </div>
-                    
                 </section>
                 <section>
                     <div class="fragment">
@@ -393,7 +286,7 @@ else:
                 </section>
                 <section>
                     <h3>Top10</h3>
-                                        <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
 from pathlib import Path
@@ -474,32 +367,36 @@ for movie in top10:
                     </div>
                 </section>
                 <section>
-                    <h3 class="fragment">Stock Market (股票市场)</h3>
+                    <h3 class="fragment">量化投资</h3>
+                    <h3 class="fragment"><a href="https://tushare.pro/">Tushare</a>, <a href="https://www.joinquant.com/">JoinQuant</a>, <a href="https://akshare.akfamily.xyz/introduction.html">AKshare</a></h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-url="http://img1.money.126.net/data/hs/kline/day/history/2022/1399001.json"
+import akshare as ak
+
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="600519", period="daily",\
+start_date="20170301", end_date='20240528', adjust="")
+print(stock_zh_a_hist_df)
 </code></pre>
                     </div>
                     <ul>
-                        <li class="fragment">代码为股票代码，上海股票前加0，如600756变成0600756，深圳股票前加1</li>
-                        <li class="fragment">大盘指数数据查询：上证指数000001前加0，沪深300指数000300股票前加0，深证成指399001前加1，中小板指399005前加1，创业板指399006前加1</li>
-                        <li class="fragment">是否复权，不复权为kline，复权为klinederc</li>
+                        <li class="fragment">symbol为股票代码，adjust为是否复权</li>
+                        <li class="fragment">生成的格式为pandas包中的DataFrame格式</li>
+                        <li class="fragment">“贵州茅台”收盘价绘图（2017-2024）</li>
                     </ul>
-                    <p class="fragment">贵州茅台</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import requests
 import matplotlib.pyplot as plt
-
-url="http://img1.money.126.net/data/hs/kline/day/history/2022/0600519.json"
-r = requests.get(url)
-print(r.status_code)
-response_dict = r.json() 
-print(response_dict)
+from datetime import datetime
+ 
+fig, ax = plt.subplots()
+ax.plot(stock_zh_a_hist_df["日期"],stock_zh_a_hist_df["收盘"], linewidth=0.5)
+ax.scatter(stock_zh_a_hist_df["日期"],stock_zh_a_hist_df["收盘"], s=5)
+fig.autofmt_xdate()
+plt.savefig('maotai.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section>
-      <section>
+                <!-- <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 data = response_dict['data']
@@ -543,11 +440,11 @@ fig.autofmt_xdate()
 plt.savefig('maotai.jpg',dpi=300)
 </code></pre>
                     </div>
-                </section> 
+                </section> -->
                 <section>
                     <div class="fragment"><img data-src='maotai.jpg' style="height: 450pt"></div>
                 </section>
-<!--                 <section>
+                <!--                 <section>
                     <ul>
                         <li>Batch Data Visualization</li>
                     </ul>
@@ -602,11 +499,218 @@ for x in stock_list:
                     </div>
                     <div class="fragment"><img data-src='batch.png' style="height: 150pt"></div>
                 </section>  -->
-          
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">13.2 Encoding</h2>
+                    <h2 style="color: white">13.2 Github & AI辅助编程</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="https://nextgen.group/hubfs/github_PNG65.png" style="height: 100pt"></div>
+                    <h3 class="fragment"><a href="https://blog.csdn.net/black_sneak/article/details/139600633">Github教程</a></h3>
+                    
+                    
+<div class="div-c fragment"><img data-src="../img/lecture13/github.png" style="height: 300pt"></div>
+
+<div class="div-d fragment">
+    <p>GitHub 是一个基于 Git 版本控制系统 的 代码托管平台，由 GitHub 公司（现为 Microsoft 子公司）于 2008 年推出。它是全球最受欢迎的开源协作平台，广泛应用于软件开发、版本管理、团队协作和项目发布。<a href="https://github.com">GitHub官网地址：https://github.com</a></p>
+<ul class="fragment">👩‍💻适用人群
+    <li>开发者：托管代码、开源项目、构建团队协作流程</li>
+    <li>学生：学习编程、参与开源项目、积累实践经验</li>
+    <li>教师：共享教学代码、布置项目作业</li>
+    <li>企业/组织：进行私有项目开发、部署自动化流程</li>
+</ul></div>
+                </section>
+                <section>
+                    <h3>Github的API接口（关于Python的项目）</h3>
+                    <p><a href="https://api.github.com/search/repositories?q=language:python&sort=stars">https://api.github.com/search/repositories?q=language:python&sort=stars</a></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+url = 'https://api.github.com/search/\
+repositories?q=language:python&sort=stars'
+r = requests.get(url)
+print("Status code:", r.status_code)
+response_dict = r.json() 
+
+for keys in response_dict.keys():
+    print(keys)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Status code: 200
+total_count
+incomplete_results
+items
+</code></pre>
+                    </div>
+                </section>
+            <!--   -->
+                <section>
+                    <ul>
+                        <li>Working with the Response Dictionary</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+print("Total repositories:", response_dict['total_count'])
+
+repo_dicts = response_dict['items']
+print("Repositories returned:", len(repo_dicts))
+
+repo_dict = repo_dicts[0]
+print("\nKeys:", len(repo_dict))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Total repositories: 20566130
+Repositories returned: 30
+
+Keys: 80
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+print("\nSelected information about first repository:")
+print('Name:', repo_dict['name'])
+print('Owner:', repo_dict['owner']['login'])
+print('Stars:', repo_dict['stargazers_count'])
+print('Repository:', repo_dict['html_url'])
+print('Created:', repo_dict['created_at'])
+print('Updated:', repo_dict['updated_at'])
+print('Description:', repo_dict['description'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Selected information about first repository:
+Name: public-apis
+Owner: public-apis
+Stars: 339656
+Repository: https://github.com/public-apis/public-apis
+Created: 2016-03-20T23:49:42Z
+Updated: 2025-05-16T06:51:23Z
+Description: A collective list of free APIs
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Visualizing Repositories Using Plotly</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+import plotly.express as px
+ 
+URL = 'https://api.github.com/search/repositories?q=language:python&sort=star'
+r = requests.get(URL)
+print("Status code:", r.status_code)
+response_dict = r.json()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+repo_dicts = response_dict['items']
+names, stars = [], []
+for repo_dict in repo_dicts:
+    names.append(repo_dict['name'])
+    stars.append(repo_dict['stargazers_count'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+title = "Most-Starred Python Projects on GitHub"
+labels = {'x': 'Repository', 'y': 'Stars'}
+fig = px.bar(x = names, y=stars, title = title, labels=labels)
+fig.write_html('python_repos.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="python_repos.html">Most-Starred Python Projects</a>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture13/copilot.png" style="height: 150pt"></div>
+                    <h3 class="fragment"><a href="https://github.com/features/copilot">GitHub Copilot官网</a></h3>
+<p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated DevelopmentEnvironment,IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p>
+                </section>
+                <section>
+                    <h4>1. 安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a>（VScode是什么？常用IDE有哪些？）</h4>
+                    <h4></h4>
+                    <h4>2. 注册GitHub账户；3. 在VScode里面安装GitHub Copilot插件</h4>
+                    <div class="fragment"><img data-src="../img/lecture13/vscode.png" style="height: 350pt"></div>
+
+                </section>
+                <section>
+                    <h3>功能介绍</h3>
+                    <p class="fragment">1. 自动补全注释（按Tab键）</p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 编写一个程序，读取文件夹中的文件
+</code></pre>
+                    </div>
+                    <p class="fragment">2. 根据函数名自动生成代码（按Tab键）</p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+def bubblesort()
+</code></pre>
+                    </div>
+                    <p class="fragment">3. 生成测试用例（在bubblesort函数下方输入）</p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#测试bubblesort函数
+</code></pre>
+                    </div>
+                    <p class="fragment">4. 逐步代码生成</p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#定义5个列表变量，每个列表包含2到10个元素
+#将5个列表合并，再调用bubblesort函数对列表排序
+</code></pre>
+                    </div>
+
+
+                </section>
+                <section>
+                    <p class="fragment">5. 自动生成语句架构</p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for i
+</code></pre>
+                    </div>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+-if
+</code></pre>
+                    </div>
+                    <p class="fragment">6. 生成多个候选解决方案</p>
+<p class="fragment">如果使用Tab键生成解决方案，那么对于一些复杂的代码，可能需要一行一行地生成（需
+要不断地按Enter 键和Tab 键），比较麻烦。GitHub Copilot 提供了生成多个候选解决方案的功能，具体的做法就是在注释中按 Ctrl + Enter
+组合键，这将显示一个新的选项卡，默认会自动生成10个解决方案。<b>(有时候还不如直接ChatGPT或者Deepseek)</b></p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#用Flask实现一个服务端程序，只支持GET请求，请求的参数是一个字符串，返回一个字符串。
+</code></pre>
+                    </div>
+                    <p class="fragment">7. 检查代码漏洞</p>
+                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 检查上面的代码是否有漏洞
+</code></pre>
+                    </div>
+<h3 class="fragment">一句话就是：写注释，然后enter和tab来回的按。</h3>
+<h3 class="fragment"><a href="https://codegeex.cn/">GitHub Copilot的免费平替CodeGeeX</a></h3>
+
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">13.3 Encoding（计算机编码）</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture13/encoding.png" style="height: 400pt"></div>
                 </section>
                 <section>
                     <h3>Encoding</h3>
@@ -619,7 +723,28 @@ contents = path.read_text(<mark>encoding='utf-8'</mark>)
 </pre></code>
                     </div>
                     <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
-                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 300pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">Unicode把所有语言都统一到一套编码里。Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语言都直接支持Unicode。</li>
+                        <li class="fragment">UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。</li>
+                        <li class="fragment">在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。</li>
+                        
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+chinese = '你好'.encode('utf-8')
+print(chinese)     # 输出：b'\xe4\xbd\xa0\xe5\xa5\xbd' 
+#这是字节串（是bytes，不是字符串！）用16进制是为了方便阅读，\x是16进制的前缀
+print(len(chinese))  # 输出 6（每个汉字占 3 字节）
+</pre></code>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+b'\xe4\xbd\xa0\xe5\xa5\xbd'.decode('utf-8') # 输出：你好
+</pre></code>
+                    </div>
                 </section>
                 <section>
                     <ul>
@@ -643,13 +768,13 @@ img.save("wl.png")
                     </div>
                     <div class="fragment"><img data-src="../img/lecture13/wl.png" style="height: 200pt"></div>
                 </section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">13.3 Textbook</h2>
-                </section>
-      <section>
+
+                <section>
+
+                    <h3>教材中我们跳过的章节：</h3>
                     <ul>
                         <li>
-                            <p>Python Crash Couse (Chapters we do not cover: Chapter 12 - 14, 18 - 20)</p>
+                            <p>Python Crash Couse (Chapter 12 - 14, 18 - 20)</p>
                             <ul>
                                 <li>
                                     <p>Chapter 11: Testing Your Code</p>
@@ -663,10 +788,10 @@ img.save("wl.png")
                             </ul>
                         </li>
                         <li>
-                            <p>Python for Everybody (Chapters we do not cover: Chapter 11 - 13, 15 - 16)</p>
+                            <p>Python for Everybody (Chapter 11 - 13, 15 - 16)</p>
                             <ul>
                                 <li>
-                                    <p>Chapter 11: Reguler Expressions</p>
+                                    <p>Chapter 11: Regular Expressions</p>
                                 </li>
                                 <li>
                                     <p>Chapter 12: Networked Programs 12.4 - 12.8 (urlib, BeautifulSoup)</p>
@@ -685,6 +810,7 @@ img.save("wl.png")
                     </ul>
                 </section>
                 <section>
+                    <h1>What's next?</h1>
                     <div class="r-hstack">
                         <img width="450" height="400" src="../img/lecture13/a3.jpg">
                         <img width="450" height="400" src="../img/lecture13/a1.png">
