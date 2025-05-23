@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 
-
 <head>
     <meta charset="utf-8">
     <title>Lecture 14</title>
@@ -23,69 +22,51 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;" data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
-                    <h3 style="color: white">Lecture 14 Algorithm Intro</h3>
+                    <h3 style="color: white">Lecture 14 Algorithm Introduction</h3>
                 </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">14.1 Algorithm Intro</h2>
+                    <h2 style="color: white">14.1 Algorithm (算法)</h2>
                 </section>
                 <section>
                     <div class="div-d"><img data-src="../img/lecture14/a2.jpg" style="height: 350pt"></div>
                     <div class="div-c"><img data-src="../img/lecture14/a1.png" style="height: 350pt"></div>
                 </section>
                 <section>
+                    <img data-src="../img/lecture14/algorithm.jpg" style="height: 250pt">
                     <ul>
-                        <li>Complexity, Big-O (Searching)</li>
-                        <li>Recursion, D&C</li>
-                        <li>Sorting Algorithms</li>
-                        <li>Greedy Algorithm</li>
                         <!-- <li>Dynamic Programming</li>
                         <li>Data Structures</li> -->
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
+                        <!-- <li class="fragment">
                             <p>Another stream of the basic knowledge about programming is <b>algorithm</b> and data structure.</p>
-                        </li>
+                        </li> -->
                         <li class="fragment">When two program solve the same problem but look different, is one program better than the other? (easy to read? easy to understand? execution time?)</li>
                         <li class="fragment">
-                            <p>An algorithm is a set of instructions for accomplishing a task.</p>
+                            <p>An algorithm is a set of instructions for accomplishing a task. Every piece of code could be called an algorithm.</p>
                         </li>
-                        <li class="fragment">
-                            <p>Every piece of code could be called an algorithm.</p>
-                        </li>
-                        <li class="fragment">
+                        <!--   <li class="fragment">
                             <p>To learn this, you only need to know some basic algebra and Discrete mathematics.</p>
-                        </li>
+                        </li> -->
+                        <p> </p>
+                        <li class="fragment">This class: Complexity（复杂度）, Recursion（递归）, Divide & Conquer (分而治之) </li>
+                        <li class="fragment">Next class: Sorting Algorithms（排序算法), Greedy Algorithm（贪婪算法）</li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Binary Search (二分搜索)</h3>
+                    <h3>Search Algorithms</h3>
                     <ul>
-                        <li class="fragment">
-                            <p>Binary search is an algorithm; its input is a sorted list of elements. If an element you’re looking for is in that list, binary search returns the position where it’s located. Otherwise, binary search returns null.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Here's an example of how binary search works. I'm thinking of a number between 1 and 100.</p>
-                        </li>
-                    </ul>
-                    <div class="fragment"><img data-src="../img/lecture14/0.png" style="height: 80pt"></div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>You have to try to guess my number in the fewest tries possible. With every guess, I'll tell you if your guess is too low, too high, or correct.</p>
-                        </li>
+                        <li class="fragment"><b>Number Guessing Game</b>: I'm thinking of a number between 1 and 100. You make a guess. </li>
+                        <div class="fragment"><img data-src="../img/lecture14/0.png" style="height: 80pt"></div>
                         <li class="fragment">
                             <p>Suppose you start guessing like this: 1, 2, 3, 4 ...</p>
                         </li>
+                        <li class="fragment">If you perform a <b>Simple Search</b> (简单搜索), and my number was 99, it could take you 99 guesses to get there!</li>
                         <li class="fragment">
-                            <p>If you perform a simple search (简单搜索), and my number was 99, it could take you 99 guesses to get there!</p>
+                            <p><b>Binary Search</b> (二分搜索) is an algorithm; its input is a sorted list of elements. If an element you're looking for is in that list, binary search returns the position where it’s located. Otherwise, binary search returns null.</p>
                         </li>
                     </ul>
                 </section>
@@ -96,7 +77,7 @@
                         </li>
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture14/01.png" style="height: 180pt"></div>
-                    <div class="fragment"><img data-src="../img/lecture14/2.png" style="height: 180pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture14/2.png" style="height: 160pt"></div>
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../img/lecture14/3.png" style="height: 160pt"></div>
@@ -109,10 +90,8 @@
                     </ul>
                 </section>
                 <section>
+                    <h3>Running time</h3>
                     <ul>
-                        <li class="fragment">
-                            <p><b>Running time</b></p>
-                        </li>
                         <li class="fragment">
                             <p>Any time I talk about an algorithm, I'll discuss its running time. Generally you want to choose the most efficient algorithm— whether you're trying to optimize for time or space.</p>
                         </li>
@@ -158,7 +137,7 @@
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture14/6.png" style="height: 300pt"></div>
                 </section>
-               <!--  <section>
+                <!--  <section>
                     <h5> P, NP, NP-complete, NP-hard</h5>
                     <div class="fragment"><img data-src="../img/lecture14/66.png" style="height: 150pt"></div>
                     <ul>
@@ -320,10 +299,10 @@ def anagramSolution4(s1,s2):
             </section> -->
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">14.2 Recursion</h2>
+                    <h2 style="color: white">14.2 Recursion (递归)</h2>
                 </section>
                 <section>
-                    <h3>Recursion (递归)</h3>
+                    <h3>Recursion</h3>
                     <ul>
                         <li class="fragment">
                             <p>Recursion is a method of solving problems that involves breaking a problem down into smaller and smaller subproblems until you get to a small enough problem that it can be solved trivially. </p>
@@ -331,8 +310,7 @@ def anagramSolution4(s1,s2):
                         <li class="fragment">
                             <p>Recursion allows us to write elegant solutions to problems that may otherwise be very difficult to program.</p>
                         </li>
-                    
-<!--                                         <div class="fragment">
+                        <!--                                         <div class="fragment">
                         <pre><code class="line-numbers" data-trim contenteditable>
 def listsum(numList):
     theSum = 0
@@ -352,23 +330,22 @@ def listsum(numList):
                     </div>
                 </section>
                 <section> -->
-                    <li class="fragment"><b>Base case and recursive case</b></li>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+                        <li class="fragment"><b>Base case and recursive case</b></li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 def fact(n):
     if n==1:
         return 1 #Base case
     else:
         return n * fact(n - 1) #recursive case
 </code></pre>
-                    </div>
-                    
+                        </div>
                         <li class="fragment">
-                            <p>The recursive case is when the function calls itself. The base case is when the function does not call itself again... so it doesn't go into an infinite loop.</p>
+                            <p>The recursive case is when the function calls itself. The base case is when the function does not call itself again, so it doesn't go into an infinite loop.</p>
                         </li>
                     </ul>
                 </section>
-<!--                 <section>
+                <!--                 <section>
                     <h3>Callstack (调用栈)</h3>
                     <div class="fragment">
                         <pre><code class="line-numbers" data-trim contenteditable>
@@ -419,18 +396,14 @@ def bye():
                 </section>
                 <section>
                     <ul>
-                        <li class="fragment">
-                            <p>To solve a problem using D&C, there are two steps:</p>
-                        </li>
+                        <p class="fragment">To solve a problem using D&C, there are two steps:</p>
                         <li class="fragment">
                             <p>1. Figure out the base case. This should be the simplest possible case.</p>
                         </li>
                         <li class="fragment">
                             <p>2. Divide or decrease your problem until it becomes the base case.</p>
                         </li>
-                        <li class="fragment">
-                            <p>What is the largest square size you can use? You have to reduce your problem. Let’s start by marking out the biggest boxes you can use.</p>
-                        </li>
+                        <p class="fragment">What is the largest square size you can use? You have to reduce your problem. Let’s start by marking out the biggest boxes you can use.</p>
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture14/9.png" style="height: 200pt"></div>
                 </section>
@@ -439,9 +412,7 @@ def bye():
                         <li class="fragment">
                             <p>There's a farm segment left to divide. <b>Why don't you apply the same algorithm to this segment?</b></p>
                         </li>
-                    </ul>
-                    <div class="fragment"><img data-src="../img/lecture14/10.png" style="height: 200pt"></div>
-                    <ul>
+                        <div class="fragment"><img data-src="../img/lecture14/10.png" style="height: 200pt"></div>
                         <li class="fragment">
                             <p>If you find the biggest box that will work for this size, that will be the biggest box that will work for the entire farm. You just reduced the problem from a 1680 × 640 farm to a 640 × 400 farm!</p>
                         </li>
@@ -455,28 +426,24 @@ def bye():
                 <section>
                     <div class="fragment"><img data-src="../img/lecture14/14.png" style="height: 150pt"></div>
                     <ul>
-                        <li class="fragment">
-                            <p>To recap, here's how D&C works: </p>
-                        </li>
+                        <p class="fragment">To recap, here's how D&C works: </p>
                         <li class="fragment">
                             <p>1. Figure out a simple case as the base case. </p>
                         </li>
                         <li class="fragment">
                             <p>2. Figure out how to reduce your problem and get to the base case. </p>
                         </li>
-                        <li class="fragment">
-                            <p><b>D&C isn't a simple algorithm that you can apply to a problem. Instead, it's a way to think about a problem.</b></p>
-                        </li>
+                        <p class="fragment"><b>D&C isn't a simple algorithm that you can apply to a problem. Instead, it's a way to think about a problem.</b></p>
                     </ul>
                 </section>
             </section>
             <section>
-            <section data-background="#2980b9" style="color: white">
+                <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">14.3 Recursion Examples</h2>
                 </section>
                 <section>
+                    <h3>Example 1: The Greatest Common Divisor</h3>
                     <ul>
-                        <li>Example 1: The Greatest Common Divisor</li>
                         <li>We have learned a method to do it.</li>
                     </ul>
                     <div class="fragment">
@@ -496,12 +463,12 @@ while y!=0:
 print(x)
 </code></pre>
                     </div>
-<!--                 </section>
+                    <!--                 </section>
                 <section> -->
                     <ul>
                         <li class="fragment">Let's do it with recursion.</li>
                     </ul>
-<!--                     <div class="fragment">
+                    <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 def gcd(a,b):
     if b==0:
@@ -526,8 +493,8 @@ def gcd(a,b):
                     </div>
                 </section>
                 <section>
+                    <h3>Example 2: Fibonacci Numbers</h3>
                     <ul>
-                        <li>Example 2: Fibonacci Numbers</li>
                         <li>The Fibonacci Sequence is the series of numbers:</li>
                         <li>1, 1, 2, 3, 5, 8, 13, 21, 34, ...</li>
                     </ul>
@@ -542,9 +509,10 @@ def fib(n)
                     </div>
                 </section>
                 <section>
+                    <h3>Example 3: Full Permutation (全排列)</h3>
                     <ul>
-                        <li>Example 3: Full Permutation</li>
-                        <li>There is a simple way...</li>
+        
+                        <li>There is a simple way.</li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
@@ -575,20 +543,26 @@ recursion_permutation(x,0,len(x))
                     </div>
                 </section>
                 <section>
+                    <h3>Example 4: Tower of Hanoi (汉诺塔)</h3>
                     <ul>
-                        <li>Example 4: Hanoi</li>
-                        <li class="fragment" >The Tower of Hanoi is a mathematical game or puzzle. It consists of three rods and a number of disks of different sizes, which can slide onto any rod. The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.</li>
-                        <li class="fragment" >The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:</li>
-                        <ul class="fragment" >
-                            <li>Only one disk can be moved at a time.</li>
-                            <li>Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.</li>
-                            <li>No larger disk may be placed on top of a smaller disk.</li>
-                        </ul>
+            
+                        <li class="fragment">The Tower of Hanoi is a mathematical game or puzzle. It consists of three rods and a number of disks of different sizes, which can slide onto any rod. The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, thus making a conical shape.</li>
+                        <div style="text-align: center;"><img data-src="../img/lecture14/tower.png" style="height: 150pt">
+                        <li class="fragment">The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:</li>
+                        <ol class="fragment">
+                            <li>Only one disk may be moved at a time.
+(每次只能移动一个圆盘。)</li>
+                            <li>Each move consists of removing the top disk from one stack and placing it on top of another stack or on an empty rod.
+(每次移动是将某一柱子最上面的圆盘取下，放到另一根柱子的顶部或一根空柱子上。)</li>
+                            <li>No larger disk may be placed on top of a smaller disk.
+(不允许将较大的圆盘放在较小的圆盘上面。)</li>
+                        </ol>
                     </ul>
+
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="../img/lecture14/hanoi.jpg" style="height: 200pt"></div>
-                    <div class="fragment"><img data-src="../img/lecture14/4Hanoi.gif" style="height: 180pt"></div>
+                    <!-- <div class="fragment"><img data-src="../img/lecture14/hanoi.jpg" style="height: 200pt"></div> -->
+                    <div class="fragment"><img data-src="../img/lecture14/4Hanoi.gif" style="height: 300pt"></div>
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../img/lecture14/pole.png" style="height: 200pt"></div>
@@ -610,7 +584,7 @@ def moveDisk(fp,tp):
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
                     <ul>
-                        <li>Algorithm Intro</li>
+                        <li>Algorithm Introduction</li>
                     </ul>
                 </section>
             </section>
