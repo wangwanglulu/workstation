@@ -38,38 +38,36 @@
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-import wave
-
-from random import randint
+import wave  # 导入 wave 模块，用于处理 WAV 音频文件
+from random import randint  # 从 random 模块导入 randint 函数，用于生成随机整数
 
 def randomAudioFiles():
-    # array of filenames to return
+    # 用于存储生成的音频文件名的列表
     infiles = []
-    count = 1
+    count = 1  # 初始化计数器
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># creates list of 16 randomly chosen measures for the minuet
-    while count < 17 :
-        file = "waves/M" + str(count)
-        rollOne = randint(1, 6)
-        rollTwo = randint(1, 6)
-        rollTotal = rollOne + rollTwo
-        file += "-" + str(rollTotal) + ".wav"
-        infiles.append(file)
-        count += 1
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># 创建包含 16 个随机选择小节的列表，用于小步舞曲（Minuet）
+while count < 17:
+    file = "waves/M" + str(count)  # 构造文件名前缀，例如 "waves/M1"
+    rollOne = randint(1, 6)  # 模拟第一次掷骰子（1 到 6）
+    rollTwo = randint(1, 6)  # 模拟第二次掷骰子（1 到 6）
+    rollTotal = rollOne + rollTwo  # 两次点数之和决定小节编号
+    file += "-" + str(rollTotal) + ".wav"  # 构造完整的文件名，例如 "waves/M1-7.wav"
+    infiles.append(file)  # 将生成的文件名加入列表
+    count += 1  # 计数器加一，处理下一个小节
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># creates list of 16 randomly chosen measures for the trio
-    while count < 33 :
-        file = "waves/T" + str(count)
-        roll = randint(1, 6)
-        file += "-" + str(roll) + ".wav"
-        infiles.append(file)
-        count += 1
-
-    return infiles
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># 创建包含 16 个随机选择小节的列表，用于三重奏部分（Trio）
+while count < 33:
+    file = "waves/T" + str(count)  # 构造文件名前缀，例如 "waves/T17"
+    roll = randint(1, 6)  # 模拟一次掷骰子（1 到 6），决定三重奏小节编号
+    file += "-" + str(roll) + ".wav"  # 构造完整的文件名，例如 "waves/T17-3.wav"
+    infiles.append(file)  # 将生成的文件名添加到列表中
+    count += 1  # 计数器加一，直到生成 16 个文件名（T17 到 T32）
+return infiles  # 返回包含所有随机音频文件名的列表
 </code></pre>
                     </div>
                 </section>
@@ -77,30 +75,27 @@ def randomAudioFiles():
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 def audioGenerator():
-    # files to read in and file to output to
-    infiles = randomAudioFiles();
+    # 获取随机生成的音频文件名列表，设置输出文件名
+    infiles = randomAudioFiles()
     outfile = "dice.wav"
 
-    # reads through each .wav file
-    # gets the parameters and frames of each .wav file
     data = []
     for infile in infiles:
-        w = wave.open(infile, 'rb')
-        print(w.getparams())
+        w = wave.open(infile, 'rb')  # 打开一个 .wav 文件进行读取
+        print(w.getparams())  # 打印音频文件的参数信息（如声道数、采样率等）
+        # 读取参数和所有音频帧，保存为列表形式
         data.append([w.getparams(), w.readframes(w.getnframes())])
-        w.close()
+        w.close()  # 关闭文件
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># writes to the outfile 
-    # generates the combined .wav file and returns it
-    output = wave.open(outfile, 'wb')
-    output.setparams(data[0][0])
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape># 写入输出文件，生成合并后的 .wav 音频文件
+    output = wave.open(outfile, 'wb')  # 以写入模式创建输出文件
+    output.setparams(data[0][0])  # 设置音频参数，采用第一个输入文件的参数
     for val in data:
-        output.writeframes(val[1])
-    output.close()
-    #composition = wave.open("dice.wav");
-    return infiles
+        output.writeframes(val[1])  # 写入每段音频的帧数据
+    output.close()  # 关闭输出文件
+    return infiles  # 返回所使用的输入文件名列表
 </code></pre>
                     </div>
                 </section>
