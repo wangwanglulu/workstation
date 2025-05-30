@@ -46,7 +46,7 @@
                     </ul>
                 </section>
                 <section>
-                    <h3>1. Bubble sort</h3>
+                    <h3>1. Bubble sort (冒泡排序)</h3>
                     <ul style="font-size: 18pt">
                         <li class="fragment">The bubble sort makes multiple passes through a list. It compares adjacent items and exchanges those that are out of order. Each pass through the list places the next largest value in its proper place. In essence, each item “bubbles” up to the location where it belongs.</li>
                         <li class="fragment">If there are $n$ items in the list, then there are $n$ − 1 pairs of items that need to be compared on the first pass. It is important to note that once the largest value in the list is part of a pair, it will continually be moved along until the pass is complete.</li>
@@ -76,7 +76,7 @@ print(a_list)
                     </div>
                 </section>
                 <section>
-                    <h3>2. Selection sort</h3>
+                    <h3>2. Selection sort (选择排序)</h3>
                     <ul style="font-size: 18pt">
                         <li>The selection sort improves on the bubble sort by making only one exchange for every pass through the list.</li>
                         <li>As with a bubble sort, after the first pass, the largest item is in the correct place. After the second pass, the next largest is in place. This process continues and requires $n$ − 1 passes to sort $n$ items, since the final item must be in place after the ($n$ − 1)st pass.</li>
@@ -113,7 +113,7 @@ print(a_list)
                     </ul>
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="../img/lecture15/ss1.png" style="height: 400pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture15/ss1.png" style="height: 500pt"></div>
                 </section>
                 <section>
                     <div class="fragment">
@@ -129,7 +129,7 @@ def selection_sort(a_list):
                     </div>
                 </section>
                 <section>
-                    <h3>3. Insertion Sort</h3>
+                    <h3>3. Insertion Sort (插入排序)</h3>
                     <div class="fragment"><img data-src="../img/lecture15/is1.png" style="height: 400pt"></div>
                 </section>
                 <section>
@@ -148,6 +148,7 @@ def insertion_sort(a_list):
         a_list[position] = current_value
 </code></pre>
                     </div>
+                    <div class="fragment"><img data-src="../img/lecture15/poker.jpg" style="height: 200pt"></div>
                 </section>
             </section>
             <section>
@@ -155,7 +156,7 @@ def insertion_sort(a_list):
                     <h2 style="color: white">15.2 Sorting with Recursion</h2>
                 </section>
                 <section>
-                    <h3>4. Merge Sort</h3>
+                    <h3>4. Merge Sort (合并排序)</h3>
                     <ul>
                         <li>Splitting the List in a Merge Sort</li>
                     </ul>
@@ -224,7 +225,7 @@ def merge_sort(a_list):
                     </ul>
                 </section>
                 <section>
-                    <h3>5. Quick Sort</h3>
+                    <h3>5. Quick Sort (快速排序)</h3>
                     <ul>
                         <li class="fragment">
                             <p>Base case</p>
@@ -242,13 +243,13 @@ def merge_sort(a_list):
                     <ul>
                         <li class="fragment">
                             <p style="font-size: 18pt">What about an array of three elements?</p>
-                            <div class="fragment"><img data-src="../img/lecture15/21.png" style="height: 30pt"></div>
+                            <div class="fragment"><img data-src="../img/lecture15/21.png" style="height: 50pt"></div>
                         </li>
                         <li class="fragment">
                             <p style="font-size: 18pt">We use D&C to solve this problem. Let's pick a <b>pivot</b> at first, say, 33.</p>
                         </li>
                     </ul>
-                    <div class="fragment"><img data-src="../img/lecture15/22.png" style="height: 100pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture15/22.png" style="height: 150pt"></div>
                     <ul>
                         <li class="fragment">
                             <p style="font-size: 18pt">This is called partitioning. Now you have:</p>
@@ -438,6 +439,38 @@ for name, start, end in sorted_courses:
 # 输出选中的课程
 for course in selected:
     print(course)
+</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>找零问题：用贪婪算法解决</h3>
+                    <h5>给定一组硬币面额和一个金额，使用最少数量的硬币来找出该金额。</h5>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+def greedy_coin_change(coins, amount):
+    coins.sort(reverse=True)  # 从大到小排序
+    result = []
+    for coin in coins:
+        while amount >= coin:
+            amount -= coin
+            result.append(coin)
+    return result if amount == 0 else None
+
+# 示例：标准货币系统
+coins = [1, 5, 10, 25]  # 美分
+amount = 63
+print(greedy_coin_change(coins, amount))  
+# 输出： [25, 25, 10, 1, 1, 1]
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 示例：标准货币系统
+coins = [1, 5, 10, 21, 25]  # 如果有21美分这个选项
+amount = 63
+print(greedy_coin_change(coins, amount))  
+# 输出： [25, 25, 10, 1, 1, 1] #贪婪算法失败，最优是21*3
 </code></pre>
                     </div>
                 </section>
