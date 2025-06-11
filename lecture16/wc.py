@@ -18,8 +18,8 @@ s = jieba.lcut(contents)
 result = [word for word in s if word not in stop_word]
 s = [word for word in result if len(word)>1]
 txt = " ".join(s)
-#font = r'C:\Windows\Fonts\Arial.TTF'
-font = "/System/Library/Fonts/STHeiti Medium.ttc"
+font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,

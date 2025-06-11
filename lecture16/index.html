@@ -205,8 +205,8 @@ filename = 'sanguo.txt'
 with open(filename , encoding="utf-8") as f_obj:
     contents = f_obj.read()
 
-#font = r'C:\Windows\Fonts\Arial.TTF'
-font = "/System/Library/Fonts/STHeiti Medium.ttc"
+font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -233,8 +233,8 @@ with open(filename , encoding="utf-8") as f_obj:
 s = jieba.lcut(contents) 
 txt = " ".join(s)
 
-#font = r'C:\Windows\Fonts\Arial.TTF'
-font = "/System/Library/Fonts/STHeiti Medium.ttc"
+font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -286,8 +286,8 @@ txt = " ".join(s)
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-#font = r'C:\Windows\Fonts\Arial.TTF'
-font = "/System/Library/Fonts/STHeiti Medium.ttc"
+font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
