@@ -309,10 +309,10 @@ wc.to_file('s5.png')
                                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim data-noescape>
-from moviepy.editor import *
+from moviepy import *
 
 clip = VideoFileClip("ultraman.flv")
-clip = clip.subclip(0, 8) #剪切前8秒
+clip = clip.subclipped(0, 6) #剪切前6秒
 clip.write_gif("video.gif") #保存为gif
 </code></pre>
                     </div>
