@@ -150,7 +150,8 @@ relative_scaling=1, a word that is twice as frequent will have \
 twice the size. If you want to consider the word frequencies \
 and not only their rank, relative_scaling around .5 often looks good.'
 
-font = r'C:\Windows\Fonts\Arial.TTF'
+font = r'C:\Windows\Fonts\Arial.TTF' # Windows系统
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统
 wc = WordCloud(font_path=font, # Chinese
                background_color='white',
                width=1000,
@@ -181,8 +182,8 @@ filename = 'Harry Potter.txt'
 with open(filename, encoding="utf-8") as f_obj:
     contents = f_obj.read()
 
-#font = r'C:\Windows\Fonts\Arial.TTF'
-font = "/System/Library/Fonts/STHeiti Medium.ttc"
+font = r'C:\Windows\Fonts\Arial.TTF' # Windows系统
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -206,7 +207,7 @@ with open(filename , encoding="utf-8") as f_obj:
     contents = f_obj.read()
 
 font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
-#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -234,7 +235,7 @@ s = jieba.lcut(contents)
 txt = " ".join(s)
 
 font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
-#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -287,7 +288,7 @@ txt = " ".join(s)
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 font = r'C:\Windows\Fonts\simhei.ttf' # Windows系统
-#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统字体
+#font = "/System/Library/Fonts/STHeiti Medium.ttc" # Mac系统
 wc = WordCloud(font_path=font, 
                background_color='white',
                width=1000,
@@ -350,7 +351,7 @@ get_imgs()
                             <h3>图片转ascii图</h3>
                 
    <ul>
-       <li class="fragment">GB色彩模式是通过对红(R)、绿(G)、蓝(B)
+       <li class="fragment">RGB色彩模式是通过对红(R)、绿(G)、蓝(B)
     三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色
     通常情况下，RGB各有256级亮度 其区间为[0,255] 也就是256个阶梯</li>
        <li class="fragment">灰度图是指只含亮度信息，不含色彩信息的图象，
