@@ -289,6 +289,39 @@ print(name_list)
                         </a>
                     </div>
                 </section>
+                <section>
+                    <h3>Exercise</h3>
+                    <h4>Change-Making Problem（找零问题）</h4>
+                    <ul>
+                        <li>输入一个金额，用最少的硬币数找零（如25分、10分、5分、1分）。用贪心算法解决：</li>
+                        
+                        <ul>
+                            <li>从最大面额开始;</li>
+                            <li>在不超过目标金额的前提下，尽可能多地使用这种硬币;</li>
+                            <li>减去已找出的金额；</li>
+                            <li>对剩余金额重复上述步骤；</li>
+                            <li>当剩余金额为 0 时，算法结束。</li>
+                        </ul>
+                        
+<div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+coins = [25, 10, 5, 1]   # 面额从大到小
+amount = 68              # 要找的金额
+i = 0                    # 当前硬币索引
+used = []                # 记录已使用的硬币
+
+# 在这里添加你的代码
+
+print("使用的硬币列表：", used)
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                        <pre><code class="output language-Python" data-trim contenteditable>
+使用的硬币列表： [25, 25, 10, 5, 1, 1, 1]
+</code></pre>
+                    </div>
+                    </ul>
+                </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
