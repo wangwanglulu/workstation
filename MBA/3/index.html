@@ -17,6 +17,76 @@
     <link rel="stylesheet" href="../../plugin/menu/font-awesome/css/all.css">
     <!-- 从Lecture10以后缩小代码字体 -->
     <!-- <link rel="stylesheet" href="../../img/tinyfont.css"> -->
+    <style>
+    .video-box {
+        position: relative;
+        /*        width: 200px;*/
+        height: 220px;
+        background-color: #000;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        margin: 10px 0px;
+    }
+
+    .video-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
+    }
+
+    /* 更高特异性的选择器 */
+    .video-box .thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ensure image covers the area without distortion */
+        filter: brightness(0.7);
+        transition: filter 0.3s ease;
+        margin: 0px;
+        /* Add margin around the image */
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .video-box:hover .thumbnail {
+        filter: brightness(1);
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.6);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* 美化播放三角形 */
+    .play-button::before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 15px solid white;
+        /* 白色三角形 */
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+    .play-button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    </style>
 </head>
 
 <body>
@@ -142,15 +212,15 @@ print('Done!')
                     </div>
                 </section>
                 <section>
-                    <h5>Example 1: Even and Odd</h5>
+                    <h4>Example 1: Even and Odd</h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers="1-3|4-9|10-11|1-11" data-trim contenteditable>
-numbers = [12,37,5,42,8,3]
+numbers = [12, 37, 5, 42, 8, 3]
 even = []
 odd = []
-while len(numbers)>0:
+while len(numbers) > 0:
     x = numbers.pop()
-    if x%2==0:
+    if x % 2 == 0:
         even.append(x)
     else:
         odd.append(x)
@@ -188,25 +258,35 @@ while True:
                     </div>
                 </section>
                 <section data-auto-animate>
-                    <h5>Example 3: Hot Potato Game</h5>
+                    <h4>Example 3: Hot Potato Game</h4>
                     <ul>
-                        <li class="fragment">To begin, let's consider the children's grame Hot potato. In this game children line up in circle and pass an item from neighbor to neighbor as fast as they can. At a certain point in the game, the action is stopped and the child who has the item (the potato) is removed from the circle. Play continues until only one child is left.</li>
-                        <li class="fragment">This game is a modern-day equivalent of the famous Josephus problem. </li>
+                        <li>To begin, let's consider the children's grame Hot potato. In this game children line up in circle and pass an item from neighbor to neighbor as fast as they can. At a certain point in the game, the action is stopped and the child who has the item (the potato) is removed from the circle. Play continues until only one child is left.</li>
+                        <li>This game is a modern-day equivalent of the famous Josephus problem. </li>
                     </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers="1-3,11|4-10|1-11" data-trim contenteditable>
-name_list=['a', 'b', 'c', 'd', 'e', 'f']
-i=1
-while len(name_list)>1:
-    if i%7==0:
-        y=name_list.pop()
-    else: 
-        y=name_list.pop()
-        name_list.insert(0,y)
+                    <div class="leftm">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+name_list = ['a', 'b', 'c', 'd', 'e', 'f']
+i = 1
+while len(name_list) > 1:
+    if i % 7 == 0:
+        y = name_list.pop()
+    else:
+        y = name_list.pop()
+        name_list.insert(0, y)
         # print(name_list)
-    i=i+1
+    i = i + 1
 print(name_list)
 </code></pre>
+                        </div>
+                    </div>
+                    <div class="rightm">
+                        <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../../MBAimg/lecture3/iter.mov">
+                            <div class="video-box">
+                                <img src="../../MBAimg/lecture3/example.jpg" alt="Video Thumbnail" class="thumbnail">
+                                <div class="play-button"></div>
+                            </div>
+                        </a>
                     </div>
                 </section>
             </section>
@@ -243,7 +323,7 @@ Done!
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>We call the while statement an indefinite loop because it simply loops until some condition becomes False, whereas the for loop is looping through a known set of items so it runs through as many iterations as there are items in the set.</p>
+                            <p>We refer to the while loop as an indefinite loop because it continues executing until a specific condition becomes False, whereas the for loop iterates over a known set of items, running as many times as there are items in the set.</p>
                         </li>
                         <li class="fragment">
                             <p>In particular, friend is the iteration variable for the for loop. The variable friend changes for each iteration of the loop and controls when the for loop completes. The iteration variable steps successively through the three strings stored in the friends variable.</p>
@@ -252,9 +332,9 @@ Done!
                 </section>
                 <section>
                     <ul>
-                        <li class="fragment">
+                        <!--                         <li class="fragment">
                             <p>The concept of looping is important because it is one of the most common ways a computer automates repetitive tasks.</p>
-                        </li>
+                        </li> -->
                         <li class="fragment">
                             <p><b>The indentation errors are common.</b></p>
                         </li>
@@ -332,13 +412,10 @@ Looking forward to seeing you, Sally
                     </div>
                 </section>
                 <section>
+                    <h3>range function</h3>
                     <ul>
-                        <li class="fragment">
-                            <p>How to calculate 1+2+...+100?</p>
-                        </li>
-                        <li class="fragment">
-                            <p>First, we need to generate a series of numbers in a list.</p>
-                        </li>
+                        <li>The <b>range</b> function generates a sequence of integers.</li>
+                        <li>It often used to control the number of iterations in a for loop.</li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 for value in range(1,4): 
@@ -355,76 +432,61 @@ for value in range(1,4):
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> list(range(1,6)) 
-#list() creates an empty list.
 [1, 2, 3, 4, 5]
-
 >>> list(range(6))
 [0, 1, 2, 3, 4, 5]
-
 >>> list(range(1, 10, 2))
-# make a list of odd numbers
 [1, 3, 5, 7, 9]
-
 >>> list(range(10, 1, -2))
 [10, 8, 6, 4, 2]
 </code></pre>
                         </div>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
                         <li class="fragment">
-                            <p>1+2+3+...+100</p>
+                            Example: generate a list of square numbers
                         </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-total=0
-for value in range(1,101):
-    total=value+total
-print(total)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable>
-5050
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>a list of square number</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 squares = []
 for value in range(1,11):
     square = value**2
     squares.append(square)
 print(squares)
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 </code></pre>
-                    </div>
+                        </div>
+                    </ul>
                 </section>
                 <section>
-                    <ul>
-                        <li>
-                            Example 1: len()
-                        </li>
-                    </ul>
+                    <h3>Replicate the functionality of list functions using for loops.</h3>
+                    <h4>sum(): how to calculate 1 + 2 + 3 +...+ 100?</h4>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+total = 0
+for value in range(1, 101):
+    total = value + total  # total+=value
+print(total)
+</code></pre>
+                        </div>
+<!--                         <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
+5050
+</code></pre>
+                        </div> -->
+                    <h4 class="fragment">len()</h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+a_list = [3, 41, 12, 9, 74, 15]
 count = 0
-for x in [3, 41, 12, 9]:
+for x in a_list:
     count = count + 1
 print('Count: ', count)
 </code></pre>
                     </div>
-                    <ul>
+                    <!--                     <ul>
                         <li class="fragment">
                             Example 2: sum()
                         </li>
@@ -432,19 +494,15 @@ print('Count: ', count)
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 total = 0
-for x in [3, 41, 12, 9]:
-    total = total + x
-print('Total: ', total)
+for value in range(1,101):
+    total = value + total
+print(total)
 </code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            Example 3: max(), min()
-                        </li>
-                    </ul>
+                    </div> -->
+                    <h4 class="fragment">max(), min()</h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-a_list=[3, 41, 12, 9, 74, 15]
+a_list = [3, 41, 12, 9, 74, 15]
 largest = a_list[0]
 for x in a_list:
     if x > largest :
@@ -453,14 +511,15 @@ print('Largest:', largest)
 </code></pre>
                     </div>
 <!--                     <ul>
-                        <li class="fragment">Sorting is a much more complicated and interesting topic.
-                        </li>
+                        <p class="fragment">sorted(): sorting is a much more complicated and interesting topic.
+                        </p>
                     </ul> -->
                 </section>
                 <section>
                     <h3>Nested Loops</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="leftm">
+                        <div>
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 x = []
 for i in range(1,4):
     x.append([])
@@ -468,14 +527,26 @@ for i in range(1,4):
         x[i-1].append(1)
 print(x)
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" data-trim contenteditable>
 [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="rightm">
+                        <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../../MBAimg/lecture3/nested.mov">
+                            <div class="video-box">
+                                <img src="../../MBAimg/lecture3/example.jpg" alt="Video Thumbnail" class="thumbnail">
+                                <div class="play-button"></div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div>
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 x = []
 for i in range(1,4):
     x.append([])
@@ -483,53 +554,65 @@ for i in range(1,4):
         x[i-1].append(1)
 print(x)
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" contenteditable>
+
+
+
+
 [[1], [1, 1], [1, 1, 1]]
 </code></pre>
+                        </div>
                     </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 for i in range(1,4):
-    for j in range(i):
-        print(i,end=" ")
+    for j in range(1,i+1):
+        print(i, end=" ")
     print()
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" contenteditable>
 1 
 2 2 
 3 3 3 
-# reverse?
 </code></pre>
+                        </div>
                     </div>
                     <ul>
-                        <li class="fragment"><b>The default value of end is \n meaning that after the print statement it will print a new line. So simply stated end is what you want to be printed after the print statement has been executed</b></li>
+                        <li class="fragment">The default value of end is \n meaning that after the print statement it will print a new line. So simply stated end is what you want to be printed after the print statement has been executed</li>
                     </ul>
-                    <div class="fragment">
+                    <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> print("hello",end="+")
+print("hello",end="+")
 hello+
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div> -->
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 for i in range(1,4):
     for j in range(i):
         print(i,end="+")
     print()
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output language-Python" contenteditable>
 1+
 2+2+
 3+3+3+
 </code></pre>
+                        </div>
                     </div>
                 </section>
             </section>
@@ -538,35 +621,30 @@ for i in range(1,4):
                     <h2 style="color: white">3.3 Money Tracker (记账本) v1.0</h2>
                 </section>
                 <section>
-                    <ul>
-                        <li class="fragment">1. Require users to enter expenses one by one</li>
-                        <li class="fragment">2. Report the total expenses</li>
-                    </ul>
+                    <h4>Objective: require users to enter expenses one by one, and report the total expenses</h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# Step 1: Create a list containing dates
+# Step 1: Create a list containing lists
 print("简易记账本（九月）")
 Sept=[]
-for date in range(31):
+for date in range(30):
     Sept.append([])
 
-# Step 2: Require Users to enter the date
-day=int(input("请问输入几号的开销?"))
+# Step 2: Require users to enter the date
+day=int(input("请问输入几号的开销?\n"))
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # Step 3: Enter the expenses one by one
-print("请输入每一笔开销，结束请输入0:") 
-n=1
+print("请输入每一笔开销，结束请输入0：\n") 
 while True:
-    each = float(input("第"+str(n)+"笔:"))
+    each = float(input("请输入金额：\n"))
     if each == 0:
         break
     else: 
         Sept[day-1].append(each)
-        n = n + 1
-    print("记录成功")
+        print("记录成功\n")
 </code></pre>
                     </div>
                 </section>
@@ -577,8 +655,8 @@ while True:
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 while True:
-    day=int(input("请问输入几号的开销？结束请输入0:"))
-    if day==0:
+    day=int(input("请问输入几号的开销？结束请输入0:\n"))
+    if day == 0:
         break
     else:
         # all the programs in Step 3
@@ -593,11 +671,10 @@ while True:
 # Step 4: Calculate the total
 total=0
 for each_day in Sept:
-    if each_day:
-        total = total + sum(each_day)
+    total += sum(each_day)
 
 print("本月支出汇总报告")
-print("总支出：" + str(total))
+print("总支出：", total)
 </code></pre>
                     </div>
                 </section>
@@ -628,6 +705,7 @@ print("总支出：" + str(total))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
     <script src="../../plugin/copycode/copycode.js"></script>
     <script src="../../plugin/pdfexport/pdfexport.js"></script>
+    <script src="../../plugin/multimodal/multimodal.js"></script>
     <script>
     // Also available as an ES module, see:
     // https://revealjs.com/initialization/
@@ -663,7 +741,7 @@ print("总支出：" + str(total))
         // Shortcut for toggling between screen and PDF mode
         pdfExportShortcut: 'E',
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport, Multimodal],
 
 
 

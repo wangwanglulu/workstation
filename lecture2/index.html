@@ -600,9 +600,10 @@ banana
 ['a', 'x', 'y', 'd', 'e', 'f']
 </code></pre>
                         </div>
+                        <li class="fragment">编号：<b>从零开始</b>；修改：<b>直接赋值</b>；切片：<b>左闭右开</b></li>
                     </ul>
-                    <li class="fragment">编号：<b>从零开始</b>；修改：<b>直接赋值</b>；切片：<b>左闭右开</b></li>
-                    <div class="fragment">
+                    
+                    
                 </section>
                 <!--
                 <section>
@@ -782,7 +783,7 @@ c
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t1 = ['a', 'b', 'c']
->>> t2 = t1[:] 
+>>> t2 = t1.copy()
 >>> t1.remove('b')
 >>> print(t1)
 ['a', 'c']

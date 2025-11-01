@@ -28,13 +28,13 @@
                     <h3 style="color: white">Lecture 2 Conditional Execution, Lists</h3>
                 </div>
             </section>
-            <section>
+                        <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">2.1 Boolean Expressions (布尔表达式)</h2>
                 </section>
                 <section>
                     <p>A boolean expression is an expression that is either true or false.</p>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print(5==5)
@@ -42,7 +42,7 @@ print(5==6)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output language-Python"  data-trim contenteditable >
 True
@@ -54,7 +54,7 @@ False
                     <p class="fragment">True and False are special values that belong to the class bool, <b>not
                             strings</b>.
                     </p>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print(type(True))
@@ -62,7 +62,7 @@ print(type(False))
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output language-Python"  data-trim contenteditable >
 bool
@@ -78,14 +78,12 @@ x > y # x is greater than y
 x < y # x is less than y
 x >= y # x is greater than or equal to y
 x <= y # x is less than or equal to y
-x is y # x is the same as y
-x is not y # x is not the same as y
 </code></pre>
                     </div>
                 </section>
                 <section>
-                    <h4>Logical operators: and, or, not</h4>
-                    <div class="div-a">
+                    <h3>Logical operators: and, or, not</h3>
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print(True and True)
@@ -95,7 +93,7 @@ print(5 > 3 and 3 > 1)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output language-Python"  data-trim contenteditable >
 True
@@ -105,7 +103,7 @@ True
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print(True or True)
@@ -115,7 +113,7 @@ print(5 > 3 or 1 > 3)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output language-Python"  data-trim contenteditable >
 True
@@ -125,7 +123,7 @@ True
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print(not True)
@@ -135,7 +133,7 @@ print(not 1>2)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output language-Python"  data-trim contenteditable >
 False
@@ -145,14 +143,14 @@ True
                         </div>
                     </div>
                     <p><b class="fragment">Any nonzero number is interpreted as "true".</b></p>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print(17 and True)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output language-Python"  data-trim contenteditable >
 True
@@ -161,14 +159,14 @@ True
                     </div>
                 </section>
                 <section>
-                    <h4>Short-circuit evaluation</h4>
+                    <h3>Short-circuit evaluation</h3>
                     <ul>
                         <li>Python evaluates the expression from left to right.</li>
                         <li>If there are multiple expressions, Python evaluates them one by one.</li>
                         <li>If there is nothing to be gained by evaluating the rest of a logical expression, it stops
                             its evaluation.</li>
                     </ul>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 x = 6
@@ -177,14 +175,15 @@ print(x >= 2 and (x/y) > 2)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
-                            <pre><code class="output language-Python"  data-trim contenteditable >
+                            <pre><code class="output language-Python"  contenteditable >
+
 True
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 x = 1
@@ -193,9 +192,10 @@ print(x >= 2 and (x/y) > 2)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
-                            <pre><code class="output language-Python"  data-trim contenteditable >
+                            <pre><code class="output language-Python" contenteditable >
+
 False
 </code></pre>
                         </div>
@@ -223,7 +223,7 @@ ZeroDivisionError: division by zero
                     <ul>
                         <li>While this may seem like a fine point, the short-circuit behavior leads to a clever technique called the guardian pattern.</li>
                     </ul>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 x = 1
@@ -232,14 +232,15 @@ print(x >= 2 and y!= 0 and (x/y) > 2)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
-                            <pre><code class="output language-Python"  data-trim contenteditable >
+                            <pre><code class="output language-Python" contenteditable >
+
 False
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-a">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 x = 6
@@ -249,10 +250,12 @@ print(x >= 2 and y!= 0 and (x/y) > 2)
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-b">
+                    <div class="div-d">
                         <div class="fragment">
-                            <pre><code class="output language-Python"  data-trim contenteditable >
+                            <pre><code class="output language-Python" contenteditable >
+
 False
+
 </code></pre>
                         </div>
                     </div>
@@ -279,10 +282,10 @@ ZeroDivisionError: division by zero
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">2.2 Conditional Execution</h2>
+                    <h2 style="color: white">2.2 Conditional Execution (条件判断)</h2>
                 </section>
                 <section>
-                    <div class="leftc"><img data-src="../../MBAimg/lecture2/31.jpg" style="height: 300pt;">
+                    <div class="leftc"><img src="../../MBAimg/lecture2/31.jpg" style="height: 250pt;">
                     </div>
                     <div class="rightc">
                         <div class="fragment">
@@ -323,30 +326,30 @@ if x > 0:
                     </ul>
                 </section>
                 <section>
-                    <h4>Alternative Execution</h4>
-                    <div class="leftc"><img data-src="../../MBAimg/lecture2/32.jpg" style="width: 300pt;">
+                    <h3>Alternative Execution</h3>
+                    <div class="leftc"><img src="../../MBAimg/lecture2/32.jpg" style="width: 300pt;">
                     </div>
                     <div class="rightc">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
-x=10
-if x%2 == 0 :
+x = 10
+if x % 2 == 0:
     print('x is even')
-else :
+else:
     print('x is odd')
 </code></pre>
                         </div>
                     </div>
                 </section>
                 <section>
-                    <h4>Chained Conditionals</h4>
-                    <div class="leftc"><img data-src="../../MBAimg/lecture2/33.jpg" style="width: 300pt;">
+                    <h3>Chained Conditionals</h3>
+                    <div class="leftc"><img src="../../MBAimg/lecture2/33.jpg" style="width: 300pt;">
                     </div>
                     <div class="rightc">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
-x=5
-y=10
+x = 5
+y = 10
 if x < y:
     print('x is less than y')
 elif x > y:
@@ -371,8 +374,8 @@ else:
                     </div>
                 </section>
                 <section>
-                    <h4>Nested Conditionals</h4>
-                    <div class="leftc"><img data-src="../../MBAimg/lecture2/35.jpg" style="width: 100%;">
+                    <h3>Nested Conditionals</h3>
+                    <div class="leftc"><img src="../../MBAimg/lecture2/35.jpg" style="width: 100%;">
                     </div>
                     <div class="rightc">
                         <div class="fragment">
@@ -394,7 +397,7 @@ else:
                     </div>
                 </section>
                 <section>
-                    <h4>Try and Except</h4>
+                    <h3>Try and Except</h3>
                     <div>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -473,10 +476,35 @@ elif BMI>=32:
     print("您的体型过于肥胖")
 </code></pre>
                     </div>
-
+<p class="fragment">Modify the above example by adding try-except statements</p>
                 </section>
                 <section>
-                    <h4>Visual programming language</h4>
+                    <h3>Exercise</h3>
+<h5>编写一个工资计算程序，要求用户输入员工的工作时长，并计算其收入。</h5>
+<ul>
+    <li>当工作时间不超过 20 小时时，时薪为 20</li>
+    <li>当工作时间超过 20 小时时，超出部分的时薪为 25</li>
+    <li>程序需要使用 try 和 except 来处理非数字输入</li>
+<li>如果用户输入了非数字内容，程序应打印提示信息</li>
+<div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+Enter Hours: 30
+Pay: 650
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+Enter Hours: Thirty
+Error, please enter numeric input
+</code></pre>
+                    </div>
+</ul>
+
+
+                    
+                </section>
+                <section>
+                    <h3>Visual programming language</h3>
                     <ul>
                         <li><a href="https://www.scratch-cn.cn/">Scratch</a></li>
                         <li><a href="https://developers.google.com/blockly/">Blockly(Google)</a></li>
@@ -486,79 +514,24 @@ elif BMI>=32:
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">2.3 Lists (1): Index</h2>
+                    <h2 style="color: white">2.3 Lists (1): Basics</h2>
                 </section>
                 <section>
                     <ul>
-                        <p>A list is a sequence of values.</p>
+                        <li>A list (列表) is a sequence of values. A list that contains no elements is called an empty list; you can create one
+                            with empty brackets, []. <b>The boolean value of an empty list is false.</b></li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
-[10, 20, 30, 40]
-['apple', 'banana', 'orange']
-['spam', 2.0, 5, [10, 20]]
-</code></pre>
-                        </div>
-                        <p class="fragment">A list that contains no elements is called an empty list; you can create one
-                            with empty brackets, [].</p>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
->>> cheeses = ['Cheddar', 'Edam', 'Gouda']
->>> numbers = [17, 123]
->>> empty = [] #[] is false
->>> print(cheeses, numbers, empty)
-['Cheddar', 'Edam', 'Gouda'] [17, 123] []
-</code></pre>
-                        </div>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>
-                            Lists are <b>ordered</b> collections, so you can access any element in a list by telling
-                            Python the position, or index, of the item desired.
-                        </li>
-                        <li class="fragment"><b>Python considers the first item in a list to be at position 0, not
-                                position 1.</b></li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> cheeses = ['Cheddar', 'Edam', 'Gouda']
->>> print(cheeses[0])
-Cheddar
-</code></pre>
-                        </div>
-                    </ul>
-                    <ul>
-                        <li class="fragment">
-                            When we ask for a single item from a list, Python returns just that element without square
-                            brackets or quotation marks.
-                        </li>
-                        <li class="fragment">
-                            By asking for the item at index -1, Python always returns the last item in the list:
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> cheeses = ['Cheddar', 'Edam', 'Gouda']
->>> print(cheeses[-1])
-Gouda
+>>> numbers = [10, 20, 30, 40]
+>>> fruit = ['apple', 'banana', 'orange']
+>>> mix = ['spam', 2.0, 5, [10, 20]]
+>>> empty = [] 
 
->>> print(cheeses[-2])
-Edam
+>>> print(numbers, fruit, empty)
+[10, 20, 30, 40] ['apple', 'banana', 'orange'] []
 </code></pre>
                         </div>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>You can change the order of items in a list or reassign an item in a list.</li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> numbers = [17, 123]
->>> numbers[1] = 5
->>> print(numbers)
-[17, 5]
-</code></pre>
-                        </div>
-                        <li class="fragment">The + operator concatenates lists:</li>
+                        <li class="fragment">The + operator concatenates lists, and the * operator repeats a list a specified number of times.</li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> a = [1, 2, 3]
@@ -580,40 +553,82 @@ Edam
                     </ul>
                 </section>
                 <section>
-                    <h4>List slices</h4>
                     <ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <li class="fragment">
+                            Lists are <b>ordered</b> collections, so you can access any element in a list by telling
+                            Python the position, or index, of the item desired.
+                            <b>Python considers the first item in a list to be at position 0, not
+                                position 1.</b></li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print(fruit[0])
+apple
+</code></pre>
+                        </div>
+                        <!--                         <li class="fragment">
+                            When we ask for a single item from a list, Python returns just that element without square
+                            brackets or quotation marks.
+                        </li> -->
+                        <li class="fragment">
+                            By asking for the item at index -1, Python always returns the last item in the list:
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> print(fruit[-1])
+orange
+
+>>> print(fruit[-2])
+banana
+</code></pre>
+                        </div>
+                        <li class="fragment">You can reassign an item in a list.</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> numbers = [17, 123]
+>>> numbers[1] = 5
+>>> print(numbers)
+[17, 5]
+</code></pre>
+                        </div>
+                    </ul>
+                </section>
+                <section>
+                    <h3>List slices（列表切片）</h3>
+                    <ul>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['a', 'b', 'c', 'd', 'e', 'f']
 >>> t[1:3]
 ['b', 'c']
-
+</code></pre>
+                        </div>
+                        <li class="fragment">The first slice starts at 1, and ends at 2. The slice does not contain the 3rd element.</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t[:4]
 ['a', 'b', 'c', 'd']
 
 >>> t[3:]
 ['d', 'e', 'f']
-</code></pre>
-                    </div>
-                        <li class="fragment"><b>The first slice starts at 1, and ends at 2. The slice does not contain the 3rd element.</b></li>
-                    
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+
 >>> t[:]
 ['a', 'b', 'c', 'd', 'e', 'f']
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['a', 'b', 'c', 'd', 'e', 'f']
 >>> t[1:3] = ['x', 'y']
 >>> print(t)
 ['a', 'x', 'y', 'd', 'e', 'f']
 </code></pre>
-                    </div>
+                        </div>
+                        <li class="fragment">编号：<b>从零开始</b>；修改：<b>直接赋值</b>；切片：<b>左闭右开</b></li>
                     </ul>
+
                 </section>
-                <!-- <section>
+                <!--
+                <section>
                     <h4>Why the index starts at 0 instead of 1?</h4>
                     <ul>
                         <li>Slice notation</li>
@@ -641,7 +656,8 @@ a_list[:i]+a_list[i:j]+a_list[j:]
 </code></pre>
                         </div>
                     </ul>
-                </section> -->
+                </section>
+                -->
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
@@ -688,9 +704,8 @@ a_list[:i]+a_list[i:j]+a_list[j:]
                 <section>
                     <ul>
                         <li>What is Method? (方法) Is it the same with function? (函数)</li>
-                        <li>
-                            <p> The return value of the above three methods is <b>None</b>. What is <b>None</b> in
-                                Python?</p>
+                        <li class="fragment">
+                            <p> The return value of the above three methods is <b>None</b>. What is <b>None</b> in Python?</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -699,26 +714,34 @@ a_list[:i]+a_list[i:j]+a_list[j:]
 >>> print(t)
 ['a', 'd', 'b', 'c']
 
+>>> print(t.insert(1, 'd'))
+None
 >>> print(x)
 None
 </code></pre>
                         </div>
                         <li class="fragment">
-                            <p>The None keyword is used to define a null value, or no value at all. None is not the same
-                                as 0, False, or an empty string. None is a datatype of its own (NoneType) and only None
+                            <p>The None keyword is used to define a null value, or no value at all. <b>None is not the same
+                                    as 0, False, or an empty string.</b> None is a datatype of its own (NoneType) and only None
                                 can be None.</p>
                         </li>
                     </ul>
+                    <img class="fragment" src="../../MBAimg/lecture2/none.png" style="width: 700pt;">
                 </section>
                 <section>
                     <h3>Deleting elements</h3>
                     <ul>
                         <li class="fragment">
-                            <p>There are several ways to delete elements from a list. If you know the index of the
-                                element you want, you can use <b>pop</b></p>
+                            <p>If you know the index of the
+                                element you want, you can use <b>pop</b>.</p>
                         </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <li class="fragment">
+                            <p><b>pop</b> modifies the list and returns the element that was removed. If you don't
+                                provide an index, it deletes and returns the last element.</p>
+                        </li>
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['a', 'b', 'c']
 >>> x = t.pop(1)
 >>> print(t)
@@ -727,13 +750,11 @@ None
 >>> print(x)
 b
 </code></pre>
+                            </div>
                         </div>
-                        <li class="fragment">
-                            <p><b>pop</b> modifies the list and returns the element that was removed. If you don't
-                                provide an index, it deletes and returns the last element.</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <div class="div-d">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['a', 'b', 'c']
 >>> x = t.pop()
 >>> print(t)
@@ -742,17 +763,33 @@ b
 >>> print(x)
 c
 </code></pre>
+                            </div>
                         </div>
+                        <li class="fragment">
+                            If you know the element you want to remove (but not the index), you can use
+                            <b>remove</b>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> t = ['a', 'b', 'c']
+>>> t.remove('b')
+>>> print(t)
+['a', 'c']
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            There is a possibility that the value appears more than once in the list, but the
+                            remove method deletes only the first occurrence.
+                        </li>
                     </ul>
                 </section>
                 <section>
                     <ul>
-                        <li>
-                            <p>If you don't need the removed value, you can use the <b>del</b> operator</p>
+<!--                         <li class="fragment">
+                            <b>del</b> is an operator, not a method. It directly modifies the state of an object by removing it from memory or from a collection.
                         </li>
-                    
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['a', 'b', 'c']
 >>> del t[1]
 >>> print(t)
@@ -763,38 +800,12 @@ c
 >>> print(t)
 ['a', 'f']
 </code></pre>
-                    </div>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>If you know the element you want to remove (but not the index), you can use
-                                <b>remove</b></p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> t = ['a', 'b', 'c']
->>> t.remove('b')
->>> print(t)
-['a', 'c']
-</code></pre>
-                        </div>
-
-                        <li class="fragment">
-                            <p>The return value from remove is <b>None</b>. But, you can assign the element which you
-                                want to remove to a variable so that you can use it next time.</p>
-                        </li>
-                        <li class="fragment">
-                            <p>There is a possibility that the value appears more than once in the list, but the
-                                remove() method deletes only the first occurrence.</p>
-                        </li>
-                        <li class="fragment"><b>Sometimes you not only want to modify the list but also want to save the
-                                original one. You can create a copy.</b></li>
+                        </div> -->
+                        <li class="fragment"><b>If you want to modify a list without changing the original, you can create a copy.</b></li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t1 = ['a', 'b', 'c']
->>> t2 = t1[:]
+>>> t2 = t1.copy()
 >>> t1.remove('b')
 >>> print(t1)
 ['a', 'c']
@@ -813,58 +824,29 @@ c
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p><b>sort</b> arranges the elements of the list from low to high:</p>
+                            <p><b>sort</b> arranges the elements of the list from low to high. It modifies the list and returns <b>None</b>.</p>
                         </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['d', 'c', 'e', 'b', 'a']
 >>> t.sort()
 >>> print(t)
 ['a', 'b', 'c', 'd', 'e']
 </code></pre>
+                            </div>
                         </div>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <div class="div-d">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> t = ['d', 'c', 'e', 'b', 'a']
 >>> t.sort(reverse=True)
 >>> print(t)
 ['e', 'd', 'c', 'b', 'a']
 </code></pre>
+                            </div>
                         </div>
                         <li class="fragment">
-                            <p>Most list methods modify the list and return <b>None</b>. </p>
-                        </li>
-                        <li class="fragment">
-                            <p>By <b>.sort()</b>, the order of the list is permanently changed.</p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>To maintain the original order of a list but present it in a sorted order, you can use
-                                the sorted() function.</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> t = ['d', 'c', 'e', 'b', 'a']
->>> print(sorted(t))
-['a', 'b', 'c', 'd', 'e']
-
->>> print(t)
-['d', 'c', 'e', 'b', 'a']
-
->>> t = ['d', 'c', 'e', 'b', 'a']
->>> t=sorted(t)
->>> print(t)
-['a', 'b', 'c', 'd', 'e']
-</code></pre>
-                        </div>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>
                             <p>To reverse the original order of a list, you can use the <b>reverse()</b> method.</p>
                         </li>
                         <div class="fragment">
@@ -880,51 +862,58 @@ c
                             <p>The reverse() method changes the order of a list permanently, but you can revert to the
                                 original order anytime by applying reverse() to the same list a second time.</p>
                         </li>
-                        <li class="fragment">
-                            <p>You can quickly find the length of a list by using the <b>len()</b> function.</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> s = ['python', 'java', ['asp', 'php'], 'scheme']
->>> len(s)
-4
-
->>> L = []
->>> len(L)
-0
-</code></pre>
-                        </div>
                     </ul>
                 </section>
                 <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> s = [3, 8, 10, 7]
->>> sum(s)
-28
+                    <h3>Some Functions</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>To maintain the original order of a list but present it in a sorted order, you can use
+                                the <b>sorted() function</b> .</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> t = ['d', 'c', 'e', 'b', 'a']
+>>> print(sorted(t))
+['a', 'b', 'c', 'd', 'e']
 
+>>> print(t)
+['d', 'c', 'e', 'b', 'a']
+</code></pre>
+                        </div>
+                        <li class="fragment">
+                            <p>You can quickly find the length of a list by using the <b>len()</b> function.</p>
+                        </li>
+                        <div class="div-c">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> s = [3, 8, 10, 7]
+>>> len(s)
+4
 >>> min(s)
 3
-
 >>> max(s)
 10
+>>> sum(s)
+28
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                            </div>
+                        </div>
+                        <div class="div-d">
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> x = ['banana', 'jack', 'jessica']
 >>> min(x)
 banana
-
 >>> max(x)
 jessica
-
 >>> sum(x)
 
-TypeError: unsupported operand type(s) 
-for +: 'int' and 'str'
+TypeError: unsupported operand 
+type(s) for +: 'int' and 'str'
 </code></pre>
-                    </div>
+                            </div>
+                        </div>
                 </section>
                 <section>
                     <h3>Lists: Summary</h3>
@@ -933,23 +922,48 @@ for +: 'int' and 'str'
                             <p>The element can be number, string, list, and empty [].</p>
                         </li>
                         <li class="fragment">
-                            <p>Features: Ordered, Mutable, Repeatable</p>
+                            <p>Features: Ordered, Repeatable</p>
                         </li>
                         <li class="fragment">
-                            <p>The indices start at 0. Index -1 means the last item.</p>
+                            <p>Operator: + for concatenation and * for repetition.</p>
                         </li>
                         <li class="fragment">
-                            <p>The item can be changed by reassign a new item. Two lists can be added together. list
-                                slice :</p>
+                            <p>The indices start at 0. Index -1 means the last item. (编号：从零开始)</p>
                         </li>
                         <li class="fragment">
-                            <p>.append(), .extend(), .insert()</p>
-                            <p>.pop(), del, .remove()</p>
-                            <p>.sort(), sorted(), .reverse(), len(), sum(), max(), min()</p>
+                            <p>The item can be changed by reassign a new item. (修改：直接赋值)</p>
+                        </li>
+                        <li class="fragment">
+                            <p>In slicing, the start is inclusive, and the end is exclusive.（切片：左闭右开）</p>
+                        </li>
+                        <li class="fragment">
+                            <p>Methods (方法): </p>
+                            <ul>
+                                <li>append, extend, insert (添加)</li>
+                                <li>pop, remove (删除)</li>
+                                <li>sort, reverse (整理)</li>
+                            </ul>
+                            <p>Functions (函数): sorted(), len(), sum(), max(), min()</p>
                         </li>
                     </ul>
                 </section>
+                <section>
+                <h3>Exercise</h3>
+<p class="fragment">Write a program using methods to modify the list below.</p>
+<div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+x = [15,2.1,'Anna', ['red','yellow','blue']]
+</code></pre>
+                            </div>
+                            <p class="fragment">The list you should show is</p>
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+x = [2.1,'Anna',['red','yellow'],'blue']
+</code></pre>
+                            </div>
             </section>
+            </section>
+            
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>

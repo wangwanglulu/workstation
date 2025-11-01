@@ -39,42 +39,46 @@
                     </ul>
                 </section>
                 <section>
-                    <div><img data-src="../../MBAimg/lecture1/Python.png" style="height: 500pt"></div>
+                    <div><img data-src="../../MBAimg/lecture1/Python.png" style="height: 350pt"></div>
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">什么是计算机“语言”？</li>
                         <li class="fragment">什么是编程？为什么要编程？</li>
                         <li class="fragment">为什么要数据分析？来源，精细化</li>
-                        <li class="fragment">有很多程序设计语言,比如C，Java，Basic等等</li>
-                        <li class="fragment">为什么要学Python？
-                            <ul>
-                                <li class="fragment">原因一：高级 （简单）</li>
-                                <li class="fragment">原因二：普及，社区内容丰富</li>
-                                <li class="fragment">原因三：强大，扩展性强</li>
-                            </ul>
-                        </li>
+                        <li class="fragment">有很多程序设计语言(比如C，Java，VB等等)，为什么要学Python？</li>
+                        <ul>
+                            <li class="fragment">原因一：高级 （简单）</li>
+                            <li class="fragment">原因二：普及，社区内容丰富</li>
+                            <li class="fragment">原因三：强大，扩展性强</li>
+                        </ul>
+                        <li class="fragment">关于AI编程（比如，Chatgpt，Copilot，Deepseek等）</li>
+                        <ul>
+                            <li class="fragment">很好的编程<b>辅助</b>工具</li>
+                            <li class="fragment">现阶段依然有一些局限（有幻觉）</li>
+                            <li class="fragment">不建议在初学编程阶段过度依赖</li>
+                        </ul>
                     </ul>
                 </section>
                 <section>
-                    TIOBE编程语言社区发布了2024年9月编程语言排行榜
+                    TIOBE编程语言社区发布了2025年10月编程语言排行榜
                     <div><img data-src="../../MBAimg/lecture1/Ranking.png" style="height: 360pt"></div>
                     
                 </section>
-                <section>
+<!--                 <section>
                     <h3>这门课主要涉及5个板块</h3>
                     <ul>
                         <li>基本语法</li>
                         <li>数据整理</li>
                         <li>数据可视化</li>
-                        <li>利用AIGC编程<b>New!</b></li>
+                        <li>办公自动化</li>
                         <li>爬虫技术基础</li>
                     </ul>
-                </section>
+                </section> -->
                 <section>
                     <h3>课程要求</h3>
                     <ol>
-                        <li>一共三次作业（6%*3=18%）</li>
+                        <li>一共三次作业（6%*3=18%）仅提交</li>
                         <li>案例设计 （72%）</li>
                         <!-- <li>期末考核（60%）</li> -->
                         <li>出勤率 (10%)</li>
@@ -93,6 +97,7 @@
                     </ol>
                 </section>
                 <section>
+                    <h4>这门课主要涉及4个板块：基本语法，数据整理与可视化，办公自动化，爬虫基础</h4>
                     <h3>主要教材</h3>
                     <div class="leftc"><img data-src="../../MBAimg/lecture1/textbook3.jpg" style="height: 350pt"></div>
                     <div class="rightc"><img data-src="../../MBAimg/lecture1/textbook4.jpg" style="height: 350pt"></div>
@@ -114,7 +119,6 @@
                             <li>作业为编程题，以电子版的方式提交</li>
                             <li>作业的时限为一周</li>
                             <li>提交到上财教学网Canvas系统</li>
-                            <li>下次布置作业时会讲解作业的格式</li>
                         </ul>
                         <li class="fragment">其他</li>
                         <ul class="fragment">
@@ -181,9 +185,9 @@ import this
                 </section>
             </section>
             </section>
-            <section>
+                        <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">1.3 Values</h2>
+                    <h2 style="color: white">1.3 Values（值）</h2>
                 </section>
                 <section>
                     <h3>Three types of values</h3>
@@ -206,8 +210,8 @@ import this
                 </section>
                 <section>
                     <p>Python can tell you what type a value has.</p>
-                    <p><b>>>></b> means what you input in the IPython console.</p>
-                    <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                    <p><b>>>></b> means what you input in the IPython console. The first column below is the <b>line number</b>.</p>
+                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> type(4)
 int
 
@@ -217,9 +221,10 @@ str
 >>> type(3.2)
 float
 </code></pre>
+
                     <div class="fragment">
                         <b>Note: If numbers are in quotation marks, they are strings.</b>
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> type('17')
 str
 
@@ -229,28 +234,28 @@ str
                     </div>
                 </section>
                 <section>
-                    <h3>Escape string</h3>
-                    <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                    <h3>Escape string（转义符）</h3>
+                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print('happy')
 happy
 </code></pre>
                     <div class="fragment">
                         <p>If we want to print the single quotation marks?</p>
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print("'happy'")
 'happy'
 </code></pre>
                     </div>
                     <div class="fragment">
                         <p>If we want to print the double quotation marks?</p>
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print('\"happy\"')
 "happy"
 </code></pre>
                     </div>
                     <div class="fragment">
                         <p>If we want to print the slash?</p>
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print('\\happy\\')
 \happy\
 </code></pre>
@@ -258,13 +263,13 @@ happy
                 </section>
                 <section>
                     <p>If we want to print the double slashes?</p>
-                    <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print(r'\\happy\\')
 \\happy\\
 </code></pre>
                     <div class="fragment">
                         <p>Line break</p>
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print('I\'m learning\nPython.')
 I'm learning
 Python.
@@ -272,13 +277,13 @@ Python.
                     </div>
                     <div class="fragment">
                         <p>Tab</p>
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print('I\'m learning\tPython.')
 I'm learning    Python.
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre style="font-size: 0.77em"><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print('\\\n\\')
 >>> print('\\\t\\')
 >>> print(r'\\\t\\')
@@ -288,7 +293,7 @@ I'm learning    Python.
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">1.4 Variables</h2>
+                    <h2 style="color: white">1.4 Variables（变量）</h2>
                 </section>
                 <section>
                     <ul>
@@ -296,7 +301,7 @@ I'm learning    Python.
                             <p>A variable is a name that refers to a value.</p>
                         </li>
                         <li class="fragment">
-                            <p>An assignment statement creates new variables and gives them values.</p>
+                            <p>An assignment（赋值）statement creates new variables and gives them values.</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -339,16 +344,17 @@ float
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> x = 15
-x = x + 10
+>>> x = x + 10
 </code></pre>
                         </div>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <p>Python is a Dynamically Typed Language. What is Dynamically Typed Language?</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> apple = 123 
 # apple is an integer
+
 >>> print(apple)
 123
 </code></pre>
@@ -357,10 +363,11 @@ x = x + 10
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> apple = 'ABC' 
 # Now apple turns to be a string
+
 >>> print(apple)
 ABC
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">
                             <p>We can assign the value of a variable to another variable.</p>
                         </li>
@@ -378,19 +385,19 @@ ABC
                     <h3>Variable name</h3>
                     <ul>
                         <li class="fragment">
-                            <p>Variable names can be arbitrarily long. They are case sensitive.</p>
+                            Variable names can be arbitrarily long. They are case sensitive.
                         </li>
                         <li class="fragment">
-                            <p>You <b>cannot</b> start with a number.</p>
+                            You <b>cannot</b> start with a number.
                         </li>
                         <li class="fragment">
-                            <p>It is common to use underscore character $\_$.</p>
+                            It is common to use underscore character $\_$.
                         </li>
                         <li class="fragment">
-                            <p>Spaces are not allowed in variable names, but underscores can be used to separate words in variable names.</p>
+                            Spaces are not allowed in variable names, but underscores can be used to separate words in variable names.
                         </li>
                         <li class="fragment">
-                            <p>Illegal name</p>
+                            Illegal name
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -410,8 +417,8 @@ SyntaxError: invalid syntax
                     <h3>Keywords</h3>
                     <ul>
                         <li>You <b>cannot</b> use the following keyword as variable names since they have been reserved by Python to recognize the structure of the program.</li>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 and del from None True
 as elif global nonlocal try
 assert else if not while
@@ -420,7 +427,7 @@ class False in pass yield
 continue finally is raise
 def for lambda return
 </code></pre>
-                    </div>
+                        </div>
                     </ul>
                 </section>
                 <section>
@@ -454,59 +461,56 @@ def for lambda return
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">1.5 Operators, input and output</h2>
+                    <h2 style="color: white">1.5 Operators, input and output（运算符，输入和输出）</h2>
                 </section>
                 <section>
                     <h3>Operators</h3>
-                    <ul>
+                    <div class = "leftc">
+                    <ul >
                         <li class="fragment">
                             <p>$+,-,*,/,**$(exponentiation), %, //</p>
                         </li>
                         <li class="fragment">
                             <p>Order of operations</p>
                         </li>
-                                            <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> minute=50
 >>> minute/20
-2.5 #float
+2.5 # float
 </code></pre>
-                    </div>
-                                        <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> minute=50
 >>> minute//20 
-2 #floored integer
+2 # floored integer
 </code></pre>
-                    </div>
-                    
-
-
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> minute=50
 >>> minute%20 
-10 #remainder. useful!
+10 # remainder. useful!
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> student_number=2017003425
 >>> student_number//1000000
 2017 
 >>> student_number%10000
 3425
 </code></pre>
-                    </div>
+                        </div>
                     </ul>
-                </section>
-                <section>
+                    </div>
+                    <div class = "rightc">
                     <ul>
                         <li class="fragment">
                             <p>String operations</p>
                         </li>
-                    </ul>
-                    <div class="fragment">
+                                            <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> first=10
 >>> second=15
@@ -519,6 +523,8 @@ def for lambda return
 100150
 </code></pre>
                     </div>
+                    </ul>
+</div>
                 </section>
                 <section>
                     <h3>Input and Output</h3>
@@ -543,10 +549,10 @@ Some silly stuff
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> name = input('What is your name?\n')
 What is your name?
-Chuck #This is what you input
+Chuck # This is what you input
 
 >>> print(name)
-Chuck #The type is string.
+Chuck # The type is string.
 </code></pre>
                         </div>
                     </ul>
@@ -564,6 +570,7 @@ What is the speed?
 17
 
 >>> int(speed)
+# or float(speed)
 17
 
 >>> int(speed) + 5
@@ -588,18 +595,17 @@ ValueError: invalid literal for int() with base 10:
                 <section>
                     <ul>
                         <li>
-                            <p>To write or display long program, Editor will be used. Grey box shows the output of a sequence of code. Red box shows the error message. Basically, the Editor is the same with IPython console.</p>
+                            <p>To write or display long program, Editor will be used. Green box shows the output of a sequence of code. Red box shows the error message. Basically, the Editor is the same with IPython console.</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
-age = 23
-message = "Happy " + age + "rd Birthday!"
-print(message)
+>>> age = 23
+>>> message = "Happy " + age + "rd Birthday!"
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="error" data-trim contenteditable >
+                        <pre><code class="error language-Python" data-trim contenteditable >
 Traceback (most recent call last):
 File "birthday.py", line 2, in &lt;module&gt;
 message = "Happy " + age + "rd Birthday!"
@@ -608,19 +614,18 @@ TypeError: Can't convert 'int' object to str implicitly
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
-age = 23
-message = "Happy " + str(age) + "rd Birthday!"
-print(message)
+>>> age = 23
+>>> message = "Happy " + str(age) + "rd Birthday!"
+>>> print(message)
 </code></pre>
                     </div>
                     <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable >
+                        <pre><code class="output language-Python" data-trim contenteditable >
 Happy 23rd Birthday!
 </code></pre>
                     </div>
                 </section>
             </section>
-            
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>

@@ -90,7 +90,7 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;" data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
                     <h3 style="color: white">Lecture 4 Dictionaries, Tuples</h3>
@@ -151,22 +151,22 @@ True
                             <p>Modifying and Removing Values in a Dictionary</p>
                         </li>
                         <div class="div-c">
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> alien['color'] = 'yellow'
 >>> print(alien)
 {'color': 'yellow', 'points': 5}
 </code></pre>
-                        </div>
+                            </div>
                         </div>
                         <div class="div-d">
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> del alien['points']
 >>> print(alien)
 {'color': 'yellow'}
 </code></pre>
-                        </div>
+                            </div>
                         </div>
                         <li class="fragment">
                             <p>Merge two dictionaries</p>
@@ -424,15 +424,15 @@ users = {
 full_name = users['aeinstein']['first']+" "+users['aeinstein']['last']
 location = users['aeinstein']['location']
 
-print("Full name: " + full_name)
-print("Location: " + location)
+print(full_name)
+print(location)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output language-Python" data-trim contenteditable>
 
-Full name: Albert Einstein
-Location: Princeton
+albert Einstein
+princeton
 </code></pre>
                     </div>
                 </section>
@@ -775,7 +775,8 @@ TypeError: 'tuple' object does not support item assignment
                     <h2 style="color: white">4.4 Mutable and Immutable (可变和不可变)</h2>
                 </section>
                 <section>
-                    <ul><li>List: [], ordered, repeatable, mutable (可变的)</li>
+                    <ul>
+                        <li>List: [], ordered, repeatable, mutable (可变的)</li>
                         <li>Tuple: (), ordered, repeatable, immutable (不可变的)</li>
                         <li>Dictionary: {}, not ordered.
                             <ul>
@@ -783,11 +784,11 @@ TypeError: 'tuple' object does not support item assignment
                                 <li>Dictionary is mutable (key-value pairs are mutable).</li>
                                 <li>Values are mutable, but keys must be immutable.</li>
                             </ul>
-                        </li></ul>
+                        </li>
+                    </ul>
                     <ul>
-                        
                         <li class="fragment">
-                            Numbers, strings, tuples are immutable. Lists, dictionaries are mutable. 
+                            Numbers, strings, tuples are immutable. Lists, dictionaries are mutable.
                         </li>
                         <li class="fragment">What does it mean for immutable or mutable?</li>
                         <li class="fragment">
@@ -882,7 +883,7 @@ TypeError: 'tuple' object does not support item assignment
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> x = [1,2,3]
->>> y = x[:] 
+>>> y = x.copy() 
 >>> x.pop(2)
 >>> x.append(4)
 >>> print(y)
