@@ -24,12 +24,10 @@
         <div class="slides">
             <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                       <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 8 Object-Oriented Programming</h3>
-
-                    </div>
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 8 Object-Oriented Programming</h3>
+                </div>
             </section>
-
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">8.1 OOP Basics</h2>
@@ -40,7 +38,7 @@
                             <p>Object-oriented programming (面向对象编程) is one of the most effective approaches to writing software.</p>
                         </li>
                         <li class="fragment">
-                            <p>Python has been an object-oriented language since it existed. Because of this, creating and using classes and objects are downright easy.</p>
+                            <p>Python has been an object-oriented language (面向对象语言) since it existed. Because of this, creating and using classes and objects are downright easy.</p>
                         </li>
                         <li class="fragment">
                             <p>Understanding object-oriented programming will help you see the world as a programmer does. <b>It'll help you really know your code, not just what's happening line by line, but also the bigger concepts behind it.</b></p>
@@ -69,16 +67,16 @@ class Dog():
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>By convention, capitalized names refer to classes in Python.</p>
+                            <p>By convention, capitalized names（首字母大写）refer to classes in Python.</p>
                         </li>
                         <li class="fragment">
-                            <p>A function that's part of a class is a method (方法).</p>
+                            <p><b>Methods</b> (方法) are functions that belong to a class.</p>
                         </li>
                         <li class="fragment">
-                            <p>The __init__() method is a special method Python runs automatically whenever we create a new instance (实例) based on the Dog class.</p>
+                            <p><b>Attributes</b> (属性) are variables that belong to an object or class.</p>
                         </li>
                         <li class="fragment">
-                            <p>Variables that are accessible through instances like this are called <b>attributes</b> (属性).</p>
+                            <p>The __init__() method is a special method Python runs automatically whenever we create a new <b>instance</b> (实例) based on the class.</p>
                         </li>
                     </ul>
                 </section>
@@ -112,16 +110,16 @@ class Dog():
                     <div class='div-d'>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-my_dog = Dog('willie', 6)
+my_dog = Dog('Willie', 6)
 
-print(my_dog.name.title())
-print(str(my_dog.age)+" years old")
+print(my_dog.name)
+print(my_dog.age)
 </code></pre>
                         </div>
                         <div class="fragment">
                             <pre><code class="output" data-trim contenteditable>
 Willie
-6 years old
+6
 </code></pre>
                         </div>
                         <div class="fragment">
@@ -150,8 +148,8 @@ your_dog = Dog('lucy', 3)
                         </li>
                     </ul>
                     <div class='div-c'>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 class Car():
     def __init__(self, make, model, year):
         self.make = make
@@ -169,22 +167,23 @@ class Car():
             {self.odometer_reading}\
              miles on it.")
 </code></pre>
-                    </div>
+                        </div>
                     </div>
                     <div class='div-d'>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 my_new_car = Car('audi', 'a4', 2016)
 print(my_new_car.get_descriptive_name())
 my_new_car.read_odometer()
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
 2016 Audi A4
 This car has 0 miles on it.
 </code></pre>
-                    </div></div>
+                        </div>
+                    </div>
                 </section>
                 <section data-background-image="../../bg.png">
                     <div class='div-c'>
@@ -306,8 +305,7 @@ class Car():
         self.odometer_reading = mileage
 
     def increment_odometer(self, miles):
-        self.odometer_reading \
-        = self.odometer_reading + miles
+        self.odometer_reading += miles
 </code></pre>
                         </div>
                     </div>
@@ -350,13 +348,13 @@ This car has 123 miles on it.
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>You don't always have to start from scratch when writing a class. If the class you're writing is a specialized version of another class you wrote, you can use <b>inheritance</b>.</p>
+                            <p>You don't always have to start from scratch when writing a class. If the class you're writing is a specialized version of another class you wrote, you can use <b>inheritance</b> (继承).</p>
                         </li>
                         <li class="fragment">
                             <p>When one class inherits from another, it automatically takes on all the attributes and methods of the first class.</p>
                         </li>
                         <li class="fragment">
-                            <p>The original class is called the parent class, and the new class is the child class. The child class inherits every attribute and method from its parent class but is also free to define new attributes and methods of its own.</p>
+                            <p>The original class is called the <b>parent class</b> (父类), and the new class is the <b>child class</b> (子类). The child class inherits every attribute and method from its parent class but is also free to define new attributes and methods of its own.</p>
                         </li>
                     </ul>
                 </section>
@@ -457,7 +455,7 @@ my_tesla.describe_battery()
                     <div class="div-c">
                         <ul>
                             <li class="fragment">
-                                <p>Overriding methods from the parent class</p>
+                                <p>Overriding (覆盖) methods from the parent class</p>
                             </li>
                         </ul>
                         <div class="fragment">
@@ -494,7 +492,7 @@ class ElectricCar(Car):
                         </div>
                         <ul>
                             <li class="fragment">
-                                <p><b>Open/closed principle</b></p>
+                                <p><b>Open/closed principle (开放封闭原则)</b></p>
                             </li>
                             <li class="fragment">
                                 <p>Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.</p>
@@ -679,6 +677,29 @@ print(issubclass(Child,Person))      # True
                         </div>
                     </div>
                 </section> -->
+                <section>
+                    <h3>Exercise</h3>
+                    <ol>
+                        <li>编写一个程序，创建一个名为 Food 的类，包含两个属性：name（名称）和 price（价格）。</li>
+                        <li>然后，为该类定义两个方法：
+                            <ul>
+                                <li>一个用于显示食物的名称和价格；</li>
+                                <li>另一个用于更新价格</li>
+                            </ul>
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+food_1 = Food('Hot Dog', 15)
+food_1.get_info()
+food_1.update_price(20)
+food_1.get_info()
+#output
+Hot Dog has a price of 15.
+Hot Dog has a price of 20.
+</code></pre>
+                        </li>
+                        <li>接着，创建一个子类 Fruit，它是父类 Food 的子类。
+                            子类 Fruit 继承父类的两个属性（name 和 price），并新增一个表示产地（producing area）的属性。</li>
+                    </ol>
+                </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
@@ -710,7 +731,7 @@ print(issubclass(Child,Person))      # True
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p><b>Everything in Python is an object.</b></p>
+                            <p><b>Everything in Python is an object. </b>(Python中一切都是对象)</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -851,7 +872,8 @@ willie your_dog
 </code></pre>
                     </div>
                 </section>
-            -->
+                -->
+            
                 <section data-background-image="../../bg.png">
                     <ul>
                         <li class="fragment">
@@ -902,18 +924,18 @@ print(Husky.__bases__)
 </code></pre>
                         </div>
                     </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Importing a Single Class</p>
-                        </li>
-                        <li class="fragment">
-                            <p>Save your Car class in a python file: car.py</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+            </section>
+            <section>
+                <ul>
+                    <li class="fragment">
+                        <p>Importing a Single Class</p>
+                    </li>
+                    <li class="fragment">
+                        <p>Save your Car class in a python file: car.py</p>
+                    </li>
+                </ul>
+                <div class="fragment">
+                    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from car import Car
 
 my_new_car = Car('audi', 'a4', 2016)
@@ -922,42 +944,42 @@ print(my_new_car.get_descriptive_name())
 my_new_car.odometer_reading = 23
 my_new_car.read_odometer()
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                </div>
+                <div class="fragment">
+                    <pre><code class="output" data-trim contenteditable>
 2016 Audi A4
 This car has 23 miles on it.
 </code></pre>
-                    </div>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Storing Multiple Classes in a Module</p>
-                        </li>
-                        <li class="fragment">
-                            <p>You can store as many classes as you need in a single module, although each class in a module should be related somehow. </p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                </div>
+            </section>
+            <section>
+                <ul>
+                    <li class="fragment">
+                        <p>Storing Multiple Classes in a Module</p>
+                    </li>
+                    <li class="fragment">
+                        <p>You can store as many classes as you need in a single module, although each class in a module should be related somehow. </p>
+                    </li>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from car import ElectricCar
 
 my_tesla = ElectricCar('tesla', 'model s', 2016)
 
 print(my_tesla.get_descriptive_name())
 </code></pre>
-                        </div>
-                        <div class="fragment">
-                            <pre><code class="output" data-trim contenteditable>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
 2016 Tesla Model S
 
 </code></pre>
-                        </div>
-                        <li class="fragment">
-                            <p>Importing Multiple Classes from a Module</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div>
+                    <li class="fragment">
+                        <p>Importing Multiple Classes from a Module</p>
+                    </li>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from car import Car, ElectricCar
 
 my_beetle = Car('volkswagen', 'beetle', 2016)
@@ -966,34 +988,34 @@ print(my_beetle.get_descriptive_name())
 my_tesla = ElectricCar('tesla', 'roadster', 2016)
 print(my_tesla.get_descriptive_name())
 </code></pre>
-                        </div>
-                        <div class="fragment">
-                            <pre><code class="output" data-trim contenteditable>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
 2016 Volkswagen Beetle
 2016 Tesla Roadster
 </code></pre>
-                        </div>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Importing a Module into a Module</p>
-                        </li>
-                        <li class="fragment">
-                            <p>car.py</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li class="fragment">
+                        <p>Importing a Module into a Module</p>
+                    </li>
+                    <li class="fragment">
+                        <p>car.py</p>
+                    </li>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 class Car():
 ...
 </code></pre>
-                        </div>
-                        <li class="fragment">
-                            <p>electric_car.py</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div>
+                    <li class="fragment">
+                        <p>electric_car.py</p>
+                    </li>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from car import Car
 
 class Battery():
@@ -1002,31 +1024,31 @@ class Battery():
 class ElectricCar(Car):
 ...
 </code></pre>
-                        </div>
-                        <li class="fragment">
-                            <p>my_cars.py</p>
-                        </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div>
+                    <li class="fragment">
+                        <p>my_cars.py</p>
+                    </li>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from car import Car
 from electric_car import ElectricCar
 </code></pre>
-                        </div>
-                    </ul>
-                </section>
-                <section>
+                    </div>
+                </ul>
+            </section>
+           <section>
                     <h3>Summary of OOP</h3>
                     <ul>
                         <li class="fragment">
                             <p>Three Features of OOP</p>
-                            <p>Encapsulation, inheritance, polymorphism</p>
+                            <p>Encapsulation（封装）, Inheritance（继承）, Polymorphism（多态）</p>
                         </li>
                         <li class="fragment">
                             <p><b>Everything in Python is object.</b></p>
                         </li>
                         <li class="fragment">
-                            <p>Process-oriented programming (POP)</p>
-                            <p>Object-oriented Programming (OOP)</p>
+                            <p>Process-oriented programming (面向过程编程)</p>
+                            <p>Object-oriented Programming (面向对象编程)</p>
                         </li>
                     </ul>
                 </section>

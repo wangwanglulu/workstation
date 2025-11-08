@@ -33,16 +33,16 @@
                     <h2 style="color: white">6.1 Functions Basics</h2>
                 </section>
                 <section>
+                    <h3>Create functions</h3>
                     <ul>
                         <li class="fragment">
                             <p>A function is a named sequence of statements that performs a computation.</p>
                         </li>
                         <li class="fragment">
-                            <p>Build-in Functions</p>
-                            <p>int(), float(), str(), type() and etc.</p>
+                            <p>Build-in Functions: int(), float(), str(), type(), and etc.</p>
                         </li>
                         <li class="fragment">
-                            <p>To make your own functions, <b>two steps: 1. define a function 2. call a function</b></p>
+                            <p>To make your own functions, <b>follow two steps: 1. define a function 2. call a function</b></p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -53,7 +53,7 @@ lyrics()
 </code></pre>
                         </div>
                         <li class="fragment">
-                            <p>The first line of the function is called the header. The rest is called the body. You can use it inside another function</p>
+                            <p>The first line of the function is called the header. The rest is called the body. </p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -139,7 +139,7 @@ My harry's name is Hamster.
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>Keyword Arguments</p>
+                            <p>Keyword Arguments (关键字参数)</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -180,7 +180,7 @@ describe_pet(name='harry', type='hamster')
 #The default value has been ignored.
 </code></pre>
                     </div>
-                    <ul>
+                    <!--                     <ul>
                         <li class="fragment">
                             <p>The following function calls have the same output.</p>
                         </li>
@@ -198,7 +198,7 @@ describe_pet(type='hamster', name='harry')
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <section> -->
                     <ul>
                         <li class="fragment">
                             <p>Example: Making an Argument Optional</p>
@@ -209,7 +209,6 @@ describe_pet(type='hamster', name='harry')
 def show_name(first, middle, last):
     full_name=first+' '+middle+' '+last
     print(full_name.title())
-
 show_name('john','lee','hooker')
 </code></pre>
                     </div>
@@ -221,7 +220,6 @@ def show_name(first, last, middle=''):
     else:
         full_name=first+' '+last
     print(full_name.title())
-
 show_name('jimi', 'hendrix')
 </code></pre>
                     </div>
@@ -230,23 +228,33 @@ show_name('jimi', 'hendrix')
                     <h3>Fruitful functions and void functions</h3>
                     <ul>
                         <li class="fragment">
-                            <p>Some of the functions yield results, fruitful fucntions</p>
-                            <p>Some of the functions do not return a value, void fucntions</p>
+                            <p>A fruitful function returns a value, while a void function performs an action but does not return a value.</p>
                         </li>
                         <li class="fragment">
                             <p>To return a result from a function, we use the return statement in our function.</p>
                         </li>
+                        <li class="fragment">
+                            <p><b>Return means the termination of a function. If you have two returns, only the first one will take effect.</b></p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b
     return added 
-# if only return, then it will return None.
-
 x = addtwo(3, 5)
 print(x)
+
 </code></pre>
                         </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
+8
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
@@ -261,19 +269,10 @@ print(x)
 None
 </code></pre>
                         </div>
-                        <li class="fragment">
-                            <p><b>Return means the termination of a function. If you have two returns, only the first one will take effect.</b></p>
-                        </li>
-                    </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>
-                            <p>Return and Print</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b 
     print(added)
@@ -281,29 +280,31 @@ def addtwo(a, b):
 x = addtwo(3, 5)
 print(x)
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
 8
 None
 </code></pre>
+                        </div>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def addtwo(a, b):
     added = a + b 
     print(added)
     return added
-
 x = addtwo(3, 5)
 print(x)
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="output" data-trim contenteditable>
 8
 8
 </code></pre>
+                        </div>
                     </div>
                 </section>
                 <section>
@@ -347,6 +348,14 @@ print(musician)
 {1: 'jimi', 2: 'hendrix'}
 </code></pre>
                     </div>
+                </section>
+                <section>
+                    <h3>Exercise</h3>
+                    <h4>“可乐瓶换饮料”问题</h4>
+                    <ul>
+                        <li>小明喝可乐的习惯是: 每喝完一瓶，就可以用 3 个空瓶 换一瓶新的可乐。如果他一开始有 n 瓶可乐，请编写一个函数，计算他总共能喝到多少瓶可乐。</li>
+                        <li>提示思路：用 while 循环判断是否还能换，用整数除法 // 和取余 %</li>
+                    </ul>
                 </section>
                 <!-- <section>
                     <h3>Example: Improve the game in Lecture 2!</h3>
@@ -482,7 +491,7 @@ main()
             </section> -->
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">6.2 Modules</h2>
+                    <h2 style="color: white">6.2 Modules（模块）</h2>
                 </section>
                 <section>
                     <ul>
@@ -563,7 +572,7 @@ from pizza import make_pizza
 make_pizza(16)
 </code></pre>
                     </div>
-                    <p class="fragment">Using as to Give a Function an Alias</p>
+                    <p class="fragment">Using as to Give a Function an Alias（别名）</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pizza import make_pizza as mp
@@ -611,13 +620,10 @@ make_pizza(16)
                             <p>When a module named is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named xxx.py in a list of directories given by the variable sys.path. sys.path is initialized from these locations:</p>
                         </li>
                         <li class="fragment">
-                            <p>The directory containing the input script (or the current directory when no file is specified).</p>
+                            <p>The directory containing the input script (当前工作目录).</p>
                         </li>
                         <li class="fragment">
-                            <p>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</p>
-                        </li>
-                        <li class="fragment">
-                            <p>The installation-dependent default.</p>
+                            <p>PYTHONPATH (a list of directory names：标准库路径，第三方库路径)</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -627,7 +633,7 @@ print(sys.path)
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!--                 <section>
                     <h3>Packages</h3>
                     <ul>
                         <li class="fragment">
@@ -653,19 +659,18 @@ mycompany
                             <p><b>Be careful! The name of modules you created should not be in conflict with the name of any system module, or any build-in function.</b></p>
                         </li>
                     </ul>
-                </section>
+                </section> -->
                 <section>
-                    <h3>Third-party packages</h3>
+                    <h3>Install third-party packages</h3>
                     <ul>
-                        <li class="fragment">Anaconda has already installed many useful packages. </li>
-                        <div class="fragment">
+                        <li class="fragment">Anaconda already includes many useful packages, and you can install additional ones as needed.</li>
+                        <!--                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
-print(dir(requests))
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">
-                            <p>For win, open the <b>anaconda prompt</b>.</p>
+                            <p>For Windows, open the <b>anaconda prompt</b> for anaconda, or open the <b>cmd</b> for original Python.</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -722,7 +727,7 @@ pyperclip.copy("abc")
                     -->
                 </section>
                 <section>
-                    <h3>Example 1: math and random package </h3>
+                    <h3>Some third-party packages</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import math
@@ -766,19 +771,16 @@ print(random.randrange(1, 100, 2))   # 生成从1到100的间隔为2的随机整
 a = [1, 3, 5, 6, 7]                
 random.shuffle(a)                    # 将序列a中的元素顺序打乱
 print(a)
-print(random.sample(a, 2))
 </code></pre>
                     </div>
-                </section>
-                <section>
-                    <h3>Example 2: Third-party package </h3>
+                    <a class="fragment" href="https://blog.csdn.net/weixin_55159605/article/details/121466053" target="_blank">you-get安装使用说明</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install you-get 
 # youtube-dl
 </code></pre>
                     </div>
-                    <a class="fragment" href="https://grantjenks.com/docs/freegames/#" target="_blank">Free Python Games</a>
+                    <a class="fragment" href="https://grantjenks.com/docs/freegames/#" target="_blank">Free Python Games官网</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install freegames

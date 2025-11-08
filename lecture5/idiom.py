@@ -1,9 +1,10 @@
 import unicodedata
 
 # 1. 加载成语词典
-filename = 'idiom_dictionary.txt'
-with open(filename, encoding="utf-8") as file_object:
-    lines = file_object.readlines()  # List
+from pathlib import Path
+path = Path('idiom_dictionary.txt')
+contents = path.read_text()
+lines = contents.splitlines()
 
 d_game = {}
 for line in lines:

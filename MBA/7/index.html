@@ -25,7 +25,7 @@
             <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
-                    <h3 style="color: white">Lecture 7 Variable Scope, Arbitrary Arguments </h3>
+                    <h3 style="color: white">Lecture 7 Variable Scope, File </h3>
                 </div>
             </section>
             <section>
@@ -49,7 +49,7 @@ def test():
 print(msg) # error
 </code></pre>
                     </div>
-                    <p class="fragment">Global and Local</p>
+                    <p class="fragment">Global and Local（全局和局部）</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 msg_loc = "Shanghai" # Global
@@ -83,7 +83,7 @@ I am from Shanghai
 </code></pre>
                         </div>
                     </div>
-                    <p class="fragment"><b>Reference</b></p>
+                    <p class="fragment"><b>Reference</b>（引用）</p>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -103,7 +103,7 @@ I am from Shanghai
 </code></pre>
                         </div>
                     </div>
-                    <p class="fragment">Modification</p>
+                    <p class="fragment"><b>Referenced</b> before assignment</p>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -328,7 +328,7 @@ print(a)
                 </section>
                 <section>
                     <h3>Parameter and Argument</h3>
-                    <ul>
+<!--                     <ul>
                         <li>
                             <p>For immutable objects (number, string, tuple), the assignment inside a function cannot change the value of the variable outside the function even if the variable name inside is the same with the variable name outside.</p>
                         </li>
@@ -358,11 +358,94 @@ print(b)
 </code></pre>
                         </div>
                     </div>
-                    </section>
-                    <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def ChangeInt(b):
+    b = 10
+    return b
+
+b = 2
+print(ChangeInt(b))
+print(b)  
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+10 
+2
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def ChangeInt(a):
+    a = 10
+    print(a)
+    return a
+
+b = 2
+ChangeInt(b)
+print(b) 
+print(ChangeInt(b))
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+10
+2
+10
+10
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-a">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def ChangeInt(a):
+    a = 10
+    print(a)
+
+b = 2
+ChangeInt(b)
+print(b) 
+print(ChangeInt(b))
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-b">
+                        <div class="fragment">
+                            <pre><code class="output" contenteditable>
+10
+2
+10
+None
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section> 
+                <section>-->
                     <ul>
                         <li>
-                            <p>For mutable objects (list, dictionary), the <b>assignment</b> inside a function cannot change the value of the variable outside the function.<b> (the same with immutable objects!)</b></p>
+                            <p>For mutable objects (like lists and dictionaries), <b>assigning </b> a new value to a variable inside a function <b>will not</b> change the original variable outside the function. (the same with immutable objects!)</b></p>
                         </li>
                     </ul>
                     <div class="div-c">
@@ -381,8 +464,8 @@ print("outside: ", x)
                     <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output" contenteditable>
-inside:  [1, 2]
-outside:  [10, 20]
+inside: [1, 2]
+outside: [10, 20]
 
 
 
@@ -392,7 +475,7 @@ outside:  [10, 20]
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>However, the modification <b>can</b> change the value of the variable outside.</p>
+                            <p>However, modifying the contents of the mutable object (e.g., adding elements to a list or updating a dictionary) <b>can</b> change the value of the variable outside the function.</p>
                         </li>
                     </ul>
                     <div class="div-c">
@@ -411,8 +494,8 @@ print ("outside: ", x)
                     <div class="div-d">
                         <div class="fragment">
                             <pre><code class="output" contenteditable>
-inside:  [10, 20, 1, 2]
-outside:  [10, 20, 1, 2]
+inside: [10, 20, 1, 2]
+outside: [10, 20, 1, 2]
 
 
 
@@ -732,19 +815,19 @@ print(num)
                     </div>
                 </section>
             </section> -->
-            <section>
+<!--             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">7.2 Arbitrary Arguments</h2>
                 </section>
                 <section>
-                    <div class="fragment">
+                  <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_pizza(toppings):
     print(toppings)
 
 make_pizza('pepperoni')
 </code></pre>
-                    </div>
+                    </div> 
                     <ul>
                         <li class="fragment">
                             <p>If we want to pass multiple arguments, we may create a list at first.</p>
@@ -793,7 +876,7 @@ make_pizza('mushrooms', 'green peppers', 'extra cheese')
                         <li class="fragment">
                             <p>Note that Python packs the arguments into a tuple, even if the function receives only one value.</p>
                         </li>
-                    </ul>
+                   </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_pizza(*toppings):
@@ -814,7 +897,7 @@ make_pizza('mushrooms', 'green peppers', 'extra cheese')
                     </div>
                 </section>
                 <section>
-                    <ul>
+                    <ul> 
                         <li class="fragment">
                             <p>Mixing Positional and Arbitrary Arguments</p>
                         </li>
@@ -829,14 +912,11 @@ def make_pizza(size, *toppings):
     for topping in toppings:
         print("- " + topping)
 
-make_pizza(16, 'pepperoni')
 make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-16-inch pizza:
-- pepperoni
 12-inch pizza:
 - mushrooms
 - green peppers
@@ -871,10 +951,7 @@ build_profile(location='Shanghai',field='Management')
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def build_profile(first, last, **user_info):
-    profile = {}
-    for key, value in user_info.items():
-        profile[key] = value
-    return first, last, profile
+    return first, last, user_info
 
 user_profile = build_profile('albert', 'einstein',
                             location='princeton',
@@ -959,8 +1036,8 @@ TypeError: test() got multiple values
                         </div>
                     </div>
                 </section>
-            </section>
-            <section>
+            </section> -->
+            <!--<section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">7.3 Complex Systems</h2>
                 </section>
@@ -1077,7 +1154,7 @@ TypeError: test() got multiple values
                         <li class="fragment">Cellular Automaton (元胞自动机)</li>
                     </ul>
                 </section>
-                <!--
+                
                 <section>
                     <h3>Games of Emergence</h3>
                     <ul>
@@ -1100,7 +1177,7 @@ TypeError: test() got multiple values
                    
                 </section>
             -->
-                <section>
+<!--                 <section>
                     <h3>Cellular Automaton (元胞自动机)</h3>
                     <ul>
                         <li class="fragment">
@@ -1320,9 +1397,9 @@ Start()
                             <p>Glider</p>
                         </li>
                         <div class="fragment"><img data-src="../../img/lecture8/glider.png" style="height: 100pt"></div>
-<!--                         <li class="fragment">
+                        <li class="fragment">
                             <p>Demo: glider</p>
-                        </li> -->
+                        </li> 
                         <li class="fragment">
                             <p>Glider gun</p>
                         </li>
@@ -1333,7 +1410,7 @@ Start()
                         <a class="fragment" href="https://www.bilibili.com/video/BV1jJ411J7PM/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">史诗般的生命游戏</a>
                     </ul>
                 </section>
-            </section>
+            </section> -->
 <!--             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">7.3 Map, Filter, Lambda</h2>
@@ -1456,13 +1533,582 @@ print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
                 </section>
             </section> -->
             <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">7.2 File</h2>
+                </section>
+                <section>
+                    <h3>Reading from a File</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>pi_digits.txt</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+3.1415926535
+8979323846
+2643383279
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+path = Path('pi_digits.txt')
+contents = path.read_text()
+contents = contents.rstrip()
+print(contents)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-line-numbers data-trim contenteditable>
+3.1415926535
+8979323846
+2643383279
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>File Path</h3>
+                    <ul>
+                        <li class="fragment">
+                            <p>relative path</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+path = Path('text_files/filename.txt') 
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>absolute path</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+path = Path('/home/eric/data_files/text_files/filename.txt') 
+
+path = Path('c:/text_files/filename.txt') 
+path = Path(r'c:\text_files\filename.txt')
+path = Path('c:\\text_files\\filename.txt') 
+
+path = Path('c:\text_files\filename.txt')  #error
+</code></pre>
+                    </div>
+                    <!--                     <ul>
+                        <li class="fragment"><b>Please add "r" if you use Windows.</b></li>
+                    </ul> -->
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Making a List of Lines from a File</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+path = Path('pi_digits.txt')
+contents = path.read_text()
+
+lines = contents.splitlines()
+print(lines)
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>Working with a File's Contents</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pi_string = ''
+for line in lines:
+    pi_string = pi_string + line
+print(pi_string)
+print(len(pi_string))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['3.1415926535', '8979323846', '2643383279']
+3.141592653589793238462643383279 # string
+32
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Writing to a File</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+path = Path('programming.txt')
+
+path.write_text("I love programming.")
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p><b>Python can only write strings to a text file. If you want to store numerical data in a text file, you'll have to convert the data to string format first using the str() function.</b></p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+
+contents = "I love programming.\n"
+contents += "I love creating new games.\n"
+contents += "I also love working with data.\n"
+
+path = Path('programming.txt')
+path.write_text(contents)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+I love programming.
+I love creating new games.
+I also love working with data. 
+</code></pre>
+                    </div>
+                </section>
+                <!-- <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Appending to a File</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'programming.txt'
+message.py
+with open(filename, 'a') as file_object:
+    file_object.write("I also love finding meaning in large datasets.\n")
+    file_object.write("I love creating apps that can run in a browser.\n")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+I love programming.
+I love creating new games.
+I also love finding meaning in large datasets.
+I love creating apps that can run in a browser.
+</code></pre>
+                    </div>
+                </section> -->
+                <!--
+                <section>
+                    <h3>Exceptions</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print("Give me two numbers, and I'll divide them.")
+print("Enter 'q' to quit.")
+while True:
+    first_number = input("\nFirst number: ")
+    if first_number == 'q':
+        break
+    second_number = input("Second number: ")
+    try:
+        answer = int(first_number) / int(second_number)
+    except ZeroDivisionError:
+        print("You can't divide by 0!")
+    else:
+        print(answer)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+Give me two numbers, and I'll divide them.
+Enter 'q' to quit.
+
+First number: 5
+Second number: 0
+You can't divide by 0!
+
+First number: 5
+Second number: 2
+2.5
+First number: q
+</code></pre>
+                    </div>
+                </section>
+            -->
+<!--                 <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture7/encoding.png" style="height: 400pt"></div>
+                </section> -->
+                <section>
+                    <h3>Encoding（计算机编码）</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+from pathlib import Path
+
+path = Path('alice.txt')
+contents = path.read_text(<mark>encoding='utf-8'</mark>) 
+</pre></code>
+                    </div>
+                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture7/ASCII1.png" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">Unicode把所有语言都统一到一套编码里。Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语言都直接支持Unicode。</li>
+                        <li class="fragment">UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。</li>
+                        <li class="fragment">在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。</li>
+                        
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+chinese = '你好'.encode('utf-8')
+print(chinese)     # 输出：b'\xe4\xbd\xa0\xe5\xa5\xbd' 
+#这是字节串（是bytes，不是字符串！）用16进制是为了方便阅读，\x是16进制的前缀
+print(len(chinese))  # 输出 6（每个汉字占 3 字节）
+</pre></code>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+b'\xe4\xbd\xa0\xe5\xa5\xbd'.decode('utf-8') # 输出：你好
+</pre></code>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Two-dimensional code, QR code</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("Hello!")
+img.save("x.png")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import qrcode
+
+img=qrcode.make("https://wangwanglulu.com/")
+img.save("wl.png")
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture7/wl.png" style="height: 200pt"></div>
+                </section>
+
+<!--                 <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Handling the FileNotFoundError Exception</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+path = Path('alice.txt')
+contents = path.read_text(encoding='utf-8') #Error
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+path = Path('alice.txt')
+try:
+    contents = path.read_text(encoding='utf-8')
+except FileNotFoundError:
+    print(f"Sorry, the file {path} does not exist.")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+Sorry, the file alice.txt does not exist.
+</code></pre>
+                    </div> -->
+                    <!-- <ul>
+                        <li class="fragment">
+                            <p>ZeroDivisionError</p>
+                        </li>
+                    </ul> 
+                </section>
+                 <section>
+                    <ul>
+                        <li class="fragment">
+                            try-except-else
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+
+path = Path('alice.txt')
+try:
+    contents = path.read_text(encoding='utf-8')
+except FileNotFoundError:
+    print(f"Sorry, the file {path} does not exist.")
+else:
+    # Count the approximate number of words in the file:
+    words = contents.split()
+    num_words = len(words)
+    print(f"The file {path} has about {num_words} words.")
+</code></pre>
+                    </div>
+                </section> -->
+                <!-- <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Working with Multiple Files</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def count_words(filename):
+    """Count the approximate number of words in a file."""
+    try:
+        with open(filename) as f_obj:
+            contents = f_obj.read()
+    except FileNotFoundError:
+        msg = "Sorry, the file " + filename + " does not exist."
+        print(msg)
+    else:
+    # Count approximate number of words in the file.
+    words = contents.split()
+    num_words = len(words)
+    print("The file " + filename + " has about " 
+        + str(num_words) +" words.")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+filename = 'alice.txt'
+count_words(filename)
+
+filenames = ['alice.txt', 'siddhartha.txt', 'moby_dick.txt', 'little_women.txt']
+for filename in filenames:
+    count_words(filename)
+</code></pre>
+                    </div>
+                </section> -->
+                <!-- </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">11.2 Storing Data</h2>
+                </section> -->
+                <section>
+                    <h3>JSON</h3>
+                    <ul>
+                        <li class="fragment">JSON (JavaScript Object Notation, pronounced /ˈdʒeɪsən/; also /ˈdʒeɪˌsɒn/) is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays (or other serializable values). It is a common data format with diverse uses in electronic data interchange, including that of web applications with servers.</li>
+                        <li class="fragment">JSON is a <b>language-independent</b> data format. It was derived from JavaScript, but many modern programming languages include code to generate and parse JSON-format data. JSON filenames use the extension .json.</li>
+                    </ul>
+                </section>
+                <section>
+                    <ul>
+                        <li>json.dumps() and json.loads()</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+
+numbers = [2, 3, 5, 7, 11, 13]
+
+path = Path('numbers.json')
+contents = json.dumps(numbers)
+path.write_text(contents)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+path = Path('numbers.json')
+contents = path.read_text()
+numbers = json.loads(contents)
+
+print(numbers)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+[2, 3, 5, 7, 11, 13]
+</code></pre>
+                    </div>
+                </section>
+                <!-- <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Saving and Reading User-Generated Data</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+username = input("What is your name? ")
+
+path = Path('username.json')
+contents = json.dumps(username)
+path.write_text(contents)
+
+print(f"We'll remember you when you come back, {username}!")
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+path = Path('username.json')
+contents = path.read_text()
+username = json.loads(contents)
+
+print(f"Welcome back, {username}!")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+
+def get_stored_username(path):
+    """Get stored username if available."""
+    if path.exists():
+        contents = path.read_text()
+        username = json.loads(contents)
+        return username
+    else:
+        return None
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def get_new_username(path):
+    """Prompt for a new username."""
+    username = input("What is your name? ")
+    contents = json.dumps(username)
+    path.write_text(contents)
+    return username
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def greet_user():
+    """Greet the user by name."""
+    path = Path('username.json')
+    username = get_stored_username(path)
+    if username:
+        print(f"Welcome back, {username}!")
+    else:
+        username = get_new_username(path)
+        print(f"We'll remember you when you come back, {username}!")
+
+greet_user()
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+What is your name? Eric #First time
+We'll remember you when you come back, Eric!
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+Welcome back, Eric!
+</code></pre>
+                    </div>
+                </section> -->
+            <!-- </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">9.3 Data Reading Examples</h2>
+                </section> -->
+                <section>
+                    <h3>Reading Multiple Lines in JSON file</h3>
+                    <ul>
+                        <li><a href="https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset" target="_blank">Yelp: complete Dataset</a></li>
+                        <li><a href="yelp_sample.json" target="_blank">Yelp: sample Dataset</a></li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+path = Path('yelp_sample.json')
+contents = path.read_text()
+lines = contents.splitlines()
+yelp = []
+for line in lines:
+    yelp.append(json.loads(line))
+    
+print(len(yelp))
+print(yelp[100])
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Reading Multiple text file</h3>
+                    <ul>
+                        <li><a href="marvel.zip" target="_blank">Marvel Cinematic Universe Dialogue Dataset</a></li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+from pathlib import Path
+from textblob import TextBlob #pip install
+
+folder_path = "marvel/"
+summary = []
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for filename in os.listdir(folder_path):  #列出所有文件 
+    # 组成相对路径
+    path = Path(os.path.join(folder_path, filename))
+    contents = path.read_text(errors="ignore") #不确定文件编码但是不报错
+    lines = contents.splitlines()
+    scores = []
+
+    for line in lines:
+        line = line.strip()
+        if line:
+            # 看看这一行话的情绪是正面、负面，还是中性（+1到-1）
+            polarity = TextBlob(line).sentiment.polarity
+            scores.append(polarity) 
+    if scores:
+        average = sum(scores) / len(scores)
+        summary.append((average, filename))
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+summary.sort()
+for score, movie in summary:
+    print(movie, score)
+</code></pre>
+                    </div>
+                </section>
+            </section>
+            <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>
                     <ul>
                         <li>Functions</li>
                         <ul>
                             <li>Reading: Python for Everybody, Chapter 4</li>
-                            <li>Reading: Python Crash Course, Chapter 8</li>
+                            <li>Reading: Python Crash Course, Chapter 8, 10</li>
                         </ul>
                     </ul>
                 </section>

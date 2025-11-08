@@ -35,28 +35,30 @@
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>A string is a sequence of characters. The elements of a string are characters. Empty string ''.<b>(not' ')</b> You can access the characters one at a time with the bracket operator:</p>
+                            <p>A string is a sequence of characters. The elements of a string are characters. Empty string ''.<b>(not' ')</b> You can access the characters one at a time with the bracket operator.</p>
                         </li>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> fruit = 'banana'
->>> letter = fruit[1]
->>> print(letter)
-a
+>>> fruit[1]
+'a'
 >>> len(fruit)
 6
 </code></pre>
-                        </div>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                            </div>
+
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> fruit = 'banana'
 >>> fruit[1:3]
 'an'
 >>> fruit[3:]
 'ana'
 </code></pre>
+
                         </div>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <p><b>in</b> operator</p>
                         </li>
                         <div class="fragment">
@@ -65,10 +67,12 @@ a
 True
 >>> print('seed' in 'banana')
 False
+>>> print('ana' not in 'banana')
+False
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">
-                            <p>iteration</p>
+                            <p>Iteration</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -81,7 +85,7 @@ for char in fruit:
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p><b>Strings are immutable</b></p>
+                            <p><b>Strings are immutable (similar to Tuples)</b></p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -119,12 +123,10 @@ False
                 </section>
                 <section>
                     <h3>Methods of Strings</h3>
+                    <h4>Converting Characters: <b>.title(), .lower(), .upper()</b></h4>
                     <ul>
                         <li class="fragment">
-                            <p><b>.title(), .lower(), .upper()</b></p>
-                        </li>
-                        <li class="fragment">
-                            <p><b>String's methods do not change the original variable but return values.</b></p>
+                            <p>String's methods <b>do not</b> change the original variable but return values.</p>
                         </li>
                         <div class="fragment">
                             <div>
@@ -150,39 +152,12 @@ ada lovelace
                     </ul>
                 </section>
                 <section>
-                    <h5>Stripping Whitespace</h5>
+                    <h4>Stripping Whitespace: <b>.lstrip(), .rstrip(), .strip()</b></h4>
                     <ul>
-                        <li>To programmers 'python' and 'python ' look pretty much the same. But to a program, they are two different strings. To ensure that no whitespace exists at the right end of a string, use the rstrip() method.</li>
-                    </ul>
-                    <div>
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> favorite_language = 'python '
->>> favorite_language
-'python '
->>> favorite_language.rstrip()
-'python'
->>> favorite_language
-'python '
-</code></pre>
-                    </div>
-                    <ul>
-                        <li>However, it is only removed temporarily. To remove the whitespace from the string permanently, you have to store the stripped value back into the variable:</li>
-                    </ul>
-                </section>
-                <section>
-                    <div>
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> favorite_language = 'python '
->>> favorite_language = favorite_language.rstrip()
->>> favorite_language
-'python'
-</code></pre>
-                    </div>
-                    <ul>
-                        <li>You can also strip whitespace from the left side of a string using the lstrip() method or strip whitespace from both sides at once using strip():</li>
-                    </ul>
-                    <div>
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <li class="fragment">To programmers 'python' and 'python ' look pretty much the same. But to a program, they are two different strings. To ensure that no whitespace exists at the right end of a string, use the rstrip() method.</li>
+                        <li class="fragment">You can also strip whitespace from the left side of a string using the lstrip() method or strip whitespace from both sides at once using strip().</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> favorite_language = ' python '
 >>> favorite_language.rstrip()
 ' python'
@@ -191,17 +166,26 @@ ada lovelace
 >>> favorite_language.strip()
 'python'
 </code></pre>
-                    </div>
+                        </div>
+                        <li class="fragment">However, it is only removed temporarily. To remove the whitespace from the string permanently, you have to store the stripped value back into the variable.</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+>>> favorite_language = 'python '
+>>> favorite_language = favorite_language.rstrip()
+>>> favorite_language
+'python'
+</code></pre>
+                        </div>
+                    </ul>
                 </section>
                 <section>
-                    <h5>Parsing strings</h5>
+                    <h4>Parsing Strings: <b>.find(), split(), .isalpha(), isspace()</b></h4>
                     <ul>
                         <li class="fragment">
                             <p><b>.find()</b> searches for the position of a string in another string</p>
                         </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> word = 'banana'
 >>> index = word.find('a')
 >>> print(index)
@@ -211,9 +195,9 @@ ada lovelace
 >>> word.find('na', 3)
 4
 </code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> data = 'From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008'
 >>> atpos = data.find('@')
 >>> print(atpos)
@@ -225,42 +209,40 @@ ada lovelace
 >>> print(host)
 uct.ac.za
 </code></pre>
-                    </div>
+                        </div>
+                    </ul>
                 </section>
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p><b>.startswith()</b> returns the boolean value</p>
+                            <p><b>.split()</b> breaks a sentence into words and make a list</p>
                         </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> line = 'Have a nice day'
->>> line.startswith('h') 
-False
-
->>> line.lower()
-'have a nice day'
-
->>> line.lower().startswith('h')
-True
-</code></pre>
-                    </div>
-                    <ul>
-                        <li class="fragment">
-                            <p><b>.split()</b> break a sentence into words and make a list</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> s = 'pining for the fjords'
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> s = 'break a sentence into words'
 >>> t = s.split()
 >>> print(t)
-['pining', 'for', 'the', 'fjords']
->>> print(t[2])
-the
+['break', 'a', 'sentence', 'into', 'words']
 </code></pre>
-                    </div>
+                        </div>
+                        <li class="fragment">
+                            <p><b>.isalpha()</b> returns True if all characters in the string are alphabetic (A–Z, a–z), otherwise False.
+                            </p>
+                            <p>
+                                <b>.isspace()</b> returns True if the string only contains whitespace characters (spaces, tabs, newlines), otherwise False.</p>
+                        </li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> print("Hello".isalpha())   # True（全是字母）
+>>> print("Hello123".isalpha()) # False（包含数字）
+>>> print("你好".isalpha())     # True（支持中文等非拉丁字符）
+
+>>> print("   ".isspace())  # True（全是空格）
+>>> print("\t\n".isspace()) # True（制表符和换行符也算空白）
+>>> print("Hello".isspace()) # False（包含字母）
+</code></pre>
+                        </div>
+                    </ul>
                 </section>
                 <section>
                     <h3>Formatted String Literals</h3>
@@ -279,7 +261,7 @@ the
 I have spotted 42 camels.
 </code></pre>
                         </div>
-<!--                         <li class="fragment">
+                        <!--                         <li class="fragment">
                             <p><b>The number of elements in the tuple must match the number of format sequences in the string. The types of the elements also must match the format sequences.</b></p>
                         </li>
                         <div class="fragment">
@@ -326,54 +308,180 @@ I spotted 42 'camels'.
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> animal = 'camels'
 >>> number = 42.12345678
->>> print(f'I spotted {number:.2f} {animal}.') 
+>>> print(f'''I spotted {number:.2f} {animal}.''') 
 I spotted 42.12 camels.
-
->>> print(f'I spotted {number:.0f} {animal}.') 
+>>> print(f'''I spotted {number:.0f} {animal}.''') 
 I spotted 42 camels.
 
->>> print(f'I spotted {number:.5} {animal}.') 
+>>> print(f'''I spotted {number:.2} {animal}.''') 
+I spotted 4.2e+01 camels.
+>>> print(f'''I spotted {number:.5} {animal}.''') 
 I spotted 42.123 camels.
 
->>> print(f'I spotted {number:.2%} {animal}.') 
+>>> print(f'''I spotted {number:.2%} {animal}.''') 
 I spotted 4212.35% camels.
 </code></pre>
                         </div>
                     </ul>
                 </section>
-                <section>
+               <section>
                     <h3>String: Summary</h3>
                     <ul>
                         <li class="fragment">
                             <p>The elements of a string are characters. Empty string '' </p>
                         </li>
                         <li class="fragment">
-                            <p>Features: Ordered, Immutable, Repeatable</p>
+                            <p>Features: Ordered, Repeatable, <b>Immutable</b></p>
                         </li>
                         <li class="fragment">
-                            <p>Index and slice are the same with that of lists.</p>
+                            <p>Index and slice are the same with that of tuples.</p>
                         </li>
+<!--                         <li class="fragment">
+                            <p>in operator shows the boolean value for whether a string contains a given string. </p>
+                        </li> -->
                         <li class="fragment">
-                            <p>in operator shows the boolean value for whether a string contains a given string. You can compare two strings in Alphabetical order. </p>
+                            <p>You can compare two strings in Alphabetical order. </p>
                         </li>
-                        <li class="fragment">
-                            <p><b>.upper(), lower(), .title()</b></p>
-                        </li>
-                        <li class="fragment">
-                            <p><b>rstrip(), .lstrip(), .strip()</b></p>
-                        </li>
-                        <li class="fragment">
-                            <p><b>.find(), .startwith(), .split()</b></p>
+                        <li class="fragment">String Methods
+                            <ul>
+                                <li class="fragment">
+                                    <p><b>.upper(), lower(), .title()</b></p>
+                                </li>
+                                <li class="fragment">
+                                    <p><b>rstrip(), .lstrip(), .strip()</b></p>
+                                </li>
+                                <li class="fragment">
+                                    <p><b>.find(), .split(), .isalpha(), isspace()</b></p>
+                                </li>
+                            </ul>
                         </li>
                         <li class="fragment">
                             <p>Formatted String Literals</p>
                         </li>
                     </ul>
                 </section>
+
+                <section>
+                    <h3>Exercise</h3>
+                    <ol>
+                        写一个程序来操作下面这句话：
+<pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+My email, wang.lu@mail.shufe.edu.cn, was created on 1st Sept. 2017.
+</code></pre>
+
+
+任务要求如下：
+
+                        <li>使用 find() 方法，提取电子邮件地址中的主机部分（即 mail.shufe.edu.cn）。</li>
+                        <li>使用 find() 和 split() 方法，提取时间信息形成一个列表：
+['1st', 'Sept.', '2017']</li>
+                    </ol>
+
+                </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">5.2 成语接龙</h2>
+                    <h2 style="color: white">5.2 Sentiment Analysis (情感分析）</h2>
+                </section>
+                <section>
+                    <h3>情感分析(简化版)</h3>
+                    <div class="div-e">
+                        <p>情感分析（Sentiment Analysis），也称为情绪分析或意见挖掘，广泛用于各种行业和场景，帮助企业和个人理解文本中的情感倾向（正面、负面或中性）。以下是几个重要的应用场景：</p>
+                    </div>
+                    <ul>
+                        <li>社交媒体分析：检测品牌口碑，舆情监测</li>
+                        <li>客户反馈分析：产品评论分析，客服聊天分析</li>
+                        <li>电影音乐书籍评鉴分析：推荐算法改进，自动总结评论</li>
+                        <li>竞争对手分析：市场调研，行业趋势分析</li>
+                        <li>股票市场预测：金融新闻，社交媒体</li>
+                    </ul>
+                    
+                </section>
+                <section>
+                    <ul>
+                        <div class="div-e">
+                            <li class="fragment">1. 文本清洗：去除标点符号，转换为小写，分割单词，去除停用词。 </li>
+                            <li class="fragment">2. 情感分析：统计正面和负面词汇的数量，以判断文本的情感倾向。</li>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+text = "This movie was absolutely amazing! The story was engaging\
+ and the characters were great. However, some scenes felt unnecessary\
+ and a bit boring. Overall, I loved it!"
+</code></pre>
+                        </div>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+text = text.lower()
+# 去除标点（只保留字母和空格）
+cleaned_text = ""
+for char in text:
+    if char.isalpha() or char.isspace():
+        cleaned_text += char
+
+words = cleaned_text.split()
+
+# 去除简单的停用词（自己定义）
+stop_words = ["the", "was", "and", "a", "it", "i", "some"]
+filtered_words = []  # 创建一个空列表来存放保留的单词
+for word in words:
+    if word not in stop_words:  # 仅当单词不在停用词中时才添加
+        filtered_words.append(word)
+
+print("关键词：", filtered_words)
+</code></pre>
+                        </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 定义正面 & 负面词
+positive_words = ["amazing","great","engaging","loved"]
+negative_words = ["boring","unnecessary","bad","terrible"]
+
+# 计算正面词的数量
+pos_count = 0
+for word in filtered_words:
+    if word in positive_words:
+        pos_count += 1
+
+# 计算负面词的数量
+neg_count = 0
+for word in filtered_words:
+    if word in negative_words:
+        neg_count += 1
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 判断情感倾向
+if pos_count > neg_count:
+    sentiment = "正面"
+elif neg_count > pos_count:
+    sentiment = "负面"
+else:
+    sentiment = "中性"
+
+print("情感分析结果：", sentiment)
+print(f"（正面词: {pos_count} 个, 负面词: {neg_count} 个）")
+</code></pre>
+                    </div>
+                    </ul>
+                </section>
+                <section>
+                    <div class="div-e">
+                        <ul>
+                            <li class="fragment">早在2010年，就有学者指出，可以依靠Twitter公开信息的情感分析来预测股市的涨落，准确率高达87.6%！</li>
+                            <li class="fragment">这个简化版只用到了几个单词的集合，而专业情感分析库（如, TextBlob、VADER）通常包含上千个情感词，还能识别不同的语境。</li>
+                            <li class="fragment">在 VADER 词典中，每个单词都有情感强度评分（如 “amazing” 可能是 4.0，“good” 可能是 1.9）。本例中没有这种权重计算。</li>
+                            <li class="fragment">真实情感分析库可以处理否定词、语法结构等，如 "not bad" 可能被解析为正面，而不是简单地统计 “not” 和 “bad” 的出现次数。</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">5.3 Chinese Idiom Relay (成语接龙)</h2>
                 </section>
                 <!--
                 <section>
@@ -447,9 +555,10 @@ for x in fre:
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # 1. 加载成语词典
-filename = 'idiom_dictionary.txt'
-with open(filename, encoding="utf-8") as file_object:
-    lines = file_object.readlines() #List
+from pathlib import Path
+path = Path('idiom_dictionary.txt')
+contents = path.read_text()
+lines = contents.splitlines()
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -495,7 +604,7 @@ while enter!="q":
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">有可能找不到能够接下去的成语了，但是程序不会结束，怎么解决呢？</li>
                     </ul>
@@ -543,7 +652,7 @@ words = input("请输入要查询的成语\n")
 print(d_ex[words])
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -563,6 +672,7 @@ for line in lines:
         d_game[idiom]=pinyin_list
 </code></pre>
                     </div>
+                    </mark>
                     <!--
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
