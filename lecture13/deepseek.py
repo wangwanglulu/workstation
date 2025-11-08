@@ -10,7 +10,7 @@ Created on Wed May 17 12:58:16 2023
 
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-e4da7a6207fe4343b2db3de0de40ed57", base_url="https://api.deepseek.com")
+client = OpenAI(api_key="sk-b07aaeb3ea1b4d94916086f6d944055a", base_url="https://api.deepseek.com")
 
 response = client.chat.completions.create(
     model="deepseek-chat",
