@@ -2044,11 +2044,11 @@ from pathlib import Path
 import json
 
 path = Path('yelp_sample.json')
-contents = path.read_text()
-lines = contents.splitlines()
+contents = path.read_text()          # 读取整个文件为一个字符串
+lines = contents.splitlines()        # 按行拆分，每一行是一个独立的 JSON 对象字符串
 yelp = []
 for line in lines:
-    yelp.append(json.loads(line))
+    yelp.append(json.loads(line))    # 把每一行的 JSON 字符串解析成字典对象
     
 print(len(yelp))
 print(yelp[100])
@@ -2099,6 +2099,16 @@ for score, movie in summary:
     print(movie, score)
 </code></pre>
                     </div>
+                </section>
+
+                <section>
+                    <h3>Exercise</h3>
+<ol>
+    <li>读取《权力的游戏第一季》的所有台词，并将所有台词文字放到一个列表中。<a href="season1.json" target="_blank">下载：权力的游戏第一季台词json文件</a></li>
+    <li>分析权游第一季台词的情绪是正面、负面，还是中性（+1到-1）</li>
+</ol>
+
+                    
                 </section>
             </section>
             <section>
