@@ -24,9 +24,9 @@
         <div class="slides">
             <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                       <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 11 Data Combine and Group Operations</h3>
-                    </div>
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 11 Data Combine and Group Operations</h3>
+                </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
@@ -39,7 +39,7 @@
                 </section>
                 <section>
                     <h6>Batch Loading .csv files</h6>
-                    <div class="fragment">
+                    <!-- <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import os
 import pandas as pd
@@ -58,8 +58,38 @@ os.chdir('..') # 跳出当前文件夹
 
 # [(..., 2015), (..., 2016), (..., 2017),..., (..., 2020)]
 </code></pre>
-                    </div>
+                    </div> -->
+                    <p>你是pandas专家，文件夹路径为“/Users/wangwanglulu/Downloads/Happiness”。使用pandas导入该文件夹中的每一个csv文件，将每个文件的dataframe和文件名保存在一个容器中，文件名在后。将所有容器放在一个列表中。给代码加上注释。</p>
                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import pandas as pd
+import os
+
+folder = "/Users/wangwanglulu/Downloads/Happiness"
+
+# 用于保存所有容器的列表
+dfs = []
+
+# 遍历文件夹中的所有文件
+for filename in os.listdir(folder):
+    # 只处理 CSV 文件
+    if filename.endswith(".csv"):
+        filepath = os.path.join(folder, filename)
+        # 读取为 DataFrame
+        df = pd.read_csv(filepath)
+        # 按你的要求：容器格式 (dataframe, filename) ——文件名放在后
+        container = (df, filename)
+        # 加入列表
+        dfs.append(container)
+
+# 查看结果（可选）
+for df, name in dfs:
+    print("文件名：", name)
+    print(df.head())
+# [(..., 2015), (..., 2016), (..., 2017),..., (..., 2020)]
+</code></pre>
+                    </div>
+                    <!-- <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> df[0][0].shape
 (138, 10)
@@ -68,14 +98,14 @@ os.chdir('..') # 跳出当前文件夹
 Index(['Happiness Rank', 'Country', 'Region', 'Happiness Score', 'Economy',
        'Family', 'Health', 'Freedom', 'Trust', 'Generosity'],dtype='object')
 </code></pre>
-                    </div>
+                    </div> -->
                 </section>
                 <section>
                     <h6>Hierarchical Indexing</h6>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # 做一个WHR 2015的副本
->>> df15 = df[0][0].copy()
+>>> df15 = dfs[0][0].copy()
 >>> df15_h = df15.set_index(["Region","Country"])
 >>> df15_h.head()
                             Happiness Rank  ...  Generosity
@@ -127,7 +157,7 @@ Denmark      Western Europe               3  ...  0.48357     0.34139
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> df15_h.reset_index(1)
@@ -159,7 +189,7 @@ Western Europe      Denmark               3  ...  0.48357     0.34139
 ...
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -189,7 +219,7 @@ Length: 1380, dtype: object
 # 提取每一年的排名
 rank_list=[]
 for i in range(len(df)):
-    rank_list.append(df[i][0][['Country','Happiness Rank']].copy())
+    rank_list.append(dfs[i][0][['Country','Happiness Rank']].copy())
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -212,6 +242,7 @@ for i in range(len(df)):
                     </div>
                 </section>
                 <section>
+                    <h4>合并1: 公共列</h4>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -273,6 +304,7 @@ for i in range(len(df)):
                     </div>
                 </section>
                 <section>
+                    <h4>合并2: 多对多合并</h4>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -336,6 +368,7 @@ for i in range(len(df)):
                     </div>
                 </section>
                 <section>
+                    <h4>合并3: 缺失项</h4>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -411,7 +444,7 @@ for i in range(len(df)):
                         </div>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <p class="fragment">Merging on Index</p>
                     <div class="div-c">
                         <div class="fragment">
@@ -471,7 +504,7 @@ number
 >>> df1.join(df3)
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <p class="fragment">Concatenating</p>
                     <div class="fragment">
@@ -585,7 +618,7 @@ number
 275         Togo   16   155
 </code></pre>
                     </div>
-                    <div class="fragment">
+                    <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> m.set_index(['Year', m.index])
               Country  rank
@@ -600,7 +633,7 @@ Year
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <section> -->
                     <p class="fragment">The long format (用concat得到的数据，country重复，单列年份)</p>
                     <p class="fragment">From long to wide </p>
                     <div class="fragment">
@@ -618,7 +651,7 @@ Zambia        85  106
 Zimbabwe     115  131
 </code></pre>
                     </div>
-                    <div class="fragment">
+                    <!-- <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> l.reset_index()
 Year      Country   15   16
@@ -630,7 +663,45 @@ Year      Country   15   16
 136        Zambia   85  106
 137      Zimbabwe  115  131
 </code></pre>
-                    </div>
+                    </div> -->
+                </section>
+                <section>
+                    <h3>Summary</h3>
+                    <ul>
+                        <li>melt: 把多个列变成两列，让多个列变成“键值对”结构</li>
+                        <li>pivot_table: 数据透视表</li>
+                        <li>stack: 把列压成二级目录, 形成 MultiIndex</li>
+                        <li>unstack: stack的反向操作，把一个目录展开成列</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>长数据（long data）与宽数据（wide data）的用途</h3>
+                    <ul>
+                        <li class="fragment">长数据（long / tidy data）: 同类变量不会分布在许多列中，而是存到一列“变量名 column”里</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+name   subject   score
+A      math       80
+A      english    75
+B      math       90
+B      english    88
+</code></pre>
+                        </div>
+                        <li class="fragment">宽数据（wide data）: 每个变量单独占用一个列</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+name   math   english
+A       80      75
+B       90      88
+</code></pre>
+                        </div>
+                        <li class="fragment">适合统计建模/机器学习的是：宽数据（wide）, 许多 ML/统计模型需要：线性回归, 神经网络</li>
+                        <ul class="fragment">
+                            <li>每一列是一个特征（feature）</li>
+                            <li>每一行是一个样本（sample）</li>
+                        </ul>
+                        <li class="fragment">适合可视化与分组分析的是：长数据（long）, 绝大多数绘图工具与统计分析工具要求长数据格式: 更容易分组画折线图，散点图等等</li>
+                    </ul>
                 </section>
             </section>
             <section>
@@ -644,7 +715,7 @@ Year      Country   15   16
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 table_all =[]
 year_all=[]
-for table, year in df:
+for table, year in dfs :
     table_all.append(table)
     year_all.append(year)
 rank_all = pd.concat(table_all, keys=year_all,join='inner')
@@ -671,7 +742,7 @@ rank_all = rank_all.rename(columns={'level_0':'Year'})
                 </section>
                 <section>
                     <h6>Groupby Mechanics</h6>
-                    <div class="fragment">
+                    <!--  <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> rank_all['Region'].unique()
 array(['Western Europe', 'North America', 'Australia and New Zealand',
@@ -679,7 +750,7 @@ array(['Western Europe', 'North America', 'Australia and New Zealand',
        'Southeastern Asia', 'Central and Eastern Europe', 'Eastern Asia',
        'Sub-Saharan Africa', 'Southern Asia'], dtype=object)
 </code></pre>
-                    </div>
+                    </div> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> grouped = rank_all.groupby('Country')['Happiness Rank'].mean()
@@ -699,8 +770,8 @@ Zimbabwe       137.500000
 Name: Happiness Rank, Length: 138, dtype: float64
 </code></pre>
                     </div>
-                </section>
-                <section>
+                    <!--                 </section>
+                <section> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> g_1 = rank_all.groupby(['Year','Region'])['Happiness Rank'].count()
@@ -719,7 +790,7 @@ Western Europe                     20
 Name: Happiness Rank, dtype: int64
 </code></pre>
                     </div>
-                    <div class="fragment">
+                    <!-- <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> g_1.unstack()
 Region  Australia and New Zealand  ...  Western Europe
@@ -731,7 +802,7 @@ Year                               ...
 2019                            2  ...              20
 2020                            2  ...              20
 </code></pre>
-                    </div>
+                    </div>  -->
                 </section>
                 <section>
                     <div class="fragment">
@@ -753,8 +824,6 @@ Year                              ...
                     <p class="fragment">Selecting Columns</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> rank_all.groupby('Region')['Freedom'].mean()
-
 >>> rank_all.groupby(['Year','Region'])[['Freedom','Economy']].mean()
 </code></pre>
                     </div>
@@ -827,19 +896,13 @@ Central and Eastern Europe         168  0.423580
 Eastern Asia                        24  0.465703
 Latin America and Caribbean        120  0.518843
 Middle East and Northern Africa    102  0.406711
-North America                       12  0.613810
-Southeastern Asia                   48  0.602917
-Southern Asia                       36  0.439074
-Sub-Saharan Africa                 186  0.427333
-Western Europe                     120  0.574996
+...
 
 # rank_all.groupby('Region').agg(['count','mean'])
 # count, sum, mean, median, std, var 
 # min, max, prod, first, last
 </code></pre>
                     </div>
-                </section>
-                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> rank_all.groupby('Region').agg({'Year':'count', 'Freedom': "mean"})
@@ -850,11 +913,7 @@ Central and Eastern Europe        168  0.423580
 Eastern Asia                       24  0.465703
 Latin America and Caribbean       120  0.518843
 Middle East and Northern Africa   102  0.406711
-North America                      12  0.613810
-Southeastern Asia                  48  0.602917
-Southern Asia                      36  0.439074
-Sub-Saharan Africa                186  0.427333
-Western Europe                    120  0.574996
+...
 </code></pre>
                     </div>
                 </section>
@@ -977,6 +1036,13 @@ Latin America and Caribbean      0.854139  0.959183  ...  0.908950   9.255175
                     </div>
                 </section>
                 <section>
+                    <h3>Exercise</h3>
+                    <ul>
+                        <li>有一个 midterm.csv 文件，记录了一门课程期中考试的成绩结果。第一行是表头，之后每一行包含一位学生的姓名以及他的/她的成绩。请使用 Pandas 读取该文件，并绘制柱状图（bar chart）。这些柱子代表以下分数区间内的计数数量: [0, 60), [60, 70), [70, 80), [80, 90), [90, 100].每个柱状条的名称需要显示对应的等级（rank）: F, D, C, B, A。 请使用cut方法。 </li>
+                        <li><a href="../../cases/case_study_ug/midterm.zip">下载数据文件</a></li>
+                    </ul>
+                </section>
+                <!--                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> rank_all.pivot_table(values="Economy", columns="Year",
@@ -991,8 +1057,8 @@ Zimbabwe     0.271000  0.350410  0.375847  ...  0.366000  7.865712  9.585968
 sum          118.20839 132.42220 137.774266  ... 127.743  1289.437513  1930.569370
                         </code></pre>
                     </div>
-                </section>
-<!--                 <section>
+                </section> 
+                <section>
                     <h6>Batch Data Visualization</h6>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>

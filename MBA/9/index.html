@@ -35,8 +35,8 @@
                     <h5>Series and Dataframe</h5>
                 </section>
                 <section>
-                    <div class="rightc"><img data-src="../../MBAimg/lecture9/textbook2.png" style="height: 350pt"></div>
-                    <div class="leftc"><img data-src="../../MBAimg/lecture9/textbook1.jpg" style="height: 350pt"></div>
+                    <div class="rightc"><img data-src="../../MBAimg/lecture9/textbook2.jpg" style="height: 350pt"></div>
+                    <div class="leftc"><img data-src="../../MBAimg/lecture9/textbook1.png" style="height: 350pt"></div>
                 </section>
                 <section>
                     <ul>
@@ -78,8 +78,7 @@ RangeIndex(start=0, stop=4, step=1)
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # 以列表创建时，index长度必须匹配
->>> obj2 = pd.Series([4, 7, -5, 3], 
-...: index=['d', 'b', 'a', 'c'])
+>>> obj2 = pd.Series([4, 7, -5, 3], index=['d', 'b', 'a', 'c'])
 >>> obj2
 d    4
 b    7
@@ -149,10 +148,9 @@ dtype: int64
                 </section>
                 <section>
                     <p class="fragment">Should you have data contained in a Python dict, you can create a Series from it by passing the dict:</p>
-                    <div class="fragment">
+                    <!-- <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> sdata = {'Ohio': 35000, 'Texas': 71000, 
-...:        'Oregon': 16000, 'Utah': 5000}
+>>> sdata = {'Ohio': 35000, 'Texas': 71000, 'Oregon': 16000, 'Utah': 5000}
 >>> obj3 = pd.Series(sdata)
 >>> obj3
 Ohio      35000
@@ -162,10 +160,11 @@ Utah       5000
 dtype: int64
 </code></pre>
                     </div>
-                    <p class="fragment">When you are only passing a dict, the index in the resulting Series will have the dict's keys in sorted order. You can override this by passing the dict keys in the order you want them to appear in the resulting Series:</p>
+                    <p class="fragment">When you are only passing a dict, the index in the resulting Series will have the dict's keys in sorted order. You can override this by passing the dict keys in the order you want them to appear in the resulting Series:</p> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-#以字典创建时，可以指定index，多出来的以NaN填充（conform）
+#第二种创建方式，以字典创建，可以指定index，多出来的以NaN填充（conform）
+>>> sdata = {'Ohio': 35000, 'Texas': 71000, 'Oregon': 16000, 'Utah': 5000}
 >>> states = ['California', 'Ohio', 'Oregon', 'Texas']
 >>> obj4 = pd.Series(sdata, index=states)
 >>> obj4
@@ -176,8 +175,8 @@ Texas         71000.0
 dtype: float64
 </code></pre>
                     </div>
-                </section>
-                <section>
+                <!-- </section>
+                <section> -->
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -553,7 +552,7 @@ six    2003  Nevada  3.2   NaN    False
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-#添加行，must match, otherwise error!
+#添加单行，must match, otherwise error!
 >>> frame2.loc['seven']=[2004, 'Nevada', 3.7, -2,False]
 >>> frame2
        year   state  pop  debt  eastern
@@ -564,9 +563,10 @@ four   2001  Nevada  2.4  -1.5    False
 five   2002  Nevada  2.9  -1.7    False
 six    2003  Nevada  3.2   NaN    False
 seven  2004  Nevada  3.7  -2.0    False
+# 添加多行会用到 concat()
 </code></pre>
                     </div>
-                    <div class="fragment">
+<!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame2.append({'year':2004,'state':'Nevada','pop':
 ...: 3.7,'debt':-3,'eastern':False},ignore_index=True)
@@ -581,22 +581,19 @@ seven  2004  Nevada  3.7  -2.0    False
 6  2004  Nevada  3.7  -2.0    False
 7  2004  Nevada  3.7  -3.0    False
 # ignore_index: no duplicate index when appending several times
-# or concat()
+
 </code></pre>
-                    </div>
+                    </div> -->
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-#删除单列 (不会改变原来的表格)
+#删除单列 (不会改变原来的表格，要赋值创建新表格)
 >>> frame2.drop('eastern',axis=1)
 
 #删除多列
 >>> frame2.drop(['year','state'], axis=1)
 >>> frame2.drop(frame2.columns[[0,3]], axis=1)
-
-#删除连续列
->>> frame2.drop(frame2.columns[list(range(2))],axis=1)
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -607,9 +604,6 @@ seven  2004  Nevada  3.7  -2.0    False
 #删除多行
 >>> frame2.drop(['one','two'], axis=0)
 >>> frame2.drop(frame2.index[[0,3]], axis=0)
-
-#删除连续行
->>> frame2.drop(frame2.index[list(range(2))],axis=0)
 </code></pre>
                     </div>
                 </section>
@@ -617,11 +611,11 @@ seven  2004  Nevada  3.7  -2.0    False
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">9.2 Pandas (2)</h2>
-                    <h5>Reindex, Arithmetics, Function</h5>
+                    <h5>Forming, Reindex, Arithmetics</h5>
                 </section>
                 <section>
-                    <h4>Other ways of forming a dataframe</h4>
-                    <p>1. By dictionaries nested in a dictionary</p>
+                    <h3>Another way of forming a dataframe</h3>
+                    <!-- <p>1. By dictionaries nested in a dictionary</p> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> pop = {'Nevada': {2001: 2.4, 2002: 2.9},
@@ -650,7 +644,7 @@ seven  2004  Nevada  3.7  -2.0    False
 2003     NaN   NaN
 </code></pre>
                     </div>
-                </section>
+<!--                 </section>
                 <section>
                     <p>2. By lists nested in a list</p>
                     <div class="fragment">
@@ -664,7 +658,7 @@ seven  2004  Nevada  3.7  -2.0    False
 2002     2.9   3.6
 2003     NaN   NaN
 </code></pre>
-                    </div>
+                    </div> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame3.index.name = 'year' 
@@ -674,19 +668,12 @@ state  Nevada  Ohio
 year               
 2001      2.4   1.7
 2002      2.9   3.6
-2003      NaN   NaN
-
-# 转置transpose
->>> frame3.T
-year    2001  2002  2003
-state                   
-Nevada   2.4   2.9   NaN
-Ohio     1.7   3.6   NaN
+2003      NaN   NaN 
 </code></pre>
                     </div>
                 </section>
                 <section>
-                    <h5>Reindexing (conform)</h5>
+                    <h3>Reindexing (conform)</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame4 = frame3.reindex([2001,2003,2005],fill_value=0)
@@ -719,8 +706,34 @@ year
 </code></pre>
                     </div>
                 </section>
+                 <section>
+                    <h3>Summary</h3>
+                    <h4>创建</h4>
+                    <ul>
+                        <li>Series</li>
+                        <ul>
+                            <li>以列表创建，index (match)</li>
+                            <li>以字典创建，index (conform)</li>
+                        </ul>
+                        <li>DataFrame</li>
+                        <ul>
+                            <li>以字典+列表创建，columns (conform), index (match)</li>
+                            <li>以字典+字典创建，columns, index (conform)</li>
+                            <!-- <li>以列表+列表创建，columns, index (match)</li> -->
+                        </ul>
+                    </ul>
+                    <h3></h3>
+                    <h4>修改行和列的编号</h4>
+                    <ul>
+                        <li>df.index = [...] 暴力修改 (match)</li>
+                        <li>df.columns = [...] 暴力修改 (match)</li>
+                        <li>.reindex([...]) 指定index (conform)</li>
+                        <li>.reindex(columns=[...]) 指定columns (conform)</li>
+                    </ul>
+                </section>
+            
                 <section>
-                    <h5>Operations between Series</h5>
+                    <h3>Operations between Series</h3>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -745,7 +758,7 @@ dtype: float64
 </code></pre>
                         </div>
                     </div>
-                    <p class="fragment">It automatically aligns by index label in arithmetic operations:</p>
+<!--                     <p class="fragment">It automatically aligns by index label in arithmetic operations:</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> obj3 + obj4
@@ -759,11 +772,11 @@ dtype: float64
                     </div>
                 </section>
                 <section>
-                    <p class="fragment">Arithmetic Methods</p>
+                    <p class="fragment">Arithmetic Methods</p> -->
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> obj3.add(obj4)
+>>> obj3.add(obj4) # obj3 + obj4
 California         NaN
 Ohio           70000.0
 Oregon         32000.0
@@ -796,7 +809,7 @@ dtype: float64
                     </div>
                 </section>
                 <section>
-                    <h5>Operations between DataFrames</h5>
+                    <h3>Operations between DataFrames</h3>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -847,7 +860,7 @@ dtype: float64
                     </div>
                 </section>
                 <section>
-                    <h5>Operations between DataFrame and Series</h5>
+                    <h3>Operations between DataFrame and Series</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame6 = pd.DataFrame([[2.4,1.7],[2.9,3.6],[2.1,2.5]],
@@ -906,30 +919,7 @@ Name: Ohio, dtype: float64
                         </div>
                     </div>
                 </section>
-                <section>
-                    <h3>Create</h3>
-                    <ul>
-                        <li>Series</li>
-                        <ul>
-                            <li>以列表创建，index (match)</li>
-                            <li>以字典创建，index (conform)</li>
-                        </ul>
-                        <li>DataFrame</li>
-                        <ul>
-                            <li>以字典+列表创建，columns (conform), index (match)</li>
-                            <li>以字典+字典创建，columns, index (conform)</li>
-                            <li>以列表+列表创建，columns, index (match)</li>
-                        </ul>
-                    </ul>
-                    <h3>Modify</h3>
-                    <ul>
-                        <li>df.index = [...] 暴力修改 (match)</li>
-                        <li>df.columns = [...] 暴力修改 (match)</li>
-                        <li>.reindex([...]) 指定index (conform)</li>
-                        <li>.reindex(columns=[...]) 指定columns (conform)</li>
-                    </ul>
-                </section>
-            </section>
+               </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
                     <h2 style="color: white">Summary</h2>

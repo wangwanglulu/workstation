@@ -24,11 +24,10 @@
         <div class="slides">
             <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
-                       <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 10 Data Organization and Visualization</h3>
-                    </div>
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 10 Data Organization and Visualization</h3>
+                </div>
             </section>
-            
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">10.1 Pandas (3)</h2>
@@ -41,7 +40,7 @@
                     More than 300,000 kickstarter projects.
                 </section>
                 <section>
-                    <h5>Loading .csv file</h5>
+                    <h3>Loading .csv file</h3>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 df = pd.read_csv("ks-projects-201801.csv")
@@ -66,6 +65,7 @@ df = pd.read_csv(file_path) # Windows
                     </div>
                 </section>
                 <section>
+                    <h4>Basic Information</h4>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df.shape
@@ -95,8 +95,23 @@ memory usage: 43.3+ MB
                     </div>
                 </section>
                 <section>
-                    <p>Filtering with boolean array</p>
+                    <p class="fragment">Basic Data Description</p>
                     <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> df_us[['backers','goal','pledged']].describe()
+             backers          goal       pledged
+count  292627.000000  2.926270e+05  2.926270e+05
+mean      113.078615  4.403497e+04  9.670193e+03
+std       985.723400  1.108372e+06  9.932942e+04
+min         0.000000  1.000000e-02  0.000000e+00
+25%         2.000000  2.000000e+03  4.100000e+01
+50%        14.000000  5.250000e+03  7.250000e+02
+75%        60.000000  1.500000e+04  4.370000e+03
+max    219382.000000  1.000000e+08  2.033899e+07
+</code></pre>
+                    </div>
+                    <h4 class="fragment">Filtering with boolean array</h4>
+                    <!--                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 #查看第一行
 >>> df.iloc[1,:]
@@ -117,7 +132,7 @@ usd_pledged_real                                             2421
 usd_goal_real                                               30000
 Name: 1, dtype: object
 </code></pre>
-                    </div>
+                    </div> -->
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 #根据条件筛选特定行:美国本土项目，筹资金额大于等于30000美刀
@@ -127,38 +142,21 @@ Name: 1, dtype: object
 #[43312 rows x 15 columns]
 </code></pre>
                     </div>
-                </section>
-                <section>
-                    <p class="fragment">Basic Data Description</p>
-                    <div class="fragment">
-                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
->>> df_us[['backers','goal','pledged']].describe()
-             backers          goal       pledged
-count  292627.000000  2.926270e+05  2.926270e+05
-mean      113.078615  4.403497e+04  9.670193e+03
-std       985.723400  1.108372e+06  9.932942e+04
-min         0.000000  1.000000e-02  0.000000e+00
-25%         2.000000  2.000000e+03  4.100000e+01
-50%        14.000000  5.250000e+03  7.250000e+02
-75%        60.000000  1.500000e+04  4.370000e+03
-max    219382.000000  1.000000e+08  2.033899e+07
-</code></pre>
-                    </div>
-                    <p class="fragment">Arithmetics (+,-,/,//,*,**)</p>
+                    <h4 class="fragment">Arithmetics</h4>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df_us['percentage'] = df_us['pledged']/df_us['goal']
 </code></pre>
                     </div>
-                                        <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 #去掉warning
-df_us.copy().loc[:,'percentage'] = df_us['pledged']/df_us['goal']
+>>> df_us.copy().loc[:,'percentage'] = df_us['pledged']/df_us['goal']
 </code></pre>
                     </div>
                 </section>
                 <section>
-                    <h6>Sorting and Ranking</h6>
+                    <h4>Sorting and Ranking</h4>
                     <p class="fragment">When sorting a DataFrame, you can use the data in one or more columns as the sort keys. To do so, pass one or more column names to the <b>by</b> option of sort_values.</p>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -186,7 +184,7 @@ df_us.copy().loc[:,'percentage'] = df_us['pledged']/df_us['goal']
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df_s=pd.DataFrame({'sales':[100,200,300,200]})
@@ -246,9 +244,9 @@ df_us.copy().loc[:,'percentage'] = df_us['pledged']/df_us['goal']
 </code></pre>
                         </div>
                     </div>
-                </section>
+                </section> -->
                 <section>
-                    <h6>Counting</h6>
+                    <h4>Counting</h4>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -297,17 +295,17 @@ Name: main_category, dtype: float64
 </code></pre>
                         </div>
                     </div>
-                    <h6 class="fragment">Searching</h6>
+                    <!--                     <h4 class="fragment">Searching</h4>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df_us['main_category'].isin(['Music','Games'])
 >>> df_us[df_us['main_category'].isin(['Music','Games'])==True]
 </code></pre>
-                    </div>
+                    </div> -->
                 </section>
                 <section>
-                    <h6>Time</h6>
-                    <div class="fragment">
+                    <h4>Time</h4>
+                    <!-- <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 from datetime import datetime
 </code></pre>
@@ -383,9 +381,16 @@ datetime.datetime(2017, 9, 2, 4, 43, 57)
 >>> stamp_0
 Timestamp('2017-09-02 04:43:57')
 </code></pre>
+                    </div> -->
+                    <div class="fragment">
+                        <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> stamp_0 =pd.to_datetime('2017-09-02 04:43:57')
+>>> stamp_0
+Timestamp('2017-09-02 04:43:57')
+</code></pre>
                     </div>
-                </section>
-                <section>
+                    <!--          </section>
+                <section> -->
                     <p class="fragment">Calculating the time period</p>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -412,6 +417,7 @@ Name: period, Length: 292627, dtype: timedelta64[ns]
                     <p class="fragment">Converting the time to numbers</p>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+>>> from datetime import timedelta
 >>> df_us['period_num'] = df_us['period']/timedelta(1)
 >>> df_us['period_num']
 1         59.802813
@@ -428,30 +434,17 @@ Name: period, Length: 292627, dtype: timedelta64[ns]
 Name: period_num, Length: 292627, dtype: float64
 </code></pre>
                     </div>
-                </section>
-                <section>
+                    <!--                 </section>
+                <section> -->
                     <p class="fragment">Filtering by date</p>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df_us[(df_us['launched_time']>='20150101')]
 >>> df_us[(df_us['launched_time']>='20150101')& (df_us['launched_time']<='20151231')]
-                ID  ... period_num
-4       1000011046  ...  55.642326
-15      1000064368  ...  29.909109
-17      1000068480  ...  29.110486
-38      1000134913  ...  34.092025
-49      1000197321  ...  40.050185
-           ...  ...        ...
-378600   999687927  ...  59.057986
-378616    99977040  ...  29.821157
-378635    99987261  ...  29.057477
-378639   999884445  ...  29.455394
-378644   999934908  ...  21.685255
-[53467 rows x 19 columns]
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <p class="fragment">Index by Timestamps</p>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -472,20 +465,20 @@ launched_time                    ...
 2011-07-19 09:07:47   999988282  ...  27.619595
 [292627 rows x 19 columns]
 </code></pre>
-                    </div>
-<!--  <div class="fragment">
+                    </div> -->
+                <!--  <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 # 对比暴力修改
 # df_us.rename(columns={'原始名'：'新名'}, index={'原始名'：'新名'})
 </code></pre>
 </div> -->
-                    <div class="fragment">
+                <!-- <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 >>> df_ustime.loc['20170902'] # index重复
 >>> df_ustime.loc['20170902':'20170930']
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <p>Summarizing and Computing</p>
                     <div class="div-c">
@@ -532,9 +525,9 @@ launched_time                    ...
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!--                 <section>
                     <div><img data-src="../../MBAimg/lecture10/3.png" style="height: 500pt"></div>
-                </section>
+                </section> -->
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
@@ -547,7 +540,7 @@ launched_time                    ...
                             <p><a href="https://matplotlib.org/">The matplotlib Gallery</a></p>
                         </li>
                     </ul>
-                    <h5 class="fragment">Successful and Failed</h5>
+                    <!--                     <h5 class="fragment">Successful and Failed</h5>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 import pandas as pd
@@ -559,8 +552,8 @@ print(df_state)
 df_state_r=df_state['failed':'canceled']
 df_state_r['others']=df_state['undefined':].sum()
 </code></pre>
-                    </div>
-                    <div class="fragment">
+                    </div> -->
+                    <!--                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 explode=[0.05,0,0,0]
 plt.pie(df_state_r.values, labels=df_state_r.index,\
@@ -572,8 +565,8 @@ plt.savefig('state.jpg',dpi=300)
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/state.jpg" style="height: 400pt"></div>
-                </section>
-                <section>
+                </section> -->
+                    <!-- <section>
                     <h5>Category</h5>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
@@ -593,13 +586,13 @@ plt.pie(df_category_r.values, labels=df_category_r.index,\
 plt.title("Category", loc='center')
 plt.savefig('category.jpg',dpi=300)
 </code></pre>
-                    </div>
-                </section>
+                    </div>                 
+                    </section>
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/category.jpg" style="height: 400pt"></div>
                 </section>
-                <section>
-                    <h5>Pledged</h5>
+                <section> 
+                    <h5>Pledged</h5>-->
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
 import pandas as pd
@@ -611,11 +604,12 @@ df_pledged = df.sort_values(by='pledged',ascending=False).head(100)
                     </div>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
+fig, ax= plt.subplots()
 plt.style.use('ggplot')
-plt.plot(df_pledged['pledged'].values)
-plt.title("Pledged", loc='center')
-plt.xlabel("Top 100 projects", fontsize=10)
-plt.ylabel("Amount", fontsize=10)
+ax.plot(df_pledged['pledged'].values)
+ax.set_title("Pledged", loc='center')
+ax.set_xlabel("Top 100 projects", fontsize=10)
+ax.set_ylabel("Amount", fontsize=10)
 plt.savefig('pledged.jpg',dpi=300)
 </code></pre>
                     </div>
@@ -676,10 +670,11 @@ for y in range(2010,2018):
                     </div>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
-plt.bar(df_year,df_year_count)
-plt.title("2010-2017 Projects", loc='center')
-plt.xlabel("Year", fontsize=10)
-plt.ylabel("Amount", fontsize=10)
+fig, ax= plt.subplots()
+ax.bar(df_year,df_year_count)
+ax.set_title("2010-2017 Projects", loc='center')
+ax.set_xlabel("Year", fontsize=10)
+ax.set_ylabel("Amount", fontsize=10)
 plt.savefig('year.jpg',dpi=300)
 </code></pre>
                     </div>
@@ -705,11 +700,12 @@ for y in range(2010,2018):
                     </div>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
-plt.bar(df_year,df_year_count, label='total')
-plt.bar(df_year,df_year_s,label='successful')
-plt.title("2010-2017 Projects", loc='center')
-plt.xlabel("Year", fontsize=10)
-plt.ylabel("Amount", fontsize=10)
+fig, ax= plt.subplots()
+ax.bar(df_year,df_year_count, label='total')
+ax.bar(df_year,df_year_s,label='successful')
+ax.set_title("2010-2017 Projects", loc='center')
+ax.set_xlabel("Year", fontsize=10)
+ax.set_ylabel("Amount", fontsize=10)
 plt.legend(loc="upper left")
 plt.savefig('year_percentage.jpg',dpi=300)
 </code></pre>
@@ -759,7 +755,7 @@ plt.savefig('cp.jpg',dpi=300, bbox_inches='tight')
                     <div class="fragment"><img data-src="../../MBAimg/lecture10/cp.jpg" style="height: 400pt"></div>
                 </section> -->
                 <section>
-                    <h5>Descriptive Analysis (unofficial)</h5>
+                    <!-- <h5>Descriptive Analysis (unofficial)</h5>
                     <ul>
                         <li>For each column,</li>
                         <ul>
@@ -770,7 +766,139 @@ plt.savefig('cp.jpg',dpi=300, bbox_inches='tight')
                         <li>time, location, subject (people, country, firms, etc.)</li>
                         <li>Calculation: mean, variance, max, min, range, etc.</li>
                         <li>Calculation: multiple columns</li>
+                    </ul> -->
+                    <h3>数据可视化的系统原则</h3>
+                    <h4>核心目的：用最少的图形元素传达最多的信息</h4>
+                    <ul>
+                        <li>尽量减少多余的装饰元素；</li>
+                        <li>信息表达要清晰、准确；</li>
+                        <li>避免误导读者对数据的理解。</li>
                     </ul>
+                </section>
+                <section>
+                    <h3>通用可视化方法论</h3>
+                    <h4>先问自己：这幅图想回答什么问题？</h4>
+                    <ul>
+                        <li><strong>比较（Comparison）: 条形图（bar chart）</strong>：谁大谁小？差多少？</li>
+                        <li><strong>趋势（Trend）: 折线图（line chart）</strong>：随时间如何变化？</li>
+                        <li><strong>分布（Distribution）: 直方图（histogram）</strong>：集中在哪？有没有极端值？</li>
+                        <li><strong>构成（Composition）: 堆叠条形图（stacked bar chart）</strong>：整体由哪些部分组成？占比如何？</li>
+                        <li><strong>关系（Relationship）: 散点图（scatter plot）</strong>：两个或多个变量之间的相关性如何？</li>
+                    </ul>
+                    <!-- <p><strong>专业共识：</strong>饼图（pie chart）能不用就尽量不用，特别是类别大于 3、差异较小或需要精确比较时。</p> -->
+                </section>
+                <section>
+                    <h3>注意事项</h3>
+                    <ol>
+                        <li>避免 3D 图表；</li>
+                        <li>饼图能不用就不用，特别是类别大于 3、差异较小或需要精确比较时；</li>
+                        <li>颜色不要超过 5 种，且有明确含义；</li>
+                        <li>图标题写“结论”，而不是写“图的类型”；</li>
+                        <!-- <li>图例尽量靠近数据，或直接用标签代替图例；</li> -->
+                        <li>不要随意截断 y 轴，防止夸大差异；</li>
+                        <li>避免过长、过密的标签，必要时做聚合或缩写；</li>
+                        <li>优先使用“小多图”（small multiples）而不是一张拥挤的大图；</li>
+                        <li>必要时用文字注释（annotation），帮助读者抓住关键信息。</li>
+                    </ol>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">10.3 AI辅助编程</h2>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/copilot.png" style="height: 150pt"></div>
+                    <h3 class="fragment"><a href="https://github.com/features/copilot">GitHub Copilot官网</a></h3>
+                    <p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated DevelopmentEnvironment,IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p>
+                </section>
+                <section>
+                    <h4>1. 安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a>（VScode是什么？常用IDE有哪些？）</h4>
+                    <h4></h4>
+                    <h4>2. 注册GitHub账户；3. 在VScode里面安装GitHub Copilot插件</h4>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture10/vscode.png" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <h3>功能介绍</h3>
+                    <p class="fragment">1. 自动补全注释（按Tab键）</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 编写一个程序，读取文件夹中的文件
+</code></pre>
+                    </div>
+                    <p class="fragment">2. 根据函数名自动生成代码（按Tab键）</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+def bubblesort()
+</code></pre>
+                    </div>
+                    <p class="fragment">3. 生成测试用例（在bubblesort函数下方输入）</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#测试bubblesort函数
+</code></pre>
+                    </div>
+                    <p class="fragment">4. 逐步代码生成</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#定义5个列表变量，每个列表包含2到10个元素
+#将5个列表合并，再调用bubblesort函数对列表排序
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">5. 自动生成语句架构</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for i
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+-if
+</code></pre>
+                    </div>
+                    <p class="fragment">6. 生成多个候选解决方案</p>
+                    <p class="fragment">如果使用Tab键生成解决方案，那么对于一些复杂的代码，可能需要一行一行地生成（需
+                        要不断地按Enter 键和Tab 键），比较麻烦。GitHub Copilot 提供了生成多个候选解决方案的功能，具体的做法就是在注释中按 Ctrl + Enter
+                        组合键，这将显示一个新的选项卡，默认会自动生成10个解决方案。<b>(有时候还不如直接ChatGPT或者Deepseek)</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#用Flask实现一个服务端程序，只支持GET请求，请求的参数是一个字符串，返回一个字符串。
+</code></pre>
+                    </div>
+                    <p class="fragment">7. 检查代码漏洞</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 检查上面的代码是否有漏洞
+</code></pre>
+                    </div>
+                    <h3 class="fragment">一句话就是：写注释，然后enter和tab来回的按。</h3>
+                    <h3 class="fragment"><a href="https://codegeex.cn/">GitHub Copilot的免费平替CodeGeeX</a></h3>
+                </section>
+                <section>
+                    <h3 class="fragment">提示词的编写技巧</h3>
+                    <ul class="fragment">
+                        <li>给ChatGPT指定一个角色：第一句“你是pandas专家”</li>
+                        <li>交代背景：给出文件的路径，以及文件中变量的名称，行列信息</li>
+                        <li>说明问题：解决什么问题，必要时说明用什么方法解决，以及指定输出内容，形式和格式</li>
+                        <li>必要时给出示例：帮助ChatGPT理解意图</li>
+                    </ul>
+                    <h2></h2>
+                    <h3 class="fragment">注意事项</h3>
+                    <ul class="fragment">
+                        <li>提倡用短句，用专用词指定对象，避免使用“它”和“前面”等词</li>
+                        <li>明确指定输出内容，可以是全部数据，也可以是一部分</li>
+                        <li>指定输出的数据格式，输出文件的路径和名称，甚至编码</li>
+                       
+                    </ul>
+                </section>
+                <section>
+                    <h3>Example</h3>
+                    <p>你是pandas专家，文件路径为“/Users/wangwanglulu/ks-projects-201801.csv”。使用pandas导入该文件，根据launched和deadline两列来计算每一个项目的时间跨度，将时间跨度数据作为列添加到原数据中。然后，计算2010年-2018年的项目时间跨度平均值，并绘制横坐标为年份的折线图。最后，保存增加了时间跨度这一列的数据到新的csv文件，并保存图片到jpg文件dpi为300。为代码添加注释。</p>
+                    <a href="example.ipynb">下载ChatGPT生成的代码</a>
+                    <h2></h2>
+                    <p class="fragment"><b>Exercise</b>：请根据main_category列，计算每一种类型的百分占比，并绘制柱状图。</p>
+                    
                 </section>
             </section>
             <section>
