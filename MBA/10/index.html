@@ -417,8 +417,7 @@ Name: period, Length: 292627, dtype: timedelta64[ns]
                     <p class="fragment">Converting the time to numbers</p>
                     <div class="fragment">
                         <pre><code class="Python-language" data-line-numbers data-trim contenteditable>
->>> from datetime import timedelta
->>> df_us['period_num'] = df_us['period']/timedelta(1)
+>>> df_us['period_num'] = df_us['period'].dt.days
 >>> df_us['period_num']
 1         59.802813
 2         44.985532
