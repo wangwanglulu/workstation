@@ -30,38 +30,17 @@
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">13.1 Json and API</h2>
+                    <h2 style="color: white">13.1 Web API</h2>
                 </section>
                 <section>
-                    <h6>Write and Load</h6>
-                    <div class="div-c">
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
-
-numbers = [2, 3, 5, 7, 11, 13]
-filename = 'numbers.json'
-with open(filename, 'w') as f_obj:
-    json.dump(numbers, f_obj)
-</code></pre>
-                        </div>
-                    </div>
-                    <div class="div-d">
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-import json
-
-filename = 'numbers.json'
-with open(filename) as f_obj:
-    numbers = json.load(f_obj)
-print(numbers)
-</code></pre>
-                        </div>
-                    </div>
-                    <p class="fragment">JSON can't store every kind of Python value. It can contain values of only the following data types: strings, integers, floats, Booleans, lists, dictionaries, and NoneType. JSON cannot represent Python-specific objects, such as File objects, CSV Reader or Writer objects.</p>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/api.png" style="height: 400pt"></div>
                 </section>
                 <section>
-                    <h6 class="fragment">Web API</h6>
+                    <h3 class="fragment">Weather Data</h3>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture13/iphone.png" style="height: 300pt"></div>
+                    <h3 class="fragment"><a href="https://data.cma.cn/">中国气象台大数据接口</a></h3>
+                </section>
+                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
@@ -79,14 +58,116 @@ ff = f['forecast']
 ff_today = ff[0]
 ff_1 = ff[1]
 ff_2 = ff[2]
-
+ 
 def show(day):
     for x in day:
         print(x+': '+str(day[x]))
-    print('\n')
+    print()
 show(ff_today)
 show(ff_1)
 show(ff_2)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="fragment"><a href="https://platform.deepseek.com/">Deepseek API开放平台</a></h3>
+                    <h4 class="fragment"><a href="https://api-docs.deepseek.com/zh-cn/">API说明文档</a></h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# Please install OpenAI SDK first: `pip3 install openai`
+from openai import OpenAI
+
+client = OpenAI(api_key="<mark>your api_key</mark>", base_url="https://api.deepseek.com")
+
+response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant"},
+        {"role": "user", "content": "鲁迅暴打周树人"},
+    ],
+    stream=False
+)
+
+print(response.choices[0].message.content)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="https://nextgen.group/hubfs/github_PNG65.png" style="height: 100pt"></div>
+
+<div class="fragment">
+    <p>GitHub 是一个基于 Git 版本控制系统 的 代码托管平台，由 GitHub 公司（现为 Microsoft 子公司）于 2008 年推出。它是全球最受欢迎的开源协作平台，广泛应用于软件开发、版本管理、团队协作和项目发布。<a href="https://github.com">GitHub官网地址：https://github.com</a>, <a href="https://blog.csdn.net/black_sneak/article/details/139600633">Github教程</a></p>
+<!-- <ul class="fragment">👩‍💻适用人群
+    <li>开发者：托管代码、开源项目、构建团队协作流程</li>
+    <li>学生：学习编程、参与开源项目、积累实践经验</li>
+    <li>教师：共享教学代码、布置项目作业</li>
+    <li>企业/组织：进行私有项目开发、部署自动化流程</li>
+</ul></div> -->
+                    <h4>Github的API接口（关于Python的项目）</h4>
+                    <p><a href="https://api.github.com/search/repositories?q=language:python&sort=stars">https://api.github.com/search/repositories?q=language:python&sort=stars</a></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import requests
+
+url = 'https://api.github.com/search/\
+repositories?q=language:python&sort=stars'
+r = requests.get(url)
+print("Status code:", r.status_code)
+response_dict = r.json() 
+
+for keys in response_dict.keys():
+    print(keys)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Status code: 200
+total_count
+incomplete_results
+items
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li>Working with the Response Dictionary</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+print("Total repositories:", response_dict['total_count'])
+repo_dicts = response_dict['items']
+print("Repositories returned:", len(repo_dicts))
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Total repositories: 20566130
+Repositories returned: 30
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+repo_dict = repo_dicts[0]
+print("\nSelected information about first repository:")
+print('Name:', repo_dict['name'])
+print('Owner:', repo_dict['owner']['login'])
+print('Stars:', repo_dict['stargazers_count'])
+print('Repository:', repo_dict['html_url'])
+print('Created:', repo_dict['created_at'])
+print('Updated:', repo_dict['updated_at'])
+print('Description:', repo_dict['description'])
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable data-noescape>
+Selected information about first repository:
+Name: public-apis
+Owner: public-apis
+Stars: 339656
+Repository: https://github.com/public-apis/public-apis
+Created: 2016-03-20T23:49:42Z
+Updated: 2025-05-16T06:51:23Z
+Description: A collective list of free APIs
 </code></pre>
                     </div>
                 </section>
@@ -228,10 +309,8 @@ plt.savefig('GR.jpg',dpi=300)
                     <div class="fragment"><img data-src='../../MBAimg/lecture13/GR.jpg' style="height: 500pt"></div>
                 </section>-->
                                <section>
-                                <h6>Where to find Web API?</h6>
-                    <h5 class="fragment"><a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, 量化投资平台</h5>
-
-                    <a href="https://developer.themoviedb.org/docs/">TMDB-API</a>
+                                <h3>Where to find Web Api? <a href="https://github.com/toddmotto/public-apis">Public APIs</a>, <a href="https://www.juhe.cn/">聚合数据</a>, <a href="https://developer.imdb.com/documentation/api-documentation/getting-access/?ref_=side_nav">IMDB-API</a></h3>
+                    <h3><a href="https://developer.themoviedb.org/docs/">TMDB-API</a>, <a href="https://www.omdbapi.com/">OMDB-API</a></h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 import requests
@@ -387,6 +466,71 @@ for movie in top10:
 </code></pre>
                     </div>
                 </section>
+                <section>
+                    <h3 class="fragment">量化投资</h3>
+                    <h3 class="fragment"><a href="https://tushare.pro/">Tushare</a>, <a href="https://www.joinquant.com/">JoinQuant</a>, <a href="https://akshare.akfamily.xyz/introduction.html">AKshare</a></h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import akshare as ak
+
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="600519", period="daily",\
+start_date="20170301", end_date='20240528', adjust="")
+print(stock_zh_a_hist_df)
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">symbol为股票代码，adjust为是否复权</li>
+                        <li class="fragment">生成的格式为pandas包中的DataFrame格式</li>
+                        <li class="fragment">“贵州茅台”收盘价绘图（2017-2024）</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+from datetime import datetime
+ 
+fig, ax = plt.subplots()
+ax.plot(stock_zh_a_hist_df["日期"],stock_zh_a_hist_df["收盘"], linewidth=0.5)
+ax.scatter(stock_zh_a_hist_df["日期"],stock_zh_a_hist_df["收盘"], s=5)
+fig.autofmt_xdate()
+plt.savefig('maotai.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src='maotai.jpg' style="height: 450pt"></div>
+                </section>
+                <section>
+                    <h3>Example</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+import pandas as pd
+
+# 电影名称
+title = "Inception"
+url = f"https://www.omdbapi.com/?t={title}&apikey=YOUR_API_KEY"
+
+# 发起 GET 请求
+response = requests.get(url)
+data = response.json()
+print(data)   
+
+# 选取想要的字段
+movie_info = {
+    "Title": data.get("Title"),
+    "Year": data.get("Year"),
+    "Runtime": data.get("Runtime"),
+    "Genre": data.get("Genre"),
+    "Director": data.get("Director"),
+    "imdbRating": data.get("imdbRating"),
+    "Plot": data.get("Plot")
+}
+# 映射到 DataFrame（适合进一步分析）
+df = pd.DataFrame([movie_info])
+print(df)
+</code></pre>
+                    </div>
+                </section>
             </section>
             </section>
             <section>
@@ -499,10 +643,9 @@ div > p{
                     <h5>其他相关概念</h5>
                     <ul>
                         <li>静态网页和动态网页</li>
-                        <li>Ajax渲染</li>
                         <li>Cookies, Session</li>
                         <li>Proxy server</li>
-                        <li>分布式爬虫 (Scrapy)</li>
+                        <li>爬虫框架 (Scrapy)</li>
                     </ul>
                     </div>
                 </section>

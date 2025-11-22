@@ -33,11 +33,38 @@
                     <h2 style="color: white">14.1 Scraping Examples</h2>
                 </section>
                 <section>
-                    <a href="https://www.smzdm.com/">什么值得买 (smzdm)</a>
-                    <div class="fragment"><img data-src='../../MBAimg/lecture14/smzdm.png' style="height: 300pt"></div>
-                </section>
+                    <h4>网络爬虫的合规与合法使用: </h4>
+                    <!-- <div class="fragment"><img data-src='../../MBAimg/lecture14/smzdm.png' style="height: 150pt"></div> -->
+                    <ul>
+                        <li class="fragment">网络爬虫的合规与合法使用</li>
+                        <li class="fragment">未授权抓取可能触犯法律（如反不正当竞争法、计算机安全相关条款）</li>
+                        <li class="fragment">可能导致：账号封禁、IP 封锁、法律风险</li>
+                        <li class="fragment">企业、学校、研究机构都有 安全与伦理要求</li>
+                    </ul>
+                    <h4></h4>
+                    <h4 class="fragment">违规或高风险行为</h4>
+                    <ul>
+                        <li class="fragment">绕过登录、验证码、滑块、人机验证</li>
+                        <li class="fragment">绕过加密、混淆、JS 探测等机制</li>
+                        <li class="fragment">大规模、高频率抓取</li>
+                        <li class="fragment">收集非公开数据或私人信息</li>
+                        <li class="fragment">未经允许用爬虫下载整站内容（如影视、文档）</li>
+                        <li class="fragment"><a href="https://www.smzdm.com/">案例：什么值得买 (smzdm)</a></li>
+                    </ul>
+                    <p></p>                </section>
+                    <section>
+                        <h4>爬虫礼仪</h4>
+                        <ul>
+                            <li class="fragment">尊重网站的 robots.txt</li>
+                            <li class="fragment">添加合理的 HTTP 请求头: 如 User-Agent，表示正常来源</li>
+                            <li class="fragment">降低并发，不给服务器造成压力</li>
+                            <li class="fragment">不要伪造登录态、不冒充浏览器指纹</li>
+                            <li class="fragment">只抓取必要数据，不下载整个站点</li>
+                        </ul>
+                    </section>
                 <section>
-                    <h6 class="fragment">Requests: Single Page</h6>
+                     <div class="fragment"><img data-src='../../MBAimg/lecture14/logo.svg' style="height: 50pt"></div>
+                    <h6 class="fragment"><a href="hhttps://www.gwdang.com/">购物党网址</a> Requests: Single Page</h6>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
@@ -47,40 +74,38 @@ headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
         AppleWebKit/537.36 (KHTML, like Gecko) \
         Chrome/70.0.3538.25 \
         Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
-params ={"p":1,
-       "past_num":20}
-r=requests.get("https://www.smzdm.com/homepage/json_more", \
+params ={"format": "json","page":1, "ps":20, "class": "all"}
+r=requests.get("https://www.gwdang.com/api/promotion_discount?", \
                 params=params, headers=headers)
 x=r.json()
-data= x['data'] 
+data = x['list']
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-title=[]; price=[]; date=[]; category=[]; atype=[]; mall=[]
+site_name=[]; title=[]; price_info=[]; org_price=[]; update_time=[]; keyword=[]
 for i in range(len(data)):
-    if 'article_price' in data[i]:
-        atype.append(data[i]['article_type'])   
-        title.append(data[i]['article_title'])
-        price.append(data[i]['article_price'])
-        date.append(data[i]['article_date'])
-        category.append(data[i]['top_category'])
-        mall.append(data[i]['article_mall'])
+    site_name.append(data[i]['site_name'])   
+    title.append(data[i]['title'])
+    price_info.append(data[i]['price_info'])
+    org_price.append(data[i]['org_price'])
+    update_time.append(data[i]['update_time'])
+    keyword.append(data[i]['keyword'])
 </code></pre>
                     </div>
                 </section>
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-ex_data=pd.DataFrame()
-ex_data['article_title']=title
-ex_data['article_price']=price
-ex_data['article_date']=date
-ex_data['top_category']=category
-ex_data['article_mall']=mall
-print(atype)
-print(title)
-ex_data.to_excel(excel_writer='smzdm.xlsx', encoding='utf-8')
+ex_data = pd.DataFrame()
+ex_data['site_name']=site_name
+ex_data['title']=title
+ex_data['price_info']=price_info
+ex_data['org_price']=org_price
+ex_data['update_time']=update_time
+ex_data['keyword']=keyword
+
+ex_data.to_excel(excel_writer='gwdang.xlsx')
 </code></pre>
                     </div>
                     <h6 class="fragment">Requests: Multiple Pages</h6>
@@ -88,18 +113,18 @@ ex_data.to_excel(excel_writer='smzdm.xlsx', encoding='utf-8')
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import requests
 import pandas as pd
-
 headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) \
         AppleWebKit/537.36 (KHTML, like Gecko) \
         Chrome/70.0.3538.25 \
         Safari/537.36 Core/1.70.3823.400 QQBrowser/10.7.4307.400'}
+
 data=[]
 for page in range(1,6):
-    params ={"p":page, "past_num":page*20}
-    r=requests.get("https://www.smzdm.com/homepage/json_more", \
-                    params=params, headers=headers)
+    params ={"format": "json", "page":page, "ps":page*20, "class": "all"}
+    r=requests.get("https://www.gwdang.com/api/promotion_discount?", \
+                params=params, headers=headers)
     x = r.json()
-    data = data + x['data']
+    data = data + x['list']
 </code></pre>
                     </div>
                 </section>
@@ -170,7 +195,7 @@ all_url = list_a[0]["href"]
                     </div>
                 </section>
                 <section> -->
-<!--                     <div class="fragment">
+                    <!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 r_all = requests.get(all_url)
 soup_all = BeautifulSoup(r_all.content, 'lxml')
@@ -197,7 +222,7 @@ for i in range(len(content_list)):
 print(article_url)
 </code></pre>
                     </div>
-                                        <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
 ['https://dxy.com/article/9776',
  'https://dxy.com/article/22988',

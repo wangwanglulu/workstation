@@ -25,12 +25,12 @@
             <section data-background-iframe="../../particles/demo/index.html" style="text-align: left;">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                        <h1 style="color: white">Python Programming</h1>
-                <h3 style="color: white">Lecture 12 Data Cleaning, Language and Text</h3>
+                <h3 style="color: white">Lecture 12 Data Cleaning, Automation and Word Cloud</h3>
                     </div>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">12.1 Handling Missing Data</h2>
+                    <h2 style="color: white">12.1 Data Cleaning (数据清洗)</h2>
                 </section>
                 <section>
                     <ul>
@@ -88,7 +88,7 @@ memory usage: 272.0+ bytes
                     </div>
                 </section>
                 <section>
-                    <div class="div-c">
+<!--                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame.isnull()
@@ -101,11 +101,12 @@ memory usage: 272.0+ bytes
 5  False  False   True      
 </code></pre>
                         </div>
-                    </div>
-                    <div class="div-d">
+                    </div> -->
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame.dropna()
+
 
 
     state  year  pop
@@ -116,7 +117,7 @@ memory usage: 272.0+ bytes
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-c">
+                    <div class="div-d">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame['debt']=NA
@@ -131,7 +132,7 @@ memory usage: 272.0+ bytes
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-d">
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> frame=frame.dropna(axis=1,how="all")
@@ -146,9 +147,23 @@ memory usage: 272.0+ bytes
 </code></pre>
                         </div>
                     </div>
+                                        <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# only keep rows with at least 3 non-NaN values
+>>> frame.dropna(thresh=3)
+
+
+    state  year  pop
+0    Ohio  2000  1.5
+1    Ohio  2001  1.7
+3  Nevada  2002  2.4
+4  Nevada  2002  2.9   
+</code></pre>
+                        </div>
                 </section>
                 <section>
-                    <div class="fragment">
+<!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # only keep rows with at least 3 non-NaN values
 >>> frame.dropna(thresh=3)
@@ -158,7 +173,7 @@ memory usage: 272.0+ bytes
 3  Nevada  2002  2.4
 4  Nevada  2002  2.9  
 </code></pre>
-                    </div>
+                    </div> -->
                     <p class="fragment">Filling in missing data</p>
                     <div class="div-c">
                         <div class="fragment">
@@ -402,7 +417,7 @@ dtype: bool
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> dummies = pd.get_dummies(data['animal'])
->>> data.join(dummies)
+>>> data = pd.merge(data, dummies)
 
           food  ounces  animal  cow  pig  salmon
 0        bacon     4.0     pig    0    1       0
@@ -418,31 +433,30 @@ dtype: bool
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">12.2 Handling Chinese Language</h2>
+                    <h2 style="color: white">12.2 Office Automation (办公自动化)</h2>
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../../MBAimg/lecture12/db.jpg" style="height: 450pt"></div>
                 </section>
                 <section>
-                    <h6>Loading .xlsx file</h6>
+                    <h3>操作Excel文件</h3>
+                    <!-- <h6>Loading .xlsx file</h6> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import pandas as pd
 db =pd.read_excel('db_top.xlsx')
 
-# pd.read_csv('...csv',encoding='utf-8')
 # pd.read_excel('db_top.xlsx', sheet_name="Sheet1")
-# pd.read_excel('db_top.xlsx', sheet_name=0, index_col=0\
-                header=1, usecols=[0,2])
+# pd.read_excel('db_top.xlsx', sheet_name=0, index_col=0, header=0, usecols=[0,2])
 
 # 载入excel文件，sheet=0为第一个sheet，index_col指定某一列为index
-# header=1指定某一行为header，uscecols提取哪几列
+# header=0指定某一行为header，uscecols提取哪几列
 </code></pre>
                     </div>
-                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, , GBK</p>
-                    <div class="fragment"><img data-src="../../MBAimg/lecture12/ASCII1.png" style="height: 250pt"></div>
+                   <!--  <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, , GBK</p>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture12/ASCII1.png" style="height: 250pt"></div> 
                 </section>
-                <section>
+                <section>-->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> db.columns
@@ -461,11 +475,6 @@ Index(['id', '全名', '导演', '类型', '摘要', '评分', '时长', '时间
 3         致命ID        剧情,悬疑,惊悚
 4    指环王3：王者无敌     剧情,动作,奇幻,冒险
 ..         ...             ...
-245     地球上的星星        剧情,家庭,儿童
-246       记忆碎片     剧情,悬疑,惊悚,犯罪
-247       蝴蝶效应     剧情,科幻,悬疑,惊悚
-248      海上钢琴师           剧情,音乐
-249    三傻大闹宝莱坞     剧情,喜剧,爱情,歌舞
 </code></pre>
                     </div>
                 </section>
@@ -475,7 +484,7 @@ Index(['id', '全名', '导演', '类型', '摘要', '评分', '时长', '时间
 all_g_list = []
 for x in genre['类型']:
     all_g_list.append(x.split(','))
-genre["类型"]=all_g_list
+genre["类型"] = all_g_list
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -510,18 +519,16 @@ for i in range(len(genre)):
     x = pd.pivot_table(x,index='中文名', columns='类型',values='d')
     genre_list=pd.concat([genre_list,x])
 genre_list.fillna(0)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# genre_list.to_csv('g.csv',encoding='utf-8-sig')
+
+genre_list.to_csv('g.csv',encoding='utf-8-sig')
+# 这是excel文件且包含中文，最好是加上 encoding='utf-8-sig'（Excel 读取不乱码）
 </code></pre>
                     </div>
                     <p class="fragment">We can run regression with those dummy variables and scores of movies.</p>
                 </section>
 
                 <section>
-                    <a href="https://seaborn.pydata.org/index.html">seaborn: statistical data visualization</a>
+                    <a href="https://seaborn.pydata.org/index.html" target="_blank">seaborn: statistical data visualization</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
                             pip install seaborn
@@ -547,11 +554,9 @@ plt.savefig('director.pdf',dpi=300, bbox='tight')
                     <h6>Saving to .xlsx</h6>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-director.to_excel(excel_writer='director.xlsx', sheet_name="rank",\
-                    encoding='utf-8')
+director.to_excel(excel_writer='director.xlsx', sheet_name="rank", encoding='utf-8')
 
-# director.to_excel(excel_writer='director.xlsx', index=False,\
-                    columns=[...], na_rep=0, inf_rep=0)
+# director.to_excel(excel_writer='director.xlsx', index=False, columns=[...], na_rep=0, inf_rep=0)
 
 
                     </code></pre>
@@ -569,12 +574,114 @@ writer.save()
                     </code></pre>
                     </div>
                 </section>
+                <section>
+                    <h3>Exercise</h3>
+                    <p>加载 “db_top” 数据集。按照影片时长对这些电影进行排序，展示时长最长的前 5 部电影以及时长最短的前 5 部电影。提示：用sort_values方法。</p>
+                </section>
+            <section>
+                <h3>处理Word文件</h3>
+                <p>Document 对象包含一个Paragraph对象的列表，表示文档中的段落（用户在Word 文档中输入时，如果按下回车，新的段落就开始了）。每个Paragraph对象都包含一个Run 对象的列表。</p>
+               
+                <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+pip install python-docx
+                    </code></pre>
+                    </div>
+<div class="fragment div-c">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import docx # 不是python-docx
+doc = docx.Document('example.docx')
+len(doc.paragraphs)
+
+doc.paragraphs[0].text
+doc.paragraphs[1].text
+
+doc.paragraphs[1].runs[0].text
+doc.paragraphs[1].runs[1].text
+doc.paragraphs[1].runs[2].text
+doc.paragraphs[1].runs[3].text
+                    </code></pre>
+                    </div>
+ <div class="fragment div-d"><img data-src="../../MBAimg/lecture12/word.png" style="height: 120pt"></div>
+            </section>
+            <section>
+                <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def getText(filename):
+    doc = docx.Document(filename)
+    fullText = []
+    for para in doc.paragraphs:
+        fullText.append(para.text)
+    return '\n'.join(fullText)
+
+print(getText('example.docx'))
+                    </code></pre>
+                    </div>
+                    <h3 class="fragment">写入word文件</h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import docx
+doc = docx.Document()
+doc.add_paragraph('Hello world!')
+
+paraObj1 = doc.add_paragraph('This is a second paragraph.')
+paraObj2 = doc.add_paragraph('This is a yet another paragraph.')
+paraObj1.add_run(' This text is being added to the second paragraph.')
+
+>>> doc.save('multipleParagraphs.docx')
+                    </code></pre>
+                    </div>
+            </section>
+            <section>
+                <h3>获取其他元素</h3>
+                <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 标题也是段落，只是 style 不一样（Heading 1、Heading 2 …）
+# 获取所有一级标题
+for p in doc.paragraphs:
+    if p.style.name == "Heading 1":
+        print(p.text)
+
+                    </code></pre>
+                    </div>
+                    <div class="fragment div-c">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Word 的页眉在“节（Section）”里面。
+section = doc.sections[0] # 获取第一个节，通常就一个
+
+header = section.header
+for p in header.paragraphs:
+    print("页眉：", p.text)
+
+footer = section.footer
+for p in footer.paragraphs:
+    print("页脚：", p.text)
+                    </code></pre>
+                    </div>
+                    <div class="fragment div-d">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for table in doc.tables:
+    print(table) # 获取所有表格
+
+table = doc.tables[0]
+for row in table.rows:
+    for cell in row.cells:
+        print(cell.text)
+
+cell = table.cell(1, 2)  # 第2行第3列
+print(cell.text)
+                    </code></pre>
+                    </div>
+            </section>
+            <section><a href="https://www.trae.ai/">自动化数据编程 trae.ai</a>
+                    <div class="fragment"><img data-src="../../MBAimg/lecture12/og.jpeg" style="height: 300pt"></div>
+                </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">12.3 Text Editing</h2>
+                    <h2 style="color: white">12.3 Word Cloud (词云)</h2>
                 </section>
-                <section>
+                <!-- <section>
                     <h6>Reading from a text File</h6>
                     <div class="div-a">
                         <div class="fragment">
@@ -646,8 +753,8 @@ filename = 'pi_digits.txt'
 with open(filename) as file_object:
     lines = file_object.readlines() 
 </code></pre>
-                    </div>
-<!--                     <div class="div-c">
+                    </div>                      
+                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pi_string = ''
@@ -667,7 +774,7 @@ print(len(pi_string))
 
 </code></pre>
                         </div>
-                    </div> -->
+                    </div> 
                     <h6 class="fragment">Writing to a File</h6>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -735,7 +842,7 @@ I also love finding meaning in large datasets.
 I love creating apps that can run in a browser.
 </code></pre>
                     </div>
-                </section>
+                </section>-->
                 <section>
                     <h3>WordCloud</h3>
                     <div class="fragment"><img data-src="../../MBAimg/lecture12/wordcloud_ex.png" style="height: 400pt"></div>
