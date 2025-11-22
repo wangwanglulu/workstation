@@ -5,7 +5,7 @@ api_access = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZWMzMDlmYWZjMjM4NjdmZmViNzRjMjZjN
 
 page = 1
 url = f"https://api.tmdb.org/3/movie/\
-now_playing?language=en-US&page={page}" #改成api.tmdb.org
+top_rated?language=en-US&page={page}" #改成api.tmdb.org
 headers = {
     "accept": "application/json",
     "Authorization": f"Bearer {api_access}"

@@ -292,11 +292,11 @@ for page in range(num_page):
                 </section>
                 <section>
                     <h3>Selenium</h3>
-                    <p>selenium 模块让Python 直接控制浏览器，实际点击链接，填写登录信息，几乎
+                    <p  class="fragment">selenium 模块让Python 直接控制浏览器，实际点击链接，填写登录信息，几乎
 就像是有一个人类用户在与页面交互。与Requests 和Beautiful Soup 相比，Selenium
 允许你用高级得多的方式与网页交互。 <a href="https://developer.chrome.com/docs/chromedriver/downloads">Chrome Driver下载，选择对应的版本，并添加到PythonPATH</a>
-<div class="fragment"></p>
-
+</p>
+<div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from selenium import webdriver
 
@@ -304,7 +304,7 @@ browser = webdriver.Chrome()
 browser.get('http://www.douban.com')
 </code></pre>
                     </div>
-                    <p>WebDriver 对象有好几种方法，用于在页面中寻找元素。它们被分成find_element和
+                    <p  class="fragment">WebDriver 对象有好几种方法，用于在页面中寻找元素。它们被分成find_element和
 find_elements方法。find_element方法返回一个WebElement 对象，代表页面中匹配查询的第一个元素。 find_elements方法返回WebElement对象的列表，包含
 页面中所有匹配的元素。<a href="https://www.selenium.dev/zh-cn/documentation/webdriver/elements/locators/">Selenium定位策略</a></p>
 
@@ -428,7 +428,7 @@ if dir:
 os.chdir('..') 
 </code></pre>
                     </div> -->
-                </section>
+
                 <!-- <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>       
@@ -484,6 +484,15 @@ os.chdir('..')
 </code></pre>
                     </div>
                 </section> -->
+
+                    <h2></h2>
+                <h3>移动端爬取策略</h3>
+                <ul>
+                    <li class="fragment">使用Appium模拟安卓App里的操作（苹果会比较麻烦）</li>
+                    <li class="fragment">使用Appium和Selenium的原理和方式差不多</li>
+                    <li class="fragment">在PC端安装好安卓开发环境（手机安卓模拟器，jdk，android SDK）</li>
+                </ul>
+                </section>
                 <section data-background-image="bg.png">
                     <div class="div-c">
                         <h5>一些反爬策略</h5>
