@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>随机点名（CSV名册 / 大屏投影）</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.08);
+      --text: #e8ecff;
+      --muted: rgba(232,236,255,0.7);
+      --accent: #7aa2ff;
+      --danger: #ff6b6b;
+      --ok: #42d392;
+      --border: rgba(255,255,255,0.16);
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(122,162,255,0.25), transparent 60%),
+                  radial-gradient(900px 700px at 80% 0%, rgba(66,211,146,0.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .wrap { width: min(980px, 100%); display: grid; gap: 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+    }
+    h1 { margin: 0 0 6px 0; font-size: 22px; font-weight: 800; letter-spacing: 0.3px; }
+    .sub { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+    input[type="file"] { color: var(--muted); }
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.10);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.05s ease, background 0.15s ease, border-color 0.15s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .btn:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.22); }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary { border-color: rgba(122,162,255,0.55); background: rgba(122,162,255,0.20); }
+    .btn.primary:hover { background: rgba(122,162,255,0.26); }
+    .btn.danger { border-color: rgba(255,107,107,0.55); background: rgba(255,107,107,0.16); }
+    .btn.danger:hover { background: rgba(255,107,107,0.22); }
+    .btn.ok { border-color: rgba(66,211,146,0.55); background: rgba(66,211,146,0.16); }
+    .btn.ok:hover { background: rgba(66,211,146,0.22); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .stat { margin-left: auto; color: var(--muted); font-size: 13px; display:flex; gap:10px; align-items:center; }
+    .pill {
+      display: inline-flex; gap: 8px; align-items: center;
+      padding: 4px 10px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color: var(--muted); font-size: 12px;
+    }
+    .dot { width: 9px; height: 9px; border-radius: 999px; background: var(--danger);
+      box-shadow: 0 0 0 4px rgba(255,107,107,0.15); }
+    .dot.run { background: var(--ok); box-shadow: 0 0 0 4px rgba(66,211,146,0.15); }
+
+    .display { display: grid; gap: 12px; align-items: center; justify-items: center; padding: 28px 14px; }
+    .name {
+      font-size: clamp(34px, 6vw, 68px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 1.05;
+      padding: 16px 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.18);
+      min-width: min(560px, 92%);
+      transform: translateZ(0);
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+    .name.rolling {
+      transform: scale(1.03);
+      filter: blur(0.2px);
+    }
+
+    .hint { color: var(--muted); font-size: 14px; text-align: center; }
+    .small { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .listbox {
+      max-height: 180px; overflow: auto;
+      padding: 10px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.14);
+      color: rgba(232,236,255,0.78);
+      font-size: 13px; line-height: 1.5; white-space: pre-wrap;
+    }
+
+    /* =========================
+       大屏投影模式（全屏后更明显）
+       ========================= */
+    body.projector {
+      padding: 0;
+    }
+    body.projector .wrap {
+      width: 100%;
+      height: 100vh;
+      gap: 0;
+      grid-template-rows: auto 1fr;
+    }
+    body.projector .card {
+      border-radius: 0;
+      border-left: 0; border-right: 0;
+    }
+    body.projector #cardControls {
+      padding: 14px 16px;
+    }
+    body.projector #cardPreview {
+      display: none; /* 投影时隐藏名单预览 */
+    }
+    body.projector #cardDisplay {
+      height: 100%;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      padding: 0;
+    }
+    body.projector .display {
+      width: 100%;
+      padding: 0;
+      gap: 16px;
+    }
+    body.projector .name {
+      /* 更大、更适合投影 */
+      font-size: clamp(64px, 10vw, 140px);
+      min-width: min(1100px, 94vw);
+      padding: 26px 34px;
+      border-radius: 26px;
+    }
+    body.projector .hint {
+      font-size: 16px;
+      opacity: 0.85;
+      padding: 0 18px 20px 18px;
+    }
+    body.projector h1 { font-size: 18px; }
+    body.projector .sub { font-size: 12px; }
+
+    /* 全屏时让背景更干净一点 */
+    :fullscreen body, body:fullscreen { background: #070b16; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card" id="cardControls">
+      <h1>随机点名（读取 CSV 名册 / 大屏投影）</h1>
+      <p class="sub">
+        CSV 第一行固定为表头并跳过；每行第一列是姓名。快捷键：Space 开始/停止；F 切换投影（全屏）。
+      </p>
+
+      <div class="row">
+        <label class="btn" for="csvFile">选择 CSV 文件</label>
+        <input id="csvFile" type="file" accept=".csv,text/csv" style="display:none" />
+
+        <button id="btnStart" class="btn primary" disabled>开始滚动</button>
+        <button id="btnStop" class="btn danger" disabled>停止</button>
+        <button id="btnShuffle" class="btn" disabled title="只打乱顺序，不开始滚动">打乱顺序</button>
+        <button id="btnProjector" class="btn ok" disabled title="进入/退出大屏投影（全屏）">投影模式（全屏）</button>
+        <button id="btnClear" class="btn" title="清空名册与显示">清空</button>
+
+        <div class="stat">
+          <span class="pill"><span id="statusDot" class="dot"></span><span id="statusText">未加载名册</span></span>
+          <span class="pill" id="countPill" style="display:none;"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="cardDisplay">
+      <div class="display">
+        <div id="nameBox" class="name">（请先选择 CSV）</div>
+        <div id="hint" class="hint">
+          提示：开始滚动后再停止，停下的姓名就是点名结果。
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="cardPreview">
+      <div class="row" style="margin-top:0">
+        <div style="font-weight:800">已加载名单预览</div>
+        <div class="small" style="margin-left:auto">
+          读取规则：跳过第一行（表头），从第二行开始取第一列；自动去空行；自动去重（保留首次出现）。
+        </div>
+      </div>
+      <div id="listPreview" class="listbox">（空）</div>
+      <div class="small" style="margin-top:10px">
+        CSV 示例：
+        <br/>姓名
+        <br/>张三
+        <br/>李四
+        <br/>王五
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const elFile = document.getElementById('csvFile');
+  const btnStart = document.getElementById('btnStart');
+  const btnStop = document.getElementById('btnStop');
+  const btnShuffle = document.getElementById('btnShuffle');
+  const btnProjector = document.getElementById('btnProjector');
+  const btnClear = document.getElementById('btnClear');
+
+  const nameBox = document.getElementById('nameBox');
+  const listPreview = document.getElementById('listPreview');
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  const countPill = document.getElementById('countPill');
+
+  let roster = [];
+  let isRunning = false;
+  let timerId = null;
+  let lastIndex = -1;
+
+  // 滚动速度（毫秒），越小越快
+  const ROLL_INTERVAL_MS = 50;
+
+  function setStatus(text, running=false) {
+    statusText.textContent = text;
+    statusDot.classList.toggle('run', running);
+  }
+
+  function updateButtons() {
+    const hasRoster = roster.length > 0;
+    btnStart.disabled = !hasRoster || isRunning;
+    btnStop.disabled = !hasRoster || !isRunning;
+    btnShuffle.disabled = !hasRoster || isRunning;
+    btnProjector.disabled = !hasRoster;
+  }
+
+  function updateCount() {
+    if (!roster.length) {
+      countPill.style.display = 'none';
+      countPill.textContent = '';
+      return;
+    }
+    countPill.style.display = 'inline-flex';
+    countPill.textContent = `人数：${roster.length}`;
+  }
+
+  function previewRoster() {
+    if (!roster.length) { listPreview.textContent = '（空）'; return; }
+    const maxShow = 200;
+    const shown = roster.slice(0, maxShow).map((n, i) => `${String(i+1).padStart(3,' ')}. ${n}`).join('\n');
+    listPreview.textContent = roster.length > maxShow
+      ? shown + `\n...（仅预览前 ${maxShow} 人，共 ${roster.length} 人）`
+      : shown;
+  }
+
+  // 解析 CSV：固定跳过第一行（header），从第二行开始取第一列
+  // 尝试分隔符：逗号、分号、制表符；若检测不到分隔符，就整行作为第一列
+  function parseCSVFirstColumnSkipHeader(text) {
+    // 去掉 UTF-8 BOM
+    if (text && text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+    const rawLines = text.split(/\r?\n/);
+
+    // 固定跳过第一行 header
+    const lines = rawLines.slice(1).map(l => l.trim()).filter(l => l.length > 0);
+    if (lines.length === 0) return [];
+
+    // 检测分隔符（用前 30 行统计）
+    const candidates = [',', ';', '\t'];
+    const sample = lines.slice(0, Math.min(30, lines.length));
+    let bestSep = ',';
+    let bestScore = -1;
+    for (const sep of candidates) {
+      let score = 0;
+      for (const ln of sample) score += (ln.split(sep).length - 1);
+      if (score > bestScore) { bestScore = score; bestSep = sep; }
+    }
+
+    const names = [];
+    for (const ln of lines) {
+      let first = ln;
+      if (bestScore > 0) first = ln.split(bestSep)[0];
+      first = first.trim();
+
+      // 去掉可能的引号包裹
+      if ((first.startsWith('"') && first.endsWith('"')) || (first.startsWith("'") && first.endsWith("'"))) {
+        first = first.slice(1, -1).trim();
+      }
+
+      if (first) names.push(first);
+    }
+
+    // 去重（保留首次出现顺序）
+    const seen = new Set();
+    const dedup = [];
+    for (const n of names) {
+      if (!seen.has(n)) { seen.add(n); dedup.push(n); }
+    }
+    return dedup;
+  }
+
+  function pickNextIndex() {
+    if (roster.length <= 1) return 0;
+    let idx = Math.floor(Math.random() * roster.length);
+    if (idx === lastIndex) idx = (idx + 1) % roster.length;
+    return idx;
+  }
+
+  function showRandomName() {
+    const idx = pickNextIndex();
+    lastIndex = idx;
+    nameBox.textContent = roster[idx];
+    // 轻微动效
+    nameBox.classList.add('rolling');
+    setTimeout(() => nameBox.classList.remove('rolling'), 120);
+  }
+
+  function startRolling() {
+    if (!roster.length || isRunning) return;
+    isRunning = true;
+    setStatus('滚动中', true);
+    updateButtons();
+
+    showRandomName();
+    timerId = setInterval(showRandomName, ROLL_INTERVAL_MS);
+  }
+
+  function stopRolling() {
+    if (!isRunning) return;
+    isRunning = false;
+    clearInterval(timerId);
+    timerId = null;
+    setStatus('已停止（当前姓名为点名结果）', false);
+    updateButtons();
+  }
+
+  function shuffleRoster() {
+    for (let i = roster.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [roster[i], roster[j]] = [roster[j], roster[i]];
+    }
+    previewRoster();
+    setStatus('已打乱名单顺序', false);
+  }
+
+  function clearAll() {
+    stopRolling();
+    roster = [];
+    lastIndex = -1;
+    nameBox.textContent = '（请先选择 CSV）';
+    setStatus('未加载名册', false);
+    updateCount();
+    previewRoster();
+    updateButtons();
+    elFile.value = '';
+    document.body.classList.remove('projector');
+    // 如果当前是全屏，退出
+    if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  }
+
+  async function toggleProjector() {
+    if (!roster.length) return;
+    const on = !document.body.classList.contains('projector');
+    document.body.classList.toggle('projector', on);
+
+    // 进入投影模式时，尽量请求全屏；退出时退出全屏
+    try {
+      if (on) {
+        if (!document.fullscreenElement) {
+          await document.documentElement.requestFullscreen();
+        }
+        setStatus(isRunning ? '滚动中（投影模式）' : '投影模式已开启', isRunning);
+      } else {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        }
+        setStatus(isRunning ? '滚动中' : '投影模式已关闭', isRunning);
+      }
+    } catch (e) {
+      // 某些浏览器/权限会阻止全屏，但仍可用“投影样式”
+      setStatus(on ? '已开启投影样式（全屏可能被阻止）' : '投影模式已关闭', isRunning);
+      console.warn(e);
+    }
+  }
+
+  // 事件绑定
+  elFile.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const names = parseCSVFirstColumnSkipHeader(text);
+
+      if (!names.length) {
+        roster = [];
+        nameBox.textContent = '（CSV 中未解析到姓名）';
+        setStatus('解析失败：未找到姓名（已跳过第一行表头）', false);
+      } else {
+        roster = names;
+        nameBox.textContent = '（已加载，可开始滚动）';
+        setStatus(`已加载：${file.name}（已跳过第一行表头）`, false);
+      }
+
+      updateCount();
+      previewRoster();
+      updateButtons();
+    } catch (err) {
+      roster = [];
+      setStatus('读取失败：请检查文件编码/格式', false);
+      nameBox.textContent = '（读取失败）';
+      updateCount();
+      previewRoster();
+      updateButtons();
+      console.error(err);
+    }
+  });
+
+  btnStart.addEventListener('click', startRolling);
+  btnStop.addEventListener('click', stopRolling);
+  btnShuffle.addEventListener('click', shuffleRoster);
+  btnProjector.addEventListener('click', toggleProjector);
+  btnClear.addEventListener('click', clearAll);
+
+  // 快捷键：
+  // Space：开始/停止
+  // F：投影模式（全屏）
+  // Esc：浏览器会自动退出全屏；这里同步关闭 projector 样式
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (!roster.length) return;
+      isRunning ? stopRolling() : startRolling();
+    }
+    if (e.key === 'f' || e.key === 'F') {
+      e.preventDefault();
+      toggleProjector();
+    }
+  });
+
+  document.addEventListener('fullscreenchange', () => {
+    // 用户按 ESC 退出全屏时，同步关闭 projector 样式（避免样式仍是投影版）
+    if (!document.fullscreenElement && document.body.classList.contains('projector')) {
+      document.body.classList.remove('projector');
+      setStatus(isRunning ? '滚动中' : '投影模式已关闭', isRunning);
+    }
+  });
+
+  // 初始化
+  clearAll();
+})();
+</script>
+</body>
+</html>

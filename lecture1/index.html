@@ -59,7 +59,7 @@
                     </ul>
                 </section>
                 <section>
-                    TIOBE编程语言社区发布了2025年2月编程语言排行榜
+                    TIOBE编程语言社区发布了2026年2月编程语言排行榜
                     <div><img data-src="../img/lecture1/Ranking.png" style="height: 450pt"></div>
                 </section>
                 <section>
@@ -67,8 +67,8 @@
 
                     <h3>课程要求</h3>
                     <ol>
-                        <li>一共三次作业（6%*3=18%)</li>
-                        <li>案例设计 （12%）</li>
+                        <li>一共三次作业（6%*3=18%) 仅提交</li>
+                        <li>案例设计 （12%）仅提交</li>
                         <li>期末考试 （60%）</li>
                         <li>出勤率 (10%)</li>
                         <li>答疑方式：每周二下午 15:30-16:30 或者邮件约时间</li>
@@ -98,7 +98,7 @@
                         <li>课件从哪里获取？</li>
                         <ul class="fragment">
                             <li>PDF在上财教学网Canvas系统上下载</li>
-                            <li>或者我的网站：<a href="https://wangwanglulu.com">wangwanglulu.com</a></li>
+                            <li>或者我的网站：<a href="https://wangwanglulu.com">wangwanglulu.com（获取pdf，可直接按E，然后打印-另存为pdf）</a></li>
                         </ul>
                         <li class="fragment">作业如何提交？</li>
                         <ul class="fragment">
@@ -130,9 +130,9 @@
                     <p class="fragment">Python的设计哲学是“优雅”，“明确”，“简单”。Python开发者的哲学是“用一种方法，最好是只有一种方法来做一件事”。</p>
                     <p class="fragment" style="text-align: right">——出自Wikipedia的<a href="https://zh.wikipedia.org/wiki/Python#.E6.AD.B7.E5.8F.B2">Python</a></p>
                 </section>
-                <section>
+<!--                 <section>
                     <h3>废话不多说，上手试一下 </h3>
-                </section>
+                </section> -->
                 <section>
                     <h3>Python的安装</h3>
                     <ul>
@@ -342,7 +342,7 @@ float
 >>> x = x + 10
 </code></pre>
                         </div>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <p>Python is a Dynamically Typed Language. What is Dynamically Typed Language?</p>
                         </li>
                         <div class="fragment">
@@ -362,7 +362,7 @@ float
 >>> print(apple)
 ABC
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">
                             <p>We can assign the value of a variable to another variable.</p>
                         </li>
@@ -563,16 +563,14 @@ Chuck # The type is string.
 >>> speed = input(prompt)
 What is the speed?
 17
-
 >>> int(speed)
 # or float(speed)
 17
-
 >>> int(speed) + 5
 22
 </code></pre>
                         </div>
-                        <li class="fragment">
+                        <!-- <li class="fragment">
                             <p>It may cause error, if the value cannot be converted.</p>
                         </li>
                         <div class="fragment">
@@ -588,19 +586,16 @@ ValueError: invalid literal for int() with base 10:
                     </ul>
                 </section>
                 <section>
-                    <ul>
+                    <ul> 
                         <li>
                             <p>To write or display long program, Editor will be used. Green box shows the output of a sequence of code. Red box shows the error message. Basically, the Editor is the same with IPython console.</p>
                         </li>
-                    </ul>
+                    </ul>-->
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+                        <pre><code class="error language-Python" data-line-numbers data-trim contenteditable >
 >>> age = 23
 >>> message = "Happy " + age + "rd Birthday!"
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="error language-Python" data-trim contenteditable >
+
 Traceback (most recent call last):
 File "birthday.py", line 2, in &lt;module&gt;
 message = "Happy " + age + "rd Birthday!"
@@ -612,10 +607,7 @@ TypeError: Can't convert 'int' object to str implicitly
 >>> age = 23
 >>> message = "Happy " + str(age) + "rd Birthday!"
 >>> print(message)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output language-Python" data-trim contenteditable >
+
 Happy 23rd Birthday!
 </code></pre>
                     </div>
