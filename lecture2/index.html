@@ -216,7 +216,7 @@ ZeroDivisionError: division by zero
 </code></pre>
                         </div>
                     </div>
-                </section>
+                <!-- </section>
                 <section>
                     <ul>
                         <li>While this may seem like a fine point, the short-circuit behavior leads to a clever technique called the guardian pattern.</li>
@@ -237,7 +237,7 @@ print(x >= 2 and y!= 0 and (x/y) > 2)
 False
 </code></pre>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -257,7 +257,7 @@ False
 </code></pre>
                         </div>
                     </div>
-                    <div class="div-c">
+                   <!--  <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 x = 6
@@ -275,7 +275,7 @@ Traceback (most recent call last):
 ZeroDivisionError: division by zero
 </code></pre>
                         </div>
-                    </div>
+                    </div> -->
                 </section>
             </section>
             <section>
@@ -394,6 +394,27 @@ else:
                         </ul>
                     </div>
                 </section>
+
+            <section>
+                                    <h4>Example 1: BMI Calculator v1.0</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+print("BMI指数计算器\n")
+weight = float(input("请输入您的体重(kg): "))
+height = float(input("请输入您的身高(cm): "))
+bmi = weight/(height/100)**2
+
+if bmi < 18.5:
+    print("体重过轻")
+elif 18.5 <= bmi and bmi < 24:
+    print("体重正常")
+elif 24 <= bmi and bmi < 28:
+    print("超重")
+elif bmi >= 28:
+    print("肥胖")
+</code></pre>
+                    </div>
+            </section>
                 <section>
                     <h3>Try and Except</h3>
                     <div>
@@ -449,35 +470,50 @@ Please enter a number
                     </div>
                 </section>
                 <section>
-                    <h4>Example 1: BMI Calculator v1.0</h4>
-                    <div class="fragment">
+                    <h4>Example 2: BMI Calculator v1.1</h4>
+                                        <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 print("BMI指数计算器\n")
-inp_1 = input('请输入您的体重(kg):\n')
-inp_2 = input('请输入您的身高(cm):\n')
-weight = float(inp_1)
-height = float(inp_2)
+try:
+    weight = float(input("请输入您的体重(kg): "))
+    height = float(input("请输入您的身高(cm): "))
+    bmi = weight/(height/100)**2
+
+    if bmi < 18.5:
+        print("体重过轻")
+    elif 18.5 <= bmi and bmi < 24:
+        print("体重正常")
+    elif 24 <= bmi and bmi < 28:
+        print("超重")
+    elif bmi >= 28: 
+        print("肥胖")
+except:
+    print("输入错误，请输入数字")
 </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
-BMI = weight/(height/100)**2
-if BMI < 18.5:
-    print("您的体型偏瘦")
-elif BMI < 24 and BMI >= 18.5:
-    print("您的体型正常")
-elif BMI < 28 and BMI >= 24:
-    print("您的体型偏胖")
-elif BMI < 32 and BMI >= 28:
-    print("您的体型肥胖")
-elif BMI >= 32:
-    print("您的体型过于肥胖")
-</code></pre>
-                    </div>
-                    <h4 class="fragment">Example 2: A Simple Game</h4>
+
+                    <ul class="fragment">
+                        <li>indentation: select programs, <b>tab (or space)</b></li>
+                        <li>cancel indentation: select programs, <b>shift + tab</b></li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>Exercise</h4>
+                    <p>编写一个停车费用计算程序，要求用户输入车辆的停车时长（单位：小时），并计算需要支付的费用。</p>
+                    <ol class="fragment">
+                        <li>当停车时间 不超过 3 小时 时，每小时收费 10 元</li>
+                        <li>当停车时间 超过 3 小时 时，超出部分每小时收费 15 元</li>
+                        <li>程序需要使用 try 和 except 来处理非数字输入</li>
+                        <li>如果用户输入了 非数字内容，程序应打印提示信息: <b>输入错误，请输入数字</b></li>
+                        <p></p>
+                        <p></p>
+                    </ol>
+                    <h4></h4>
+          <h4 class="fragment">Example 3: A Simple Game</h4>
                     <ul>
                         <li class="fragment">What are the key elements of a game? </li>
                         <li class="fragment">Making a choice and feedback.</li>
+
                     </ul>
                 </section>
                 <section>
@@ -503,12 +539,9 @@ elif BMI >= 32:
 >>> fruit = ['apple', 'banana', 'orange']
 >>> mix = ['spam', 2.0, 5, [10, 20]]
 >>> empty = [] 
-
->>> print(numbers, fruit, empty)
-[10, 20, 30, 40] ['apple', 'banana', 'orange'] []
 </code></pre>
                         </div>
-                        <li class="fragment">The + operator concatenates lists, and the * operator repeats a list a specified number of times.</li>
+                        <!-- <li class="fragment">The + operator concatenates lists, and the * operator repeats a list a specified number of times.</li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> a = [1, 2, 3]
@@ -530,7 +563,7 @@ elif BMI >= 32:
                     </ul>
                 </section>
                 <section>
-                    <ul>
+                    <ul> -->
                         <li class="fragment">
                             Lists are <b>ordered</b> collections, so you can access any element in a list by telling
                             Python the position, or index, of the item desired.
@@ -545,10 +578,10 @@ apple
                         <!--                         <li class="fragment">
                             When we ask for a single item from a list, Python returns just that element without square
                             brackets or quotation marks.
-                        </li> -->
+                        </li> 
                         <li class="fragment">
                             By asking for the item at index -1, Python always returns the last item in the list:
-                        </li>
+                        </li>-->
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
 >>> print(fruit[-1])
@@ -561,10 +594,9 @@ banana
                         <li class="fragment">You can reassign an item in a list.</li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
->>> numbers = [17, 123]
->>> numbers[1] = 5
->>> print(numbers)
-[17, 5]
+>>> fruit[0] = 'cherry'
+>>> print(fruit)
+['cherry', 'banana', 'orange']
 </code></pre>
                         </div>
                     </ul>
@@ -654,7 +686,7 @@ a_list[:i]+a_list[i:j]+a_list[j:]
 ['a', 'b', 'c', 'd']
 </code></pre>
                         </div>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <p><b>extend</b> takes a list as an argument and appends all of the elements:</p>
                         </li>
                         <div class="fragment">
@@ -665,7 +697,7 @@ a_list[:i]+a_list[i:j]+a_list[j:]
 >>> print(t1)
 ['a', 'b', 'c', 'd', 'e']
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment">
                             <p><b>insert</b> adds a new element at any position in your list</p>
                         </li>
@@ -763,7 +795,7 @@ c
                 </section>
                 <section>
                     <ul>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <b>del</b> is an operator, not a method. It directly modifies the state of an object by removing it from memory or from a collection.
                         </li>
                         <div class="fragment">
@@ -778,7 +810,7 @@ c
 >>> print(t)
 ['a', 'f']
 </code></pre>
-                        </div>
+                        </div> -->
                         <li class="fragment"><b>If you want to modify a list without changing the original, you can create a copy.</b></li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -824,7 +856,7 @@ c
 </code></pre>
                             </div>
                         </div>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <p>To reverse the original order of a list, you can use the <b>reverse()</b> method.</p>
                         </li>
                         <div class="fragment">
@@ -844,7 +876,7 @@ c
                 </section>
                 <section>
                     <h3>Some Functions</h3>
-                    <ul>
+                    <ul> -->
                         <li class="fragment">
                             <p>To maintain the original order of a list but present it in a sorted order, you can use
                                 the <b>sorted() function</b> .</p>
@@ -902,9 +934,9 @@ type(s) for +: 'int' and 'str'
                         <li class="fragment">
                             <p>Features: Ordered, Repeatable</p>
                         </li>
-                        <li class="fragment">
+<!--                         <li class="fragment">
                             <p>Operator: + for concatenation and * for repetition.</p>
-                        </li>
+                        </li> -->
                         <li class="fragment">
                             <p>The indices start at 0. Index -1 means the last item. (编号：从零开始)</p>
                         </li>
@@ -917,13 +949,64 @@ type(s) for +: 'int' and 'str'
                         <li class="fragment">
                             <p>Methods (方法): </p>
                             <ul>
-                                <li>append, extend, insert (添加)</li>
-                                <li>pop, remove (删除, del)</li>
-                                <li>sort, reverse (整理)</li>
+                                <li>append, insert (添加)</li>
+                                <li>pop, remove (删除)</li>
+                                <li>sort (排序), copy (创建副本) </li>
                             </ul>
                             <p>Functions (函数): sorted(), len(), sum(), max(), min()</p>
                         </li>
                     </ul>
+                </section>
+                <section>
+                    <h4>Example 1: 计算有效成绩</h4>
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+scores = [8.5, 9.0, 7.8, 8.9, 9.2]
+new_scores = scores.copy()
+
+new_scores.remove(max(scores))
+new_scores.remove(min(scores))
+avg_scores = sum(new_scores)/len(new_scores)
+
+print("最终得分:", avg_scores)
+</code></pre>
+                            </div>
+                            <h4 class="fragment">Example 2: 班级成绩表 (列表嵌套)</h4>
+                            <div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+students = [
+    ["Alice", 85, 90],
+    ["Tom", 79, 59]
+    ["Bob", 78, 65],
+    ["Charlie", 92, 88],
+]
+
+students.append(["David", 70, 75])
+students[1][1] = 80
+students.pop(1)
+
+print(students)
+</code></pre>
+                            </div>
+                </section>
+                <section>
+                    <h4>Exercise: 班级成绩管理系统</h4>
+<div class="fragment">
+                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
+s = [
+    ["Alice", 85, 90],
+    ["Bob", 78, 65],
+    ["Charlie", 92, 88],
+    ["David", 70, 75]
+]
+</code></pre>
+                            </div>
+                            <ol>
+                                <li class="fragment">新同学 Eva 加入班级，她的成绩为["Eva", 88, 91]</li>
+                                <li class="fragment">修改Charlie的两门课成绩为90和80</li>
+                                <li class="fragment">输出从第三名到末尾的同学成绩</li>
+                                <li class="fragment">计算所有同学第一门课的平均成绩</li>
+                            </ol>
                 </section>
             </section>
             <section>
