@@ -90,7 +90,7 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;" data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
                     <h3 style="color: white">Lecture 3 Iteration</h3>
@@ -101,7 +101,7 @@
                     <h2 style="color: white">3.1 Iteration: while</h2>
                 </section>
                 <section>
-                    <h3>The while statement</h3>
+                    <h3>The <b>while</b> statement</h3>
                     <div class="div-a">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable >
@@ -132,18 +132,18 @@ Blastoff!
                             <p>Evaluate the condition, yielding True or False.</p>
                         </li>
                         <li class="fragment">
-                            <p>If the condition is false, exit the while statement and continue execution at the next statement.</p>
+                            <p>If the condition is False, exit the while statement and continue execution at the next statement.</p>
                         </li>
                         <li class="fragment">
-                            <p>If the condition is true, execute the body and then go back to step 1.</p>
+                            <p>If the condition is True, execute the body and then go back to step 1.</p>
                         </li>
                         <ul>
                             <li class="fragment">
-                                <p>This type of flow is called a <b>loop</b> because the third step loops back around to the top.
+                                <p>This type of flow is called a <b>loop</b> (循环) because the third step loops back around to the top.
                                 </p>
                             </li>
                             <li class="fragment">
-                                <p>We call each time we execute the body of the loop an <b>iteration</b>.</p>
+                                <p>We call each time we execute the body of the loop an <b>iteration</b> (迭代).</p>
                             </li>
                         </ul>
                     </ol>
@@ -154,7 +154,7 @@ Blastoff!
                             <p>The body of the loop should change the value of one or more variables so that eventually the condition becomes false and the loop terminates.</p>
                         </li>
                         <li class="fragment">
-                            <p>If the loop repeats forever, it results in an <b>infinite loop</b>.</p>
+                            <p>If the loop repeats forever, it results in an <b>infinite loop</b> (无限循环).</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -210,16 +210,16 @@ print('Done!')
                     </div>
                 </section>
                 <section>
-                    <h4>Example 1: Even and Odd</h4>
+                    <h4>Example 1: Even and Odd（将奇偶数分开）</h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers="1-3|4-9|10-11|1-11" data-trim contenteditable>
 numbers = [12, 37, 5, 42, 8, 3]
 even = []
 odd = []
 while len(numbers) > 0:
-    x = numbers.pop()
-    if x % 2 == 0:
-        even.append(x)
+    x = numbers.pop()  # 从末尾取出一个元素
+    if x % 2 == 0:     # 判断是否为偶数
+        even.append(x) # 列表末尾添加
     else:
         odd.append(x)
 print(even)
@@ -255,53 +255,10 @@ while True:
 </code></pre>
                     </div>
                 </section>
-                <section>
-                    <h4>Example 3: Greatest common divisor</h4>
-                    <div class="leftm">
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers="1-8|9-13|1-13" data-trim contenteditable>
-a=int(input('Enter the 1st number:'))
-b=int(input('Enter the 2nd number:'))
-if a >= b:
-    x = a
-    y = b
-else:
-    x = b
-    y = a
-while y!=0:
-    r = y
-    y = x%y
-    x = r
-print(x)
-</code></pre>
-                        </div>
-                        <ul>
-                            <li class="fragment">
-                                <p>Least common multiple?</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="rightm">
-                        <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../img/lecture3/gcd.mov">
-                            <div class="video-box">
-                                <img src="../img/lecture3/example.jpg" alt="Video Thumbnail" class="thumbnail">
-                                <div class="play-button"></div>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-                <!-- <section>
-                    <div><a href="#" data-modal-type="image" data-modal-url="x.png">Show image</a></div>
-                </section> -->
-                <!--                 <section>
-                    <video controls style="width:100%;">
-                        <source src="gcd.mov" type="video/mp4">
-                    </video></section> -->
                 <section data-auto-animate>
-                    <h4>Example 4: Hot Potato Game</h4>
+                    <h4>Example 3: Josephus problem（约瑟夫问题；Hot Potato Game）</h4>
                     <ul>
-                        <li>To begin, let's consider the children's grame Hot potato. In this game children line up in circle and pass an item from neighbor to neighbor as fast as they can. At a certain point in the game, the action is stopped and the child who has the item (the potato) is removed from the circle. Play continues until only one child is left.</li>
-                        <li>This game is a modern-day equivalent of the famous Josephus problem. </li>
+                        <li>The Josephus Problem is a classic mathematical puzzle in which $n$ people stand in a circle and every $k$-th person is eliminated in sequence until only one remains. The challenge is to determine the position of the final survivor given $n$ and $k$. It is widely used in computer science to illustrate recursion, circular data structures, and algorithm design.</li>
                     </ul>
                     <div class="leftm">
                         <div class="fragment">
@@ -330,7 +287,91 @@ print(name_list)
                     </div>
                 </section>
                 <section>
-                    <h4>Example 5: Finding prime numbers</h4>
+                    <h4>Exercise: 存钱达到目标</h4>
+                    <ul>
+                        <li>小明每天存的钱比前一天多 1 元：第一天存 1 元，第二天存 2 元，第三天存 3 元……</li>
+                        <li>请编写程序，让用户输入一个目标金额 $n$，计算：
+                            <ol>
+                                <li>第几天存的钱第一次使总金额达到或超过 $n$？</li>
+                                <li>此时一共存了多少钱？</li>
+                                <li><b>提示：先设两个变量，day表示第几天（也是当天存入的金额），total表示当前总金额。</b></li>
+                            </ol>
+                        </li>
+                    </ul>
+                </section>
+                <!-- <section>
+                    <div><a href="#" data-modal-type="image" data-modal-url="x.png">Show image</a></div>
+                </section> -->
+                <!--                 <section>
+                    <video controls style="width:100%;">
+                        <source src="gcd.mov" type="video/mp4">
+                    </video></section> -->
+                <section>
+                    <h4>Example 4: Greatest common divisor（最大公约数）</h4>
+                    <div class="leftm">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers="1-8|9-13|1-13" data-trim contenteditable>
+a = int(input('Enter the 1st number:'))
+b = int(input('Enter the 2nd number:'))
+if a > = b:
+    x = a
+    y = b
+else:
+    x = b
+    y = a
+while y != 0:
+    r = y
+    y = x % y
+    x = r
+print(x)
+</code></pre>
+                        </div><p class="fragment">Least common multiple（最小公倍数）?</p>
+                    </div>
+                    <div class="rightm">
+                        <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../img/lecture3/gcd.mov">
+                            <div class="video-box">
+                                <img src="../img/lecture3/example.jpg" alt="Video Thumbnail" class="thumbnail">
+                                <div class="play-button"></div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+                <!--                 <section>
+                    <h4>Exercise 2: “可乐瓶换饮料”问题</h4>
+                    <ul>
+                        <li>小明喝可乐的习惯是: 每喝完一瓶，就可以用 3 个空瓶 换一瓶新的可乐。</li>
+                        <li>如果他一开始有 $n$ 瓶可乐，请编写一个函数，计算他总共能喝到多少瓶可乐。</li>
+                        <li><b>提示思路：用 while 循环判断是否还能换，用整数除法 // 和取余 %</b></li>
+                    </ul>
+                </section> -->
+                <section>
+                    <h4>Example 5: Prime number (判断质数)</h4>
+                    <div class="leftm">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+i = int(input("please enter:\n"))
+while j**2 <= i:
+    if i % j == 0: 
+        break
+    j = j + 1
+if j**2 > i: 
+    print(i)
+</code></pre>
+                        </div>
+                        <p class="fragment">Exercise: 判断合数</p>
+                    </div>
+                    <div class="rightm">
+                        <a href="javascript:void(0)" data-modal-type="video" data-modal-url="../img/lecture3/prime_2.mov">
+                            <div class="video-box">
+                                <img src="../img/lecture3/example.jpg" alt="Video Thumbnail" class="thumbnail">
+                                <div class="play-button"></div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+                <!--                 <section>
+                    <h4>Example 5: Finding prime numbers (找100以内的质数)</h4>
                     <div class="leftm">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers="3-7|3-9|1-10" data-trim contenteditable>
@@ -355,12 +396,7 @@ while i < 100:
                             </div>
                         </a>
                     </div>
-                    <!--                     <ul>
-                        <li class="fragment">
-                            Only check odd numbers?
-                        </li>
-                    </ul> -->
-                </section>
+                </section> -->
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
@@ -442,7 +478,7 @@ IndentationError: unexpected indent
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">
                             <p>Forgetting to indent additional lines (logical error)</p>
@@ -482,7 +518,7 @@ Happy New Year: Sally
 Looking forward to seeing you, Sally
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <h3>range function</h3>
                     <ul>
@@ -503,18 +539,17 @@ for value in range(1,4):
                         </div>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
->>> list(range(1,6)) 
-[1, 2, 3, 4, 5]
->>> list(range(6))
-[0, 1, 2, 3, 4, 5]
->>> list(range(1, 10, 2))
-[1, 3, 5, 7, 9]
->>> list(range(10, 1, -2))
-[10, 8, 6, 4, 2]
+range(1,6) # 1, 2, 3, 4, 5
+
+range(6) # 0, 1, 2, 3, 4, 5
+
+range(1, 10, 2) # 1, 3, 5, 7, 9
+
+range(10, 1, -2) # 10, 8, 6, 4, 2
 </code></pre>
                         </div>
                         <li class="fragment">
-                            Example: generate a list of square numbers
+                            Example 1: generate a list of square numbers
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -533,17 +568,17 @@ print(squares)
                     </ul>
                 </section>
                 <section>
-                    <h3>Replicate the functionality of list functions using for loops.</h3>
-                    <h4>sum(): how to calculate 1 + 2 + 3 +...+ 100?</h4>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <h4>Example 2: Use for loops to mimic functions</h4>
+                    <h4>sum()</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 total = 0
 for value in range(1, 101):
     total = value + total  # total+=value
 print(total)
 </code></pre>
-                        </div>
-<!--                         <div class="fragment">
+                    </div>
+                    <!--                         <div class="fragment">
                             <pre><code class="output language-Python" data-trim contenteditable>
 5050
 </code></pre>
@@ -555,7 +590,7 @@ a_list = [3, 41, 12, 9, 74, 15]
 count = 0
 for x in a_list:
     count = count + 1
-print('Count: ', count)
+print(count)
 </code></pre>
                     </div>
                     <!--                     <ul>
@@ -579,7 +614,7 @@ largest = a_list[0]
 for x in a_list:
     if x > largest :
          largest = x
-print('Largest:', largest)
+print(largest)
 </code></pre>
                     </div>
                     <ul>
@@ -686,6 +721,41 @@ for i in range(1,4):
 </code></pre>
                         </div>
                     </div>
+                </section>
+                <section>
+                    <h4>Exercise: 生成棋盘</h4>
+                    <ul>
+                        <li>（提示：外层循环控制行，内层控制列）</li>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" contenteditable data-trim>
+* * * * *
+* * * * *
+* * * * *
+* * * * *
+* * * * *
+</code></pre>
+                        </div>
+                        <li class="fragment">更进一步 (提示：加上一个条件判断)</li>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" contenteditable data-trim>
++ * * * *
+* + * * *
+* * + * *
+* * * + *
+* * * * +
+</code></pre>
+                        </div>
+                                                <li class="fragment">再进一步 (提示：修改条件判断)</li>
+                        <div class="fragment">
+                            <pre><code class="output language-Python" contenteditable data-trim>
++ + + + +
++ * * * +
++ * * * +
++ * * * +
++ + + + +
+</code></pre>
+                        </div>
+                    </ul>
                 </section>
             </section>
             <!--
