@@ -725,7 +725,15 @@ for i in range(1,4):
                 <section>
                     <h4>Exercise: 生成棋盘</h4>
                     <ul>
-                        <li>（提示：外层循环控制行，内层控制列）</li>
+                        <li>1.在这段代码基础上修改</li>
+                                                <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for i in range(1,4):
+    for j in range(1,i+1):
+        print(i, end=" ")
+    print()
+</code></pre>
+                        </div>
                         <div class="fragment">
                             <pre><code class="output language-Python" contenteditable data-trim>
 * * * * *
@@ -735,7 +743,8 @@ for i in range(1,4):
 * * * * *
 </code></pre>
                         </div>
-                        <li class="fragment">更进一步 (提示：加上一个条件判断)</li>
+                        <div class="div-c">
+                        <p class="fragment">2. 加上条件判断</p>
                         <div class="fragment">
                             <pre><code class="output language-Python" contenteditable data-trim>
 + * * * *
@@ -744,8 +753,8 @@ for i in range(1,4):
 * * * + *
 * * * * +
 </code></pre>
-                        </div>
-                                                <li class="fragment">再进一步 (提示：修改条件判断)</li>
+                        </div></div><div class="div-d">
+                                                <p class="fragment">3.修改条件判断</p>
                         <div class="fragment">
                             <pre><code class="output language-Python" contenteditable data-trim>
 + + + + +
@@ -754,7 +763,7 @@ for i in range(1,4):
 + * * * +
 + + + + +
 </code></pre>
-                        </div>
+                        </div></div>
                     </ul>
                 </section>
             </section>
