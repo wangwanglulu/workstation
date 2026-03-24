@@ -460,18 +460,37 @@ princeton
                         </li>
                     </ul>
                 </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">4.2 Money Tracker (简易记账本）</h2>
-                </section>
                 <section>
+                    <h4>简易记账本 (Money Tracker)</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+print("简易记账本")
+
+record = {}
+print("请输入每一笔开销，输入金额为 0 表示结束。\n")
+
+while True:
+    amount = float(input("请输入金额：\n"))
+    if amount == 0:
+        break
+    
+    category = input("请选择类型：a.衣 b.食 c.住 d.行 e.其他\n")
+    record[category] = record.get(category, 0) + amount
+    print("记录成功\n")
+
+print(record)
+</code></pre>
+                    </div>
+                    <p class="fragment">Exercise：1. 计算今日总开销；2. 找出花钱最多的类别。
+                    </p>
+                </section>
+                <!--  <section>
                     <ul>
                         <h4>Objective: require users to enter expenses one by one, and report the total expenses</h4>
                     </ul>
-                    <!-- <ul>
+                    <ul>
                         <li><b>New Feature!</b> Add the classification of each expense</li>
-                    </ul> -->
+                    </ul> 
                     <h4></h4>
                     <p class="fragment">Step 1: Create a list containing dictionaries</p>
                     <div class="fragment">
@@ -546,11 +565,11 @@ print("住：", st['c'], "行：", st['d'])
 print("其他：", st['e'])   
 </code></pre>
                     </div>
-                </section>
+                </section> -->
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">4.3 Tuples (元组)</h2>
+                    <h2 style="color: white">4.2 Tuples (元组)</h2>
                 </section>
                 <section>
                     <ul>
@@ -635,10 +654,10 @@ TypeError: object doesn't support item assignment
                     </ul>
                 </section>
                 <section>
-                    <h4>Other common characteristics of lists and tuples</h4>
+                    <h4>Other features of tuples</h4>
                     <ul>
                         <li class="fragment">
-                            <p>Tuples and strings are compared and sorted lexicographically, element by element (the same for lists).</p>
+                            <p>Tuples and strings are compared and sorted lexicographically, element by element <b>(the same for lists)</b>.</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -660,7 +679,7 @@ True
 </code></pre>
                     </div> -->
                         <li class="fragment">
-                            <p>Multiple assignment (the same for lists)</p>
+                            <p>Multiple assignment</p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -673,7 +692,7 @@ have fun
 </code></pre>
                         </div>
                         <li class="fragment">
-                            <p>The in operator (the same for lists)</p>
+                            <p>The in operator <b>(the same for lists)</b> </p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -769,13 +788,36 @@ TypeError: 'tuple' object does not support item assignment
                         </li>
                     </ul>
                 </section>
+                <section>
+                    <h4>Example: 最近点问题（Closest Point）</h4>
+                    <ul>
+                        <li>在平面上有一些点，每个点用一个元组表示：</li>
+                        <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+points = [(1, 2), (3, 4), (2, 1), (5, 1), (0, 3)]
+</code></pre>
+                    </div>
+                        <li>请找出：距离原点 (0,0) 最近的点。距离公式：距离 = $\sqrt{(x^2 + y^2)}$，可以比较：$x^2 + y^2$</li>
+                        <li>提示：修改下面的代码</li>
+                        <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+s = [14, 34, 12, 23, 43]
+smallest = None
+for x in s:
+    if smallest is None or x < smallest:
+        smallest = x
+print(smallest)
+</code></pre>
+                    </div>
+                    </ul>
+                </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">4.4 Mutable and Immutable (可变和不可变)</h2>
+                    <h2 style="color: white">4.3 Mutable and Immutable (可变和不可变)</h2>
                 </section>
                 <section>
-                    <ul>
+<!--                     <ul>
                         <li>List: [], ordered, repeatable, mutable (可变的)</li>
                         <li>Tuple: (), ordered, repeatable, immutable (不可变的)</li>
                         <li>Dictionary: {}, not ordered.
@@ -785,12 +827,14 @@ TypeError: 'tuple' object does not support item assignment
                                 <li>Values are mutable, but keys must be immutable.</li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                     <ul>
                         <li class="fragment">
                             Numbers, strings, tuples are immutable. Lists, dictionaries are mutable.
                         </li>
-                        <li class="fragment">What does it mean for immutable or mutable?</li>
+                        <li class="fragment">For dictionary, values are mutable, but keys must be immutable.</li>
+                        <h4></h4>
+                <h4 class="fragment"><b>What does it mean when something is immutable or mutable?</b></h4>
                         <li class="fragment">
                             <p>1. Assignment: variable $\rightarrow$ computer memory $\rightarrow$ object</p>
                         </li>
