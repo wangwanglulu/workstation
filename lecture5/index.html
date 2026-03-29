@@ -298,22 +298,34 @@ I spotted {42}
 I spotted 42 'camels'.
 
 </code></pre>
-                        </div>-->
+                        </div>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 >>> animal = 'camels'
 >>> number = 42.12345678
->>> print(f'''I spotted {number:.2f} {animal}.''') 
+>>> print(f'I spotted {number:.2f} {animal}.') 
 I spotted 42.12 camels.
->>> print(f'''I spotted {number:.0f} {animal}.''') 
+>>> print(f'I spotted {number:.0f} {animal}.') 
 I spotted 42 camels.
 
->>> print(f'''I spotted {number:.2} {animal}.''') 
+>>> print(f'I spotted {number:.2} {animal}.') 
 I spotted 4.2e+01 camels.
->>> print(f'''I spotted {number:.5} {animal}.''') 
+>>> print(f'I spotted {number:.5} {animal}.') 
 I spotted 42.123 camels.
 
->>> print(f'''I spotted {number:.2%} {animal}.''') 
+>>> print(f'I spotted {number:.2%} {animal}.''') 
+I spotted 4212.35% camels.
+</code></pre>
+                        </div>-->
+                                                <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+>>> animal = 'camels'
+>>> number = 42.12345678
+>>> print(f'I spotted {number:.2f} {animal}.') 
+I spotted 42.12 camels.
+>>> print(f'I spotted {number:.0f} {animal}.') 
+I spotted 42 camels.
+>>> print(f'I spotted {number:.2%} {animal}.''') 
 I spotted 4212.35% camels.
 </code></pre>
                         </div>
