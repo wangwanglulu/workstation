@@ -207,6 +207,8 @@ ada lovelace
 >>> host = data[atpos+1 : sppos]
 >>> print(host)
 uct.ac.za
+
+# 如果没有找到，则会得到 -1
 </code></pre>
                         </div>
                     </ul>
@@ -367,8 +369,50 @@ I spotted 4212.35% camels.
                         </li>
                     </ul>
                 </section>
+                <section>
+                    <h4>Exercise: 敏感词检测</h4>
+                    <p>用如下代码读取txt文件，里面包含一段电影评论，这段评论会以字符串形式赋给text变量。 </p>
+                    <div>
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+path = Path('comment.txt')
+text = path.read_text()
+
+# 敏感词列表如下：
+words = ["bad", "boring", "awful", "terrible"]
+
+#转化小写
+text = text.lower()
+
+# 去除标点（只保留字母和空格）
+cleaned_text = ""
+for char in text:
+    if char.isalpha() or char.isspace():
+        cleaned_text += char # cleaned_text = cleaned_text + char
+</code></pre>
+                        </div>
+                        <ol>
+                            
+                            <li>使用 .find() 判断是否包含任意敏感词，如果包含则输出 "Warning！"</li>
+                            <li>统计所有敏感词的总出现次数。提示：用字典方法get</li>
+                        </ol>
+                </section>
+                <section>
+                    <h4>类似应用：Sentiment Analysis (情感分析）</h4>
+                    <div class="div-e">
+                        <p>情感分析（Sentiment Analysis），也称为情绪分析或意见挖掘，广泛用于各种行业和场景，帮助企业和个人理解文本中的情感倾向（正面、负面或中性）。以下是几个重要的应用场景：产品评论分析, 市场调研, 舆情监测, 股票市场预测。</p>
+                        <p class="fragment">简约版的情感分析和上述练习类似：先对文本进行标准化处理，接着统计正负词出现的次数，最后根据规则（如正负词多少）判断整体情感。</p>
+                    </div>
+                    <div class="div-e">
+                        <ul>
+                            <li class="fragment">早在2010年，就有学者指出，可以依靠Twitter公开信息的情感分析来预测股市的涨落，准确率高达87.6%！</li>
+                            <li class="fragment">专业情感分析库（如, TextBlob、VADER）通常包含上千个情感词，还能识别不同的语境。在 VADER 词典中，每个单词都有情感强度评分（如 “amazing” 可能是 4.0，“good” 可能是 1.9）。</li>
+                            <li class="fragment">真实情感分析库可以处理否定词、语法结构等，如 "not bad" 可能被解析为正面，而不是简单地统计 “not” 和 “bad” 的出现次数。</li>
+                        </ul>
+                    </div>
+                </section>
             </section>
-            <section>
+            <!-- <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">5.2 Sentiment Analysis (情感分析）</h2>
                 </section>
@@ -384,8 +428,8 @@ I spotted 4212.35% camels.
                         <li>竞争对手分析：市场调研，行业趋势分析</li>
                         <li>股票市场预测：金融新闻，社交媒体</li>
                     </ul>
-                    
                 </section>
+
                 <section>
                     <ul>
                         <div class="div-e">
@@ -467,10 +511,10 @@ print(f"（正面词: {pos_count} 个, 负面词: {neg_count} 个）")
                         </ul>
                     </div>
                 </section>
-            </section>
+            </section> -->
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">5.3 Chinese Idiom Relay (成语接龙)</h2>
+                    <h2 style="color: white">5.2 Chinese Idiom Relay (成语接龙)</h2>
                 </section>
                 <!--
                 <section>
@@ -593,7 +637,7 @@ while enter!="q":
 </code></pre>
                     </div>
                 </section>
-                <section>
+<!--                 <section>
                     <ul>
                         <li class="fragment">有可能找不到能够接下去的成语了，但是程序不会结束，怎么解决呢？</li>
                     </ul>
@@ -618,7 +662,7 @@ while enter!="q" and exist:
         print("对不起，没有成语了")   
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <ul>
                         <li class="fragment">可进一步添加如下功能：</li>
