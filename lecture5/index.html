@@ -371,28 +371,28 @@ I spotted 4212.35% camels.
                 </section>
                 <section>
                     <h4>Exercise: 敏感词检测</h4>
-                    <p>用如下代码读取txt文件，里面包含一段电影评论，这段评论会以字符串形式赋给text变量。 </p>
+                    <p>如下代码读取了包含电影评论的txt文件，并以字符串形式赋值给contents变量。 </p>
                     <div>
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pathlib import Path
 path = Path('comment.txt')
-text = path.read_text()
+contents = path.read_text()
 
 # 敏感词列表如下：
 words = ["bad", "boring", "awful", "terrible"]
 
 #转化小写
-text = text.lower()
+contents = contents.lower()
 
 # 去除标点（只保留字母和空格）
 cleaned_text = ""
-for char in text:
+for char in contents:
     if char.isalpha() or char.isspace():
         cleaned_text += char # cleaned_text = cleaned_text + char
 </code></pre>
                         </div>
                         <ol>
-                            
+                            续写这段代码完成如下任务：
                             <li>判断是否包含任意敏感词，如果包含则输出 "Warning！"</li>
                             <li>统计所有敏感词的总出现次数。</li>
                         </ol>
@@ -606,7 +606,7 @@ for line in lines:
         each= line[pinyin_start+1: pinyin_end]
         pinyin_list = each.split()
         d_game[idiom] = pinyin_list
-print(len(d_game))
+# print(len(d_game))
 </code></pre>
                     </div>
                 </section>
@@ -666,9 +666,9 @@ while enter!="q" and exist:
                 <section>
                     <ul>
                         <li class="fragment">可进一步添加如下功能：</li>
-                        <li class="fragment">基本释义，谐音取词，人机对战，随机取词</li>
+                        <li class="fragment">谐音取词，人机对战，随机取词</li>
                     </ul>
-                    <div class="fragment">
+<!--                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # 基本释义功能
 # 修改第一步
@@ -686,12 +686,12 @@ print(d_ex[words])
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <section> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers="3,12|1-14" data-trim contenteditable>
 # 谐音取词
-# 修改第一步
-import unicodedata
+import unicodedata  #加上第2行和第12行
+
 d_game={}
 for line in lines:
     if line!="\n":
@@ -740,6 +740,35 @@ while enter!="q" and exist:
 </code></pre>
                     </div>
                 -->
+                </section>
+                <section>
+                    <h4>Exercise: 统计成语数</h4>
+                    <ul>
+                        <li>修改下面的代码</li>
+                    </ul>
+                                        <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+path = Path('idiom_dictionary.txt')
+contents = path.read_text()
+lines = contents.splitlines()
+
+d_game={}
+for line in lines:
+    if line!="":
+        endpoint=line.find("拼音")
+        idiom = line[:endpoint].strip()
+        pinyin_start = line.find("：", endpoint)
+        pinyin_end =line.find("释义")
+        each= line[pinyin_start+1: pinyin_end]
+        pinyin_list = each.split()
+        d_game[idiom] = pinyin_list
+</code></pre>
+                    </div>
+                    <ol>
+                        <li>统计有多少成语是出自《西游记》的。提示：查找的时候要包含书名号<b>《》</b></li>
+                        <li>统计哪一个发音可以接上最多的成语，不需要取谐音。</li>
+                    </ol>
                 </section>
             </section>
             <section>

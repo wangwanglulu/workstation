@@ -14,17 +14,6 @@ for char in text:
     if char.isalpha() or char.isspace():
         cleaned_text += char # cleaned_text = cleaned_text + char
 
-d = {}
-total = 0
-cleaned_text = cleaned_text.split()
 
-for c in cleaned_text:
-    d[c] = d.get(c,0)+1
-for word in words:
-    if word in d:
-        total = d[word] + total
-
-print(d)
-print(total)
 
 
