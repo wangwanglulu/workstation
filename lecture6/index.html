@@ -149,8 +149,27 @@ describe_pet(type='hamster', name='harry')
 describe_pet(name='harry', type='hamster')
 </code></pre>
                     </div>
+                    <!--                     <ul>
+                        <li class="fragment">
+                            <p>The following function calls have the same output.</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# A dog named Willie.
+describe_pet('willie')
+describe_pet(name='willie')
+
+# A hamster named Harry.
+describe_pet('harry', 'hamster')
+describe_pet(name='harry', type='hamster')
+describe_pet(type='hamster', name='harry')
+</code></pre>
+                    </div>
                 </section>
-                <section>
+                <section> -->
+                </section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">
                             <p>Default Values</p>
@@ -178,25 +197,7 @@ describe_pet(name='harry', type='hamster')
 #The default value has been ignored.
 </code></pre>
                     </div>
-                    <!--                     <ul>
-                        <li class="fragment">
-                            <p>The following function calls have the same output.</p>
-                        </li>
-                    </ul>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# A dog named Willie.
-describe_pet('willie')
-describe_pet(name='willie')
-
-# A hamster named Harry.
-describe_pet('harry', 'hamster')
-describe_pet(name='harry', type='hamster')
-describe_pet(type='hamster', name='harry')
-</code></pre>
-                    </div>
-                </section>
-                <section> -->
+                    
                     <ul>
                         <li class="fragment">
                             <p>Example: Making an Argument Optional</p>
@@ -221,7 +222,7 @@ def show_name(first, last, middle=''):
 show_name('jimi', 'hendrix')
 </code></pre>
                     </div>
-                </section>
+                </section> -->
                 <section>
                     <h3>Fruitful functions and void functions</h3>
                     <ul>
@@ -346,6 +347,24 @@ print(musician)
 {1: 'jimi', 2: 'hendrix'}
 </code></pre>
                     </div>
+                </section>
+                <section>
+                    <h4>Exercise: 可乐瓶换饮料问题</h4>
+                    <ul>
+                        <li>小明喝可乐的习惯是: 每喝完一瓶，就可以用 3 个空瓶 换一瓶新的可乐。如果他一开始有 n 瓶可乐，请编写一个函数，计算他总共能喝到多少瓶可乐。完成下面的代码。</li>
+                        <li>提示思路：用 while 循环判断每轮是否还能换，用整数除法 // 计算每轮能换到多少新的可乐，取余 % 计算每轮剩余的空瓶子</li>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def total_cola(n):
+    total = n         # 喝掉的总数
+    bottles = n       # 当前拥有的空瓶数
+
+    # 把你的代码填到这里
+
+    return total
+</code></pre>
+                        </div>
+                    </ul>
                 </section>
                 <!--                 <section>
                     <h3>Example: Improve the game in Lecture 2!</h3>
@@ -718,7 +737,7 @@ pyperclip.copy("abc")
                 </section>
                 <section>
                     <h3>Some third-party packages</h3>
-                    <div class="fragment">
+                    <!-- <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import math
 print(dir(math))
@@ -748,22 +767,21 @@ print(math.log(5, 20))
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <section> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import random
 
 print(random.randint(1, 10))         # 产生 1 到 10 的一个整数型随机数
 print(random.random())               # 产生 0 到 1 之间的随机浮点数
-print(random.uniform(1.1, 5.4))      # 产生  1.1 到 5.4 之间的随机浮点数
-print(random.choice('tomorrow'))     # 从序列中随机选取一个元素
-print(random.randrange(1, 100, 2))   # 生成从1到100的间隔为2的随机整数
+
+print(random.choice('tomorrow'))     # 从容器中随机选取一个元素
+
 a = [1, 3, 5, 6, 7]                
-random.shuffle(a)                    # 将序列a中的元素顺序打乱
-print(a)
+random.shuffle(a)                    # 将列表a中的元素顺序打乱
 </code></pre>
                     </div>
-                    <a class="fragment" href="https://blog.csdn.net/weixin_55159605/article/details/121466053" target="_blank">you-get安装使用说明</a>
+                    <a class="fragment" href="https://zhuanlan.zhihu.com/p/658123218" target="_blank">you-get安装使用说明</a>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 pip install you-get 
@@ -818,44 +836,52 @@ itchat.logout()
                     <h2 style="color: white">6.3 Blackjack (21点游戏)</h2>
                 </section>
                 <section>
-                    <h3>21点游戏规则</h3>
+                    <h3>简化版21点游戏规则</h3>
                     <ul>
                         <li class="fragment">
-                            <p>玩法：玩家与电脑比拼手牌点数，接近 21 且不超越者获胜。</p>
+                            <p>游戏开始时，玩家会获得两张牌。每张牌都有一个点数：</p>
                         </li>
                         <li class="fragment">
-                            <p>玩家的目标是让手中的牌点数尽可能接近21点，但不能超过21点，否则称为“爆牌”，立即输掉本局。</p>
+                            <p>2 到 10 按照数字本身计算，J、Q、K 都记为 10，A 先按 11 计算。</p>
+                        </li>
+                        <li class="fragment">
+                            <p>接下来，玩家可以反复做一个选择：是否继续抽一张牌。</p>
+                        </li>
+                        <li class="fragment">每抽一张牌，都会把点数加入当前总和中。如果总点数：
                             <ul>
-                                <li class="fragment">A（Ace，A牌）可以是1点或11点，由玩家决定（如A和6可算作7或17）</li>
-                                <li class="fragment">2-10点按牌面值计算。J（Jack）、Q（Queen）、K（King）均为10点。</li>
+                                <li class="fragment">
+                                    <p>超过 21，游戏结束（爆掉）</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>等于 21，游戏结束（最佳结果）</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>小于 21，可以继续选择是否抽牌</p>
+                                </li>
+                                <li class="fragment">
+                                    <p>玩家可以在任何时候选择停止抽牌，此时游戏结束，最终点数就是当前总和。</p>
+                                                                    </li>
                             </ul>
-                        </li>
-<li class="fragment">游戏流程
-                        <ul>
-                        <li class="fragment">
-                                1.  发牌：玩家和庄家各获得两张牌
-                        </li>
-                        <li class="fragment">
-                            <p> 2.  玩家回合：要牌（再抽一张牌）或者，停牌（不再要牌）。</p>
-                        </li>
-                        <li class="fragment">
-                            <p> 3.  庄家回合：要牌，或者，停牌，庄家的牌点数小于17则必须要牌。</p>
-                        </li>
-                        <li class="fragment">
-                            <p> 4. 胜负判断：</p>
-                            <ul>
-                                <li>玩家点数 > 21：玩家输。</li>
-                                <li>玩家点数 ≤ 21，且比庄家高，或庄家爆牌：玩家赢。</li>
-                                <li>玩家和庄家点数相同：平局。</li>
-                            </ul>
-                        </li>
-                        </ul>
                         </li>
                     </ul>
                 </section>
                 <section>
+                    <h3>真实 21 点游戏中的额外规则</h3>
+                    <div class="div-e">
+                    <ul >
+                        <li><p>首先，A 可以同时作为 1 或 11，系统会自动选择对玩家更有利的计算方式（这一点我们只做了最基本的处理）。</p></li>
+                        <li><p>其次，游戏中不仅有玩家，还有庄家（dealer）。庄家会按照固定规则（例如点数小于 17 此外，还存在一些额外操作，例如：
+                        必须继续要牌）行动，玩家需要与庄家比较点数来决定输赢。</p></li>
+                        <li>此外，还存在一些额外操作，例如：
+                            <ul><li><p>Blackjack（黑杰克）：前两张牌正好是 21，通常有更高奖励</p></li>
+                            <li><p>分牌（split）：当两张牌相同时可以拆分成两手</p></li>
+                            <li><p>加倍（double down）：加注并只再抽一张牌</p></li></ul>
+                        </li>
+                    </ul>
+                    </div>
+                </section>
+                <section>
                     <a class="fragment" href="https://www.bilibili.com/video/BV1ru4m1A7AZ/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank">教学视频: 赌棍 The Gambler (2014)</a>
-
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import random
@@ -881,6 +907,69 @@ def calculate(cards):
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def player_turn(player_hand, deck):
+    while True:
+        score = calculate(player_hand)
+        print("玩家手牌:", player_hand, "当前点数:", score)
+        
+        if score > 21:
+            print("爆了！")
+            break
+        elif score == 21:
+            print("正好 21 点！")
+            break
+        
+        move = input("是否要牌？(y/n): ")
+        if move == 'y':
+            player_hand.append(deck.pop())
+        else:
+            break
+    
+    return score
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+deck = create_deck()
+
+player_hand = []
+player_hand.append(deck.pop())
+player_hand.append(deck.pop())
+
+score = player_turn(player_hand, deck)
+print("最终点数:", score)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h4>Exercise: 德州扑克随机发牌（也类似Balatro小丑牌）</h4>
+                    <div class = "div-e">
+<ol><p>修改下面的代码，<b>随机发出</b>：</p>
+    <li>先给玩家 2 张牌</li>
+    <li>再出公共牌 5 张</li>
+    <li>打印结果</li>
+</ol>
+                    </div>
+                                        <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 1. 定义点数和花色
+ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+suits = ["\u2660", "\u2665", "\u2663", "\u2666"]
+# suits = ["♠", "♥", "♣", "♦"]
+</code></pre>
+                    </div>
+                    输出结果举例：
+                    <div>
+                        <pre><code class="language-Python output" data-line-numbers data-trim contenteditable>
+你的手牌： ['♠8', '♠K']
+公共牌： ['♦2', '♦10', '♥K', '♥8', '♣A']
+</code></pre>
+                    </div>
+                </section>
+                
+                <!-- <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 # 玩家回合
 def player_turn(player_hand, deck):
     while True:
@@ -902,9 +991,8 @@ def dealer_turn(dealer_hand, deck):
     return calculate(dealer_hand), deck  
 </code></pre>
                     </div>
-                     </section>
-                    <section>
-                        
+                </section> -->
+                <!-- <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def blackjack():
@@ -930,8 +1018,7 @@ def blackjack():
 blackjack()
 </code></pre>
                     </div>
-
-                </section>
+                </section> -->
             </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
