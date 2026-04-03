@@ -40,7 +40,7 @@
                             <p>Build-in Functions: int(), float(), str(), type(), and etc.</p>
                         </li>
                         <li class="fragment">
-                            <p>To make your own functions, <b>follow two steps: 1. define a function 2. call a function</b></p>
+                            <p><b>Follow two steps: 1. define a function（定义） 2. call a function（调用）</b></p>
                         </li>
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -837,12 +837,13 @@ itchat.logout()
                 </section>
                 <section>
                     <h3>简化版21点游戏规则</h3>
+                    <div class = "div-e">
                     <ul>
                         <li class="fragment">
                             <p>游戏开始时，玩家会获得两张牌。每张牌都有一个点数：</p>
                         </li>
                         <li class="fragment">
-                            <p>2 到 10 按照数字本身计算，J、Q、K 都记为 10，A 先按 11 计算。</p>
+                            <p>2 到 10 按照数字本身计算，J、Q、K 都记为 10，A 先按 11 计，如果总点数超过 21 点（爆了）就变成 1。</p>
                         </li>
                         <li class="fragment">
                             <p>接下来，玩家可以反复做一个选择：是否继续抽一张牌。</p>
@@ -850,7 +851,7 @@ itchat.logout()
                         <li class="fragment">每抽一张牌，都会把点数加入当前总和中。如果总点数：
                             <ul>
                                 <li class="fragment">
-                                    <p>超过 21，游戏结束（爆掉）</p>
+                                    <p>超过 21，游戏结束（爆掉输了）</p>
                                 </li>
                                 <li class="fragment">
                                     <p>等于 21，游戏结束（最佳结果）</p>
@@ -860,18 +861,18 @@ itchat.logout()
                                 </li>
                                 <li class="fragment">
                                     <p>玩家可以在任何时候选择停止抽牌，此时游戏结束，最终点数就是当前总和。</p>
-                                                                    </li>
+                                </li>
                             </ul>
                         </li>
                     </ul>
+                    </div>
                 </section>
                 <section>
                     <h3>真实 21 点游戏中的额外规则</h3>
                     <div class="div-e">
                     <ul >
-                        <li><p>首先，A 可以同时作为 1 或 11，系统会自动选择对玩家更有利的计算方式（这一点我们只做了最基本的处理）。</p></li>
-                        <li><p>其次，游戏中不仅有玩家，还有庄家（dealer）。庄家会按照固定规则（例如点数小于 17 此外，还存在一些额外操作，例如：
-                        必须继续要牌）行动，玩家需要与庄家比较点数来决定输赢。</p></li>
+                        <li><p>首先，玩家自己选择把A当成11或者1（简化版只做了最基本处理）。</p></li>
+                        <li><p>其次，游戏中不仅有玩家，还有庄家（dealer）。庄家会按照固定规则（例如点数小于 17 必须继续要牌）行动，玩家需要与庄家比较点数来决定输赢。</p></li>
                         <li>此外，还存在一些额外操作，例如：
                             <ul><li><p>Blackjack（黑杰克）：前两张牌正好是 21，通常有更高奖励</p></li>
                             <li><p>分牌（split）：当两张牌相同时可以拆分成两手</p></li>
@@ -907,16 +908,14 @@ def calculate(cards):
                 <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def player_turn(player_hand, deck):
+def player_turn(deck):
+    player_hand = []
     while True:
         score = calculate(player_hand)
         print("玩家手牌:", player_hand, "当前点数:", score)
         
         if score > 21:
             print("爆了！")
-            break
-        elif score == 21:
-            print("正好 21 点！")
             break
         
         move = input("是否要牌？(y/n): ")
@@ -926,17 +925,10 @@ def player_turn(player_hand, deck):
             break
     
     return score
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+
+
 deck = create_deck()
-
-player_hand = []
-player_hand.append(deck.pop())
-player_hand.append(deck.pop())
-
-score = player_turn(player_hand, deck)
+score = player_turn(deck)
 print("最终点数:", score)
 </code></pre>
                     </div>
@@ -944,7 +936,7 @@ print("最终点数:", score)
                 <section>
                     <h4>Exercise: 德州扑克随机发牌（也类似Balatro小丑牌）</h4>
                     <div class = "div-e">
-<ol><p>修改下面的代码，<b>随机发出</b>：</p>
+<ol>续写代码，<b>完成发牌</b>：
     <li>先给玩家 2 张牌</li>
     <li>再出公共牌 5 张</li>
     <li>打印结果</li>
@@ -952,13 +944,20 @@ print("最终点数:", score)
                     </div>
                                         <div>
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# 1. 定义点数和花色
-ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+# 定义点数和花色
+
+ranks = ["J", "Q", "K", "A"]
+for x in range(2,11):
+    ranks.append(str(x))
+print(ranks)
 suits = ["\u2660", "\u2665", "\u2663", "\u2666"]
+
+# 上面的代码会得到
+# ranks = ['J', 'Q', 'K', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 # suits = ["♠", "♥", "♣", "♦"]
 </code></pre>
                     </div>
-                    输出结果举例：
+                    输出结果示例：
                     <div>
                         <pre><code class="language-Python output" data-line-numbers data-trim contenteditable>
 你的手牌： ['♠8', '♠K']
