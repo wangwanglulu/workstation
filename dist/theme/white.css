@@ -431,6 +431,19 @@ div.div-d {
 
 }
 
+div.div-aa {
+    float: left;
+    width: 60%;
+    border: 0px;
+}
+
+div.div-bb {
+    float: right;
+    width: 40%;
+    border: 0px;
+
+}
+
 div.div-e {
   padding: 0 15%;
 }

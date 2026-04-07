@@ -936,16 +936,38 @@ print("最终点数:", score)
                 <section>
                     <h4>Exercise: 德州扑克随机发牌（也类似Balatro小丑牌）</h4>
                     <div class = "div-e">
-<ol>续写代码，<b>完成发牌</b>：
-    <li>先给玩家 2 张牌</li>
-    <li>再出公共牌 5 张</li>
+<ol>改写下面代码中的函数，<b>完成发牌</b>：
+    <li>先给玩家 2 张牌（hole cards）</li>
+    <li>再出公共牌 5 张（community cards）</li>
     <li>打印结果</li>
 </ol>
                     </div>
-                                        <div>
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-# 定义点数和花色
 
+                                        <div class = "div-aa">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# 改写这段代码
+def create_deck():
+    values = [2,3,4,5,6,7,8,9,10,10,10,10,11] 
+    deck = values * 4  # 4种花色
+    random.shuffle(deck)
+    return deck
+
+</code></pre>
+                    </div>
+
+                                        <div class = "div-bb">
+                        <pre><code class="language-Python output" data-line-numbers contenteditable>
+# 输出示例
+['♠8', '♠K']
+['♦2', '♦10', '♥K', '♥8', '♣A']
+
+
+</code></pre>
+                    </div>
+
+                    提示：用如下代码定义点数和花色
+                    <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 ranks = ["J", "Q", "K", "A"]
 for x in range(2,11):
     ranks.append(str(x))
@@ -957,13 +979,7 @@ suits = ["\u2660", "\u2665", "\u2663", "\u2666"]
 # suits = ["♠", "♥", "♣", "♦"]
 </code></pre>
                     </div>
-                    输出结果示例：
-                    <div>
-                        <pre><code class="language-Python output" data-line-numbers data-trim contenteditable>
-你的手牌： ['♠8', '♠K']
-公共牌： ['♦2', '♦10', '♥K', '♥8', '♣A']
-</code></pre>
-                    </div>
+                    
                 </section>
                 
                 <!-- <section>
