@@ -20,7 +20,7 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;" data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
                     <h3 style="color: white">Lecture 7 Variable Scope, Advanced Functions</h3>
@@ -253,7 +253,7 @@ print(a)
                     </div>
                 </section>
                 <section>
-                    <h3>mutable vs. immutable</h3>
+                    <h3>Mutable objects</h3>
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -326,7 +326,7 @@ print(a)
                 </section>
                 <section>
                     <h3>Parameter and Argument</h3>
-                    <ul>
+                    <!-- <ul>
                         <li>
                             <p>For immutable objects (number, string, tuple), the assignment inside a function cannot change the value of the variable outside the function even if the variable name inside is the same with the variable name outside.</p>
                         </li>
@@ -440,7 +440,7 @@ None
                         </div>
                     </div>
                 </section>
-                <section>
+                <section> -->
                     <ul>
                         <li>
                             <p>For mutable objects (like lists and dictionaries), <b>assigning </b> a new value to a variable inside a function <b>will not</b> change the original variable outside the function. (the same with immutable objects!)</b></p>
@@ -505,22 +505,116 @@ outside: [10, 20, 1, 2]
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">7.2 Example: Pomodoro Timer (番茄钟)</h2>
+                </section>
+                <section>
+                    <h3>番茄钟</h3>
+                    <div>
+                        <p>"番茄钟"在英文中通常称为 Pomodoro Technique，是一种经典的时间管理方法，由 Francesco Cirillo 在 1980 年代提出。
+                            其名称源于番茄形状厨房定时器 (意大利语"pomodoro"意为番茄)。该方法将工作时间分割为短间隔（25分钟为一个"番茄钟")，辅以短暂休息，帮助提高专注力并减少疲劳。</p>
+                    </div>
+                    <ul>
+                        <li class="fragment">番茄钟 / Pomodoro: 一个完整的工作周期，通常为 25 分钟专注时间。</li>
+                        <li class="fragment">短休息 / Short Break: 每个番茄之后的短暂休息（通常 3–5 分钟）。</li>
+                        <li class="fragment">长休息 / Long Break: 每完成 4 个番茄后的较长休息（通常 15–30 分钟）。</li>
+                        <li class="fragment">番茄计数 / Pomodoro Count: 已完成的番茄数量，用于衡量进度。</li>
+                    </ul>
+                    <div><img data-src="../img/lecture7/pomodoro.png" style="height: 150pt"></div>
+                </section>
+                <section>
+                    <h4>Step 1: Countdown Timer，倒计时 </h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+import time
+
+def countdown(seconds):
+    while seconds >= 0:
+        print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
+        time.sleep(1) 
+        seconds -= 1
+
+    print("\n时间到！")
+
+countdown(3)
+
+</code></pre>
+                    </div>
+                    <ul class="fragment">
+                        <li>\r 的作用是把光标移回当前行的开头，所以每次输出都会覆盖前面的内容。</li>
+                        <li>flush=True, 让 print 立即输出, 和 \r 组合起来实现原地刷新的效果</li>
+                        <li>{seconds:02d} 将一个整数以两位数的形式输出，并且不足两位时用0进行填充</li>
+                        <li>time.sleep(1) 表示暂停1秒</li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>Step 2: Add Music 添加音乐，<b>这里可能需要从终端运行。</b></h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+import time
+import winsound #加上这行
+def countdown(seconds):
+    while seconds >= 0:
+        print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
+        time.sleep(1)
+        seconds -= 1
+    print("\n时间到！")
+    winsound.Beep(1500, 300) #加上这行
+countdown(3)
+
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+import time
+from playsound import playsound #加上这行
+def countdown(seconds):
+    while seconds >= 0:
+        print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
+        time.sleep(1)
+        seconds -= 1
+    print("\n时间到！")
+    playsound("alarm.mp3") #加上这行
+countdown(3)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h4>Exercise: 加入轮数控制，一轮为工作3秒，休息1秒</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+import time
+
+def countdown(seconds):
+    while seconds >= 0:
+        print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
+        time.sleep(1)
+        seconds -= 1
+    print("\n时间到！")
+
+count = 1
+def pomodoro():
+    countdown(3)
+    count += 1 
+
+pomodoro()
+</code></pre>
+                    </div>
+                    <ol class="fragment">
+                        <li>上面的代码想用count来统计轮数，但是代码有错误，先把它修改正确</li>
+                        <li>让 pomodoro 接收轮数作为实参，例如：pomodoro(1) 会自动倒计时 3 秒，接着倒计时 1 秒。</li>
+                        <li>继续修改，如果轮数到达 4 轮，休息 2 秒</li>
+                    </ol>
+                </section>
+            </section>
+            <!-- <section>
+                <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">7.2 Nested Functions（嵌套函数）</h2>
                 </section>
                 <section>
                     <h3>Nested Functions </h3>
-<!--                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def outer():
-    def inner():
-        print(100)
-    inner()
-outer()
-</code></pre>
-                    </div> -->
                     <div class="div-c">
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers contenteditable>
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers contenteditable>
 def outer():
     def inner():
         num = 100
@@ -530,11 +624,11 @@ outer()
 
 
 </code></pre>
-                    </div>
+                        </div>
                     </div>
                     <div class="div-d">
                         <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 num = 3           # Global（全局）
 def outer():
     num = 10      # Enclosing（外层）
@@ -545,18 +639,16 @@ def outer():
     print(num)
 outer()
 </code></pre>
+                        </div>
                     </div>
-
-                    </div>
-                    
                     <ul>
                         <li class="fragment">
                             <p>（引用顺序）Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB principle)</p>
                         </li>
                     </ul>
-                                        <div class="div-c">
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 num = 3           
 def outer():
     num = 10     
@@ -568,17 +660,17 @@ outer()
 
 # output？
 </code></pre>
-                    </div>
+                        </div>
                     </div>
                     <div class="div-d">
-                    <div class="fragment"><img data-src="../img/lecture7/scope.png" style="height: 180pt"></div>
+                        <div class="fragment"><img data-src="../img/lecture7/scope.png" style="height: 180pt"></div>
                     </div>
                 </section>
                 <section>
                     <h4><b>nonlocal</b> keyword</h4>
-                        <div class="div-c">
-                            <div class="fragment">
-                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def outer():
     num = 10
     def inner():
@@ -590,11 +682,11 @@ def outer():
     print(num)
 outer()
 </code></pre>
-                            </div>
                         </div>
-                        <div class="div-d">
-                            <div class="fragment">
-                                <pre><code class="output"  contenteditable>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
 100
 100
 
@@ -605,11 +697,11 @@ outer()
 
 
 </code></pre>
-                            </div>
                         </div>
-                        <div class="div-c">
-                            <div class="fragment">
-                                <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def outer():
     num = 10
     def inner():
@@ -620,11 +712,11 @@ def outer():
     print(num)
 outer()
 </code></pre>
-                            </div>
                         </div>
-                        <div class="div-d">
-                            <div class="fragment">
-                                <pre><code class="output"  contenteditable>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
 100 
 10
 
@@ -634,8 +726,8 @@ outer()
 
 
 </code></pre>
-                            </div>
                         </div>
+                    </div>
                 </section>
                 <section>
                     <div class="div-c">
@@ -837,29 +929,21 @@ print(num)
                         </div>
                     </div>
                 </section>
-            </section>
+            </section> -->
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">7.3 Advanced Functions</h2>
                 </section>
                 <section>
                     <h3>Arbitrary Arguments（任意数量的实参）</h3>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def make_pizza(toppings):
-    print(toppings)
-
-make_pizza('pepperoni')
-</code></pre>
-                    </div>
                     <ul>
                         <li class="fragment">
-                            <p>If we want to pass multiple arguments, we may create a list at first.</p>
+                            <p>To pass multiple arguments, we have two ways:</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-x=['mushrooms', 'green peppers', 'extra cheese']
+x = ['mushrooms', 'green peppers', 'extra cheese']
 def make_pizza(toppings):
     for y in toppings:
         print(y, end=', ')
@@ -898,25 +982,22 @@ make_pizza('mushrooms', 'green peppers', 'extra cheese')
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>Note that Python packs the arguments into a tuple, even if the function receives only one value.</p>
+                            <p>Note that Python packs (打包) the arguments into a tuple, even if the function receives only one value. Using * with a container means "unpacking" (解包) it. </p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_pizza(*toppings):
-    for topping in toppings:
-        print("- " + topping)
+    print(toppings)
 
-make_pizza('pepperoni')
-make_pizza('mushrooms', 'green peppers', 'extra cheese')
+
+t = ['mushrooms', 'green peppers', 'extra cheese']
+make_pizza(*t) 
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-- pepperoni
-- mushrooms
-- green peppers
-- extra cheese
+('mushrooms', 'green peppers', 'extra cheese')
 </code></pre>
                     </div>
                 </section>
@@ -972,27 +1053,22 @@ build_profile(location='Shanghai',field='Management')
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>Using Arbitrary Keyword Arguments</p>
+                            <p>Using ** with a dictionary means <b>unpacking</b> it into keyword arguments.</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-def build_profile(first, last, **user_info):
-    profile = {}
-    for key, value in user_info.items():
-        profile[key] = value
-    return first, last, profile
+def build_profile(**user_info):
+    print(user_info)
 
-user_profile = build_profile('albert', 'einstein',
-                            location='princeton',
-                            field='physics')
-print(user_profile)
+d = {'location': 'princeton', 'field': 'physics'}
+
+build_profile(**d)
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-('albert', 'einstein', 
-{'location': 'princeton', 'field': 'physics'})
+('albert', 'einstein', )
 </code></pre>
                     </div>
                 </section>
@@ -1219,6 +1295,88 @@ print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
 >>> L = ['Hello', 'World', 'IBM', 'Apple']
 >>> [s.lower() for s in L]
 ['hello', 'world', 'ibm', 'apple']
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Example: 德扑2.0</h3>
+                    <div class = "div-e">
+<ol>
+    <li>先给玩家 2 张牌（hole cards）</li>
+    <li>再出公共牌 5 张（community cards）</li>
+    <li><b>判断有没有"顺子"</b></li>
+</ol>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import random
+
+# 简化处理，没有包含J, Q, K, A
+ranks = list(map(str, [value for value in range(2, 15)]))
+suits = ["\u2660", "\u2665", "\u2663", "\u2666"]
+deck = [y + x for x in ranks for y in suits]
+
+random.shuffle(deck)
+
+hand = [deck.pop() for x in range(2)]
+board = [deck.pop() for x in range(5)]
+
+print("手牌：", hand)
+print("公共牌：", board)
+
+all_numbers = [int(c[1:]) for c in hand + board] # 列表合并可以用 + 加法
+print(all_numbers)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h4>判断有没有"顺子"</h4>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+def has_straight(cards):
+    # set 去重 + sorted 排序并返回有序列表
+    values = sorted(set(cards))   
+
+    # A 既可以当 14，也可以当 1
+    if 14 in values:
+        values = [1] + values
+
+    # 检查是否存在连续5个数
+    for i in range(len(values) - 4):
+        if values[i+4] - values[i] == 4:
+            return True
+
+    return False
+
+if has_straight(all_numbers):
+    print("结果：有顺子")
+else:
+    print("结果：没有顺子")
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h4>Exercise: 续写下面的代码，判断牌型是否包含"同花"，用上刚刚学的列表生成式</h4>
+                    <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+import random
+
+ranks = list(map(str, [value for value in range(2, 15)]))
+suits = ["\u2660", "\u2665", "\u2663", "\u2666"]
+deck = [y + x for x in ranks for y in suits]
+
+random.shuffle(deck)
+
+# 简化处理，一次性发了7张
+hand = [deck.pop() for x in range(7)]
+</code></pre>
+                    </div>
+<ul>
+    <li>提示： 可以用（也可以不用）列表的方法.count() 用来数个数，这个方法返回值，下面是示例</li>
+</ul><div>
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+x = [4, 5, 6, 7, 7, 7, 7, 8]
+print(x.count(7)) # 结果是 4 
 </code></pre>
                     </div>
                 </section>
