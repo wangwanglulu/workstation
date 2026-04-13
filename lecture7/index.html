@@ -551,7 +551,7 @@ countdown(3)
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
 import time
-import winsound #加上这行
+import winsound # win电脑可以用这个包
 def countdown(seconds):
     while seconds >= 0:
         print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
@@ -566,7 +566,7 @@ countdown(3)
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
 import time
-from playsound import playsound #加上这行
+from playsound3 import playsound # playsound3 或者 playsound 包
 def countdown(seconds):
     while seconds >= 0:
         print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
