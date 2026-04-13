@@ -547,26 +547,13 @@ countdown(3)
                     </ul>
                 </section>
                 <section>
-                    <h4>Step 2: Add Music 添加音乐，<b>这里可能需要从终端运行。</b></h4>
+                    <h4>Step 2: Add Music 添加音乐，<b>可能需要从终端运行。</b></h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+# win 电脑用，先下载 playsound3 或者 playsound 包
 import time
-import winsound # win电脑可以用这个包
-def countdown(seconds):
-    while seconds >= 0:
-        print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
-        time.sleep(1)
-        seconds -= 1
-    print("\n时间到！")
-    winsound.Beep(1500, 300) #加上这行
-countdown(3)
+from playsound3 import playsound
 
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
-import time
-from playsound3 import playsound # playsound3 或者 playsound 包
 def countdown(seconds):
     while seconds >= 0:
         print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
@@ -574,6 +561,24 @@ def countdown(seconds):
         seconds -= 1
     print("\n时间到！")
     playsound("alarm.mp3") #加上这行
+
+countdown(3)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
+# mac 电脑用，不用下载任何包
+import time
+import os
+
+def countdown(seconds):
+    while seconds >= 0:
+        print(f"\r剩余：{seconds:02d} 秒", end="", flush=True)
+        time.sleep(1)
+        seconds -= 1
+    print("\n时间到！")
+    os.system("afplay alarm.mp3") #加上这行
+
 countdown(3)
 </code></pre>
                     </div>
