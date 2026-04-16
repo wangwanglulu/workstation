@@ -985,6 +985,11 @@ make_pizza('pepperoni')
 make_pizza('mushrooms', 'green peppers', 'extra cheese')
 </code></pre>
                     </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+('mushrooms', 'green peppers', 'extra cheese')
+</code></pre>
+                    </div>
                     <ul>
                         <li class="fragment">
                             <p>Note that Python packs (打包) the arguments into a tuple, even if the function receives only one value. Using * with a container means "unpacking" (解包) it. </p>
@@ -1073,7 +1078,7 @@ build_profile(**d)
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-('albert', 'einstein', )
+{'location': 'princeton', 'field': 'physics'}
 </code></pre>
                     </div>
                 </section>
@@ -1313,12 +1318,12 @@ print(list(filter(lambda x: x%2==0, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
                 </section>
                 <section>
                     <h3>Example: 德扑2.0</h3>
-                    <div class = "div-e">
-<ol>
-    <li>先给玩家 2 张牌（hole cards）</li>
-    <li>再出公共牌 5 张（community cards）</li>
-    <li><b>判断有没有"顺子"</b></li>
-</ol>
+                    <div class="div-e">
+                        <ol>
+                            <li>先给玩家 2 张牌（hole cards）</li>
+                            <li>再出公共牌 5 张（community cards）</li>
+                            <li><b>判断有没有"顺子"</b></li>
+                        </ol>
                     </div>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -1384,9 +1389,10 @@ random.shuffle(deck)
 hand = [deck.pop() for x in range(7)]
 </code></pre>
                     </div>
-<ul>
-    <li>提示： 可以用（也可以不用）列表的方法.count() 用来数个数，这个方法返回值，下面是示例</li>
-</ul><div>
+                    <ul>
+                        <li>提示： 可以用（也可以不用）列表的方法.count() 用来数个数，这个方法返回值，下面是示例</li>
+                    </ul>
+                    <div>
                         <pre><code class="language-Python" data-line-numbers data-trim  contenteditable>
 x = [4, 5, 6, 7, 7, 7, 7, 8]
 print(x.count(7)) # 结果是 4 
