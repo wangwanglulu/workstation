@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Langton's Ant Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+    }
+    h1 {
+      margin: 20px 0;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      background: white;
+    }
+    .controls {
+      margin-top: 15px;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: #444;
+    }
+    button.light {
+      background: #ddd;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Langton's Ant Demo</h1>
+
+<canvas id="canvas" width="600" height="600"></canvas>
+
+<div class="controls">
+  <button onclick="start()">Start</button>
+  <button class="secondary" onclick="pause()">Pause</button>
+  <button class="light" onclick="stepOnce()">Step</button>
+  <button class="light" onclick="reset()">Reset</button>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let size = 101;
+let cell = 5;
+
+let grid, x, y, dir, running = false;
+
+function init() {
+  grid = Array.from({length: size}, () => Array(size).fill(0));
+  x = Math.floor(size/2);
+  y = Math.floor(size/2);
+  dir = 0; // 0 up, 1 right, 2 down, 3 left
+}
+
+function turnRight() { dir = (dir + 1) % 4; }
+function turnLeft() { dir = (dir + 3) % 4; }
+
+function move() {
+  if (dir === 0) y--;
+  else if (dir === 1) x++;
+  else if (dir === 2) y++;
+  else x--;
+  x = (x + size) % size;
+  y = (y + size) % size;
+}
+
+function step() {
+  if (grid[y][x] === 0) {
+    turnRight();
+    grid[y][x] = 1;
+  } else {
+    turnLeft();
+    grid[y][x] = 0;
+  }
+  move();
+}
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for (let i=0;i<size;i++){
+    for (let j=0;j<size;j++){
+      if(grid[i][j]===1){
+        ctx.fillStyle = "#111";
+        ctx.fillRect(j*cell,i*cell,cell,cell);
+      }
+    }
+  }
+  ctx.fillStyle = "red";
+  ctx.fillRect(x*cell,y*cell,cell,cell);
+}
+
+function loop(){
+  if(!running) return;
+  for(let i=0;i<50;i++) step();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+function start(){ running=true; loop(); }
+function pause(){ running=false; }
+function stepOnce(){ step(); draw(); }
+function reset(){ running=false; init(); draw(); }
+
+init();
+draw();
+</script>
+
+</body>
+</html>

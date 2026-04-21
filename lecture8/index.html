@@ -90,7 +90,7 @@
 <body>
     <div class="reveal" style="background-color: #fff;">
         <div class="slides">
-            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;" data-background="#55efc4">
                 <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
                     <h1 style="color: white">Python Programming</h1>
                     <h3 style="color: white">Lecture 8 Complex Systems</h3>
@@ -104,16 +104,24 @@
                     <h3>Complex Systems (复杂系统)</h3>
                     <ul>
                         <li class="fragment">
-                            A complex system is a system composed of many components which may interact with each other.
+                            A complex system consists of many simple components that interact with each other.
                         </li>
                         <li class="fragment">
-                            These parts are often quite simple to understand and to model individually.
+                            Each component is usually easy to understand on its own.
                         </li>
                         <li class="fragment">
-                            <p>When these parts are put together, most complex systems display surprising and unpredictable behavior that can be difficult to explain just by looking at the parts separately.
+                            However, when many components interact, the system may exhibit <b>emergent behavior（突现行为）</b> — patterns that cannot be predicted by studying individual parts alone.
                         </li>
                         <li class="fragment">
-                            <p>Examples of complex systems are earth's global climate, organisms, the human brain, infrastructure such as power grid, transportation or communication systems, complex software and electronic systems, social and economic organizations (like cities), an ecosystem, a living cell, and ultimately the entire universe.
+                            This is why complex systems are often difficult to analyze, predict, or control.
+                        </li>
+                        <li class="fragment">
+                            <p><b>Examples:</b></p>
+                            <p>
+                                Natural systems: climate, ecosystems, cells<br>
+                                Engineered systems: power grids, transportation networks, software systems<br>
+                                Social systems: cities, economies, online platforms
+                            </p>
                         </li>
                     </ul>
                 </section>
@@ -121,10 +129,10 @@
                     <h3>Example 1: bird flock (Complex Adaptive Systems, 复杂自适应系统)</h3>
                     <ul>
                         <li class="fragment">
-                            The rules are simple!
+                            Each bird follows only <b>simple local rules</b>.
                         </li>
                         <li class="fragment">
-                            <b>There is no "leader" or "control".</b>
+                            <b>No leader. No central control.</b>
                         </li>
                         <li class="fragment">
                             1. Stay together; 2. Do not crash into each other; 3. Avoid predators and obstacles
@@ -136,13 +144,19 @@
                     </ul>
                 </section>
                 <section>
-                    <h3>Example 2: butterfly effect (Chaos Theory, 混沌理论)</h3>
+                    <h3>Example 2: Butterfly Effect (Chaos Theory, 混沌理论)</h3>
                     <ul>
                         <li class="fragment">
-                            In chaos theory, the butterfly effect is the sensitive dependence on initial conditions in which a small change in one state of a deterministic nonlinear system can result in large differences in a later state.
+                            Small changes in the beginning can lead to huge differences later.
                         </li>
                         <li class="fragment">
-                            The butterfly effect is derived from the metaphorical example of the details of a tornado being influenced by minor perturbations such as a distant butterfly flapping its wings several weeks earlier.
+                            Even if the system follows deterministic rules.
+                        </li>
+                        <li class="fragment">
+                            <b>This makes long-term prediction very difficult.</b>
+                        </li>
+                        <li class="fragment">
+                            Example: a tiny disturbance may eventually affect a storm.
                         </li>
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture8/butterfly.jpeg" style="height: 200pt"></div>
@@ -154,7 +168,13 @@
                     <h3>Example 3: pattern formulation (Fractal Theory, 分形理论)</h3>
                     <ul>
                         <li class="fragment">
-                            In mathematics, fractal is a term used to describe geometric shapes containing detailed structure at arbitrarily small scales, usually having a fractal dimension strictly exceeding the topological dimension.
+                            Fractals are patterns that repeat themselves at different scales.
+                        </li>
+                        <li class="fragment">
+                            Zoom in, and you see similar structures again and again.
+                        </li>
+                        <li class="fragment">
+                            They are often generated by <b>simple rules applied repeatedly</b>.
                         </li>
                     </ul>
                     <div class="div-c">
@@ -175,51 +195,70 @@
                         </a>
                     </div>
                     <!-- <div class="fragment"><img data-src="../img/lecture8/f3.jpg" style="height: 200pt"></div> -->
-                    <ul>
-                        <!-- <li class="fragment"><a href="https://zh.wikipedia.org/zh-hans/曼德博集合" target="_blank">wiki百科的演示</a></li> -->
+                    <!-- <ul>
+                        <li class="fragment"><a href="https://zh.wikipedia.org/zh-hans/曼德博集合" target="_blank">wiki百科的演示</a></li> 
                         <li class="fragment">$z_{n+1} = z_n^2+c$</li>
-                    </ul>
+                    </ul>-->
                     <ul>
-                        <li class="fragment">A complex number $c$ is a member of the Mandelbrot set if when starting with $z_0=0$ and applying the iteration repeatedly, the absolute value of $z_n$ remains bounded for all $n>0$.</li>
+                        <li class="fragment">
+                            A very simple rule:
+                        </li>
+                        <li class="fragment">
+                            $z_{n+1} = z_n^2 + c$
+                        </li>
+                        <li class="fragment">
+                            Start from $z_0 = 0$, and repeat this rule many times.
+                        </li>
+                        <li class="fragment">
+                            If the value stays bounded → it belongs to the set.
+                        </li>
+                        <li class="fragment">
+                            <b>Simple rule + repeated iteration → infinite complexity</b>
                         </li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Application</h3>
+                    <h3>How Do We Study Complex Systems?</h3>
                     <ul>
                         <li class="fragment">
-                            Complex systems theory provides powerful tools to tackle problems involving many interacting components. It typically involves:
+                            Complex systems are hard to understand directly.
+                        </li>
+                        <li class="fragment">
+                            Instead, we use a simple approach:
                         </li>
                         <ul>
                             <li class="fragment">
-                                Reducing problems to their essential rules
+                                <b>Step 1:</b> Identify simple rules
                             </li>
                             <li class="fragment">
-                                Building models to simulate emergent phenomena
+                                <b>Step 2:</b> Let the system evolve (repeat many times)
                             </li>
                             <li class="fragment">
-                                Predicting future behaviors in complex environments
+                                <b>Step 3:</b> Observe what happens
+                            </li>
+                            <li class="fragment">
+                                <b>This is exactly what programming does.</b>
                             </li>
                         </ul>
                         <li class="fragment">
-                            This interdisciplinary field draws from a wide range of disciplines, including <b>statistical physics, information theory, nonlinear dynamics, anthropology, computer science, meteorology, sociology, economics, psychology, and biology</b>.
+                            The 2021 Nobel Prize in Physics recognized work on complex systems, particularly in understanding and modeling Earth’s climate.
                         </li>
-                        <li class="fragment">
+                        <!-- <li class="fragment">
                             A landmark recognition of this field came in 2021, when the <b>Nobel Prize in Physics</b> was awarded to Syukuro Manabe, Klaus Hasselmann, and Giorgio Parisi for their groundbreaking contributions to understanding complex systems. Their work laid the foundation for developing more accurate computational models, particularly in predicting the impact of global warming on Earth’s climate.
-                        </li>
+                        </li> -->
                         <li class="fragment">
                             <a href="https://www.bilibili.com/video/BV1F5411b7zw/?spm_id_from=333.337.search-card.all.click" target="_blank">对此领域有兴趣可进一步了解：BBC纪录片-神秘的混沌理论（2009）</a>
                         </li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Can complex system be Designed?</h3>
+                    <h3> With Python, we can simulate systems like:</h3>
                     <ul>
-                        <li class="fragment"><a href="https://shilingliang.com/web-simulator-by-GPT4/interactive_vicsek.html" target="_blank">Vicsek鸟群模型（Chatgpt生成）</a></li>
+                        <li class="fragment"><a href="https://shilingliang.com/web-simulator-by-GPT4/interactive_vicsek.html" target="_blank">Vicsek鸟群模型</a></li>
                         <li class="fragment">
                             <a href="https://web.archive.org/web/20200519072847/https://www.complexity-explorables.org/slides/critically-inflammatory/" target="_blank">A Forest Fire Model 森林火灾模型</a></li>
                         <li class="fragment">
-                            <a href="https://web.archive.org/web/20200518005219/https://www.complexity-explorables.org/slides/i-herd-you/" target="_blank">Epidemics and Herd Immunity模型</a></li>
+                            <a href="https://web.archive.org/web/20200518005219/https://www.complexity-explorables.org/slides/i-herd-you/" target="_blank">Epidemics and Herd Immunity 模型</a></li>
                         <li class="fragment">Cellular Automaton (元胞自动机)</li>
                     </ul>
                 </section>
@@ -255,23 +294,43 @@
                     <h3>Cellular Automaton (元胞自动机)</h3>
                     <ul>
                         <li class="fragment">
-                            <p><b>Cellular automaton</b> is a simple system made up of cells arranged in a line or grid. Each cell can be in one of a few states, like <b>black or white</b>. The system starts with an initial pattern, then follows a fixed set of rules to decide how the cells change over time.</p>
+                            A cellular automaton is a system made of many <b>cells</b> arranged in a line or grid.
                         </li>
                         <li class="fragment">
-                            <p>In each round (called a <b>generation</b>), it looks at all the cells and decides which ones need to change. Once all decisions are made, it updates all the cells at once—then repeats the process.
-                            </p>
+                            Each cell has a simple <b>state</b> (e.g., black or white).
                         </li>
                         <li class="fragment">
-                            <p>This idea sits at the crossroads of mathematics, computer science, and even games, and helps us explore how simple rules can create complex patterns.</p>
+                            The system starts from an <b>initial pattern</b>.
+                        </li>
+                        <li class="fragment">
+                            Then it follows simple <b>rules</b> to update all cells.
+                        </li>
+                        <li class="fragment">
+                            This process is repeated again and again (iteration).
+                        </li>
+                        <li class="fragment">
+                            <b>Simple rules + repeated updates → complex patterns</b>
                         </li>
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture8/f4.png" style="height: 180pt"></div>
                 </section>
                 <section>
                     <ul>
+                        <li class="fragment">
+                            A cellular automaton runs by itself once the rules are defined.
+                        </li>
+                        <li class="fragment">
+                            That is why it is called an <b>automaton</b>.
+                        </li>
+                        <li class="fragment">
+                            British scientist <b>Stephen Wolfram</b> studied simple cellular automata and showed that:
+                        </li>
+                        <li class="fragment">
+                            <b>Very simple rules can produce surprisingly complex behavior.</b>
+                        </li>
                         <!--    <li class="fragment">
                             <p>Each cell may be either black or white. The rules determine what causes a cell to change from black to white (or vice versa) and how the color of a cell influences the cells around it.</p>
-                        </li> -->
+                        </li> 
                         <li class="fragment">
                             <p>Mathematicians think of such a collection of rules as a hypothetical machine that operates by itself without human intervention. This is why they are called <b>automata</b>.</p>
                         </li>
@@ -280,47 +339,94 @@
                         </li>
                         <li class="fragment">
                             <p>He was named an inaugural fellow of the American Mathematical Society. he is the founder and CEO of the software company <b>Wolfram </b> Research where he worked as chief designer of Mathematica and the Wolfram Alpha answer engine.</p>
-                        </li>
+                        </li>-->
                     </ul>
                     <div class="fragment"><img data-src="../img/lecture8/wolfram.jpeg" style="height: 200pt"></div>
                 </section>
                 <section>
-                    <h3> simple cellular automaton</h3>
+                    <h3> Simple Cellular Automaton (Rule 30)</h3>
                     <div class="fragment"><img data-src="../img/lecture8/rule.png" style="height: 100pt"></div>
                     <ul>
                         <li class="fragment">
-                            <p>It displays one set of possible rules and the resulting, surprisingly complex pattern that is created by printing each new generation of the system under the previous one. It begins with one black cell and all the rest white.</p>
+                            Start with one black cell; all others are white.
                         </li>
                         <li class="fragment">
-                            <p>Notice that even though there is nothing random in the rules, this cellular automaton produces a pattern with distinctive and apparently random features.</p>
+                            Apply a fixed rule to update each cell based on its neighbors.
                         </li>
                         <li class="fragment">
-                            <a href="../img/lecture8/Rule_30.html" target="_blank">动态展示一维元胞自动机</a></li>
+                            Repeat this process many times.
+                        </li>
+                        <li class="fragment">
+                            <b>No randomness is involved.</b>
+                        </li>
+                        <li class="fragment">
+                            Yet the pattern looks random and highly complex.
+                        </li>
+                        <li class="fragment">
+                            <a href="../img/lecture8/Rule_30.html" target="_blank">(Rule 30) Demo</a></li>
                     </ul>
                 </section>
+                <!-- <section>
+                    <h3>Langton's ant (兰顿的蚂蚁)</h3>
+                
+                    <div class="div-a">
+                    <ul>
+                        <li class="fragment">
+                            The system consists of a grid of black and white cells and a single “ant”.
+                        </li>
+                        <li class="fragment">
+                            The ant follows only two simple rules:
+                            <br>
+                            • On a white cell: turn right, flip the color, move forward.
+                            <br>
+                            • On a black cell: turn left, flip the color, move forward.
+                        </li>
+                        <li class="fragment">
+                            Start from a blank grid with the ant in the center.
+                        </li>
+                        <li class="fragment">
+                            Repeat the same rules step by step.
+                        </li>
+                        <li class="fragment">
+                            <b>No randomness is involved.</b>
+                        </li>
+                        <li class="fragment">
+                            Yet the system evolves into complex and unexpected patterns.
+                        </li>
+                        <li class="fragment">
+                            <a href="../img/lecture8/langton_ant.html" target="_blank">Langton’s Ant Demo</a>
+                        </li>
+                    </ul>
+                    </div>
+                    <div class="div-b">
+                    <img class="fragment" data-src="../img/lecture8/LangtonsAntAnimated.gif" style="height: 200pt"></div>
+                </section> -->
                 <!--                 <section>
                     <div class="fragment"><img data-src="../img/lecture8/firstca.png" style="height: 500pt"></div>
                 </section> -->
                 <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Wolfram described his work in detail in his book A New Kind of Science (2002).</p>
-                            <ul>
-                                <li class="fragment">
-                                    <p>They must consist of simple cells whose rules are defined locally.</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>The system must allow for long-range communication.</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>The level of activity of the cells is a good indicator for the complexity of the behavior of the system.</p>
-                                </li>
-                                <li class="fragment">
-                                    <p>Cellular automata show us that the threshold for complexity is surprisingly low.</p>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="div-a">
+                        <ul>
+                            <li class="fragment">
+                                <p>Wolfram described his work in detail in his book A New Kind of Science (2002).</p>
+                                <ul>
+                                    <li class="fragment">
+                                        Cellular automata follow <b>simple local rules</b>.
+                                    </li>
+                                    <li class="fragment">
+                                        They involve repeated <b>interactions over time</b>.
+                                    </li>
+                                    <li class="fragment">
+                                        They can produce <b>complex global behavior</b>.
+                                    </li>
+                                    <li class="fragment">
+                                        <b>Complexity can arise from very simple systems.</b>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="div-b fragment"><img data-src="../img/lecture8/sw.png" style="height: 200pt"></div>
                 </section>
                 <!--
                 <section>
@@ -438,25 +544,28 @@ Start()
                 <section>
                     <ul>
                         <li class="fragment">
-                            <p>The grid goes on indefinitely in all directions. Each cell on the grid has eight neighbors: the cells that surround it orthogonally and diagonally. Each cell can be in two different states: It is either dead or alive.</p>
+                            Each cell looks at its <b>8 neighbors</b>.
                         </li>
                         <li class="fragment">
-                            <p>In most examples, dead cells are rendered white, while live cells are colored black.</p>
+                            It counts how many neighbors are alive.
+                        </li>
+                        <li class="fragment">
+                            Based on this number, the cell updates its state.
                         </li>
                         <li class="fragment">
                             <p>Rules</p>
                             <ul>
                                 <li class="fragment">
-                                    <p>A live cell that has fewer than two live neighbors dies from loneliness.</p>
+                                    <p>A live cell that has fewer than 2 live neighbors dies from loneliness.</p>
                                 </li>
                                 <li class="fragment">
-                                    <p>A live cell that has more than three live neighbors dies from overcrowding.</p>
+                                    <p>A live cell that has more than 3 live neighbors dies from overcrowding.</p>
                                 </li>
                                 <li class="fragment">
-                                    <p>A live cell that has two or three live neighbors stays alive.</p>
+                                    <p>A live cell that has 2 or 3 live neighbors stays alive.</p>
                                 </li>
                                 <li class="fragment">
-                                    <p>A dead cell that has exactly three live neighbors becomes alive.</p>
+                                    <p>A dead cell that has exactly 3 live neighbors becomes alive.</p>
                                 </li>
                             </ul>
                         </li>
@@ -509,7 +618,7 @@ def TryGetCell(i, j):
     return screen[i][j]
 </code></pre>
                     </div>
-                    <div class="fragment div-b" >
+                    <div class="fragment div-b">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable style="background-color: #ffeaa7">
 print(59 % 60) # 59
 print(60 % 60) # 0 
@@ -521,19 +630,14 @@ print(-1 % 60) # 59
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def GetNearbyCellsCount(i, j):
-    nearby = []
-    nearby.append(TryGetCell(i-1, j-1))
-    nearby.append(TryGetCell(i-1, j))
-    nearby.append(TryGetCell(i-1, j+1))
-    nearby.append(TryGetCell(i, j-1))
-    nearby.append(TryGetCell(i, j+1))
-    nearby.append(TryGetCell(i+1, j-1))
-    nearby.append(TryGetCell(i+1, j))
-    nearby.append(TryGetCell(i+1, j+1))
     num = 0
-    for x in nearby:
+    for x in [
+        TryGetCell(i-1, j-1), TryGetCell(i-1, j), TryGetCell(i-1, j+1),
+        TryGetCell(i,   j-1),                     TryGetCell(i,   j+1),
+        TryGetCell(i+1, j-1), TryGetCell(i+1, j), TryGetCell(i+1, j+1)
+    ]:
         if x == '#':
-            num = num + 1
+            num += 1
     return num
 </code></pre>
                     </div>
@@ -544,48 +648,46 @@ def GetNearbyCellsCount(i, j):
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def Update():
     global screen
-    newScreen = []
-    for i in range(height):
-        line = []
-        for j in range(width):
-            line.append(' ')
-        newScreen.append(line)
+    newScreen = [[' ' for x in range(width)] for y in range(height)]
+
     for i in range(height):
         for j in range(width):
             count = GetNearbyCellsCount(i, j)
+
             if count == 3:
                 newScreen[i][j] = '#'
-            elif count < 2 or count > 3:
-                newScreen[i][j] = ' '
+            elif count == 2:
+                newScreen[i][j] = screen[i][j]
             else:
-                newScreen[i][j] = screen[i][j]    
+                newScreen[i][j] = ' '
+
     screen = newScreen
 </code></pre>
                     </div>
                 </section>
                 <section>
-                    <p class="fragment">Step 6: Console (for win). <b>For mac, replace "cls" by "clear".</b></p>
-                    <div class="fragment">
+                    <div class=" div-a fragment">
+                        <p class="fragment">Step 6: Console (for win). <b>For mac, replace "cls" by "clear".</b></p>
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def Start():
     os.system("cls")
     print('== Game of Life ==')
-    print('Press any key...')
-    input()
-    os.system("cls")
-    Init()
-    PrintScreen()
-    c = input()
-    while c!= 'q':
-        os.system("cls")
-        Update()
-        PrintScreen()   
-        c = input()
-    print('End')
+    input('Press Enter to start...')
 
-Start()
+    Init()
+
+    while True:
+        os.system("cls")
+        PrintScreen()
+        c = input()
+        if c == 'q':
+            break
+        Update()
+
+    print('End')
 </code></pre>
                     </div>
+                    <div class="div-b fragment"><img data-src="../img/lecture8/flow.png" style="height: 300pt"></div>
                     <ul>
                         <li class="fragment"><a href="game_of_life.py" target="_blank">win和mac通用版</a>，<a href="game_of_life_tk.py" target="_blank">Tkinter美化版本</a>，<a href="game.html" target="_blank">网页直接运行版</a></li>
                     </ul>
@@ -594,8 +696,8 @@ Start()
                     <ul>
                         <li class="fragment">
                             <p>When the Game of Life begins, it often looks chaotic, with live cells quickly spreading and changing.
-                            After a while, it usually settles into a stable pattern or forms small groups that flip back and forth.
-                            Early researchers wondered: <b>"Is there a starting pattern that keeps growing forever?"</b></p>
+                                After a while, it usually settles into a stable pattern or forms small groups that flip back and forth.
+                                Early researchers wondered: <b>"Is there a starting pattern that keeps growing forever?"</b></p>
                         </li>
                         <li class="fragment">
                             <p>Glider</p>
@@ -612,8 +714,19 @@ Start()
                         </div>
                         <div class="div-d">
                             <img class="fragment" data-src="../img/lecture8/glider_gun.gif" style="height: 150pt"></div>
-                       <li class="fragment" ><a href="https://www.bilibili.com/video/BV1jJ411J7PM/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">史诗般的生命游戏</a></li> 
+                        <li class="fragment"><a href="https://www.bilibili.com/video/BV1jJ411J7PM/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">史诗般的生命游戏</a></li>
                     </ul>
+                </section>
+                <section>
+                    <h3>A Classic Game with Complex Behavior</h3>
+                    <ul>
+                        <li>Pac-Man (Japanese: パックマン Hepburn: Pakkuman), stylized as PAC-MAN, is an arcade game developed by Namco and first released in Japan in May 1980. <a href="https://freepacman.org/" target="_blank" rel="noopener">Free pacman game </a></li>
+                    </ul>
+                    <div>
+                            <img class="fragment" data-src="../img/lecture8/pac.png" style="height: 300pt"></div>
+                            <a class="fragment" href="https://www.bilibili.com/video/BV1fa4y1Y7TE/?spm_id_from=333.337.search-card.all.click&vd_source=bb278b7c0b47ce9ebd3f806351f82dd2" target="_blank" rel="noopener">吃豆人的AI为什么这么聪明? Understanding Pac-Man Ghost Behavior</a>
+
+                            <h4 class="fragment"><b>Complex behavior is not always the result of complex intelligence.</b></h4>
                 </section>
             </section>
             <section>
