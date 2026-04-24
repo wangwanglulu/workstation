@@ -28,10 +28,332 @@
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.1 Closures & Decorators</h2>
+                    <h2 style="color: white">9.1 Nested Functions</h2>
                 </section>
                 <section>
-                    <h3>Closure Function</h3>
+                    <h3>Nested Functions (嵌套函数)</h3>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers contenteditable>
+def outer():
+    def inner():
+        num = 100
+        print(num)
+    inner()
+outer()
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3           # Global（全局）
+def outer():
+    num = 10      # Enclosing（外层）
+    def inner():
+        num = 100 # Local（局部）
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <ul>
+                        <li class="fragment">
+                            <p>（引用顺序）Local$\rightarrow$Enclosing$\rightarrow$Global$\rightarrow$ Build-in (LEGB principle)</p>
+                        </li>
+                    </ul>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+          
+num = 3
+def outer():
+    num = 10
+    def inner():
+        print(num)
+    inner()
+outer()
+
+# output？
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment"><img data-src="../img/lecture7/scope.png" style="height: 180pt"></div>
+                    </div>
+                </section>
+                <section>
+                    <h3><b>nonlocal</b> keyword</h3>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    num = 10
+    def inner():
+        nonlocal num   
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    num = 10
+    def inner():
+        global num  
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100 
+10
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    global num
+    num = 10
+    def inner():
+        global num   
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def outer():
+    global num
+    num = 10
+    def inner():  
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100 
+10
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    global num
+    num = 10
+    def inner():  
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+10
+10
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    num = 10
+    def inner(): 
+        global num 
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+10
+100
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    num = 10
+    def inner(): 
+        nonlocal num 
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+3
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-c">
+                        <div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+num = 3                            
+def outer():
+    global num
+    num = 10
+    def inner(): 
+        global num 
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+print(num)
+</code></pre>
+                        </div>
+                    </div>
+                    <div class="div-d">
+                        <div class="fragment">
+                            <pre><code class="output"  contenteditable>
+100
+100
+100
+
+
+
+
+
+
+
+
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+                </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">9.2 Closures & Decorators</h2>
+                </section>
+                <section>
+                    <h3>Closure Function (闭包函数)</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def print_msg(msg):
@@ -65,14 +387,14 @@ print(f1==f2) #False
                 -->
                 </section>
                 <section>
-                    <p>When to use closures?</p>
+                    <p></p>
                     <ul>
                         <li class="fragment">
-                            <p>Closures can avoid the use of global values and provides some form of data hiding. It can also provide an object oriented solution to the problem.</p>
+                            <p><b>When to use closures?</b> Closures can avoid the use of global values and provides some form of data hiding. It can also provide an object oriented solution to the problem.</p>
                         </li>
                     </ul>
-                    <div class="fragment"><img data-src="../img/lecture9/pic.png" style="height: 250pt"></div>
-                </section>
+                    <div class="fragment"><img data-src="../img/lecture9/flow.png" style="height: 150pt"></div>
+                <!-- </section>
                 <section>
                     <h3>Example</h3>
                     <div class="fragment">
@@ -95,7 +417,7 @@ print(type(f))
 25
 &lt;class 'function'&gt;
 </code></pre>
-                    </div>
+                    </div> -->
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def make_multiplier_of(n):
@@ -113,7 +435,39 @@ print(times5(times3(2)))
                     </div>
                 </section>
                 <section>
-                    <h3>Decorator</h3>
+                    <h3>Example: Delivery Platform Order System 1.0 (外卖平台订单系统)</h3>
+                    <p>Each city should keep its own order data.
+Orders in one city should not affect another city.</p>
+                <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def create_city_order_system(city):
+    user_data = {}
+
+    def process_order(user, price):
+        nonlocal user_data
+
+        if user not in user_data:
+            user_data[user] = {"count": 0, "total": 0}
+
+        user_data[user]["count"] += 1
+        user_data[user]["total"] += price
+
+        print(f"[{city}站] {user} 本次消费 {price} 元")
+        print(f"[{city}站] 累计订单：{user_data[user]['count']}")
+        print(f"[{city}站] 累计消费：{user_data[user]['total']} 元\n")
+
+    return process_order
+</code></pre>
+                    </div>
+                    <ul class="fragment"><li>Why should the variable <b>user_data</b> be in the enclosing?</li>
+                        <li>If it is inside the inner function, it will reset every time. (每次运行内层函数，数据清零)</li>
+                        <li>If it is global, all systems will share the same data. (上海站，北京站等等，数据相同)</li>
+                    <li><b>A closure works because the data lives in the enclosing function, not inside the function that runs every time.</b></li></ul>
+                    
+                    
+                </section>
+                <section>
+                    <h3>Decorator (装饰器)</h3>
                     <ul>
                         <li class="fragment">
                             <p>Decorators are "wrappers", which means that they let you execute code before and after the function they decorate without modifying the function itself.</p>
@@ -335,6 +689,63 @@ Do I have args?:
                     </ul>
                 </section>
                 <section>
+
+<h3>Delivery Platform Order System 2.0</h3>
+                    <p>Every time an order is processed, the system should automatically print a log message.</p>
+<div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def log_order(func):
+    def wrapper(user, price):
+        print(f"[日志] 收到订单：用户={user}, 金额={price}")
+        return func(user, price)
+    return wrapper
+</code></pre>
+                    </div>
+<div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def create_city_order_system(city):
+    user_data = {}
+
+    @log_order
+    def process_order(user, price):
+        nonlocal user_data
+
+        if user not in user_data:
+            user_data[user] = {"count": 0, "total": 0}
+
+        user_data[user]["count"] += 1
+        user_data[user]["total"] += price
+
+        print(f"[{city}站] {user} 本次消费 {price} 元")
+        print(f"[{city}站] 累计订单：{user_data[user]['count']}")
+        print(f"[{city}站] 累计消费：{user_data[user]['total']} 元\n")
+
+    return process_order
+
+</code></pre>
+                    </div>
+
+                </section>
+                <section>
+                    <h3>Exercise: 修改下面的代码，创建健身打卡系统</h3>
+
+                    <ol class="fragment">
+                        <div>
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+def exercise(minutes):
+    print(f"运动了 {minutes} 分钟")
+</code></pre>
+                    </div>
+                        <li>用闭包写 create_tracker(name)，记录某人累计运动时间。提示：上面的代码可用于内层函数，create_tracker(name) 是外层函数。</li>
+                        <li>加装饰器 @warm_up，每次运动前自动输出：</li>
+                        <pre><code class="output" data-line-numbers data-trim contenteditable>
+先热身 3 分钟！
+</code></pre>
+                    </ol>
+                    
+                </section>
+                
+                <section>
                     <div class="fragment"><img data-src="../img/lecture9/rf.png" style="height: 500pt"></div>
                 </section>
                 <section>
@@ -343,7 +754,7 @@ Do I have args?:
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.2 File</h2>
+                    <h2 style="color: white">9.3 File</h2>
                 </section>
                 <section>
                     <h3>Reading from a File</h3>
@@ -779,7 +1190,7 @@ Welcome back, Eric!
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.3 Data Reading Examples</h2>
+                    <h2 style="color: white">9.4 Data Reading Examples</h2>
                 </section>
                 <section>
                     <h3>Reading Multiple Lines in JSON file</h3>
