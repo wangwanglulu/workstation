@@ -459,10 +459,10 @@ def create_city_order_system(city):
     return process_order
 </code></pre>
                     </div>
-                    <ul class="fragment"><li>Why should the variable <b>user_data</b> be in the enclosing?</li>
-                        <li>If it is inside the inner function, it will reset every time. (每次运行内层函数，数据清零)</li>
-                        <li>If it is global, all systems will share the same data. (上海站，北京站等等，数据相同)</li>
-                    <li><b>A closure works because the data lives in the enclosing function, not inside the function that runs every time.</b></li></ul>
+                    <ul><li class="fragment">Why should the variable <b>user_data</b> be in the enclosing?</li>
+                        <li class="fragment">If it is inside the inner function, it will reset every time. (每次运行内层函数，数据清零)</li>
+                        <li class="fragment">If it is global, all systems will share the same data. (上海站，北京站等等，数据相同)</li>
+                    <li class="fragment"><b>A closure works because the data lives in the enclosing function, not inside the function that runs every time.</b></li></ul>
                     
                     
                 </section>
@@ -697,7 +697,7 @@ Do I have args?:
 def log_order(func):
     def wrapper(user, price):
         print(f"[日志] 收到订单：用户={user}, 金额={price}")
-        return func(user, price)
+        func(user, price)
     return wrapper
 </code></pre>
                     </div>
@@ -736,7 +736,7 @@ def exercise(minutes):
     print(f"运动了 {minutes} 分钟")
 </code></pre>
                     </div>
-                        <li>用闭包写 create_tracker(name)，记录某人累计运动时间。提示：上面的代码可用于内层函数，create_tracker(name) 是外层函数。</li>
+                        <li>用闭包写 create_tracker(name)，记录不同的人的累计运动时间。提示：上面的代码可用于内层函数，create_tracker(name) 是外层函数。</li>
                         <li>加装饰器 @warm_up，每次运动前自动输出：</li>
                         <pre><code class="output" data-line-numbers data-trim contenteditable>
 先热身 3 分钟！
@@ -758,7 +758,7 @@ def exercise(minutes):
                 </section>
                 <section>
                     <h3>Reading from a File</h3>
-                    <ul>
+                    <ul> 
                         <li class="fragment">
                             <p>pi_digits.txt</p>
                         </li>
@@ -792,7 +792,7 @@ print(contents)
                     <h3>File Path</h3>
                     <ul>
                         <li class="fragment">
-                            <p>relative path</p>
+                            <p>relative path（相对路径）</p>
                         </li>
                     </ul>
                     <div class="fragment">
@@ -802,20 +802,24 @@ path = Path('text_files/filename.txt')
                     </div>
                     <ul>
                         <li class="fragment">
-                            <p>absolute path</p>
+                            <p>absolute path（绝对路径）</p>
                         </li>
                     </ul>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 path = Path('/home/eric/data_files/text_files/filename.txt') 
 
-path = Path('c:/text_files/filename.txt') 
+path = Path('c:/text_files/filename.txt') # recommended
 path = Path(r'c:\text_files\filename.txt')
 path = Path('c:\\text_files\\filename.txt') 
 
-path = Path('c:\text_files\filename.txt')  #error
+path = Path('c:\text_files\filename.txt')  # error
 </code></pre>
                     </div>
+                    <ul><b class="fragment">获取绝对路径的快捷键</b>
+                        <li class="fragment">mac的快捷键为: command+option+c</li>
+                        <li class="fragment">windows按住shift键, 右键, 会出现 复制为路径的选项</li>
+                    </ul>
                     <!--                     <ul>
                         <li class="fragment"><b>Please add "r" if you use Windows.</b></li>
                     </ul> -->
@@ -837,7 +841,13 @@ lines = contents.splitlines()
 print(lines)
 </code></pre>
                     </div>
-                    <ul>
+                     <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+['3.1415926535', '8979323846', '2643383279']
+
+</code></pre>
+                    </div>
+<!--                     <ul>
                         <li class="fragment">
                             <p>Working with a File's Contents</p>
                         </li>
@@ -857,7 +867,7 @@ print(len(pi_string))
 3.141592653589793238462643383279 # string
 32
 </code></pre>
-                    </div>
+                    </div> -->
                 </section>
                 <section>
                     <h3>Writing to a File</h3>
@@ -958,17 +968,18 @@ First number: q
                 </section>
             -->
                 <section>
-                    <ul>
-                        <li class="fragment">
-                            <p>Handling the FileNotFoundError Exception</p>
-                        </li>
-                    </ul>
+                    <h3>Handling the <b>FileNotFoundError</b>  Exception</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pathlib import Path
 
-path = Path('alice.txt')
-contents = path.read_text(encoding='utf-8') #Error
+path = Path('alice.txt') # File does not exist
+contents = path.read_text(encoding='utf-8') 
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="error" data-trim contenteditable>
+FileNotFoundError: [Errno 2] No such file or directory: 'alice.txt'
 </code></pre>
                     </div>
                     <div class="fragment">
@@ -983,17 +994,20 @@ except FileNotFoundError:
 </code></pre>
                     </div>
                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+else:
+    words = contents.split()
+    num_words = len(words)
+    print(f"The file {path} has about {num_words} words.")
+</code></pre>
+                    </div>
+                    <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
 Sorry, the file alice.txt does not exist.
 </code></pre>
                     </div>
-                    <ul>
-                        <li class="fragment">
-                            <p>ZeroDivisionError</p>
-                        </li>
-                    </ul>
                 </section>
-                <section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">
                             try-except-else
@@ -1013,6 +1027,30 @@ else:
     words = contents.split()
     num_words = len(words)
     print(f"The file {path} has about {num_words} words.")
+</code></pre>
+                    </div>
+                </section> -->
+                <section>
+                    <h3>Reading Multiple Text Files</h3>
+                    <ul>
+                        <li><a href="marvel.zip" target="_blank">Marvel Cinematic Universe Dialogue Dataset</a></li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+from pathlib import Path
+
+folder_path = r"C:\Users\Lu\Downloads\marvel"
+summary = {}
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+for filename in os.listdir(folder_path):  #列出所有文件 
+    # 组成绝对路径
+    path = Path(os.path.join(folder_path, filename))
+    contents = path.read_text(errors="ignore")
+    summary[filename] = len(contents.splitlines()) # 有多少句台词
 </code></pre>
                     </div>
                 </section>
@@ -1059,15 +1097,10 @@ for filename in filenames:
                 <section>
                     <h3>JSON</h3>
                     <ul>
-                        <li class="fragment">JSON (JavaScript Object Notation, pronounced /ˈdʒeɪsən/; also /ˈdʒeɪˌsɒn/) is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays (or other serializable values). It is a common data format with diverse uses in electronic data interchange, including that of web applications with servers.</li>
-                        <li class="fragment">JSON is a <b>language-independent</b> data format. It was derived from JavaScript, but many modern programming languages include code to generate and parse JSON-format data. JSON filenames use the extension .json.</li>
+                        <li class="fragment">JSON (JavaScript Object Notation, pronounced /ˈdʒeɪsən/; also /ˈdʒeɪˌsɒn/) is a lightweight, <b>language-independent</b> data format that uses human-readable text to represent data as key–value pairs and arrays. It is widely used for storing and exchanging data, especially between web applications and servers. JSON is based on JavaScript but supported by many programming languages, and files typically use the .json extension.</li>
+                       
                     </ul>
-                </section>
-                <section>
-                    <ul>
-                        <li>json.dumps() and json.loads()</li>
-                    </ul>
-                    <div class="fragment">
+                    <div class="div-c fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pathlib import Path
 import json
@@ -1080,7 +1113,7 @@ contents = json.dumps(numbers)
 path.write_text(contents)
 </code></pre>
                     </div>
-                    <div class="fragment">
+                    <div class="div-d fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pathlib import Path
 import json
@@ -1090,15 +1123,11 @@ contents = path.read_text()
 numbers = json.loads(contents)
 
 print(numbers)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-[2, 3, 5, 7, 11, 13]
+# output: [2, 3, 5, 7, 11, 13]
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <!-- <section>
                     <ul>
                         <li class="fragment">
                             <p>Saving and Reading User-Generated Data</p>
@@ -1131,12 +1160,11 @@ print(f"Welcome back, {username}!")
 </code></pre>
                     </div>
                 </section>
-                <section>
+                <section> 
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 from pathlib import Path
 import json
-
 
 def get_stored_username(path):
     """Get stored username if available."""
@@ -1187,15 +1215,11 @@ Welcome back, Eric!
 </code></pre>
                     </div>
                 </section>
-            </section>
-            <section>
-                <section data-background="#2980b9" style="color: white">
-                    <h2 style="color: white">9.4 Data Reading Examples</h2>
-                </section>
+ -->
                 <section>
-                    <h3>Reading Multiple Lines in JSON file</h3>
+                    <h3>Example: Reading Multiple Lines in JSON file</h3>
                     <ul>
-                        <li><a href="https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset" target="_blank">Yelp: complete Dataset</a></li>
+                        <!-- <li><a href="https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset" target="_blank">Yelp: complete Dataset</a></li> -->
                         <li><a href="yelp_sample.json" target="_blank">Yelp: sample Dataset</a></li>
                     </ul>
                     <div class="fragment">
@@ -1216,6 +1240,50 @@ print(yelp[100])
                     </div>
                 </section>
                 <section>
+                    <h3>Exercise: 读取多个JSON文件</h3>
+                    <ul>
+                        <li class="fragment">现在有3个JSON文件，分别统计了中国，印度和美国1960-2024年的人口数量，</li>
+                        <li class="fragment">先解压缩文件包，然后读取这3个文件，<a href="pop.zip" target="_blank">人口数据压缩包下载</a></li>
+                        <li class="fragment">计算这三个国家，从1960到2024年各自增加了多少人口</li>
+                        <li class="fragment">提示：你可以参考刚刚学过的代码</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import os
+from pathlib import Path
+folder_path = r"C:\Users\Lu\Downloads\marvel"
+summary = {}
+
+for filename in os.listdir(folder_path): 
+    path = Path(os.path.join(folder_path, filename))
+    contents = path.read_text(errors="ignore")
+    summary[filename] = len(contents.splitlines())
+</code></pre>
+                    </div>
+                    <div class="div-c fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+numbers = [2, 3, 5, 7, 11, 13]
+path = Path('numbers.json')
+contents = json.dumps(numbers)
+path.write_text(contents)
+</code></pre>
+                    </div>
+                    <div class="div-d fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import json
+
+path = Path('numbers.json')
+contents = path.read_text()
+numbers = json.loads(contents)
+print(numbers)
+</code></pre>
+                    </div>
+                </section>
+<!--                 <section>
                     <h3>Reading Multiple text file</h3>
                     <ul>
                         <li><a href="marvel.zip" target="_blank">Marvel Cinematic Universe Dialogue Dataset</a></li>
@@ -1259,7 +1327,7 @@ for score, movie in summary:
     print(movie, score)
 </code></pre>
                     </div>
-                </section>
+                </section> -->
             </section>
             <section>
                 <section data-background="#2c3e50" style="color: white; text-align: left;">
