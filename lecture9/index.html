@@ -436,8 +436,8 @@ print(times5(times3(2)))
                 </section>
                 <section>
                     <h3>Example: Delivery Platform Order System 1.0 (外卖平台订单系统)</h3>
-                    <p>Each city should keep its own order data.
-Orders in one city should not affect another city.</p>
+                    Each city should keep its own order data.
+Orders in one city should not affect another city.
                 <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def create_city_order_system(city):
@@ -462,7 +462,7 @@ def create_city_order_system(city):
                     <ul><li class="fragment">Why should the variable <b>user_data</b> be in the enclosing?</li>
                         <li class="fragment">If it is inside the inner function, it will reset every time. (<b>Every time the inner function runs, the data is reset.</b>)</li>
                         <li class="fragment">If it is global, all systems will share the same data. (<b>Shanghai, Beijing, etc. all share the same data.</b>)</li>
-                    <li class="fragment"><b>A closure works because the data lives in the enclosing function, not inside the function that runs every time.</b></li></ul>
+                    <li class="fragment"><b>A closure works because the data lives in the enclosing scope.</b></li></ul>
                     
                     
                 </section>
@@ -691,7 +691,7 @@ Do I have args?:
                 <section>
 
 <h3>Delivery Platform Order System 2.0</h3>
-                    <p>Every time an order is processed, the system should automatically print a log message.</p>
+                    Every time an order is processed, the system should automatically print a log message.
 <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 def log_order(func):
