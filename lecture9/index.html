@@ -460,8 +460,8 @@ def create_city_order_system(city):
 </code></pre>
                     </div>
                     <ul><li class="fragment">Why should the variable <b>user_data</b> be in the enclosing?</li>
-                        <li class="fragment">If it is inside the inner function, it will reset every time. (每次运行内层函数，数据清零)</li>
-                        <li class="fragment">If it is global, all systems will share the same data. (上海站，北京站等等，数据相同)</li>
+                        <li class="fragment">If it is inside the inner function, it will reset every time. (<b>Every time the inner function runs, the data is reset.</b>)</li>
+                        <li class="fragment">If it is global, all systems will share the same data. (<b>Shanghai, Beijing, etc. all share the same data.</b>)</li>
                     <li class="fragment"><b>A closure works because the data lives in the enclosing function, not inside the function that runs every time.</b></li></ul>
                     
                     
@@ -816,9 +816,9 @@ path = Path('c:\\text_files\\filename.txt')
 path = Path('c:\text_files\filename.txt')  # error
 </code></pre>
                     </div>
-                    <ul><b class="fragment">获取绝对路径的快捷键</b>
-                        <li class="fragment">mac的快捷键为: command+option+c</li>
-                        <li class="fragment">windows按住shift键, 右键, 会出现 复制为路径的选项</li>
+                    <ul><b class="fragment">Shortcut to get the absolute path</b>
+                        <li class="fragment">On Mac, the shortcut is: Command + Option + C</li>
+                        <li class="fragment">Windows: Hold Shift + right-click → “Copy as path”（复制为路径）</li>
                     </ul>
                     <!--                     <ul>
                         <li class="fragment"><b>Please add "r" if you use Windows.</b></li>
@@ -1049,7 +1049,7 @@ summary = {}
 for filename in os.listdir(folder_path):  #列出所有文件 
     # 组成绝对路径
     path = Path(os.path.join(folder_path, filename))
-    contents = path.read_text(errors="ignore")
+    contents = path.read_text(errors="ignore") # 跳过非法字符
     summary[filename] = len(contents.splitlines()) # 有多少句台词
 </code></pre>
                     </div>
