@@ -399,7 +399,12 @@ print(my_tesla.get_descriptive_name())
 2016 Tesla Model S
 </code></pre>
                         </div>
+                        <ol>
+                            <li class="fragment">    When you want to build on top of a parent method, super() is usually the preferred way. <b>(__init__)</b></li>
+                        <li class="fragment">If a subclass doesn't redefine a method, Python will automatically use the parent's version. <b>(get_discriptive_name)</b></li>
+                    </ul>
                     </div>
+                    
                 </section>
                 <section data-background-image="../bg.png">
                     <div class="div-c">
@@ -546,10 +551,10 @@ my_tesla.battery.describe_battery()
                     </div>
                 </section> -->
                 <section data-background-image="../bg.png">
-                    <ul>
-                        <li>We learned to use super() for inheritance. There are two other ways to do it.</li>
+                    
+                    <div class="div-c"><ul>
+                        <li>Example</li>
                     </ul>
-                    <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 class Person:
@@ -588,7 +593,7 @@ man
                         </div>
                     </div>
                 </section>
-                <section data-background-image="../bg.png">
+<!--                 <section data-background-image="../bg.png">
                     <div class="div-c">
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -628,7 +633,7 @@ man
 </code></pre>
                         </div>
                     </div>
-                </section>
+                </section> -->
                 <section data-background-image="../bg.png">
                     <div class="div-c">
                         <ul>
@@ -673,10 +678,10 @@ class Person:
         self.sex = sex
 
 class Child(Person):                          
-    def __init__(self,name,sex,mother):
-        Person.__init__(self,name,sex) 
-        #super().__init__(name,sex)  
+    def __init__(self,name,sex,mother): 
+        super().__init__(name,sex)  
         self.mother = mother
+
 
 May = Child("May","female","April")
 print(May.name,May.sex,May.mother)
@@ -688,11 +693,11 @@ May female April
 </code></pre>
                         </div>
                     </div>
-                    <ul>
+<!--                     <ul>
                         <li class="fragment">
                             <p>If you just need complete inheritance of attributes, then all three ways are equivalent.</p>
                         </li>
-                    </ul>
+                    </ul> -->
                 </section>
                 <section data-background-image="../bg.png">
                     <div class="div-c">
@@ -718,6 +723,33 @@ print(issubclass(Child,Person))      # True
 </code></pre>
                         </div>
                     </div>
+                </section>
+                <section>
+                    <h3>Exercise: 设计一个奶茶店点单系统</h3>
+                    <ol>
+                        <li class="fragment">编写一个名为 Drink 的类，用来表示饮品。包含下面 3 个属性：name（饮品名称）, price（价格）, size（杯型，如 Small / Medium / Large）。为该类定义下面 2 个方法：
+<ul>
+    <li class="fragment">显示饮品信息: 输出饮品的基本信息，包括名称、价格和杯型。例如：<div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+Name: Milk Tea
+Price: 15 yuan
+Size: Large
+</code></pre>
+                        </div></li>
+    <li class="fragment">可以通过方法决定饮品是否打折，以及打多少折扣。<div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+D.discount(0.9)
+</code></pre>
+                        </div></li>
+</ul>
+                        </li>
+                        <li class="fragment">创建 Drink 的子类 MilkTea。除了继承父类的三个属性外，再新增下面 2 个属性：sugar（糖度，如 Full / Half / Low / No），ice（冰量，如 Normal / Less / No）。并增加一个方法，用来更改冰量。例如<div class="fragment">
+                            <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+MT.change_ice("Less")
+</code></pre>
+                        </div></li>
+                        
+                    </ol>
                 </section>
             </section>
             <section>
@@ -891,12 +923,13 @@ willie your_dog
                 </section>
             -->
                 <section data-background-image="../bg.png">
-                    <ul>
+                    <h3>Useful Special Attributes in Python Classes</h3>
+                    <div class="div-c">
+                        <!-- <ul>
                         <li class="fragment">
                             <p><b>__doc__, __name__, __module__, __bases__</b></p>
                         </li>
-                    </ul>
-                    <div class="div-c">
+                    </ul> -->
                         <div class="fragment">
                             <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 class Dog():
@@ -931,12 +964,15 @@ class Dog():
 class Husky(Dog):
     pass
 
+
 print(Husky.__bases__)
 </code></pre>
                         </div>
                         <div class="fragment">
-                            <pre><code class="output" data-trim contenteditable>
+                            <pre><code class="output" contenteditable>
 (&lt;class '__main__.Dog'&gt;,)
+
+
 </code></pre>
                         </div>
                     </div>
@@ -1057,7 +1093,11 @@ from electric_car import ElectricCar
                     <ul>
                         <li class="fragment">
                             <p>Three Features of OOP</p>
-                            <p>Encapsulation（封装）, Inheritance（继承）, Polymorphism（多态）</p>
+                            <ul>
+                                <li class="fragment">Inheritance（继承）: 像孩子继承父母特点</li>
+                                <li class="fragment">Polymorphism（多态）: 同一个按钮，对不同机器效果不同</li>
+                                <li class="fragment">Encapsulation（封装）: 把内部细节藏起来，只留按钮</li>
+                            </ul>
                         </li>
                         <li class="fragment">
                             <p><b>Everything in Python is object.</b></p>
