@@ -1,0 +1,603 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 11</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/reset.css">
+    <link rel="stylesheet" href="../dist/reveal.css">
+    <link rel="stylesheet" href="../dist/theme/white.css" id="theme">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../plugin/highlight/github.css">
+    <link rel="stylesheet" href="../plugin/chalkboard/style.css">
+    <link rel="stylesheet" href="../plugin/customcontrols/style.css">
+    <link rel="stylesheet" href="../plugin/menu/font-awesome/css/all.css">
+    <!-- 从Lecture10以后缩小代码字体 -->
+    <link rel="stylesheet" href="../img/tinyfont.css">
+</head>
+
+<body>
+    <div class="reveal" style="background-color: #fff;">
+        <div class="slides">
+            <section data-background-iframe="../particles/demo/index.html" style="text-align: left;"data-background="#55efc4">
+                <div style="position: absolute; width: 60%; left: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+                    <h1 style="color: white">Python Programming</h1>
+                    <h3 style="color: white">Lecture 11 Data Visualization</h3>
+                </div>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">11.1 Matplotlib Basics </h2>
+                </section>
+                <section>
+                    <h3>从 Spyder 到 VS Code + Jupyter</h3>
+                    <div class="div-e">
+                        <ul>
+                    <li>前面的 Python 基础部分，我们使用的是 Spyder：</li>
+                    <ul class="fragment">
+                        <li>界面简单</li>
+                        <li>适合初学者</li>
+                        <li>方便练习基础语法</li>
+                        <li>更接近传统编程方式</li>
+                    </ul>
+                    <h2></h2>
+                    <li class="fragment">但 VS Code + Jupyter 形式会更加适合数据分析，因为我们需要：</li>
+                    <ul class="fragment">
+                        <li>查看数据表格</li>
+                        <li>分步运行代码</li>
+                        <li>即时显示图表</li>
+                        <li>使用 AI 辅助编程</li>
+                    </ul>
+                    </ul>
+                    </div>
+                </section>
+                <section>
+                    <h3><a href="https://matplotlib.org/">The matplotlib Gallery</a></h3>
+
+                            <p class="fragment">Plotting a Simple Line Graph</p>
+
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+squares = [1, 4, 9, 16, 25]
+
+fig, ax= plt.subplots()
+ax.plot(squares)
+# plt.show() 
+plt.savefig('simple.jpg',dpi=300)
+
+# 不要在plt.savefig()之前使用plt.show()，否则会保存失败
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt1.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Changing the Label Type and Graph Thickness</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+squares = [1, 4, 9, 16, 25]
+
+fig, ax= plt.subplots()
+ax.plot(squares, linewidth=5)
+
+# Set chart title and label axes.
+ax.set_title("Square Numbers", fontsize=24)
+ax.set_xlabel("Value", fontsize=14)
+ax.set_ylabel("Square of Value", fontsize=14)
+
+# Set size of tick labels.
+ax.tick_params(labelsize=14)
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt2.jpg" style="height: 250pt"></div>
+                </section>
+                <section>
+                    <p>Correcting the Plot</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+input_values = [1, 2, 3, 4, 5]
+squares = [1, 4, 9, 16, 25]
+
+fig, ax= plt.subplots()
+ax.plot(input_values, squares, linewidth=5)
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt2x.jpg
+                        " style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Plotting and Styling Individual Points with scatter()</p>
+<!--                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(2, 4)
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn')
+fig, ax= plt.subplots()
+ax.scatter(2, 4, s=200)
+
+# Set chart title and label axes.
+ax.set_title("Square Numbers", fontsize=24)
+ax.set_xlabel("Value", fontsize=14)
+ax.set_ylabel("Square of Value", fontsize=14)
+
+# Set size of tick labels.
+ax.tick_params(labelsize=14)
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                </section>
+                <section> -->
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+x_values = [1, 2, 3, 4, 5]
+y_values = [1, 4, 9, 16, 25]
+
+fig, ax= plt.subplots()
+ax.scatter(x_values, y_values, s=100)
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt3.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+x_values = list(range(1, 1001))
+y_values = [x**2 for x in x_values]
+
+fig, ax= plt.subplots()
+ax.scatter(x_values, y_values, s=40)
+
+# Set the range for each axis.
+ax.axis([0, 1100, 0, 1100000])
+plt.savefig('simple.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt4.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+ax.scatter(x_values, y_values, color='red', s=10)
+ax.scatter(x_values, y_values, color=(0, 0.8, 0), s=10) #RGB
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt5.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+x_values = range(1001)
+y_values = [x**2 for x in x_values]
+
+fig, ax= plt.subplots()
+ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues, s=10)
+
+plt.savefig('simple.jpg',dpi=300, bbox_inches='tight')
+# Remove extra white margins around the figure
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt6.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <p>Random Walks</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from random import choice
+
+class RandomWalk:
+    def __init__(self, num_points=5000):
+        self.num_points = num_points
+        self.x_values = [0]
+        self.y_values = [0]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+#continue
+    def fill_walk(self):
+        while len(self.x_values) < self.num_points:
+            x_direction = choice([1, -1])
+            x_distance = choice([0, 1, 2, 3, 4])
+            x_step = x_direction * x_distance
+
+            y_direction = choice([1, -1])
+            y_distance = choice([0, 1, 2, 3, 4])
+            y_step = y_direction * y_distance
+
+            if x_step == 0 and y_step == 0:
+                continue
+
+            next_x = self.x_values[-1] + x_step
+            next_y = self.y_values[-1] + y_step
+            self.x_values.append(next_x)
+            self.y_values.append(next_y)
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+rw = RandomWalk()
+rw.fill_walk()
+
+fig, ax= plt.subplots()
+ax.scatter(rw.x_values, rw.y_values, s=1)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt7.png" style="height: 300pt"></div>
+                </section>
+               <!--  <section>
+                    <p>Generating Multiple Random Walks</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+import matplotlib.pyplot as plt
+
+while True:
+    rw = RandomWalk()
+    rw.fill_walk()
+
+    plt.style.use('classic')
+    fig, ax = plt.subplots()
+    ax.scatter(rw.x_values, rw.y_values, s=15)
+
+    keep_running = input("Make another walk? (y/n): ")
+    if keep_running == 'n':
+        break
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt77.png" style="height: 200pt"></div>
+                                    <p class="fragment">Styling the Walk</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+point_numbers = range(rw.num_points)
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
+           edgecolor='none', s=1)
+</code></pre>
+                    </div> 
+                </section> -->
+                <section>
+                    <div class="div-c">
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers contenteditable data-noescape>
+import matplotlib.pyplot as plt
+plt.style.use('classic')
+
+fig, ax = plt.subplots(2,2)
+rw1 = RandomWalk()
+rw2 = RandomWalk()
+rw3 = RandomWalk()
+rw4 = RandomWalk()
+
+rw1.fill_walk()
+rw2.fill_walk()
+rw3.fill_walk()
+rw4.fill_walk()
+
+ax[0,0].scatter(rw1.x_values, rw1.y_values, s=1)
+ax[0,1].scatter(rw2.x_values, rw2.y_values, s=1)
+ax[1,0].scatter(rw3.x_values, rw3.y_values, s=1)
+ax[1,1].scatter(rw4.x_values, rw4.y_values, s=1)
+
+plt.savefig('simple.jpg',dpi=300, bbox_inches='tight')
+
+
+</code></pre>
+                    </div>
+                    </div>
+                    <div class="div-d">
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+fig
+┌──────────────────────┐
+│ ax[0,0] | ax[0,1]    │
+│─────────┼────────────│ 
+│ ax[1,0] | ax[1,1]    │
+└──────────────────────┘
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt777.jpg" style="height: 200pt"></div>
+                    </div>
+                    
+                    <!--                     <p class="fragment">Styling the Walk</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+point_numbers = range(rw.num_points)
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
+           edgecolor='none', s=1)
+</code></pre>
+                    </div> -->
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+rw = RandomWalk(50000)
+rw.fill_walk()
+
+plt.style.use('classic')
+fig, ax = plt.subplots(figsize = (16,9), dpi=128)
+
+point_numbers = range(rw.num_points)
+ax.scatter(rw.x_values, rw.y_values, c=point_numbers,
+           cmap=plt.cm.Blues, edgecolor='none', s=8)
+ax.get_xaxis().set_visible(False)
+ax.get_yaxis().set_visible(False)
+
+plt.show()
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture11/plt8.png" style="height: 250pt"></div>
+                </section>
+            </section>
+            <section>
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">11.2 Plotly and Streamlit </h2>
+                </section>
+                <section>
+                    <ul>
+                        <li><a href="https://plotly.com/">Plotly</a> (教材使用): 画交互式图表，依然是画图（更高级的图）</li>
+                        <li><a href="https://streamlit.io/">Streamlit</a> 和 <a href="https://www.gradio.app/">Gradio</a>: 做数据分析网页应用，可操作性强</li>
+                         <li><a href="https://d3js.org/">D3</a>: 交互更复杂，但不是用Python生成</li>
+                    </ul>
+                    <!-- <h3><a href="https://plotly.com/">Plotly</a> and <a href="https://d3js.org/">D3</a> </h3> -->
+
+                    <p class="fragment">In Anaconda Prompt</p>
+                    <div class="fragment">
+                        <pre><code class="note" data-line-numbers data-trim contenteditable>
+# In Terminal
+pip install plotly
+pip install streamlit
+</code></pre>
+                    </div>
+                    <ul>
+                        <li class="fragment">Rolling Dice</li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from random import randint
+class Die():
+
+    def __init__(self, num_sides=6):
+        self.num_sides = num_sides
+    def roll(self):
+        return randint(1, self.num_sides)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+die = Die()
+results = []
+for roll_num in range(100):
+    result = die.roll()
+    results.append(result)
+print(results)
+
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+[3, 4, 1, 3, 4, 3, 4, 6, 4, 4, 1, 3, 6, 5, 2, 6, 2, 5, 4, 3, 5, 4, 2, 4, 3, 1, 2, 6, 6,
+ 2, 3, 2, 1, 6, 6, 4, 3, 2, 3, 5, 2, 4, 3, 6, 3, 2, 1, 3, 2, 1, 4, 6, 6, 3, 3, 3, 2, 2,
+  6, 3, 1, 6, 3, 4, 2, 6, 4, 6, 6, 3, 5, 5, 5, 5, 5, 3, 3, 1, 3, 2, 4, 2, 3, 1, 1, 4, 4,
+   2, 4, 2, 5, 2, 6, 2, 5, 6, 2, 2, 6, 5]
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <ul>
+                        <li class="fragment">
+                            <p>Analyzing the Results</p>
+                        </li>
+                    </ul>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+die = Die()
+results = []
+for roll_num in range(1000):
+    result = die.roll()
+    results.append(result)
+
+frequencies = []
+poss_results = range(1, die.num_sides+1)
+for value in poss_results:
+    frequency = results.count(value)
+    frequencies.append(frequency)
+
+print(frequencies)
+#[155, 167, 168, 170, 159, 181]
+</code></pre>
+                    </div>
+                   <!--  <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import streamlit as st
+import pandas as pd
+
+df = pd.DataFrame(
+    {"Frequency": frequencies},
+    index=poss_results
+)
+
+st.title("Dice Rolling Results")
+
+st.bar_chart(df)
+</code></pre>
+                    </div> -->
+                    
+<!--                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import plotly.express as px
+
+fig = px.bar(x=poss_results, y=frequencies)
+fig.write_html('dice_visual.html')
+</code></pre>
+                    </div> -->
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import plotly.express as px
+
+title = "Results of Rolling One D6 1000 Times"
+labels = {'x': 'Results', 'y': 'Frequency of Result'}
+fig = px.bar(x=poss_results, y=frequencies, title=title, labels=labels)
+fig.write_html('dice_visual.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="d6.html" target="_blank">Rolling one D6 1000 times</a>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Create two D6 dice.
+die_1 = Die()
+die_2 = Die()
+
+results = []
+for roll_num in range(1000):
+    result = die_1.roll() + die_2.roll()
+    results.append(result)
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# Analyze the results.
+frequencies = []
+max_result = die_1.num_sides + die_2.num_sides
+poss_results = range(2, max_result+1)
+
+for value in poss_results:
+    frequency = results.count(value)
+    frequencies.append(frequency)
+</code></pre>
+                    </div>
+<!--                     <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+title = "Results of Rolling Two D6 1000 Times"
+labels = {'x': 'Results', 'y': 'Frequency of Result'}
+fig = px.bar(x=poss_results, y=frequencies, title=title, labels=labels)
+# fig.update_layout(xaxis_dtick = 1)
+fig.write_html('d6_d6.html')
+</code></pre>
+                    </div>
+                    <a class="fragment" href="d6_d6.html" target="_blank">Rolling two D6 dice 1000 times</a> -->
+                    <a class="fragment" href="dice.py" target="_blank">Download dice.py</a>
+                    <div class="fragment">
+                        <pre><code class="note" data-line-numbers data-trim contenteditable>
+# In Terminal
+streamlit run C:\Users\Lu\Desktop\test.py
+</code></pre>
+                    </div>
+                </section>
+                    
+                <section data-markdown>         
+  <textarea data-template>
+### Python数据分析 + 可视化 + 轻量网页应用
+
+| 工具        | 主要用途       | 优势                | 更适合        |
+| --------- | ---------- | ----------------- | ---------- |
+| Streamlit | 构建数据分析网页   | 开发简单、适合 Dashboard | 数据分析应用     |
+| Gradio    | 构建 AI 交互界面 | 很容易制作 AI Demo     | 聊天机器人、AI工具 |
+
+
+
+  </textarea>
+</section>
+            </section>
+            <section>
+                <section data-background="#2c3e50" style="color: white; text-align: left;">
+                    <h2 style="color: white">Summary</h2>
+                    <ul>
+                        <li>Data Visualization</li>
+                        <ul>
+                            <li>Reading: Python Crash Course, Chapter 15</li>
+                        </ul>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="../dist/reveal.js"></script>
+    <script src="../plugin/zoom/zoom.js"></script>
+    <script src="../plugin/notes/notes.js"></script>
+    <script src="../plugin/search/search.js"></script>
+    <script src="../plugin/markdown/markdown.js"></script>
+    <script src="../plugin/highlight/highlight.js"></script>
+    <script src="../plugin/math/math.js"></script>
+    <script src="../plugin/zoom_old/zoom_old.js"></script>
+    <script src="../plugin/chalkboard/plugin.js"></script>
+    <script src="../plugin/customcontrols/plugin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="../plugin/copycode/copycode.js"></script>
+    <script src="../plugin/pdfexport/pdfexport.js"></script>
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        customcontrols: {
+            controls: [{
+                    id: 'toggle-overview',
+                    title: 'Toggle overview (O)',
+                    icon: '<i class="fa fa-th"></i>',
+                    action: 'Reveal.toggleOverview();'
+                },
+                {
+                    icon: '<i class="fa fa-pen-square"></i>',
+                    title: 'Toggle chalkboard (B)',
+                    action: 'RevealChalkboard.toggleChalkboard();'
+                },
+                {
+                    icon: '<i class="fa fa-pen"></i>',
+                    title: 'Toggle notes canvas (C)',
+                    action: 'RevealChalkboard.toggleNotesCanvas();'
+                },
+                {
+                    icon: '<i class="fas fa-question-circle"></i>',
+                    title: 'Toggle help',
+                    action: 'Reveal.toggleHelp();'
+                },
+            ]
+        },
+        // Shortcut for toggling between screen and PDF mode
+        pdfExportShortcut: 'E',
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealChalkboard, RevealCustomControls, RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, CopyCode, PdfExport],
+
+
+
+    });
+    Reveal.configure({
+        pdfSeparateFragments: false
+    });
+    </script>
+</body>
+
+</html>
