@@ -37,37 +37,19 @@
                         <li>csv包 (教材使用): 主要用于逐行读取和写入 CSV 文件，更偏向基础文件处理。</li>
                         <li>pandas: 能读取 CSV 文件，还提供筛选、统计、分组、缺失值处理，更适合完整的数据分析工作流。</li>
                     </ul>
+                    <iframe data-src="test.html" width="100%" height="500"></iframe>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import pandas as pd
 
 df = pd.read_csv('sitka_weather_07-2021_simple.csv')
-
-df.columns
-
-df.index
-
-lines = path.read_text().splitlines()
-
-reader = csv.reader(lines)
-header_row = next(reader)
-print(header_row)
-
-for index, column_header in enumerate(header_row):
-    print(index,column_header)
         </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-['STATION', 'NAME', 'DATE', 'TAVG', 'TMAX', 'TMIN']
-0 STATION
-1 NAME
-2 DATE
-3 TAVG
-4 TMAX
-5 TMIN
 </code></pre>
                     </div>
+                   
                 </section>
                 <section>
                     <p>Extracting and Reading Data</p>
