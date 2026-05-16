@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>总评目标分数计算器</title>
+    <style>
+        body {
+            font-family: Arial, "Microsoft YaHei", sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .formula {
+            text-align: center;
+            color: #555;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            font-size: 17px;
+            border: none;
+            border-radius: 8px;
+            background: #2f6fed;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #245bd0;
+        }
+
+        .result {
+            margin-top: 24px;
+            padding: 16px;
+            border-radius: 8px;
+            background: #eef4ff;
+            font-size: 17px;
+            line-height: 1.7;
+            display: none;
+        }
+
+        .warning {
+            background: #fff4e5;
+            color: #8a4b00;
+        }
+
+        .error {
+            background: #ffecec;
+            color: #a40000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>总评目标分数计算器</h1>
+        <div class="formula">
+            总评成绩 = 平时成绩 × 40% + 考试成绩 × 60%<br />
+            不输入平时成绩时，默认平时成绩为 100 分。
+        </div>
+
+        <label for="regularScore">平时成绩（默认 100 分）</label>
+        <input type="number" id="regularScore" placeholder="不填则默认为 100" min="0" max="100" />
+
+        <label for="targetScore">目标总评成绩</label>
+        <input type="number" id="targetScore" placeholder="请输入目标总评成绩" min="0" max="100" />
+
+        <button onclick="calculateExamScore()">计算需要考试多少分</button>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function calculateExamScore() {
+            const regularInput = document.getElementById("regularScore").value;
+            const targetInput = document.getElementById("targetScore").value;
+            const resultBox = document.getElementById("result");
+
+            resultBox.style.display = "block";
+            resultBox.className = "result";
+
+            const regularScore = regularInput === "" ? 100 : Number(regularInput);
+            const targetScore = Number(targetInput);
+
+            if (targetInput === "") {
+                resultBox.className = "result error";
+                resultBox.innerHTML = "请输入目标总评成绩。";
+                return;
+            }
+
+            if (regularScore < 0 || regularScore > 100 || targetScore < 0 || targetScore > 100) {
+                resultBox.className = "result error";
+                resultBox.innerHTML = "平时成绩和目标总评成绩都应在 0 到 100 分之间。";
+                return;
+            }
+
+            const examScore = (targetScore - regularScore * 0.4) / 0.6;
+            const roundedScore = examScore.toFixed(2);
+
+            if (examScore > 100) {
+                resultBox.className = "result warning";
+                resultBox.innerHTML = `
+                    平时成绩为 <strong>${regularScore}</strong> 分，目标总评成绩为 <strong>${targetScore}</strong> 分。<br>
+                    需要考试成绩达到 <strong>${roundedScore}</strong> 分。<br>
+                    这个分数超过 100 分，因此该目标无法通过正常考试分数达到。
+                `;
+            } else if (examScore < 0) {
+                resultBox.className = "result warning";
+                resultBox.innerHTML = `
+                    平时成绩为 <strong>${regularScore}</strong> 分，目标总评成绩为 <strong>${targetScore}</strong> 分。<br>
+                    理论上考试成绩只需要 <strong>${roundedScore}</strong> 分。<br>
+                    这说明即使考试得 0 分，总评也已经可以达到目标。
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    平时成绩为 <strong>${regularScore}</strong> 分，目标总评成绩为 <strong>${targetScore}</strong> 分。<br>
+                    需要考试成绩至少达到 <strong>${roundedScore}</strong> 分。
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
