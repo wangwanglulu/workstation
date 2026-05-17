@@ -131,7 +131,8 @@ df.loc[[2,4],:] # 查看特定多行
                     <p>Modify Data</p>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-                        df.loc[:, 'difference'] = df["TMAX"] - df["TMIN"]
+                        # calculation
+                        df.loc[:, 'difference'] = df["TMAX"] - df["TMIN"] 
 
                         # example
                         df.loc[:, 'x'] = 1
@@ -183,6 +184,38 @@ df.loc[:,'date'] = pd.to_datetime(df['DATE'])
     </code></pre>
 </div>
 
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# filtering data by date
+df_t = df[(df['date']>="20210715") & (df['date']<="20210720")]
+df_t
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+14  USW00025333 SITKA AIRPORT, AK US    2021-07-15  NaN 60  50  2021-07-15
+15  USW00025333 SITKA AIRPORT, AK US    2021-07-16  NaN 61  54  2021-07-16
+16  USW00025333 SITKA AIRPORT, AK US    2021-07-17  NaN 63  56  2021-07-17
+17  USW00025333 SITKA AIRPORT, AK US    2021-07-18  NaN 63  57  2021-07-18
+18  USW00025333 SITKA AIRPORT, AK US    2021-07-19  NaN 70  55  2021-07-19
+19  USW00025333 SITKA AIRPORT, AK US    2021-07-20  NaN 64  56  2021-07-20
+
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# calculate periods
+periods = df.loc[20, "date"] - df.loc[1, "date"]
+periods.days
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+    19
+    </code></pre>
+</div>
+</section>
+                <section>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 df.loc[:,'date'] = pd.to_datetime(df['DATE'])
@@ -423,10 +456,10 @@ plt.savefig('monthly_avg.jpg',dpi=300)
                     <div class="fragment"><img data-src="../img/lecture12/monthly_avg.jpg" style="height: 400pt"></div>
                 </section>
                 <section>
-                    <h4>Exercise: 人口数据可视化</h4>
+                    <h3>Exercise: 人口数据可视化</h3>
                     <ul>
                         <li class="fragment">现在有3个JSON文件，分别统计了中国，印度和美国1960-2024年的人口数量</li>
-                        <li class="fragment">绘制一幅折线图，描述这三个国家的人口走势，你可以参考刚刚学过的代码</li>
+                        <li class="fragment">绘制一幅折线图，描述任一个国家的人口走势，你可以参考刚刚学过的代码</li>
                     </ul>
 
                     <div class="fragment">
@@ -440,7 +473,6 @@ contents = path.read_text()
 btc_data = json.loads(contents)
 
 date=[]; close=[]; months=[]
-
 for btc_dict in btc_data:
     months.append(int(btc_dict['month']))
     close.append(float(btc_dict['close']))
@@ -460,6 +492,83 @@ fig.autofmt_xdate()
 
 plt.savefig('close.jpg',dpi=300)
 </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Data Combine</p>
+                    <div class="div-c">
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        df_C
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+    date           pop
+0   2024    1408975000
+1   2023    1410710000
+... ... ...
+63  1961    660330000
+64  1960    667070000
+
+                        </code></pre>
+                    </div>
+                    </div>
+                    <div class="div-d">
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        df_I
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output div-b" data-trim contenteditable>
+    date           pop
+0   2024    1408975000
+1   2023    1410710000
+... ... ...
+63  1961    446564729
+64  1960    435990338
+                        </code></pre>
+                    </div>
+                    </div>
+
+<div class="div-c">
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+df_wide=pd.merge(df_C,df_I,on='date',\
+                suffixes=["_C","_I"])
+df_wide
+    </code></pre>
+</div>
+<div class="fragment">
+                        <pre><code class="output div-b" data-trim contenteditable>
+    date         pop_C       pop_I
+0   2024    1408975000  1450935791
+... ... ... ...
+63  1961    660330000   446564729
+64  1960    667070000   435990338
+                        </code></pre>
+                    </div>
+</div>
+<div class="div-d">
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+df_long = pd.concat([df_C, df_I], \
+                    ignore_index=True)
+df_long
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+    date    pop
+0   2024    1408975000
+... ... ...
+128 1961    446564729
+129 1960    435990338
+
+    </code></pre>
+</div>
+
                     </div>
                 </section>
                 
