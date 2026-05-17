@@ -37,7 +37,8 @@
                         <li>csv包 (教材使用): 主要用于逐行读取和写入 CSV 文件，更偏向基础文件处理。</li>
                         <li>pandas: 能读取 CSV 文件，还提供筛选、统计、分组、缺失值处理，更适合完整的数据分析工作流。</li>
                     </ul>
-                    <iframe data-src="test.html" width="100%" height="500"></iframe>
+                    <!-- <iframe data-src="test.html" width="100%" height="500"></iframe> -->
+
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
 import pandas as pd
@@ -45,38 +46,111 @@ import pandas as pd
 df = pd.read_csv('sitka_weather_07-2021_simple.csv')
         </code></pre>
                     </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-</code></pre>
-                    </div>
+
+    <div class="fragment">
+        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+        df.index
+        </code></pre>
+    </div>
+    <div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+    RangeIndex(start=0, stop=31, step=1)
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+    df.columns
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+    Index(['STATION', 'NAME', 'DATE', 'TAVG', 'TMAX', 'TMIN'], dtype='object')
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+    df.head()
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+    
+        STATION                 NAME          DATE  TAVG TMAX TMIN
+0   USW00025333 SITKA AIRPORT, AK US    2021-07-01   NaN   61   53
+1   USW00025333 SITKA AIRPORT, AK US    2021-07-02   NaN   60   52
+2   USW00025333 SITKA AIRPORT, AK US    2021-07-03   NaN   66   54
+3   USW00025333 SITKA AIRPORT, AK US    2021-07-04   NaN   60   55
+4   USW00025333 SITKA AIRPORT, AK US    2021-07-05   NaN   65   55
+    </code></pre>
+</div>
                    
                 </section>
                 <section>
                     <p>Extracting and Reading Data</p>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers="10-15" data-trim contenteditable>
-from pathlib import Path
-import csv
-
-path = Path('sitka_weather_07-2021_simple.csv')
-lines = path.read_text().splitlines()
-
-reader = csv.reader(lines)
-header_row = next(reader)
-
-highs = []
-for row in reader:
-    high = int(row[4])
-    highs.append(high)
-
-print(highs)
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+df["TMAX"]
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-trim contenteditable>
-[61, 60, 66, 60, 65, 59, 58, 58, 57, 60, 60, 60, 57, 58, 60, 61, 63, 63, 
-70, 64, 59, 63, 61, 58, 59, 64, 62, 70, 70, 73, 66]
+0     61
+1     60
+...
+29    73
+30    66
+Name: TMAX, dtype: int64
 </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+df.loc[0]
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+STATION             USW00025333
+NAME       SITKA AIRPORT, AK US
+DATE                 2021-07-01
+TAVG                        NaN
+TMAX                         61
+TMIN                         53
+Name: 0, dtype: object
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+df.loc[:,'TAVG':'TMAX']   #查看连续多列
+df.loc[:,['TAVG','TMAX']] #查看特定多列
+df.loc[2:4,:]   # 查看连续多行 不是左闭右开
+df.loc[[2,4],:] # 查看特定多行
+                        </code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p>Modify Data</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        df.loc[:, 'difference'] = df["TMAX"] - df["TMIN"]
+
+                        # example
+                        df.loc[:, 'x'] = 1
+                        df.loc[:, 'y'] = range(30)
+                        </code></pre>
+                    </div>
+                    <p class="fragment">Delete Data</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        # 删除返回值
+                        df_x = df.drop('difference', axis = 1) # 删除单列
+                        df_y = df.drop(1, axis = 0)            # 删除单行
+                        </code></pre>
+                    </div>
+                    <p class="fragment">Filter Data</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        df_60 = df[df["TMAX"] >= 60]
+                        </code></pre>
                     </div>
                 </section>
                 <section>
@@ -86,9 +160,8 @@ print(highs)
 from matplotlib import pyplot as plt
 
 # Plot the high temperatures.
-plt.style.use('seaborn')
 fig, ax = plt.subplots()
-ax.plot(highs, c='red')
+ax.plot(df["TMAX"], c='red')
 
 # Format plot.
 ax.set_title("Daily high temperatures, July 2021", fontsize=24)
@@ -96,131 +169,59 @@ ax.set_xlabel('', fontsize=16)
 ax.set_ylabel("Temperature (F)", fontsize=16)
 ax.tick_params(labelsize=16)
 
-#plt.show()
-plt.savefig('simple.jpg',dpi=300)
+plt.savefig('simple.jpg',bbox_inches='tight',dpi=300)
 </code></pre>
                     </div>
                     <div class="fragment"><img data-src="../img/lecture12/plt11.jpg" style="height: 200pt"></div>
                 </section>
                 <section>
-                    <p>The datetime Module</p>
+                    <p>datetime</p>
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+# convert string to time format
+df.loc[:,'date'] = pd.to_datetime(df['DATE'])
+    </code></pre>
+</div>
+
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+df.loc[:,'date'] = pd.to_datetime(df['DATE'])
 
-from datetime import datetime
-
-first_date = datetime.strptime('2021-7-1', '%Y-%m-%d') 
-print(type(first_date))
-print(first_date.strftime('%B %d %Y'))
-print(first_date)
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="output" data-trim contenteditable>
-&lt;class 'datetime.datetime'&gt;
-July 01 2021
-2021-07-01 00:00:00
-</code></pre>
-                    </div>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
-
-%A Weekday name, such as Monday
-%B Month name, such as January
-%m Month, as a number (01 to 12)
-%d Day of the month, as a number (01 to 31) 
-%Y Four-digit year, such as 2015
-%y Two-digit year, such as 15
-%H Hour, in 24-hour format (00 to 23)
-%I Hour, in 12-hour format (01 to 12)
-%p am or pm
-%M Minutes (00 to 59) %S Seconds (00 to 61)
-</code></pre>
-                    </div>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers="3, 11-21" data-trim contenteditable>
-from pathlib import Path
-import csv
-from datetime import datetime
-from matplotlib import pyplot as plt
-
-path = Path('sitka_weather_07-2021_simple.csv')
-lines = path.read_text().splitlines()
-reader = csv.reader(lines)
-header_row = next(reader)
-
-dates, highs = [],[]
-for row in reader:
-    current_date = datetime.strptime(row[2], "%Y-%m-%d")
-    dates.append(current_date)
-    high = int(row[4])
-    highs.append(high)
-
-plt.style.use('seaborn')
 fig, ax = plt.subplots()
-ax.plot(dates, highs, c='red')
-</code></pre>
-                        <div class="fragment">
-                            <pre><code class="language-Python" data-line-numbers="4" data-trim contenteditable data-noescape>
-# Format plot.
-ax.set_title("Daily high temperatures, July 2021", fontsize=24)
+ax.plot(df["date"], df["TMAX"], c='red')
+
+ax.set_title("Daily high temperatures, July 2021", fontsize=18)
 ax.set_xlabel('', fontsize=16)
 fig.autofmt_xdate()
 ax.set_ylabel("Temperature (F)", fontsize=16)
-ax.tick_params(labelsize=16)
+ax.tick_params(labelsize=10)
 
-plt.savefig('simple.jpg',dpi=300)
+plt.savefig('simple.jpg',bbox_inches='tight',dpi=300)
 </code></pre>
-                        </div>
-                </section>
-                <section>
-                    <div class="fragment"><img data-src="../img/lecture12/plt9.jpg
-                        " style="height: 400pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture12/plt9.jpg" style="height: 200pt"></div>
                 </section>
                 <section>
                     <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers="6,11-18" data-trim contenteditable data-noescape>
+                        <pre><code class="language-Python" data-line-numbers="3,8-10" data-trim contenteditable data-noescape>
+import pandas as pd
+ 
+df = pd.read_csv('sitka_weather_2021_simple.csv')
+df.loc[:,'date'] = pd.to_datetime(df['DATE'])
 
-from pathlib import Path
-import csv
-from datetime import datetime
-from matplotlib import pyplot as plt
-
-path = Path('sitka_weather_2021_simple.csv')
-lines = path.read_text().splitlines()
-reader = csv.reader(lines)
-header_row = next(reader)
-    
-dates, highs, lows= [], [], []
-for row in reader:
-    current_date = datetime.strptime(row[2], "%Y-%m-%d")
-    dates.append(current_date)
-    high = int(row[4])
-    highs.append(high)
-    low = int(row[5])
-    lows.append(low)
-        </code></pre>
-                </section>
-                <section>
-                    <div class="fragment">
-                        <pre><code class="language-Python" data-line-numbers="4-6," data-trim contenteditable data-noescape>
 # Plot data.
-plt.style.use('seaborn')
 fig, ax = plt.subplots()
-ax.plot(dates, highs, c='red', alpha=0.5)
-ax.plot(dates, lows, c='blue', alpha=0.5)
-ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+ax.plot(df["date"], df["TMAX"], c='red', alpha=0.5)
+ax.plot(df["date"], df["TMIN"], c='blue', alpha=0.5)
+ax.fill_between(df["date"], df["TMAX"], df["TMIN"], facecolor='blue', alpha=0.1)
 
 # Format plot.
-ax.set_title("Daily high and low temperatures - 2021", fontsize=24)
+ax.set_title("Daily high and low temperatures - 2021", fontsize=18)
 ax.set_xlabel('', fontsize=16)
 fig.autofmt_xdate()
 ax.set_ylabel("Temperature (F)", fontsize=16)
-ax.tick_params(labelsize=16)
+ax.tick_params(labelsize=10)
 
-plt.savefig('simple.jpg',dpi=300)
+plt.savefig('simple.jpg',bbox_inches='tight',dpi=300)
 </code></pre>
                     </div>
                 </section>
@@ -228,43 +229,71 @@ plt.savefig('simple.jpg',dpi=300)
                     <div class="fragment"><img data-src="../img/lecture12/plt12.jpg" style="height: 400pt"></div>
                 </section>
                 <section>
+                    <h4>Handling Missing Data</h4>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 
-from pathlib import Path
-import csv
-from datetime import datetime
+import pandas as pd
 from matplotlib import pyplot as plt
 
-path = Path('death_valley_2021_simple.csv')
-lines = path.read_text().splitlines()
-reader = csv.reader(lines)
-header_row = next(reader)
-dates, highs, lows= [], [], []
+frame = pd.read_csv('death_valley_2021_simple.csv')
 </code></pre>
                     </div>
+
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
-
-# continue   
-for row in reader:
-    try:
-        current_date = datetime.strptime(row[2], "%Y-%m-%d")
-        high = int(row[3])
-        low = int(row[4])
-    except ValueError:
-        print(current_date, 'missing data')
-    else:
-        dates.append(current_date)
-        highs.append(high)
-        lows.append(low)
+frame.info()
 </code></pre>
                     </div>
                     <div class="fragment">
                         <pre><code class="output" data-line-numbers data-trim contenteditable data-noescape>  
-2021-05-04 00:00:00 missing data
+RangeIndex: 365 entries, 0 to 364
+Data columns (total 6 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   STATION  365 non-null    object 
+ 1   NAME     365 non-null    object 
+ 2   DATE     365 non-null    object 
+ 3   TMAX     364 non-null    float64
+ 4   TMIN     365 non-null    int64  
+ 5   TOBS     360 non-null    float64
+dtypes: float64(2), int64(1), object(3)
+memory usage: 17.2+ KB
 </code></pre>
                     </div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+                        frame[frame["TMAX"].isna()]
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+123 USC00042319 DEATH VALLEY NATIONAL PARK, CA US   2021-05-04  NaN 72  89.0
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+frame_DT = frame[["DATE", "TMAX", "TMIN"]]
+frame_cleaned = frame_DT.dropna()
+frame_cleaned.info()
+                        </code></pre>
+                    </div>
+<div class="fragment">
+    <pre><code class="output" data-trim contenteditable>
+
+Index: 364 entries, 0 to 364
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   DATE    364 non-null    object 
+ 1   TMAX    364 non-null    float64
+ 2   TMIN    364 non-null    int64  
+dtypes: float64(1), int64(1), object(1)
+memory usage: 11.4+ KB
+    </code></pre>
+</div>
                 </section>
                 <section>
                     <div class="fragment"><img data-src="../img/lecture12/plt10.jpg" style="height: 400pt"></div>
@@ -311,7 +340,99 @@ for btc_dict in btc_data:
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 from pathlib import Path
-from datetime import datetime
+import pandas as pd
+import json
+
+path = Path('btc_close_2017.json')
+contents = path.read_text()
+btc_data = json.loads(contents)
+
+close=[]; months=[]
+
+for btc_dict in btc_data:
+    months.append(int(btc_dict['month']))
+    close.append(float(btc_dict['close']))
+
+df = pd.DataFrame({"close": close, "months": months})
+df.loc[:,'date'] = pd.to_datetime(df['date'])
+</code></pre>
+                    </div>
+
+                </section>
+                <section>
+                                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+
+ax.plot(df['date'],df['close'], linewidth=0.5, c='red')
+ax.scatter(date,close, s=5, c='red')
+ax.set_title('Close',fontsize=10)
+fig.autofmt_xdate()
+
+plt.savefig('close.jpg',dpi=300)
+</code></pre>
+                    </div>
+                    <div class="fragment"><img data-src="../img/lecture12/close.jpg" style="height: 300pt"></div>
+                </section>
+                <section>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+monthly_avg = df.groupby('months')['close'].mean()
+# mean(), sum(), max(), min(), std()
+def f(arr):
+    return arr.max()-arr.min()
+monthly_avg = df.groupby('months')['close'].apply(f)
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+monthly_avg = df.groupby('months')['close'].mean()
+monthly_avg
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-trim contenteditable>
+months
+1      6285.870968
+2      7315.714286
+...
+11    51436.166667
+12    91936.416667
+Name: close, dtype: float64
+                        </code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+
+ax.plot(monthly_avg.index, monthly_avg.values, linewidth=1)
+ax.scatter(monthly_avg.index, monthly_avg.values, s=20)
+ax.set_title('Close',fontsize=10)
+
+plt.savefig('monthly_avg.jpg',dpi=300)
+                        </code></pre>
+                    </div>
+
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture12/monthly_avg.jpg" style="height: 400pt"></div>
+                </section>
+                <section>
+                    <h4>Exercise: 人口数据可视化</h4>
+                    <ul>
+                        <li class="fragment">现在有3个JSON文件，分别统计了中国，印度和美国1960-2024年的人口数量</li>
+                        <li class="fragment">绘制一幅折线图，描述这三个国家的人口走势，你可以参考刚刚学过的代码</li>
+                    </ul>
+
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+from pathlib import Path
+import pandas as pd
 import json
 
 path = Path('btc_close_2017.json')
@@ -321,31 +442,27 @@ btc_data = json.loads(contents)
 date=[]; close=[]; months=[]
 
 for btc_dict in btc_data:
-    date.append(datetime.strptime(btc_dict['date'], "%Y-%m-%d"))
     months.append(int(btc_dict['month']))
-    close.append(int(float(btc_dict['close'])))
-</code></pre>
+    close.append(float(btc_dict['close']))
+
+df = pd.DataFrame({"close": close, "months": months})
+df.loc[:,'date'] = pd.to_datetime(df['date'])
+                        </code></pre>
                     </div>
-                    <div class="fragment">
+<div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 
 import matplotlib.pyplot as plt
 
-plt.style.use('seaborn')
 fig, ax = plt.subplots()
-
-ax.plot(date,close, linewidth=0.5, c='red')
-ax.scatter(date,close, s=5, c='red')
-ax.set_title('Close',fontsize=10)
+ax.plot(df['date'],df['close'], linewidth=0.5, c='red')
 fig.autofmt_xdate()
 
 plt.savefig('close.jpg',dpi=300)
 </code></pre>
                     </div>
                 </section>
-                <section>
-                    <div class="fragment"><img data-src="../img/lecture12/收盘价折线图.jpg" style="height: 500pt"></div>
-                </section>
+                
                 <!-- 
                 <section>
                     <div class="fragment">
@@ -368,7 +485,7 @@ plt.savefig('收盘价对数变换折线图.jpg',dpi=300)
                 </section> -->
                 <!-- <section>
                     <div class="fragment"><img data-src="../img/lecture12/收盘价对数变换折线图.jpg" style="height: 350pt"></div>
-                </section> -->
+                </section> 
                 <section>
                     <h3>Iterator (迭代器)</h3>
                     <p class="fragment">在 Python 中，迭代器（Iterator） 是一种用于遍历（或迭代）<b>可迭代对象（Iterable）</b>    的对象。它提供了一种逐个访问元素的方式，而不需要提前加载整个数据结构到内存中。</p>
@@ -655,9 +772,127 @@ ax.set_title('Close',fontsize=10)
 plt.savefig('close.jpg',dpi=300)
 </code></pre>
                     </div>
+                </section>-->
+                
+            </section>
+
+            <section>
+                
+                <section data-background="#2980b9" style="color: white">
+                    <h2 style="color: white">12.3 AI辅助编程</h2>
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="../img/lecture12/收盘价月日均值.jpg" style="height: 400pt"></div>
+                    <div class="fragment"><img data-src="../img/lecture13/copilot.png" style="height: 150pt"></div>
+                    <h3 class="fragment"><a href="https://github.com/features/copilot">GitHub Copilot官网</a></h3>
+                    <p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated Development Environment，IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p>
+                </section>
+                <section>
+                    <ol>
+                        <li>安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a>（VScode是什么？常用IDE有哪些？）</li>
+                        <li>注册GitHub账户；3. 在VScode里面安装GitHub Copilot插件。</li>
+                    </ol>
+                    <div class="fragment"><img data-src="../img/lecture13/vscode.png" style="height: 350pt"></div>
+                </section>
+                <section>
+                    <h3>功能介绍</h3>
+                    <p class="fragment">1. 自动补全注释（按Tab键）</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 编写一个程序，读取文件夹中的文件
+</code></pre>
+                    </div>
+                    <p class="fragment">2. 根据函数名自动生成代码（按Tab键）</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+def bubblesort()
+</code></pre>
+                    </div>
+                    <p class="fragment">3. 生成测试用例（在bubblesort函数下方输入）</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#测试bubblesort函数
+</code></pre>
+                    </div>
+                    <p class="fragment">4. 逐步代码生成</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#定义5个列表变量，每个列表包含2到10个元素
+#将5个列表合并，再调用bubblesort函数对列表排序
+</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">5. 自动生成语句架构</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+for i
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+-if
+</code></pre>
+                    </div>
+                    <p class="fragment">6. 生成多个候选解决方案</p>
+                    <p class="fragment">如果使用Tab键生成解决方案，那么对于一些复杂的代码，可能需要一行一行地生成（需要不断地按 Enter 键和 Tab 键），比较麻烦。GitHub Copilot 提供了生成多个候选解决方案的功能，具体的做法就是在注释中按 Ctrl + Enter 组合键，这将显示一个新的选项卡，默认会自动生成10个解决方案。<b>(有时候还不如直接ChatGPT或者Deepseek)</b></p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+#用Flask实现一个服务端程序，只支持GET请求，请求的参数是一个字符串，返回一个字符串。
+</code></pre>
+                    </div>
+                    <p class="fragment">7. 检查代码漏洞</p>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 检查上面的代码是否有漏洞
+</code></pre>
+                    </div>
+                    <h3 class="fragment">一句话就是：写注释，然后enter和tab来回的按。</h3>
+                    <h3 class="fragment"><a href="https://codegeex.cn/">GitHub Copilot的免费平替CodeGeeX</a></h3>
+                </section>
+                <section>
+                    <h3 class="fragment">提示词的编写技巧</h3>
+                    <ul class="fragment">
+                        <li>给AI工具指定一个角色：第一句“你是pandas专家”</li>
+                        <li>交代背景：给出文件的路径，以及文件中变量的名称，行列信息</li>
+                        <li>说明问题：解决什么问题，必要时说明用什么方法解决，以及指定输出内容，形式和格式</li>
+                        <li>必要时给出示例：帮助AI工具理解意图</li>
+                    </ul>
+                    <h2></h2>
+                    <h3 class="fragment">注意事项</h3>
+                    <ul class="fragment">
+                        <li>提倡用短句，用专用词指定对象，避免使用“它”和“前面”等词</li>
+                        <li>明确指定输出内容，可以是全部数据，也可以是一部分</li>
+                        <li>指定输出的数据格式，输出文件的路径和名称，甚至编码</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Example: Data of Crowdfunding Projects</h3>
+                    <a href="https://www.kaggle.com/kemical/kickstarter-projects">Kickstarter Projects</a> from Kaggle.com
+                    <div><img data-src="../MBAimg/lecture10/ks.jpg" style="height: 50pt"></div>
+
+
+                    <p>你是pandas专家，文件路径为“/Users/wangwanglulu/ks-projects-201801.csv”。使用pandas导入该文件，根据launched和deadline两列来计算每一个项目的时间跨度，将时间跨度数据作为列添加到原数据中。然后，计算2010年-2018年的项目时间跨度平均值，并绘制横坐标为年份的折线图。最后，保存增加了时间跨度这一列的数据到新的csv文件，并保存图片到jpg文件dpi为300。为代码添加注释。</p>
+                </section>
+                <section>
+                    <h3>目前几款主流AI编程工具</h3>
+                    <ul>
+                        <b class="fragment">人在编程，AI安静地在旁边提示 + 补代码</b>
+                        <li class="fragment">Copilot：可能需要魔法，价格较低，主要在 VSCode 中使用。国内平替：CodeGeeX</li>
+                        <li class="fragment">Copilot 也在持续进化，已经开始加入 Agent 功能</li>
+                        <b class="fragment">人和 AI 协同编程，AI 深度参与工程开发</b>
+                        <li class="fragment">Cursor: 需要魔法，价格中等偏贵，独立IDE。国内平替：Trae.ai国内版</li>
+                        <b class="fragment">AI 可自主完成开发任务，人负责描述需求与审核结果</b>
+                        <li class="fragment">Claude Code (命令行)/Codex: 需要魔法，价格较高，对命令行与工程环境要求较高</li>
+                    </ul>
+                    <h2></h2>
+                    <h3 class="fragment">推荐学生党使用：</h3>
+                    <ul>
+                        
+                        <li class="fragment">VSCode + Copilot/CodeGeeX + 国内免费大模型</li>
+                        <li class="fragment">Trae.ai 国内版（更适合新手）</li>
+                        <li class="fragment">不差钱不会命令行：Cursor</li>
+                        <li class="fragment">不差钱且熟悉命令行：Claude Code</li>
+                    </ul>
                 </section>
             </section>
             <section>
