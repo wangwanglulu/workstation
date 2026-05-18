@@ -136,7 +136,7 @@ df.loc[[2,4],:] # 查看特定多行
 
                         # example
                         df.loc[:, 'x'] = 1
-                        df.loc[:, 'y'] = range(30)
+                        df.loc[:, 'y'] = range(31)
                         </code></pre>
                     </div>
                     <p class="fragment">Delete Data</p>
@@ -183,6 +183,20 @@ plt.savefig('simple.jpg',bbox_inches='tight',dpi=300)
 df.loc[:,'date'] = pd.to_datetime(df['DATE'])
     </code></pre>
 </div>
+<div class="fragment">
+    <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+first_date = pd.to_datetime('2021-7-1',format = '%Y-%m-%d') 
+    </code></pre>
+</div>
+<div class="fragment">
+    <pre><code  data-noescape data-trim>
+<span class='hl'>%A</span> Weekday name, such as Monday; <span class='hl'>%B</span> Month name, such as January; 
+<span class='hl'>%m</span> Month, as a number (01 to 12)
+<span class='hl'>%d</span> Day of the month, as a number (01 to 31) 
+<span class='hl'>%Y</span> Four-digit year, such as 2015; <span class='hl'>%y</span> Two-digit year, such as 15
+<span class='hl'>%M</span> Minutes (00 to 59); <span class='hl'>%S</span> Seconds (00 to 61)
+    </code></pre>
+</div>
 
 <div class="fragment">
     <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
@@ -194,10 +208,7 @@ df_t
 <div class="fragment">
     <pre><code class="output" data-trim contenteditable>
 14  USW00025333 SITKA AIRPORT, AK US    2021-07-15  NaN 60  50  2021-07-15
-15  USW00025333 SITKA AIRPORT, AK US    2021-07-16  NaN 61  54  2021-07-16
-16  USW00025333 SITKA AIRPORT, AK US    2021-07-17  NaN 63  56  2021-07-17
-17  USW00025333 SITKA AIRPORT, AK US    2021-07-18  NaN 63  57  2021-07-18
-18  USW00025333 SITKA AIRPORT, AK US    2021-07-19  NaN 70  55  2021-07-19
+...
 19  USW00025333 SITKA AIRPORT, AK US    2021-07-20  NaN 64  56  2021-07-20
 
     </code></pre>
@@ -380,13 +391,13 @@ path = Path('btc_close_2017.json')
 contents = path.read_text()
 btc_data = json.loads(contents)
 
-close=[]; months=[]
-
+date = [];close=[]; months=[]
 for btc_dict in btc_data:
     months.append(int(btc_dict['month']))
     close.append(float(btc_dict['close']))
+    date.append(btc_dict['date'])
 
-df = pd.DataFrame({"close": close, "months": months})
+df = pd.DataFrame({"close": close, "months": months, "date": date})
 df.loc[:,'date'] = pd.to_datetime(df['date'])
 </code></pre>
                     </div>
@@ -467,17 +478,15 @@ plt.savefig('monthly_avg.jpg',dpi=300)
 from pathlib import Path
 import pandas as pd
 import json
-
 path = Path('btc_close_2017.json')
 contents = path.read_text()
 btc_data = json.loads(contents)
-
-date=[]; close=[]; months=[]
+date = [];close=[]; months=[]
 for btc_dict in btc_data:
     months.append(int(btc_dict['month']))
     close.append(float(btc_dict['close']))
-
-df = pd.DataFrame({"close": close, "months": months})
+    date.append(btc_dict['date'])
+df = pd.DataFrame({"close": close, "months": months, "date": date})
 df.loc[:,'date'] = pd.to_datetime(df['date'])
                         </code></pre>
                     </div>
@@ -975,12 +984,12 @@ for i
                     </ul>
                 </section>
                 <section>
-                    <h3>Example: Data of Crowdfunding Projects</h3>
-                    <a href="https://www.kaggle.com/kemical/kickstarter-projects">Kickstarter Projects</a> from Kaggle.com
-                    <div><img data-src="../MBAimg/lecture10/ks.jpg" style="height: 50pt"></div>
+                    <h3>Example: Impact of Ai on Students</h3>
+                    <a href="https://www.kaggle.com/datasets/laveshjadon/ai-impact-on-students">Kaggle project description</a>, <a href="ai_student_impact_dataset.csv.zip" target="_blank">AI impact数据下载</a>
+                    <div><img data-src="../img/lecture12/ai_impact.png" style="height: 250pt"></div>
 
 
-                    <p>你是pandas专家，文件路径为“/Users/wangwanglulu/ks-projects-201801.csv”。使用pandas导入该文件，根据launched和deadline两列来计算每一个项目的时间跨度，将时间跨度数据作为列添加到原数据中。然后，计算2010年-2018年的项目时间跨度平均值，并绘制横坐标为年份的折线图。最后，保存增加了时间跨度这一列的数据到新的csv文件，并保存图片到jpg文件dpi为300。为代码添加注释。</p>
+                    <p>你是pandas专家，文件路径为“/Users/wangwanglulu/Downloads/ai_student_impact_dataset.csv”。使用pandas导入该文件，根据Perceived_AI_Dependency和Anxiety_Level_During_Exams两列来绘制折线图。保存图片到jpg文件dpi为300，为代码添加注释。</p>
                 </section>
                 <section>
                     <h3>目前几款主流AI编程工具</h3>

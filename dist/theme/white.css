@@ -464,3 +464,12 @@ span.output {
     background: #ecf0f1;
 }
 
+span.hl {
+
+    background-color: #ffeb3b;
+    color: black;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
