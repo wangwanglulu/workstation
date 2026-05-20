@@ -630,78 +630,119 @@ fig.write_html('python_repos.html')
                     </div>
                     <a class="fragment" href="python_repos.html">Most-Starred Python Projects</a>
                 </section>
+
                 <section>
                     <div class="fragment"><img data-src="../img/lecture13/copilot.png" style="height: 150pt"></div>
                     <h3 class="fragment"><a href="https://github.com/features/copilot">GitHub Copilot官网</a></h3>
-<p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated DevelopmentEnvironment,IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p>
+                    <p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated Development Environment，IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p>
                 </section>
                 <section>
-                    <h4>1. 安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a>（VScode是什么？常用IDE有哪些？）</h4>
-                    <h4></h4>
-                    <h4>2. 注册GitHub账户；3. 在VScode里面安装GitHub Copilot插件</h4>
+                    <ol>
+                        <li>安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a>（VScode是什么？常用IDE有哪些？）</li>
+                        <li>注册GitHub账户；3. 在VScode里面安装GitHub Copilot插件。</li>
+                    </ol>
                     <div class="fragment"><img data-src="../img/lecture13/vscode.png" style="height: 350pt"></div>
-
                 </section>
                 <section>
                     <h3>功能介绍</h3>
                     <p class="fragment">1. 自动补全注释（按Tab键）</p>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 # 编写一个程序，读取文件夹中的文件
 </code></pre>
                     </div>
                     <p class="fragment">2. 根据函数名自动生成代码（按Tab键）</p>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 def bubblesort()
 </code></pre>
                     </div>
                     <p class="fragment">3. 生成测试用例（在bubblesort函数下方输入）</p>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 #测试bubblesort函数
 </code></pre>
                     </div>
                     <p class="fragment">4. 逐步代码生成</p>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 #定义5个列表变量，每个列表包含2到10个元素
 #将5个列表合并，再调用bubblesort函数对列表排序
 </code></pre>
                     </div>
-
-
                 </section>
                 <section>
                     <p class="fragment">5. 自动生成语句架构</p>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 for i
 </code></pre>
                     </div>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 -if
 </code></pre>
                     </div>
                     <p class="fragment">6. 生成多个候选解决方案</p>
-<p class="fragment">如果使用Tab键生成解决方案，那么对于一些复杂的代码，可能需要一行一行地生成（需
-要不断地按Enter 键和Tab 键），比较麻烦。GitHub Copilot 提供了生成多个候选解决方案的功能，具体的做法就是在注释中按 Ctrl + Enter
-组合键，这将显示一个新的选项卡，默认会自动生成10个解决方案。<b>(有时候还不如直接ChatGPT或者Deepseek)</b></p>
-                     <div class="fragment">
+                    <p class="fragment">如果使用Tab键生成解决方案，那么对于一些复杂的代码，可能需要一行一行地生成（需要不断地按 Enter 键和 Tab 键），比较麻烦。GitHub Copilot 提供了生成多个候选解决方案的功能，具体的做法就是在注释中按 Ctrl + Enter 组合键，这将显示一个新的选项卡，默认会自动生成10个解决方案。<b>(有时候还不如直接ChatGPT或者Deepseek)</b></p>
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 #用Flask实现一个服务端程序，只支持GET请求，请求的参数是一个字符串，返回一个字符串。
 </code></pre>
                     </div>
                     <p class="fragment">7. 检查代码漏洞</p>
-                     <div class="fragment">
+                    <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 # 检查上面的代码是否有漏洞
 </code></pre>
                     </div>
-<h3 class="fragment">一句话就是：写注释，然后enter和tab来回的按。</h3>
-<h3 class="fragment"><a href="https://codegeex.cn/">GitHub Copilot的免费平替CodeGeeX</a></h3>
+                    <h3 class="fragment">一句话就是：写注释，然后enter和tab来回的按。</h3>
+                    <h3 class="fragment"><a href="https://codegeex.cn/">GitHub Copilot的免费平替CodeGeeX</a></h3>
+                </section>
+                <section>
+                    <h3 class="fragment">提示词的编写技巧</h3>
+                    <ul class="fragment">
+                        <li>给AI工具指定一个角色：第一句“你是pandas专家”</li>
+                        <li>交代背景：给出文件的路径，以及文件中变量的名称，行列信息</li>
+                        <li>说明问题：解决什么问题，必要时说明用什么方法解决，以及指定输出内容，形式和格式</li>
+                        <li>必要时给出示例：帮助AI工具理解意图</li>
+                    </ul>
+                    <h2></h2>
+                    <h3 class="fragment">注意事项</h3>
+                    <ul class="fragment">
+                        <li>提倡用短句，用专用词指定对象，避免使用“它”和“前面”等词</li>
+                        <li>明确指定输出内容，可以是全部数据，也可以是一部分</li>
+                        <li>指定输出的数据格式，输出文件的路径和名称，甚至编码</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Example: Impact of Ai on Students</h3>
+                    <a href="https://www.kaggle.com/datasets/laveshjadon/ai-impact-on-students">Kaggle project description</a>, <a href="ai_student_impact_dataset.csv.zip" target="_blank">AI impact数据下载</a>
+                    <div><img data-src="../img/lecture13/ai_impact.png" style="height: 250pt"></div>
 
+
+                    <p>你是pandas专家，文件路径为“/Users/wangwanglulu/Downloads/ai_student_impact_dataset.csv”。使用pandas导入该文件，根据Perceived_AI_Dependency和Anxiety_Level_During_Exams两列来绘制折线图。保存图片到jpg文件dpi为300，为代码添加注释。</p>
+                </section>
+                <section>
+                    <h3>目前几款主流AI编程工具</h3>
+                    <ul>
+                        <b class="fragment">人在编程，AI安静地在旁边提示 + 补代码（七三开）</b>
+                        <li class="fragment">Copilot：可能需要魔法，价格较低，主要在 VSCode 中使用。国内平替：CodeGeeX</li>
+                        <li class="fragment">Copilot 也在持续进化，已经开始加入 Agent 功能</li>
+                        <b class="fragment">人和 AI 协同编程，AI 深度参与工程开发（五五开）</b>
+                        <li class="fragment">Cursor: 需要魔法，价格中等偏贵，独立IDE。国内平替：Trae.ai国内版</li>
+                        <b class="fragment">人负责描述需求与审核结果，AI 可自主完成开发任务，（三七开）</b>
+                        <li class="fragment">Claude Code (命令行)/Codex: 需要魔法，价格较高，对命令行与工程环境要求较高</li>
+                    </ul>
+                    <h2></h2>
+                    <h3 class="fragment">推荐学生党使用：</h3>
+                    <ul>
+                        
+                        <li class="fragment">VSCode + Copilot/CodeGeeX + 国内免费大模型</li>
+                        <li class="fragment">Trae.ai 国内版（更适合新手）</li>
+                        <li class="fragment">不差钱不会命令行：Cursor</li>
+                        <li class="fragment">不差钱且熟悉命令行：Claude Code</li>
+                    </ul>
                 </section>
             </section>
             <section>
