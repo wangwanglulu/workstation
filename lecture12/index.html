@@ -398,7 +398,7 @@ for btc_dict in btc_data:
     date.append(btc_dict['date'])
 
 df = pd.DataFrame({"close": close, "months": months, "date": date})
-df.loc[:,'date'] = pd.to_datetime(df['date'])
+df.loc[:,'date'] = pd.to_datetime(df['date'], format = '%Y-%m-%d')
 </code></pre>
                     </div>
 
