@@ -505,11 +505,10 @@ for x in stock_list:
                     <h2 style="color: white">13.2 Github & AI辅助编程</h2>
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="https://nextgen.group/hubfs/github_PNG65.png" style="height: 100pt"></div>
                     <h3 class="fragment"><a href="https://blog.csdn.net/black_sneak/article/details/139600633">Github教程</a></h3>
                     
-                    
-<div class="div-c fragment"><img data-src="../img/lecture13/github.png" style="height: 300pt"></div>
+                    <img data-src="../img/lecture13/github.png" style="height: 450pt">
+<!-- <div class="div-c fragment"><img data-src="../img/lecture13/github.png" style="height: 300pt"></div>
 
 <div class="div-d fragment">
     <p>GitHub 是一个基于 Git 版本控制系统 的 代码托管平台，由 GitHub 公司（现为 Microsoft 子公司）于 2008 年推出。它是全球最受欢迎的开源协作平台，广泛应用于软件开发、版本管理、团队协作和项目发布。<a href="https://github.com">GitHub官网地址：https://github.com</a></p>
@@ -518,7 +517,7 @@ for x in stock_list:
     <li>学生：学习编程、参与开源项目、积累实践经验</li>
     <li>教师：共享教学代码、布置项目作业</li>
     <li>企业/组织：进行私有项目开发、部署自动化流程</li>
-</ul></div>
+</ul></div> -->
                 </section>
                 <section>
                     <h3>Github的API接口（关于Python的项目）</h3>
@@ -632,17 +631,23 @@ fig.write_html('python_repos.html')
                 </section>
 
                 <section>
-                    <div class="fragment"><img data-src="../img/lecture13/copilot.png" style="height: 150pt"></div>
+                    <div class="div-c"><div class="fragment"><img data-src="../img/lecture13/copilot.png" style="height: 150pt"></div>
                     <h3 class="fragment"><a href="https://github.com/features/copilot">GitHub Copilot官网</a></h3>
-                    <p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated Development Environment，IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p>
+                    <p class="fragment">尽管 ChatGPT或者Deepseek 可以编写完整的代码，但是要与集成开发环境（Integrated Development Environment，IDE）无缝对按，使用ChatGPT 就不太方便了，尤其是在生成片段代码时，如补全一个函数的定义、补全某个语句等，在这种情况下，使用GitHub Copilot 是一个非常好的选择。当然，最好是将 ChatGPT 与 GitHub Copilot一起使用：使用 ChatGPT 生成一个完整的解决方案，并使用 GitHub Copilot 对这个解决方案进行微调。</p></div>
+
+                    <div class="div-d">
+                    <div class="fragment"><img data-src="../img/lecture13/vscode.png" style="height: 450pt"></div></div>
                 </section>
-                <section>
-                    <ol>
-                        <li>安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a>（VScode是什么？常用IDE有哪些？）</li>
-                        <li>注册GitHub账户；3. 在VScode里面安装GitHub Copilot插件。</li>
+<!--                 <section>
+                   <div class="div-c"> <ol>
+                        <li>安装VScode参考配置 <a href="https://blog.csdn.net/Lamber130/article/details/144590838">参考配置</a></li>
+                        <li>注册GitHub账户；</li>
+                        <li>在VScode里面安装GitHub Copilot插件。</li></div>
                     </ol>
-                    <div class="fragment"><img data-src="../img/lecture13/vscode.png" style="height: 350pt"></div>
-                </section>
+<div class="div-d">
+
+                    <div class="fragment"><img data-src="../img/lecture13/vscode.png" style="height: 450pt"></div></div>
+                </section> -->
                 <section>
                     <h3>功能介绍</h3>
                     <p class="fragment">1. 自动补全注释（按Tab键）</p>
@@ -750,10 +755,6 @@ for i
                     <h2 style="color: white">13.3 Encoding（计算机编码）</h2>
                 </section>
                 <section>
-                    <div class="fragment"><img data-src="../img/lecture13/encoding.png" style="height: 400pt"></div>
-                </section>
-                <section>
-                    <h3>Encoding</h3>
                     <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 from pathlib import Path
@@ -761,9 +762,13 @@ from pathlib import Path
 path = Path('alice.txt')
 contents = path.read_text(<mark>encoding='utf-8'</mark>) 
 </pre></code>
-                    </div>
-                    <p class="fragment">Character Encoding: ASCII, Unicode, UTF-8, GBK</p>
-                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 350pt"></div>
+                    </div><div class="fragment"><img data-src="../img/lecture13/a.png" style="height: 350pt"></div></section>
+                
+                    <section>
+                    <div class="fragment"><img data-src="../img/lecture13/ASCII1.png" style="height: 450pt"></div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture13/ascii.png" style="height: 450pt"></div>
                 </section>
                 <section>
                     <ul>
@@ -785,6 +790,9 @@ print(len(chinese))  # 输出 6（每个汉字占 3 字节）
 b'\xe4\xbd\xa0\xe5\xa5\xbd'.decode('utf-8') # 输出：你好
 </pre></code>
                     </div>
+                </section>
+                <section>
+                    <div class="fragment"><img data-src="../img/lecture13/encoding.png" style="height: 450pt"></div>
                 </section>
                 <section>
                     <ul>
