@@ -499,13 +499,31 @@ for x in stock_list:
                     </div>
                     <div class="fragment"><img data-src='batch.png' style="height: 150pt"></div>
                 </section>  -->
+                <section>
+                    <h3>Exercise: <a href="https://www.omdbapi.com/">OMDB-API</a></h3>
+                    <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable>
+import requests
+import pandas as pd
+
+# 电影名称
+title = "Inception"
+url = f"https://www.omdbapi.com/?t={title}&apikey=YOUR_API_KEY"
+
+# 发起 GET 请求
+response = requests.get(url)
+data = response.json()
+print(data)   
+</code></pre>
+                    </div>
+                </section>
             </section>
             <section>
                 <section data-background="#2980b9" style="color: white">
                     <h2 style="color: white">13.2 Github & AI辅助编程</h2>
                 </section>
                 <section>
-                    <h3 class="fragment"><a href="https://blog.csdn.net/black_sneak/article/details/139600633">Github教程</a></h3>
+                    <h3 class="fragment"><a href="https://github.com">GitHub官网地址：https://github.com</a>, <a href="https://blog.csdn.net/black_sneak/article/details/139600633">Github教程</a></h3>
                     
                     <img data-src="../img/lecture13/github.png" style="height: 450pt">
 <!-- <div class="div-c fragment"><img data-src="../img/lecture13/github.png" style="height: 300pt"></div>
