@@ -424,7 +424,6 @@ def partition(a_list, first, last):
 courses = [("数学", 9, 10),("物理", 9.5, 10.5),("化学", 10, 11),
            ("生物", 10.5, 11.5),("英语", 11, 12),("历史", 8, 9),
            ("地理", 12, 13),("政治", 13, 14),("语文", 12.5, 13.5)]
-
 # 按结束时间排序
 sorted_courses = sorted(courses, key=lambda x: x[2])  # x[2] 是结束时间
 
@@ -435,10 +434,14 @@ for name, start, end in sorted_courses:
     if start >= earliest_end:
         selected.append((name, start, end))
         earliest_end = end
-
 # 输出选中的课程
 for course in selected:
-    print(course)
+    print(course, end='')
+</code></pre>
+                    </div>
+                                        <div class="fragment">
+                        <pre><code class="output" data-line-numbers data-trim contenteditable data-noescape>
+                            ('历史',8,9)('数学',9,10)('化学',10,11)('英语',11,12)('地理',12,13)('政治',13,14)
 </code></pre>
                     </div>
                 </section>
@@ -446,7 +449,7 @@ for course in selected:
                 <section>
                     <h3>找零问题：用贪婪算法解决</h3>
                     <h5>给定一组硬币面额和一个金额，使用最少数量的硬币来找出该金额。</h5>
-                    <div class="fragment">
+                  <!--   <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
 def greedy_coin_change(coins, amount):
     coins.sort(reverse=True)  # 从大到小排序
@@ -463,6 +466,19 @@ amount = 63
 print(greedy_coin_change(coins, amount))  
 # 输出： [25, 25, 10, 1, 1, 1]
 </code></pre>
+                    </div> -->
+                        <div class="fragment">
+                        <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
+# 示例：标准货币系统
+coins = [1, 5, 10, 25]  # 美分
+amount = 63
+print(greedy_coin_change(coins, amount))  
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-line-numbers data-trim contenteditable data-noescape>
+                            [25, 25, 10, 1, 1, 1]
+</code></pre>
                     </div>
                                         <div class="fragment">
                         <pre><code class="language-Python" data-line-numbers data-trim contenteditable data-noescape>
@@ -470,7 +486,11 @@ print(greedy_coin_change(coins, amount))
 coins = [1, 5, 10, 21, 25]  # 如果有21美分这个选项
 amount = 63
 print(greedy_coin_change(coins, amount))  
-# 输出： [25, 25, 10, 1, 1, 1] #贪婪算法失败，最优是21*3
+</code></pre>
+                    </div>
+                    <div class="fragment">
+                        <pre><code class="output" data-line-numbers data-trim contenteditable data-noescape>
+                            [25, 25, 10, 1, 1, 1] #贪婪算法失败，最优是21*3
 </code></pre>
                     </div>
                 </section>
